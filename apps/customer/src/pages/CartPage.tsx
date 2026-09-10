@@ -11,7 +11,7 @@ export const CartPage: React.FC = () => {
   if (items.length === 0) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-16">
-        <MetaTags title="Cart | L'Étoile Noir" />
+        <MetaTags title="Cart | Craftsland" />
         <EmptyState
           title="Your Cart is Empty"
           description="You have not added any dishes from our reserve menu to your current dining order."
@@ -28,7 +28,7 @@ export const CartPage: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10 space-y-8">
-      <MetaTags title="Your Selection | L'Étoile Noir" />
+      <MetaTags title="Your Selection | Craftsland" />
       <h1 className="font-serif text-3xl font-bold text-gold-gradient">Your Culinary Selection</h1>
 
       <div className="space-y-4">

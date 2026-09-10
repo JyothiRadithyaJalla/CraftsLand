@@ -5,7 +5,7 @@ import { MetaTags } from '@shared/components/MetaTags';
 export const RegisterPage: React.FC = () => {
   return (
     <div className="max-w-md mx-auto px-4 py-16">
-      <MetaTags title="Guest Registration | L'Étoile Noir" />
+      <MetaTags title="Guest Registration | Craftsland" />
       <div className="glass-panel p-8 rounded-2xl space-y-6">
         <div className="text-center space-y-2">
           <h1 className="font-serif text-2xl font-bold text-gold-gradient">Register Guest Account</h1>

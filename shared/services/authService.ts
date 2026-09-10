@@ -8,7 +8,7 @@ export class AuthService {
       // Development mock active user
       return {
         id: 'dev-user-01',
-        email: 'guest@letoilenoir.com',
+        email: 'guest@craftsland.com',
         fullName: 'Alexander De Witt',
         phone: '+1 555-987-6543',
         role: 'CUSTOMER' as UserRole,

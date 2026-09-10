@@ -6,8 +6,8 @@ interface MetaTagsProps {
 }
 
 export const MetaTags: React.FC<MetaTagsProps> = ({
-  title = "L'Étoile Noir — Haute Cuisine & Sensory Dining",
-  description = "An extraordinary culinary destination featuring haute cuisine, artisanal cocktails, private dining experiences, and sensory gastronomy.",
+  title = "Craftsland — Good Food Brighter Moods",
+  description = "A premium dining experience crafted with passion, fresh ingredients, and unforgettable flavors.",
 }) => {
   useEffect(() => {
     document.title = title;

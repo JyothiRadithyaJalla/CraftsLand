@@ -63,15 +63,15 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
       >
         {/* Sidebar Header */}
         <div className="p-6 border-b border-[#D4AF37]/20 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2.5">
+          <Link to="/" className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-[#D4AF37]/15 border border-[#D4AF37]/40 text-[#D4AF37] flex items-center justify-center font-bold font-serif text-lg">
-              É
+              C
             </div>
             <div>
               <h2 className="font-serif font-bold text-sm text-gold-gradient leading-none">
-                L'Étoile Noir
+                Craftsland
               </h2>
-              <span className="text-[10px] text-gray-400 font-mono">Executive Admin</span>
+              <span className="text-[10px] text-amber-200/60 font-sans tracking-wider uppercase">Executive Admin</span>
             </div>
           </Link>
           <button

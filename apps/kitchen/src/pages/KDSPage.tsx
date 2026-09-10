@@ -40,7 +40,7 @@ export const KDSPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#0B0C10] text-[#F4F1EA] flex flex-col p-4 sm:p-6 space-y-6">
-      <MetaTags title="Kitchen Display System (KDS) | L'Étoile Noir" />
+      <MetaTags title="Kitchen Display System (KDS) | Craftsland" />
 
       {/* Header Bar */}
       <header className="glass-panel p-4 rounded-2xl flex flex-col lg:flex-row items-center justify-between gap-4 border border-[#D4AF37]/30 bg-[#12141C]/90 shadow-xl">
@@ -52,7 +52,7 @@ export const KDSPage: React.FC = () => {
           <div>
             <div className="flex items-center gap-2">
               <h1 className="font-serif text-2xl font-bold text-gold-gradient tracking-wide">
-                L'Étoile Noir
+                Craftsland
               </h1>
               <span className="text-[10px] font-mono uppercase bg-[#D4AF37]/20 text-[#D4AF37] px-2 py-0.5 rounded-full font-bold">
                 Pass & KDS

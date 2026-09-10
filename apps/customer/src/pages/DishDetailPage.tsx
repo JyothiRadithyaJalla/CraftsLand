@@ -64,7 +64,7 @@ export const DishDetailPage: React.FC = () => {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10 space-y-8">
-      <MetaTags title={`${dish.name} | L'Étoile Noir`} />
+      <MetaTags title={`${dish.name} | Craftsland`} />
 
       <Link to="/menu" className="inline-flex items-center gap-2 text-xs text-[#D4AF37] hover:underline font-mono uppercase tracking-widest">
         <ArrowLeft className="w-4 h-4" /> Back to Haute Menu

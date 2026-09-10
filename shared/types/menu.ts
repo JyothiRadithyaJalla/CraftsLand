@@ -1,4 +1,4 @@
-export type DietaryTag = 'VEGAN' | 'VEGETARIAN' | 'GLUTEN_FREE' | 'NUT_FREE' | 'HALAL' | 'CHEFS_CHOICE' | 'SPICY';
+export type DietaryTag = 'VEGAN' | 'VEGETARIAN' | 'GLUTEN_FREE' | 'NUT_FREE' | 'HALAL' | 'CHEFS_CHOICE' | 'SPICY' | 'SIGNATURE';
 
 export interface ModifierOption {
   id: string;
@@ -19,6 +19,8 @@ export interface Category {
   slug: string;
   displayOrder: number;
   isActive: boolean;
+  imageUrl?: string;
+  description?: string;
 }
 
 export interface Dish {
@@ -31,6 +33,8 @@ export interface Dish {
   price: number;
   mediaUrl: string;
   posterUrl: string;
+  videoUrl?: string;
+  featured?: boolean;
   calories?: number;
   dietaryTags: DietaryTag[];
   allergens: string[];

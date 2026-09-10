@@ -75,7 +75,7 @@ export const AdminMenuPage: React.FC = () => {
 
   return (
     <AdminLayout>
-      <MetaTags title="Reserve Menu Management | L'Étoile Noir Admin" />
+      <MetaTags title="Reserve Menu Management | Craftsland Admin" />
 
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#D4AF37]/20 pb-4">

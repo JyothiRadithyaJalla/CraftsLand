@@ -6,7 +6,7 @@ import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 export const ContactPage: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-12 space-y-8">
-      <MetaTags title="Concierge & Location | L'Étoile Noir" />
+      <MetaTags title="Concierge & Location | Craftsland" />
       <div className="text-center space-y-2">
         <h1 className="font-serif text-4xl font-bold text-gold-gradient">Concierge & Sanctuary Location</h1>
         <p className="text-gray-400 text-sm">Reach our hospitality team or plan your arrival.</p>

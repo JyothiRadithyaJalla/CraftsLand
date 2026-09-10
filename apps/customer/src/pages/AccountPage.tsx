@@ -36,7 +36,7 @@ export const AccountPage: React.FC = () => {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-12 space-y-8 text-[#F4F1EA]">
-      <MetaTags title="Guest Account | L'Étoile Noir" />
+      <MetaTags title="Guest Account | Craftsland" />
 
       {/* Account Info */}
       <div className="glass-panel p-8 rounded-2xl space-y-6">
@@ -46,7 +46,7 @@ export const AccountPage: React.FC = () => {
           </div>
           <div>
             <h1 className="font-serif text-2xl font-bold text-[#F4F1EA]">{user?.fullName || 'Distinguished Guest'}</h1>
-            <p className="text-xs text-gray-400">{user?.email || 'guest@letoilenoir.com'}</p>
+            <p className="text-xs text-gray-400">{user?.email || 'guest@craftsland.com'}</p>
           </div>
         </div>
         <div className="flex items-center justify-between text-xs text-gray-300">

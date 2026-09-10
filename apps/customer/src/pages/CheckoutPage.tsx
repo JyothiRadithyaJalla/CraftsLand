@@ -44,7 +44,7 @@ export const CheckoutPage: React.FC = () => {
   if (items.length === 0 && !isPlacingOrder) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-16 text-center space-y-6">
-        <MetaTags title="Checkout | L'Étoile Noir" />
+        <MetaTags title="Checkout | Craftsland" />
         <div className="w-16 h-16 rounded-full bg-[#D4AF37]/10 text-[#D4AF37] flex items-center justify-center mx-auto">
           <ShoppingBag className="w-8 h-8" />
         </div>
@@ -100,7 +100,7 @@ export const CheckoutPage: React.FC = () => {
         specialInstructions,
         customerId: user?.id,
         customerName: customerName || user?.fullName || 'Distinguished Guest',
-        customerEmail: customerEmail || user?.email || 'guest@letoilenoir.com',
+        customerEmail: customerEmail || user?.email || 'guest@craftsland.com',
         items: items.map((item) => ({
           dishId: item.dish.id,
           dishName: item.dish.name,
@@ -126,7 +126,7 @@ export const CheckoutPage: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10 space-y-8 text-[#F4F1EA]">
-      <MetaTags title="Checkout & Payment | L'Étoile Noir" />
+      <MetaTags title="Checkout & Payment | Craftsland" />
 
       {/* Header */}
       <div className="text-center space-y-2">
@@ -354,7 +354,7 @@ export const CheckoutPage: React.FC = () => {
                     type="email"
                     value={customerEmail}
                     onChange={(e) => setCustomerEmail(e.target.value)}
-                    placeholder="guest@letoilenoir.com"
+                    placeholder="guest@craftsland.com"
                     className="w-full bg-[#12141C] border border-white/15 rounded-xl px-4 py-2.5 text-sm text-[#F4F1EA] focus:outline-none focus:border-[#D4AF37]"
                   />
                 </div>

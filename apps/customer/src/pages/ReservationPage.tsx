@@ -144,7 +144,7 @@ export const ReservationPage: React.FC = () => {
   if (confirmedReservation) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-12 space-y-8 text-[#F4F1EA]">
-        <MetaTags title="Reservation Confirmed | L'Étoile Noir" />
+        <MetaTags title="Reservation Confirmed | Craftsland" />
 
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
@@ -163,7 +163,7 @@ export const ReservationPage: React.FC = () => {
               Reservation Successfully Booked
             </span>
             <h1 className="font-serif text-3xl sm:text-4xl font-bold text-gold-gradient">
-              Welcome to L'Étoile Noir
+              Welcome to Craftsland
             </h1>
             <p className="text-xs sm:text-sm text-gray-300">
               A dining table has been reserved under your name. A confirmation email has been dispatched to{' '}
@@ -224,7 +224,7 @@ export const ReservationPage: React.FC = () => {
   // MULTI-STEP WIZARD VIEW
   return (
     <div className="max-w-4xl mx-auto px-4 py-10 space-y-8 text-[#F4F1EA]">
-      <MetaTags title="Table Reservations | L'Étoile Noir" />
+      <MetaTags title="Table Reservations | Craftsland" />
 
       {/* Page Header */}
       <div className="text-center space-y-2">

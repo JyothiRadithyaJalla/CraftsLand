@@ -43,7 +43,7 @@ export const AdminOrdersPage: React.FC = () => {
 
   return (
     <AdminLayout>
-      <MetaTags title="Orders Management | L'Étoile Noir Admin" />
+      <MetaTags title="Orders Management | Craftsland Admin" />
 
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#D4AF37]/20 pb-4">

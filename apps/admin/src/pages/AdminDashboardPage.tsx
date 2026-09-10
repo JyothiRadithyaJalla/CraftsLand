@@ -32,7 +32,7 @@ export const AdminDashboardPage: React.FC = () => {
 
   return (
     <AdminLayout>
-      <MetaTags title="Executive Dashboard | L'Étoile Noir Admin" />
+      <MetaTags title="Executive Dashboard | Craftsland Admin" />
 
       {/* Page Title */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#D4AF37]/20 pb-4">

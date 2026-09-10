@@ -75,7 +75,7 @@ export const AdminGalleryPage: React.FC = () => {
 
   return (
     <AdminLayout>
-      <MetaTags title="Media Gallery Manager | L'Étoile Noir Admin" />
+      <MetaTags title="Media Gallery Manager | Craftsland Admin" />
 
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#D4AF37]/20 pb-4">
         <div>

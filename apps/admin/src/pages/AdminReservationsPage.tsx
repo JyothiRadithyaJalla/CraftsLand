@@ -60,7 +60,7 @@ export const AdminReservationsPage: React.FC = () => {
 
   return (
     <AdminLayout>
-      <MetaTags title="Reservations Control | L'Étoile Noir Admin" />
+      <MetaTags title="Reservations Control | Craftsland Admin" />
 
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#D4AF37]/20 pb-4">

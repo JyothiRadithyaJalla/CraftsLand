@@ -7,7 +7,7 @@ import { Shield, AlertCircle } from 'lucide-react';
 export const AdminLoginPage: React.FC = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
-  const [email, setEmail] = useState('admin@letoilenoir.com');
+  const [email, setEmail] = useState('admin@craftsland.com');
   const [password, setPassword] = useState('password123');
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -28,7 +28,7 @@ export const AdminLoginPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#0B0C10] text-[#F4F1EA] flex items-center justify-center p-4">
-      <MetaTags title="Admin Authentication | L'Étoile Noir" />
+      <MetaTags title="Admin Authentication | Craftsland" />
       <div className="glass-panel max-w-md w-full p-8 rounded-3xl border border-[#D4AF37]/30 bg-[#12141C] space-y-6 shadow-2xl">
         <div className="text-center space-y-2">
           <div className="w-14 h-14 rounded-2xl bg-[#D4AF37]/15 border border-[#D4AF37]/40 text-[#D4AF37] flex items-center justify-center mx-auto shadow-lg">
@@ -53,7 +53,7 @@ export const AdminLoginPage: React.FC = () => {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="admin@letoilenoir.com"
+              placeholder="admin@craftsland.com"
               className="w-full px-4 py-2.5 bg-[#0B0C10] border border-white/15 rounded-xl text-white focus:outline-none focus:border-[#D4AF37]"
             />
           </div>

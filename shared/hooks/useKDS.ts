@@ -118,7 +118,7 @@ export const useKDS = () => {
           },
           {
             dishId: 'd5',
-            dishName: 'L’Étoile Noir Smoked Chocolate Sphere',
+            dishName: 'Craftsland Smoked Chocolate Sphere',
             unitPrice: 28.00,
             quantity: 1,
             selectedModifiers: [],

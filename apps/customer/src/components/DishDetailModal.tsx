@@ -4,6 +4,7 @@ import type { Dish } from '@shared/types/menu';
 import type { SelectedModifierOption } from '@shared/types/order';
 import { useCart } from '@shared/hooks/useCart';
 import { Plus, Minus, Flame, Wine, ShieldAlert } from 'lucide-react';
+import { MediaView } from '@shared/components/MediaView';
 
 interface DishDetailModalProps {
   dish: Dish | null;
@@ -13,7 +14,7 @@ interface DishDetailModalProps {
 
 export const DishDetailModal: React.FC<DishDetailModalProps> = ({ dish, isOpen, onClose }) => {
   const { addItem } = useCart();
-  const [quantity, setQuantity] = useState<number>(1);
+  const [quantity, setQuantity] = useState(1);
   const [selectedModifiers, setSelectedModifiers] = useState<SelectedModifierOption[]>([]);
 
   if (!dish) return null;
@@ -25,7 +26,6 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({ dish, isOpen, 
         return prev.filter((m) => !(m.modifierTitle === modifierTitle && m.optionName === optionName));
       }
       if (required) {
-        // Replace single choice for required modifier
         const filtered = prev.filter((m) => m.modifierTitle !== modifierTitle);
         return [...filtered, { modifierTitle, optionName, price }];
       }
@@ -45,49 +45,68 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({ dish, isOpen, 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={dish.name}>
       <div className="space-y-6">
-        {/* Media Container */}
-        <div className="relative aspect-[16/9] rounded-xl overflow-hidden bg-[#12141C]">
-          <img src={dish.mediaUrl} alt={dish.name} className="w-full h-full object-cover" />
-          <div className="absolute top-3 right-3 px-3.5 py-1.5 rounded-full bg-[#0B0C10]/90 text-[#D4AF37] font-serif font-bold text-sm border border-[#D4AF37]/30">
-            ${unitPrice.toFixed(2)}
-          </div>
+        {/* Media / Video View */}
+        <div className="rounded-2xl overflow-hidden border border-[#D4AF37]/30 shadow-xl">
+          <MediaView
+            mediaUrl={dish.mediaUrl}
+            posterUrl={dish.posterUrl}
+            videoUrl={dish.videoUrl}
+            alt={dish.name}
+            aspectRatio="aspect-[16/9]"
+            autoPlayOnHover={true}
+            priority={true}
+          />
         </div>
 
-        {/* Info */}
-        <div className="space-y-3">
-          <p className="text-gray-300 text-sm leading-relaxed">{dish.description}</p>
-
-          <div className="flex flex-wrap gap-4 text-xs text-gray-400 pt-2 border-t border-white/10">
-            {dish.calories && (
-              <span className="flex items-center gap-1.5 text-amber-400">
-                <Flame className="w-4 h-4" /> {dish.calories} kcal
+        {/* Details Header */}
+        <div className="space-y-2">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <span className="text-xs uppercase font-sans tracking-widest text-[#D4AF37] font-bold block">
+                {dish.categorySlug}
               </span>
-            )}
-            {dish.winePairing && (
-              <span className="flex items-center gap-1.5 text-[#D4AF37]">
-                <Wine className="w-4 h-4" /> {dish.winePairing}
-              </span>
-            )}
-            {dish.allergens.length > 0 && (
-              <span className="flex items-center gap-1.5 text-red-300">
-                <ShieldAlert className="w-4 h-4" /> Allergens: {dish.allergens.join(', ')}
-              </span>
-            )}
+              <h2 className="font-serif text-2xl font-bold text-[#F4F1EA]">{dish.name}</h2>
+            </div>
+            <div className="text-right">
+              <span className="font-serif text-2xl font-bold text-[#D4AF37]">${unitPrice.toFixed(2)}</span>
+            </div>
           </div>
+          <p className="text-gray-300 text-sm leading-relaxed font-sans">{dish.description}</p>
         </div>
 
-        {/* Modifiers Selection */}
+        {/* Nutritional & Pairing Badges */}
+        <div className="flex flex-wrap items-center gap-3 pt-2 text-xs text-gray-400">
+          {dish.calories && (
+            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10">
+              <Flame className="w-3.5 h-3.5 text-amber-400" />
+              <span>{dish.calories} kcal</span>
+            </div>
+          )}
+          {dish.winePairing && (
+            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37]">
+              <Wine className="w-3.5 h-3.5" />
+              <span>Pairing: {dish.winePairing}</span>
+            </div>
+          )}
+          {dish.allergens && dish.allergens.length > 0 && (
+            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-300">
+              <ShieldAlert className="w-3.5 h-3.5" />
+              <span>Allergens: {dish.allergens.join(', ')}</span>
+            </div>
+          )}
+        </div>
+
+        {/* Customization Modifiers */}
         {dish.modifiers && dish.modifiers.length > 0 && (
           <div className="space-y-4 pt-4 border-t border-white/10">
-            <h4 className="font-serif text-sm font-bold text-[#D4AF37] uppercase tracking-wider">
-              Custom Preparation & Upgrades
+            <h4 className="font-serif text-sm font-semibold text-[#D4AF37] tracking-wider uppercase">
+              Artisanal Additions
             </h4>
             {dish.modifiers.map((mod) => (
               <div key={mod.id} className="space-y-2">
-                <div className="flex items-center justify-between text-xs font-semibold text-[#F4F1EA]">
-                  <span>{mod.title}</span>
-                  {mod.required && <span className="text-[10px] text-amber-400 uppercase font-mono">(Required)</span>}
-                </div>
+                <p className="text-xs text-gray-300 font-medium">
+                  {mod.title} {mod.required && <span className="text-amber-400">*</span>}
+                </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {mod.options.map((opt) => {
                     const isSelected = selectedModifiers.some(
@@ -98,14 +117,16 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({ dish, isOpen, 
                         key={opt.id}
                         type="button"
                         onClick={() => handleModifierToggle(mod.title, opt.name, opt.price, mod.required)}
-                        className={`p-2.5 rounded-lg text-xs flex items-center justify-between border transition-all cursor-pointer ${
+                        className={`p-3 rounded-xl border text-left text-xs flex justify-between items-center transition-all cursor-pointer ${
                           isSelected
-                            ? 'bg-[#D4AF37]/20 border-[#D4AF37] text-white'
-                            : 'bg-white/5 border-white/10 text-gray-400 hover:border-white/20'
+                            ? 'border-[#D4AF37] bg-[#D4AF37]/15 text-white font-semibold'
+                            : 'border-white/10 bg-[#12141C] text-gray-400 hover:border-white/20'
                         }`}
                       >
                         <span>{opt.name}</span>
-                        {opt.price > 0 && <span className="font-mono text-[#D4AF37]">+${opt.price.toFixed(2)}</span>}
+                        <span className="text-[#D4AF37] font-serif">
+                          {opt.price > 0 ? `+$${opt.price.toFixed(2)}` : 'Included'}
+                        </span>
                       </button>
                     );
                   })}
@@ -115,29 +136,33 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({ dish, isOpen, 
           </div>
         )}
 
-        {/* Quantity & Add Action */}
-        <div className="pt-4 border-t border-white/10 flex items-center justify-between gap-4">
-          <div className="flex items-center border border-[#D4AF37]/30 rounded-full overflow-hidden bg-[#12141C]">
+        {/* Quantity & Add to Cart Footer */}
+        <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3 bg-[#12141C] p-1.5 rounded-full border border-white/10">
             <button
-              onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-              className="px-3 py-2 text-gray-400 hover:text-white transition-colors cursor-pointer"
+              type="button"
+              onClick={() => setQuantity(Math.max(1, quantity - 1))}
+              className="w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
             >
-              <Minus className="w-4 h-4" />
+              <Minus className="w-3.5 h-3.5" />
             </button>
-            <span className="px-4 font-mono font-bold text-sm text-[#D4AF37]">{quantity}</span>
+            <span className="font-serif font-bold text-sm px-2 text-[#F4F1EA]">{quantity}</span>
             <button
-              onClick={() => setQuantity((q) => q + 1)}
-              className="px-3 py-2 text-gray-400 hover:text-white transition-colors cursor-pointer"
+              type="button"
+              onClick={() => setQuantity(quantity + 1)}
+              className="w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
             >
-              <Plus className="w-4 h-4" />
+              <Plus className="w-3.5 h-3.5" />
             </button>
           </div>
 
           <button
+            type="button"
+            disabled={!dish.isAvailable}
             onClick={handleAddToCart}
-            className="flex-1 py-3 rounded-full bg-gradient-to-r from-[#D4AF37] to-[#8C7853] text-[#0B0C10] font-bold text-xs uppercase tracking-widest hover:opacity-90 transition-opacity cursor-pointer flex items-center justify-center gap-2"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#D4AF37] hover:bg-[#E5C158] text-[#0B0C10] font-sans font-bold text-xs uppercase tracking-widest transition-all shadow-lg hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] cursor-pointer"
           >
-            Add to Order • ${totalPrice.toFixed(2)}
+            Add To Order • ${totalPrice.toFixed(2)}
           </button>
         </div>
       </div>

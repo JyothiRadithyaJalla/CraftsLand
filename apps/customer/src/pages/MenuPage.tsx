@@ -66,7 +66,7 @@ export const MenuPage: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
-      <MetaTags title="Haute Menu | L'Étoile Noir" />
+      <MetaTags title="Artisanal Menu | Craftsland" description="Explore the complete Craftsland culinary collection, flame-grilled mains, and stone-baked pizzas." />
 
       {/* Header Banner */}
       <div className="text-center space-y-3">
@@ -75,9 +75,9 @@ export const MenuPage: React.FC = () => {
             <Utensils className="w-3.5 h-3.5" /> Dine-In Session • Table {tableNumber}
           </div>
         )}
-        <h1 className="font-serif text-4xl sm:text-5xl font-bold text-gold-gradient">The Haute Collection</h1>
-        <p className="text-gray-400 text-sm max-w-xl mx-auto font-light">
-          An exquisite selection of seasonal dishes, imperial caviar, and reserve cellar pairings.
+        <h1 className="font-serif text-4xl sm:text-5xl font-bold text-gold-gradient">The Craftsland Menu</h1>
+        <p className="text-gray-400 text-sm max-w-xl mx-auto font-light font-sans">
+          Good Food Brighter Moods — An exquisite collection of scratch-prepared pastas, flame-grilled mains, stone-baked pizzas, and artisanal desserts.
         </p>
       </div>
 

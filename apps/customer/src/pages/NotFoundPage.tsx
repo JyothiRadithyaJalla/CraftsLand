@@ -6,7 +6,7 @@ import { MetaTags } from '@shared/components/MetaTags';
 export const NotFoundPage: React.FC = () => {
   return (
     <div className="min-h-[75vh] flex flex-col items-center justify-center p-6 text-center">
-      <MetaTags title="404 — Page Not Found | L'Étoile Noir" />
+      <MetaTags title="404 — Page Not Found | Craftsland" />
       <div className="w-16 h-16 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center mb-6 text-[#D4AF37]">
         <Utensils className="w-8 h-8" />
       </div>

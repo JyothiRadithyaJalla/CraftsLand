@@ -52,7 +52,7 @@ export const OrderStatusPage: React.FC = () => {
   if (loading) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-20 text-center space-y-4">
-        <MetaTags title="Tracking Order... | L'Étoile Noir" />
+        <MetaTags title="Tracking Order... | Craftsland" />
         <LoadingSpinner label="Retrieving culinary ticket from concierge registry..." />
       </div>
     );
@@ -61,7 +61,7 @@ export const OrderStatusPage: React.FC = () => {
   if (errorMsg || !order) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-16 text-center space-y-6 text-[#F4F1EA]">
-        <MetaTags title="Order Not Found | L'Étoile Noir" />
+        <MetaTags title="Order Not Found | Craftsland" />
         <div className="w-16 h-16 rounded-full bg-red-500/10 text-red-400 flex items-center justify-center mx-auto">
           <AlertCircle className="w-8 h-8" />
         </div>
@@ -79,7 +79,7 @@ export const OrderStatusPage: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10 space-y-8 text-[#F4F1EA]">
-      <MetaTags title={`Order ${order.orderNumber} Status | L'Étoile Noir`} />
+      <MetaTags title={`Order ${order.orderNumber} Status | Craftsland`} />
 
       {/* Header */}
       <div className="text-center space-y-2">
