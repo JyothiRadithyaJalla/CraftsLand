@@ -142,6 +142,10 @@ export class OrderService {
     return !error;
   }
 
+  static async cancelOrder(orderId: string): Promise<boolean> {
+    return this.updateOrderStatus(orderId, 'CANCELLED');
+  }
+
   static subscribeToOrderUpdates(
     orderId: string,
     onUpdate: (order: Order) => void
