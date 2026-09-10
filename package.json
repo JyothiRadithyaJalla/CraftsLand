@@ -4,8 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "npm run dev:customer",
+    "dev:customer": "vite --config apps/customer/vite.config.ts",
+    "dev:admin": "vite --config apps/admin/vite.config.ts",
+    "dev:kitchen": "vite --config apps/kitchen/vite.config.ts",
+    "build": "tsc -b && npm run build:customer && npm run build:admin && npm run build:kitchen",
+    "build:customer": "vite build --config apps/customer/vite.config.ts",
+    "build:admin": "vite build --config apps/admin/vite.config.ts",
+    "build:kitchen": "vite build --config apps/kitchen/vite.config.ts",
     "lint": "oxlint",
     "preview": "vite preview"
   },
