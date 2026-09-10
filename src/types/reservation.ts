@@ -17,3 +17,21 @@ export interface Reservation {
   status: ReservationStatus;
   createdAt: string;
 }
+
+export interface CreateReservationPayload {
+  reservationDate: string;
+  reservationTime: string;
+  partySize: number;
+  seatingSection: SeatingSection;
+  guestName: string;
+  guestEmail: string;
+  guestPhone: string;
+  specialRequests?: string;
+  customerId?: string;
+}
+
+export interface AvailabilityCheckParams {
+  date: string;
+  partySize: number;
+  seatingSection: SeatingSection;
+}
