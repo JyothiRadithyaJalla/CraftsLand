@@ -11,6 +11,8 @@ interface MediaViewProps {
   className?: string;
   autoPlayOnHover?: boolean;
   priority?: boolean;
+  clickable?: boolean;
+  onImageClick?: (url: string, title?: string) => void;
 }
 
 export const MediaView: React.FC<MediaViewProps> = ({
@@ -22,6 +24,8 @@ export const MediaView: React.FC<MediaViewProps> = ({
   className = '',
   autoPlayOnHover = true,
   priority = false,
+  clickable = false,
+  onImageClick,
 }) => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -70,12 +74,21 @@ export const MediaView: React.FC<MediaViewProps> = ({
   const resolvedPoster = MediaService.resolveMediaUrl(posterUrl || mediaUrl || '');
   const resolvedVideo = videoUrl ? MediaService.resolveMediaUrl(videoUrl) : null;
 
+  const handleClick = (e: React.MouseEvent) => {
+    if (clickable && onImageClick) {
+      e.stopPropagation();
+      onImageClick(resolvedImage, alt);
+    }
+  };
+
   return (
     <div
       ref={containerRef}
+      data-cursor={clickable ? 'image' : undefined}
+      onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`relative overflow-hidden bg-[#12141C] ${aspectRatio} ${className}`}
+      className={`relative overflow-hidden bg-[#12141C] ${aspectRatio} ${clickable ? 'cursor-pointer group' : ''} ${className}`}
     >
       {/* High-res Image / Poster */}
       {isInView && (
@@ -87,7 +100,7 @@ export const MediaView: React.FC<MediaViewProps> = ({
           onLoad={() => setImgLoaded(true)}
           className={`w-full h-full object-cover transition-all duration-700 ease-out ${
             imgLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
-          } ${isPlaying ? 'opacity-0' : 'opacity-100'}`}
+          } ${isPlaying ? 'opacity-0' : 'opacity-100'} ${clickable ? 'group-hover:scale-105 transition-transform duration-700' : ''}`}
         />
       )}
 

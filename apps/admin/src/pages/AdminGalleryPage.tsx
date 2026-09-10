@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AdminLayout } from '../components/AdminLayout';
 import { MetaTags } from '@shared/components/MetaTags';
 import { Plus, Trash2, Star, X } from 'lucide-react';
+import { ImageLightbox } from '@shared/components/ImageLightbox';
 
 interface GalleryMedia {
   id: string;
@@ -12,6 +13,7 @@ interface GalleryMedia {
 }
 
 export const AdminGalleryPage: React.FC = () => {
+  const [selectedImage, setSelectedImage] = useState<{ url: string; title: string; category?: string } | null>(null);
   const [mediaList, setMediaList] = useState<GalleryMedia[]>([
     {
       id: 'med-1',
@@ -93,8 +95,12 @@ export const AdminGalleryPage: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {mediaList.map((item) => (
           <div key={item.id} className="glass-panel p-4 rounded-2xl space-y-3 border border-[#D4AF37]/20 bg-[#12141C]/80">
-            <div className="relative aspect-video rounded-xl overflow-hidden group">
-              <img src={item.url} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <div
+              data-cursor="image"
+              onClick={() => setSelectedImage({ url: item.url, title: item.title, category: item.category })}
+              className="relative aspect-video rounded-xl overflow-hidden group cursor-pointer border border-white/5 hover:border-[#D4AF37]/50 transition-all duration-300"
+            >
+              <img src={item.url} alt={item.title} className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500" />
               {item.isFeatured && (
                 <span className="absolute top-2 right-2 bg-[#D4AF37] text-[#0B0C10] font-bold text-[10px] uppercase px-2 py-0.5 rounded-full shadow-md">
                   Featured
@@ -205,6 +211,14 @@ export const AdminGalleryPage: React.FC = () => {
           </form>
         </div>
       )}
+      {/* Fullscreen Preview Lightbox */}
+      <ImageLightbox
+        isOpen={!!selectedImage}
+        imageUrl={selectedImage?.url || null}
+        title={selectedImage?.title}
+        category={selectedImage?.category}
+        onClose={() => setSelectedImage(null)}
+      />
     </AdminLayout>
   );
 };

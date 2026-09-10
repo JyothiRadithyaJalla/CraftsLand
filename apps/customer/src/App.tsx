@@ -8,6 +8,7 @@ import { MenuProvider } from '@shared/context/MenuContext';
 import { OrderProvider } from '@shared/context/OrderContext';
 import { ThemeProvider } from '@shared/context/ThemeContext';
 import { ErrorBoundary } from '@shared/components/ErrorBoundary';
+import { CraftslandCursor } from '@shared/components/CraftslandCursor';
 
 // Customer Components
 import { Navbar } from './components/Navbar';
@@ -44,6 +45,7 @@ export const App: React.FC = () => {
           <MenuProvider>
             <OrderProvider>
               <ThemeProvider>
+                <CraftslandCursor />
                 <Router>
                   <div className="flex flex-col min-h-screen bg-[#0B0C10] text-[#F4F1EA]">
                     <Navbar onOpenCart={() => setCartDrawerOpen(true)} />

@@ -6,8 +6,10 @@ import type { Dish, Category } from '@shared/types/menu';
 import {
   Plus, Search, Filter, Edit2, Trash2, X, ToggleLeft, ToggleRight
 } from 'lucide-react';
+import { ImageLightbox } from '@shared/components/ImageLightbox';
 
 export const AdminMenuPage: React.FC = () => {
+  const [previewImage, setPreviewImage] = useState<{ url: string; title: string; category?: string } | null>(null);
   const [dishes, setDishes] = useState<Dish[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -179,7 +181,13 @@ export const AdminMenuPage: React.FC = () => {
                   <tr key={dish.id} className="hover:bg-white/5 transition-colors">
                     <td className="p-4">
                       <div className="flex items-center gap-3">
-                        <img src={dish.mediaUrl} alt={dish.name} className="w-12 h-12 rounded-lg object-cover" />
+                        <img
+                          src={dish.mediaUrl}
+                          alt={dish.name}
+                          data-cursor="image"
+                          onClick={() => setPreviewImage({ url: dish.mediaUrl, title: dish.name, category: dish.categorySlug })}
+                          className="w-12 h-12 rounded-lg object-cover cursor-pointer border border-white/10 hover:border-[#D4AF37] hover:scale-105 transition-all"
+                        />
                         <div>
                           <h4 className="font-serif font-bold text-[#F4F1EA] text-sm">{dish.name}</h4>
                           <p className="text-[11px] text-gray-400 line-clamp-1 max-w-xs">{dish.description}</p>
@@ -355,6 +363,14 @@ export const AdminMenuPage: React.FC = () => {
           </form>
         </div>
       )}
+      {/* Fullscreen Dish Lightbox */}
+      <ImageLightbox
+        isOpen={!!previewImage}
+        imageUrl={previewImage?.url || null}
+        title={previewImage?.title}
+        category={previewImage?.category}
+        onClose={() => setPreviewImage(null)}
+      />
     </AdminLayout>
   );
 };

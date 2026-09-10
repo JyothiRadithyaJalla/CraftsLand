@@ -38,7 +38,7 @@ export const DishCard: React.FC<DishCardProps> = ({ dish, onQuickView }) => {
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       className="group glass-card rounded-2xl overflow-hidden hover:border-[#D4AF37]/50 hover:shadow-[0_8px_30px_rgba(212,175,55,0.12)] transition-all duration-500 flex flex-col justify-between"
     >
-      {/* Media with Video/Hover Zoom */}
+      {/* Media with Video/Hover Zoom & Clickable Lightbox */}
       <div className="relative overflow-hidden">
         <MediaView
           mediaUrl={dish.mediaUrl}
@@ -47,6 +47,8 @@ export const DishCard: React.FC<DishCardProps> = ({ dish, onQuickView }) => {
           alt={dish.name}
           aspectRatio="aspect-[4/3]"
           autoPlayOnHover={true}
+          clickable={true}
+          onImageClick={() => onQuickView(dish)}
         />
 
         {/* Price Tag */}

@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MetaTags } from '@shared/components/MetaTags';
 import { Utensils, Calendar, Heart, Leaf, ChefHat } from 'lucide-react';
 import { RESTAURANT_BRAND } from '@shared/config/constants';
+import { ImageLightbox } from '@shared/components/ImageLightbox';
 
 export const AboutPage: React.FC = () => {
+  const [activeImage, setActiveImage] = useState<{ url: string; title: string; category?: string } | null>(null);
+
   return (
     <div className="space-y-24 py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <MetaTags
@@ -43,23 +46,45 @@ export const AboutPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="relative aspect-[4/3] rounded-3xl overflow-hidden glass-card border border-[#D4AF37]/30 shadow-2xl">
+        <div
+          data-cursor="image"
+          onClick={() => setActiveImage({
+            url: 'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=1400&auto=format&fit=crop',
+            title: 'Craftsland Scratch Culinary Kitchen Creation',
+            category: 'Kitchen Heritage'
+          })}
+          className="group relative aspect-[4/3] rounded-3xl overflow-hidden glass-card border border-[#D4AF37]/30 hover:border-[#D4AF37]/60 shadow-2xl cursor-pointer transition-all duration-500"
+        >
           <img
             src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=1000&auto=format&fit=crop"
             alt="Craftsland Culinary Creation"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C10]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+            <span className="text-xs font-serif font-bold text-[#D4AF37]">Click to Expand View</span>
+          </div>
         </div>
       </div>
 
       {/* Executive Chef & Culinary Team */}
       <div className="glass-panel p-8 sm:p-14 rounded-3xl border border-[#D4AF37]/20 grid grid-cols-1 lg:grid-cols-3 gap-10 items-center">
-        <div className="relative aspect-square rounded-2xl overflow-hidden border border-[#D4AF37]/30 shadow-xl">
+        <div
+          data-cursor="image"
+          onClick={() => setActiveImage({
+            url: 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=1200&auto=format&fit=crop',
+            title: 'Executive Culinary Director Master Artisan Mateo Rossi',
+            category: 'Culinary Master'
+          })}
+          className="group relative aspect-square rounded-2xl overflow-hidden border border-[#D4AF37]/30 hover:border-[#D4AF37]/60 shadow-xl cursor-pointer transition-all duration-500"
+        >
           <img
             src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=800&auto=format&fit=crop"
             alt="Craftsland Executive Culinary Director"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C10]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+            <span className="text-xs font-serif font-bold text-[#D4AF37]">Portrait Preview</span>
+          </div>
         </div>
         <div className="lg:col-span-2 space-y-4">
           <span className="font-sans text-xs font-bold text-[#D4AF37] tracking-[0.25em] uppercase block">
@@ -85,6 +110,15 @@ export const AboutPage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Shared Lightbox */}
+      <ImageLightbox
+        isOpen={!!activeImage}
+        imageUrl={activeImage?.url || null}
+        title={activeImage?.title}
+        category={activeImage?.category}
+        onClose={() => setActiveImage(null)}
+      />
     </div>
   );
 };

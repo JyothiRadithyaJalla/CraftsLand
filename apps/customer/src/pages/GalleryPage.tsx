@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { MetaTags } from '@shared/components/MetaTags';
-import { LightboxModal } from '../components/LightboxModal';
+import { ImageLightbox } from '@shared/components/ImageLightbox';
 import { ZoomIn } from 'lucide-react';
 
 interface GalleryItem {
@@ -12,7 +12,7 @@ interface GalleryItem {
 
 export const GalleryPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [activeLightboxImage, setActiveLightboxImage] = useState<{ url: string; title: string } | null>(null);
+  const [activeLightboxImage, setActiveLightboxImage] = useState<{ url: string; title: string; category?: string } | null>(null);
 
   const galleryItems: GalleryItem[] = [
     {
@@ -111,23 +111,24 @@ export const GalleryPage: React.FC = () => {
         ))}
       </div>
 
-      {/* Masonry / Grid */}
+      {/* Masonry / Grid with Image Hover Cursor and Click Trigger */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {filteredItems.map((item) => (
           <div
             key={item.id}
-            onClick={() => setActiveLightboxImage({ url: item.url, title: item.title })}
-            className="group relative aspect-[4/3] rounded-2xl overflow-hidden glass-card cursor-pointer border border-white/10 hover:border-[#D4AF37]/50 hover:shadow-[0_8px_30px_rgba(212,175,55,0.15)] transition-all duration-500"
+            data-cursor="image"
+            onClick={() => setActiveLightboxImage({ url: item.url, title: item.title, category: item.category })}
+            className="group relative aspect-[4/3] rounded-2xl overflow-hidden glass-card cursor-pointer border border-white/10 hover:border-[#D4AF37]/60 hover:shadow-[0_8px_32px_rgba(212,175,55,0.2)] transition-all duration-500"
           >
             <img
               src={item.url}
               alt={item.title}
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C10]/95 via-[#0B0C10]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-5">
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C10]/95 via-[#0B0C10]/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-5">
               <div className="flex justify-end">
-                <span className="p-2 rounded-full bg-black/60 text-[#D4AF37]">
+                <span className="p-2.5 rounded-full bg-black/60 text-[#D4AF37] border border-[#D4AF37]/30 shadow-lg">
                   <ZoomIn className="w-4 h-4" />
                 </span>
               </div>
@@ -140,10 +141,12 @@ export const GalleryPage: React.FC = () => {
         ))}
       </div>
 
-      {/* Lightbox Modal */}
-      <LightboxModal
+      {/* Cinematic Shared Lightbox Modal */}
+      <ImageLightbox
+        isOpen={!!activeLightboxImage}
         imageUrl={activeLightboxImage?.url || null}
-        caption={activeLightboxImage?.title}
+        title={activeLightboxImage?.title}
+        category={activeLightboxImage?.category}
         onClose={() => setActiveLightboxImage(null)}
       />
     </div>
