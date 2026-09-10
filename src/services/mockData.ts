@@ -145,6 +145,7 @@ export const MOCK_ORDERS: Order[] = [
     taxAmount: 17.60,
     deliveryFee: 0.00,
     discountAmount: 0.00,
+    tipAmount: 0.00,
     totalAmount: 224.60,
     orderStatus: 'PREPARING',
     paymentStatus: 'PAID',

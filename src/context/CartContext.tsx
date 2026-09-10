@@ -7,6 +7,7 @@ interface CartContextType {
   items: CartItem[];
   orderType: OrderType;
   tableNumber: string;
+  deliveryAddress: string;
   specialInstructions: string;
   tipPercent: number;
   promoCode: string;
@@ -16,11 +17,13 @@ interface CartContextType {
   clearCart: () => void;
   setOrderType: (type: OrderType) => void;
   setTableNumber: (table: string) => void;
+  setDeliveryAddress: (address: string) => void;
   setSpecialInstructions: (notes: string) => void;
   setTipPercent: (percent: number) => void;
   subtotal: number;
   taxAmount: number;
   deliveryFee: number;
+  tipAmount: number;
   totalAmount: number;
 }
 
@@ -30,6 +33,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [items, setItems] = useState<CartItem[]>([]);
   const [orderType, setOrderType] = useState<OrderType>('DINE_IN');
   const [tableNumber, setTableNumber] = useState<string>('');
+  const [deliveryAddress, setDeliveryAddress] = useState<string>('');
   const [specialInstructions, setSpecialInstructions] = useState<string>('');
   const [tipPercent, setTipPercent] = useState<number>(15);
   const [promoCode] = useState<string>('');
@@ -96,6 +100,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         items,
         orderType,
         tableNumber,
+        deliveryAddress,
         specialInstructions,
         tipPercent,
         promoCode,
@@ -105,11 +110,13 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         clearCart,
         setOrderType,
         setTableNumber,
+        setDeliveryAddress,
         setSpecialInstructions,
         setTipPercent,
         subtotal,
         taxAmount,
         deliveryFee,
+        tipAmount,
         totalAmount,
       }}
     >
