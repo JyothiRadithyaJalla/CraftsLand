@@ -79,14 +79,14 @@ export const AdminGalleryPage: React.FC = () => {
     <AdminLayout>
       <MetaTags title="Media Gallery Manager | Craftsland Admin" />
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#B11226]/20 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#3A3027] pb-4">
         <div>
           <h1 className="font-serif text-3xl font-bold text-red-gradient">Media Gallery Asset Manager</h1>
-          <p className="text-xs text-gray-400">Curate luxury visual assets, photos, and featured highlights</p>
+          <p className="text-xs text-[#B8AEA1]">Curate luxury visual assets, photos, and featured highlights</p>
         </div>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#B11226] to-[#7F0D1D] text-white font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:opacity-90"
+          className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#C85A3A] via-[#B84A32] to-[#8B3525] text-[#F5EFE5] font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:brightness-110 transition-all"
         >
           <Plus className="w-4 h-4" /> Add Media URL
         </button>
@@ -94,15 +94,15 @@ export const AdminGalleryPage: React.FC = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {mediaList.map((item) => (
-          <div key={item.id} className="bg-white p-4 rounded-2xl space-y-3 border border-[#B11226]/20 bg-[#FFFFFF]/80">
+          <div key={item.id} className="bg-[#211B16] p-4 rounded-2xl space-y-3 border border-[#3A3027] shadow-lg">
             <div
               data-cursor="image"
               onClick={() => setSelectedImage({ url: item.url, title: item.title, category: item.category })}
-              className="relative aspect-video rounded-xl overflow-hidden group cursor-pointer border border-[#E5E5E5] hover:border-[#B11226]/50 transition-all duration-300"
+              className="relative aspect-video rounded-xl overflow-hidden group cursor-pointer border border-[#3A3027] hover:border-[#B84A32]/60 transition-all duration-300"
             >
               <img src={item.url} alt={item.title} className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500" />
               {item.isFeatured && (
-                <span className="absolute top-2 right-2 bg-[#B11226] text-white font-bold text-[10px] uppercase px-2 py-0.5 rounded-full shadow-md">
+                <span className="absolute top-2 right-2 bg-[#B84A32] text-[#F5EFE5] font-bold text-[10px] uppercase px-2 py-0.5 rounded-full shadow-md">
                   Featured
                 </span>
               )}
@@ -110,15 +110,17 @@ export const AdminGalleryPage: React.FC = () => {
 
             <div className="flex justify-between items-center text-xs">
               <div>
-                <h4 className="font-serif font-bold text-[#171717]">{item.title}</h4>
-                <span className="text-[10px] text-gray-400 font-mono uppercase">{item.category}</span>
+                <h4 className="font-serif font-bold text-[#F5EFE5]">{item.title}</h4>
+                <span className="text-[10px] text-[#B8AEA1] font-mono uppercase">{item.category}</span>
               </div>
 
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => handleToggleFeatured(item.id)}
                   className={`p-1.5 rounded-lg border text-xs cursor-pointer transition-colors ${
-                    item.isFeatured ? 'bg-[#B11226]/20 border-[#B11226] text-[#B11226]' : 'bg-white/5 border-[#E5E5E5] text-gray-400'
+                    item.isFeatured
+                      ? 'bg-[#D29A55]/20 border-[#D29A55]/40 text-[#D29A55]'
+                      : 'bg-[#171310] border-[#3A3027] text-[#B8AEA1] hover:text-[#F5EFE5]'
                   }`}
                   title="Toggle Featured"
                 >
@@ -126,7 +128,7 @@ export const AdminGalleryPage: React.FC = () => {
                 </button>
                 <button
                   onClick={() => handleDeleteMedia(item.id)}
-                  className="p-1.5 rounded-lg bg-red-950/40 border border-red-500/30 text-red-400 hover:text-red-300 cursor-pointer"
+                  className="p-1.5 rounded-lg bg-red-950/30 border border-red-500/30 text-red-400 hover:bg-red-900/40 cursor-pointer transition-colors"
                   title="Delete Asset"
                 >
                   <Trash2 className="w-4 h-4" />
@@ -138,17 +140,17 @@ export const AdminGalleryPage: React.FC = () => {
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#FAFAFA]/80 backdrop-blur-md">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md">
           <form
             onSubmit={handleAddMedia}
-            className="bg-white w-full max-w-md bg-[#FFFFFF] border border-[#B11226]/30 rounded-3xl p-6 space-y-4 text-[#171717]"
+            className="bg-[#211B16] w-full max-w-md border border-[#3A3027] rounded-3xl p-6 space-y-4 text-[#F5EFE5] shadow-2xl"
           >
-            <div className="flex justify-between items-center border-b border-[#E5E5E5] pb-3">
+            <div className="flex justify-between items-center border-b border-[#3A3027] pb-3">
               <h3 className="font-serif text-xl font-bold text-red-gradient">Add Media Asset</h3>
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="p-1 rounded-full text-gray-400 hover:text-white cursor-pointer"
+                className="p-1 rounded-full text-[#B8AEA1] hover:text-[#F5EFE5] cursor-pointer transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -156,54 +158,54 @@ export const AdminGalleryPage: React.FC = () => {
 
             <div className="space-y-3 text-xs">
               <div className="space-y-1">
-                <label className="text-gray-300 font-semibold">Image/Media URL *</label>
+                <label className="text-[#B8AEA1] font-semibold">Image/Media URL *</label>
                 <input
                   type="url"
                   required
                   value={newUrl}
                   onChange={(e) => setNewUrl(e.target.value)}
                   placeholder="https://images.unsplash.com/..."
-                  className="w-full bg-[#FAFAFA] border border-[#E5E5E5] rounded-xl px-3 py-2 text-xs text-[#171717] focus:outline-none focus:border-[#B11226]"
+                  className="w-full bg-[#171310] border border-[#3A3027] rounded-xl px-3 py-2 text-xs text-[#F5EFE5] placeholder-[#B8AEA1]/40 focus:outline-none focus:border-[#B84A32] transition-colors"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-gray-300 font-semibold">Media Title</label>
+                <label className="text-[#B8AEA1] font-semibold">Media Title</label>
                 <input
                   type="text"
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
                   placeholder="Chef Pass Presentation"
-                  className="w-full bg-[#FAFAFA] border border-[#E5E5E5] rounded-xl px-3 py-2 text-xs text-[#171717] focus:outline-none focus:border-[#B11226]"
+                  className="w-full bg-[#171310] border border-[#3A3027] rounded-xl px-3 py-2 text-xs text-[#F5EFE5] placeholder-[#B8AEA1]/40 focus:outline-none focus:border-[#B84A32] transition-colors"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-gray-300 font-semibold">Category</label>
+                <label className="text-[#B8AEA1] font-semibold">Category</label>
                 <select
                   value={newCategory}
                   onChange={(e) => setNewCategory(e.target.value)}
-                  className="w-full bg-[#FAFAFA] border border-[#E5E5E5] rounded-xl px-3 py-2 text-xs text-[#171717] focus:outline-none focus:border-[#B11226]"
+                  className="w-full bg-[#171310] border border-[#3A3027] rounded-xl px-3 py-2 text-xs text-[#F5EFE5] focus:outline-none focus:border-[#B84A32] transition-colors"
                 >
-                  <option value="plating">Plating</option>
-                  <option value="interior">Interior</option>
-                  <option value="wines">Sommelier Cellar</option>
-                  <option value="backstage">Kitchen Pass</option>
+                  <option value="plating" className="bg-[#211B16] text-[#F5EFE5]">Plating</option>
+                  <option value="interior" className="bg-[#211B16] text-[#F5EFE5]">Interior</option>
+                  <option value="wines" className="bg-[#211B16] text-[#F5EFE5]">Sommelier Cellar</option>
+                  <option value="backstage" className="bg-[#211B16] text-[#F5EFE5]">Kitchen Pass</option>
                 </select>
               </div>
             </div>
 
-            <div className="flex justify-end gap-3 pt-4 border-t border-[#E5E5E5] text-xs">
+            <div className="flex justify-end gap-3 pt-4 border-t border-[#3A3027] text-xs">
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="px-5 py-2 rounded-full border border-[#E5E5E5] text-gray-400 hover:text-white cursor-pointer"
+                className="px-5 py-2 rounded-full border border-[#3A3027] text-[#B8AEA1] hover:text-[#F5EFE5] hover:border-[#B8AEA1] cursor-pointer transition-colors"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-6 py-2 rounded-full bg-gradient-to-r from-[#B11226] to-[#7F0D1D] text-white font-bold uppercase tracking-wider cursor-pointer shadow-lg hover:opacity-90"
+                className="px-6 py-2 rounded-full bg-gradient-to-r from-[#C85A3A] via-[#B84A32] to-[#8B3525] text-[#F5EFE5] font-bold uppercase tracking-wider cursor-pointer shadow-lg hover:brightness-110 transition-all"
               >
                 Add Asset
               </button>

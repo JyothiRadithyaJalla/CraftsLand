@@ -46,7 +46,7 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({ dish, isOpen, 
     <Modal isOpen={isOpen} onClose={onClose} title={dish.name}>
       <div className="space-y-6">
         {/* Media / Video View */}
-        <div className="rounded-2xl overflow-hidden border border-[#E5E5E5] shadow-md">
+        <div className="rounded-2xl overflow-hidden border border-[#3A3027] shadow-md">
           <MediaView
             mediaUrl={dish.mediaUrl}
             posterUrl={dish.posterUrl}
@@ -62,34 +62,34 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({ dish, isOpen, 
         <div className="space-y-2">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <span className="text-xs uppercase font-sans tracking-widest text-[#B11226] font-bold block">
+              <span className="text-xs uppercase font-sans tracking-widest text-[#B84A32] font-bold block">
                 {dish.categorySlug}
               </span>
-              <h2 className="font-serif text-2xl font-bold text-[#171717]">{dish.name}</h2>
+              <h2 className="font-serif text-2xl font-bold text-[#F5EFE5]">{dish.name}</h2>
             </div>
             <div className="text-right">
-              <span className="font-serif text-2xl font-bold text-[#B11226]">${unitPrice.toFixed(2)}</span>
+              <span className="font-serif text-2xl font-bold text-[#B84A32]">${unitPrice.toFixed(2)}</span>
             </div>
           </div>
-          <p className="text-[#6B6B6B] text-sm leading-relaxed font-sans">{dish.description}</p>
+          <p className="text-[#B8AEA1] text-sm leading-relaxed font-sans">{dish.description}</p>
         </div>
 
         {/* Nutritional & Pairing Badges */}
-        <div className="flex flex-wrap items-center gap-3 pt-2 text-xs text-[#6B6B6B]">
+        <div className="flex flex-wrap items-center gap-3 pt-2 text-xs text-[#B8AEA1]">
           {dish.calories && (
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAFAFA] border border-[#E5E5E5]">
-              <Flame className="w-3.5 h-3.5 text-amber-500" />
+            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#171310] border border-[#3A3027] text-[#B8AEA1]">
+              <Flame className="w-3.5 h-3.5 text-[#D29A55]" />
               <span>{dish.calories} kcal</span>
             </div>
           )}
           {dish.winePairing && (
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B11226]/10 border border-[#B11226]/25 text-[#B11226]">
-              <Wine className="w-3.5 h-3.5" />
+            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B84A32]/15 border border-[#B84A32]/30 text-[#D29A55]">
+              <Wine className="w-3.5 h-3.5 text-[#B84A32]" />
               <span>Pairing: {dish.winePairing}</span>
             </div>
           )}
           {dish.allergens && dish.allergens.length > 0 && (
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-50 border border-red-200 text-red-700">
+            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-950/40 border border-red-900/50 text-red-300">
               <ShieldAlert className="w-3.5 h-3.5" />
               <span>Allergens: {dish.allergens.join(', ')}</span>
             </div>
@@ -98,14 +98,14 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({ dish, isOpen, 
 
         {/* Customization Modifiers */}
         {dish.modifiers && dish.modifiers.length > 0 && (
-          <div className="space-y-4 pt-4 border-t border-[#E5E5E5]">
-            <h4 className="font-serif text-sm font-semibold text-[#171717] tracking-wider uppercase">
+          <div className="space-y-4 pt-4 border-t border-[#3A3027]">
+            <h4 className="font-serif text-sm font-semibold text-[#F5EFE5] tracking-wider uppercase">
               Artisanal Additions
             </h4>
             {dish.modifiers.map((mod) => (
               <div key={mod.id} className="space-y-2">
-                <p className="text-xs text-[#6B6B6B] font-medium">
-                  {mod.title} {mod.required && <span className="text-[#B11226]">*</span>}
+                <p className="text-xs text-[#B8AEA1] font-medium">
+                  {mod.title} {mod.required && <span className="text-[#B84A32]">*</span>}
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {mod.options.map((opt) => {
@@ -119,12 +119,12 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({ dish, isOpen, 
                         onClick={() => handleModifierToggle(mod.title, opt.name, opt.price, mod.required)}
                         className={`p-3 rounded-xl border text-left text-xs flex justify-between items-center transition-all cursor-pointer ${
                           isSelected
-                            ? 'border-[#B11226] bg-[#B11226]/10 text-[#171717] font-semibold'
-                            : 'border-[#E5E5E5] bg-[#FAFAFA] text-[#6B6B6B] hover:border-neutral-400'
+                            ? 'border-[#B84A32] bg-[#B84A32]/15 text-[#F5EFE5] font-semibold'
+                            : 'border-[#3A3027] bg-[#171310] text-[#B8AEA1] hover:border-[#B84A32]/40 hover:text-[#F5EFE5]'
                         }`}
                       >
                         <span>{opt.name}</span>
-                        <span className="text-[#B11226] font-mono font-bold">
+                        <span className="text-[#B84A32] font-mono font-bold">
                           {opt.price > 0 ? `+$${opt.price.toFixed(2)}` : 'Included'}
                         </span>
                       </button>
@@ -137,20 +137,20 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({ dish, isOpen, 
         )}
 
         {/* Quantity & Add to Cart Footer */}
-        <div className="pt-6 border-t border-[#E5E5E5] flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3 bg-[#FAFAFA] p-1.5 rounded-full border border-[#E5E5E5]">
+        <div className="pt-6 border-t border-[#3A3027] flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3 bg-[#171310] p-1.5 rounded-full border border-[#3A3027]">
             <button
               type="button"
               onClick={() => setQuantity(Math.max(1, quantity - 1))}
-              className="w-8 h-8 rounded-full flex items-center justify-center text-[#6B6B6B] hover:text-[#171717] hover:bg-neutral-200 transition-colors"
+              className="w-8 h-8 rounded-full flex items-center justify-center text-[#B8AEA1] hover:text-[#F5EFE5] hover:bg-[#211B16] transition-colors cursor-pointer"
             >
               <Minus className="w-3.5 h-3.5" />
             </button>
-            <span className="font-serif font-bold text-sm px-2 text-[#171717]">{quantity}</span>
+            <span className="font-serif font-bold text-sm px-2 text-[#F5EFE5]">{quantity}</span>
             <button
               type="button"
               onClick={() => setQuantity(quantity + 1)}
-              className="w-8 h-8 rounded-full flex items-center justify-center text-[#6B6B6B] hover:text-[#171717] hover:bg-neutral-200 transition-colors"
+              className="w-8 h-8 rounded-full flex items-center justify-center text-[#B8AEA1] hover:text-[#F5EFE5] hover:bg-[#211B16] transition-colors cursor-pointer"
             >
               <Plus className="w-3.5 h-3.5" />
             </button>
@@ -160,7 +160,7 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({ dish, isOpen, 
             type="button"
             disabled={!dish.isAvailable}
             onClick={handleAddToCart}
-            className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#B11226] hover:bg-[#7F0D1D] text-white font-sans font-bold text-xs uppercase tracking-widest transition-all shadow-md cursor-pointer"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#B84A32] hover:bg-[#8B3525] text-white font-sans font-bold text-xs uppercase tracking-widest transition-all shadow-md cursor-pointer"
           >
             Add To Order • ${totalPrice.toFixed(2)}
           </button>

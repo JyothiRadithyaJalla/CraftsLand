@@ -31,19 +31,19 @@ export class ErrorBoundary extends Component<Props, State> {
   public render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-[#FAFAFA] text-[#171717] flex flex-col items-center justify-center p-6 text-center">
-          <div className="w-16 h-16 rounded-full bg-[#B11226]/10 border border-[#B11226]/20 flex items-center justify-center mb-6">
-            <AlertTriangle className="w-8 h-8 text-[#B11226]" />
+        <div className="min-h-screen bg-[#0D0B09] text-[#F5EFE5] flex flex-col items-center justify-center p-6 text-center">
+          <div className="w-16 h-16 rounded-full bg-[#B84A32]/10 border border-[#B84A32]/25 flex items-center justify-center mb-6">
+            <AlertTriangle className="w-8 h-8 text-[#B84A32]" />
           </div>
           <h1 className="font-serif text-3xl font-bold mb-3 tracking-wide text-red-gradient">
             An Unexpected Interruption Occurred
           </h1>
-          <p className="text-gray-500 max-w-md mb-8 text-sm leading-relaxed">
+          <p className="text-[#B8AEA1] max-w-md mb-8 text-sm leading-relaxed">
             Our dining application encountered a temporary discrepancy. Please refresh the page to restore your session.
           </p>
           <button
             onClick={this.handleReload}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#B11226] to-[#7F0D1D] text-white font-semibold text-sm hover:brightness-110 shadow-md transition-all cursor-pointer"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#B84A32] to-[#8B3525] text-white font-semibold text-sm hover:brightness-110 shadow-md transition-all cursor-pointer"
           >
             <RefreshCw className="w-4 h-4" /> Reload Experience
           </button>

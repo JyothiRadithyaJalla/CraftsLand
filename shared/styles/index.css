@@ -1,32 +1,60 @@
 @import "tailwindcss";
 
+@theme {
+  /* Dark Luxury Palette (Customer & Admin) */
+  --color-craft-obsidian: #0D0B09;
+  --color-craft-espresso: #171310;
+  --color-craft-card: #211B16;
+  --color-craft-card-hover: #2A231C;
+  --color-craft-border: #3A3027;
+  --color-craft-ivory: #F5EFE5;
+  --color-craft-champagne: #B8AEA1;
+  --color-craft-crimson: #B84A32;
+  --color-craft-crimson-deep: #8B3525;
+  --color-craft-crimson-light: #C85A3A;
+  --color-craft-brass: #D29A55;
+
+  /* Kitchen Light Professional Palette */
+  --color-kitchen-white: #FAFAF7;
+  --color-kitchen-card: #FFFFFF;
+  --color-kitchen-border: #E2DDD6;
+  --color-kitchen-text: #1A1714;
+  --color-kitchen-muted: #6B6560;
+  --color-kitchen-input: #F5F2EE;
+}
+
 @layer base {
   :root {
-    /* Craftsland Red & White Theme Palette */
-    --color-primary-red: #B11226;
-    --color-deep-red: #7F0D1D;
-    --color-accent-red: #D71920;
-    --color-surface-white: #FFFFFF;
-    --color-surface-soft: #FAFAFA;
-    --color-surface-gray: #F3F3F3;
-    --color-border-subtle: #E5E5E5;
-    --color-border-dark: #D9D9D9;
-    --color-text-dark: #171717;
-    --color-text-muted: #6B6B6B;
-    --color-surface-dark: #111111;
+    /* Semantic Custom Properties mapped to Master Palette */
+    --color-obsidian: #0D0B09;
+    --color-espresso: #171310;
+    --color-card-surface: #211B16;
+    --color-card-hover: #2A231C;
+    --color-border: #3A3027;
+    --color-warm-ivory: #F5EFE5;
+    --color-champagne: #B8AEA1;
+    --color-burnt-crimson: #B84A32;
+    --color-deep-crimson: #8B3525;
+    --color-light-crimson: #C85A3A;
+    --color-antique-brass: #D29A55;
 
-    /* Backward-compatibility bridge for existing references */
-    --color-obsidian: #FFFFFF;
-    --color-deep-onyx: #FAFAFA;
-    --color-champagne-gold: #B11226;
-    --color-gold-hover: #D71920;
-    --color-warm-ivory: #171717;
-    --color-muted-bronze: #7F0D1D;
+    /* Backward compatibility bridge for shared classes */
+    --color-primary-red: #B84A32;
+    --color-deep-red: #8B3525;
+    --color-accent-red: #C85A3A;
+    --color-surface-white: #211B16;
+    --color-surface-soft: #0D0B09;
+    --color-surface-gray: #171310;
+    --color-border-subtle: #3A3027;
+    --color-border-dark: #3A3027;
+    --color-text-dark: #F5EFE5;
+    --color-text-muted: #B8AEA1;
+    --color-surface-dark: #0D0B09;
   }
 
   body {
-    background-color: #FAFAFA;
-    color: #171717;
+    background-color: #0D0B09;
+    color: #F5EFE5;
   }
 }
 
@@ -43,34 +71,45 @@
   font-family: 'Outfit', sans-serif;
 }
 
-/* Custom Glass & Card Utilities for Red & White Theme */
+/* Custom Glass & Card Utilities for Luxury Dark Theme */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(33, 27, 22, 0.88);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid #E5E5E5;
+  border: 1px solid #3A3027;
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(33, 27, 22, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid #E5E5E5;
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+  border: 1px solid #3A3027;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.35);
 }
 
-.glass-card-gold,
-.glass-card-red {
-  background: #FFFFFF;
+.glass-card-gold {
+  background: #211B16;
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(177, 18, 38, 0.2);
-  box-shadow: 0 10px 30px -4px rgba(177, 18, 38, 0.08);
+  border: 1px solid rgba(210, 154, 85, 0.25);
+  box-shadow: 0 10px 30px -4px rgba(210, 154, 85, 0.08);
 }
 
-/* Red Accent Text Gradient */
-.text-gold-gradient,
+.glass-card-red {
+  background: #211B16;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(184, 74, 50, 0.25);
+  box-shadow: 0 10px 30px -4px rgba(184, 74, 50, 0.12);
+}
+
+/* Branded Text Gradients */
 .text-red-gradient {
-  background: linear-gradient(135deg, #D71920 0%, #B11226 50%, #7F0D1D 100%);
+  background: linear-gradient(135deg, #C85A3A 0%, #B84A32 50%, #8B3525 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #E6BA80 0%, #D29A55 50%, #B07830 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -82,15 +121,15 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #F3F3F3;
+  background: #171310;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D9D9D9;
+  background: #3A3027;
   border-radius: 4px;
-  border: 1px solid #E5E5E5;
+  border: 1px solid #211B16;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #B11226;
+  background: #B84A32;
 }

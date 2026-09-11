@@ -62,82 +62,82 @@ export const RegisterPage: React.FC = () => {
   return (
     <div className="max-w-md mx-auto px-4 py-16">
       <MetaTags title="Guest Registration | Craftsland" />
-      <div className="bg-white p-8 rounded-2xl space-y-6 border border-[#E5E5E5] shadow-sm">
+      <div className="bg-[#211B16] p-8 rounded-2xl space-y-6 border border-[#3A3027] shadow-xl">
         <div className="text-center space-y-2">
-          <h1 className="font-serif text-2xl font-bold text-red-gradient">Register Guest Account</h1>
-          <p className="text-xs text-[#6B6B6B]">Join our culinary community for reservations and ordering</p>
+          <h1 className="font-serif text-2xl font-bold text-[#F5EFE5]">Register Guest Account</h1>
+          <p className="text-xs text-[#B8AEA1]">Join our culinary community for reservations and ordering</p>
         </div>
 
         {errorMsg && (
-          <div className="bg-red-50 border border-red-200 p-3.5 rounded-xl text-xs text-red-600 flex items-start gap-2.5">
-            <AlertCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
+          <div className="bg-red-950/40 border border-red-800/60 p-3.5 rounded-xl text-xs text-red-300 flex items-start gap-2.5">
+            <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />
             <span>{errorMsg}</span>
           </div>
         )}
 
         {successNotice && (
-          <div className="bg-emerald-50 border border-emerald-200 p-3.5 rounded-xl text-xs text-emerald-700 flex items-start gap-2.5">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+          <div className="bg-emerald-950/40 border border-emerald-800/60 p-3.5 rounded-xl text-xs text-emerald-300 flex items-start gap-2.5">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
             <span>{successNotice}</span>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4 text-xs">
           <div>
-            <label className="block text-[#171717] mb-1 font-semibold">Full Name</label>
+            <label className="block text-[#F5EFE5] mb-1 font-semibold">Full Name</label>
             <div className="relative">
-              <User className="w-4 h-4 text-[#6B6B6B] absolute left-3 top-3" />
+              <User className="w-4 h-4 text-[#B8AEA1] absolute left-3 top-3" />
               <input
                 type="text"
                 required
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 placeholder="Lady Genevieve Sterling"
-                className="w-full pl-9 pr-4 py-2.5 bg-white border border-[#E5E5E5] focus:border-[#B11226] rounded-lg text-[#171717] outline-none transition-colors"
+                className="w-full pl-9 pr-4 py-2.5 bg-[#171310] border border-[#3A3027] focus:border-[#B84A32] rounded-lg text-[#F5EFE5] placeholder:text-[#B8AEA1]/40 outline-none transition-colors"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-[#171717] mb-1 font-semibold">Email Address</label>
+            <label className="block text-[#F5EFE5] mb-1 font-semibold">Email Address</label>
             <div className="relative">
-              <Mail className="w-4 h-4 text-[#6B6B6B] absolute left-3 top-3" />
+              <Mail className="w-4 h-4 text-[#B8AEA1] absolute left-3 top-3" />
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="genevieve@craftsland.com"
-                className="w-full pl-9 pr-4 py-2.5 bg-white border border-[#E5E5E5] focus:border-[#B11226] rounded-lg text-[#171717] outline-none transition-colors"
+                className="w-full pl-9 pr-4 py-2.5 bg-[#171310] border border-[#3A3027] focus:border-[#B84A32] rounded-lg text-[#F5EFE5] placeholder:text-[#B8AEA1]/40 outline-none transition-colors"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-[#171717] mb-1 font-semibold">Phone Number (Optional)</label>
+            <label className="block text-[#F5EFE5] mb-1 font-semibold">Phone Number (Optional)</label>
             <div className="relative">
-              <Phone className="w-4 h-4 text-[#6B6B6B] absolute left-3 top-3" />
+              <Phone className="w-4 h-4 text-[#B8AEA1] absolute left-3 top-3" />
               <input
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="+1 555-234-5678"
-                className="w-full pl-9 pr-4 py-2.5 bg-white border border-[#E5E5E5] focus:border-[#B11226] rounded-lg text-[#171717] outline-none transition-colors"
+                className="w-full pl-9 pr-4 py-2.5 bg-[#171310] border border-[#3A3027] focus:border-[#B84A32] rounded-lg text-[#F5EFE5] placeholder:text-[#B8AEA1]/40 outline-none transition-colors"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-[#171717] mb-1 font-semibold">Password</label>
+            <label className="block text-[#F5EFE5] mb-1 font-semibold">Password</label>
             <div className="relative">
-              <Lock className="w-4 h-4 text-[#6B6B6B] absolute left-3 top-3" />
+              <Lock className="w-4 h-4 text-[#B8AEA1] absolute left-3 top-3" />
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full pl-9 pr-4 py-2.5 bg-white border border-[#E5E5E5] focus:border-[#B11226] rounded-lg text-[#171717] outline-none transition-colors"
+                className="w-full pl-9 pr-4 py-2.5 bg-[#171310] border border-[#3A3027] focus:border-[#B84A32] rounded-lg text-[#F5EFE5] placeholder:text-[#B8AEA1]/40 outline-none transition-colors"
               />
             </div>
           </div>
@@ -145,7 +145,7 @@ export const RegisterPage: React.FC = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full py-3 rounded-full bg-gradient-to-r from-[#B11226] to-[#7F0D1D] text-white font-bold uppercase tracking-wider text-xs shadow-md hover:brightness-110 disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer transition-all"
+            className="w-full py-3 rounded-full bg-gradient-to-r from-[#B84A32] to-[#8B3525] hover:from-[#C85A3A] hover:to-[#B84A32] text-[#F5EFE5] font-bold uppercase tracking-wider text-xs shadow-md disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer transition-all"
           >
             {isSubmitting ? (
               <>
@@ -157,9 +157,9 @@ export const RegisterPage: React.FC = () => {
           </button>
         </form>
 
-        <div className="text-center text-xs text-[#6B6B6B]">
+        <div className="text-center text-xs text-[#B8AEA1]">
           Already registered?{' '}
-          <Link to="/login" className="text-[#B11226] font-semibold hover:underline">
+          <Link to="/login" className="text-[#B84A32] font-semibold hover:underline">
             Sign In
           </Link>
         </div>

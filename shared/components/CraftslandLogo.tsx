@@ -27,17 +27,13 @@ export const CraftslandLogo: React.FC<CraftslandLogoProps> = ({
         viewBox="0 0 64 64"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-full h-full drop-shadow-[0_2px_12px_rgba(177,18,38,0.25)]"
+        className="w-full h-full drop-shadow-[0_2px_12px_rgba(184,74,50,0.25)]"
       >
         <defs>
           <linearGradient id="logoRed" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#D71920" />
-            <stop offset="50%" stopColor="#B11226" />
-            <stop offset="100%" stopColor="#7F0D1D" />
-          </linearGradient>
-          <linearGradient id="darkInk" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#1E2028" />
-            <stop offset="100%" stopColor="#0B0C10" />
+            <stop offset="0%" stopColor="#C85A3A" />
+            <stop offset="50%" stopColor="#B84A32" />
+            <stop offset="100%" stopColor="#8B3525" />
           </linearGradient>
         </defs>
 
@@ -46,7 +42,7 @@ export const CraftslandLogo: React.FC<CraftslandLogoProps> = ({
           cx="32"
           cy="32"
           r="29"
-          stroke={isLight ? '#171717' : 'url(#logoRed)'}
+          stroke={isLight ? '#1A1714' : 'url(#logoRed)'}
           strokeWidth="1.5"
           strokeOpacity={isLight ? '0.8' : '0.5'}
         />
@@ -54,7 +50,7 @@ export const CraftslandLogo: React.FC<CraftslandLogoProps> = ({
           cx="32"
           cy="32"
           r="26"
-          stroke={isLight ? '#171717' : 'url(#logoRed)'}
+          stroke={isLight ? '#1A1714' : 'url(#logoRed)'}
           strokeWidth="0.8"
           strokeDasharray="2 2"
           strokeOpacity={isLight ? '0.4' : '0.7'}
@@ -63,18 +59,18 @@ export const CraftslandLogo: React.FC<CraftslandLogoProps> = ({
         {/* Stylized Sculpted "C" */}
         <path
           d="M42 22.5C39.5 18.5 35 16.5 30.5 17C22.5 17.8 17 24.2 17 32C17 39.8 22.8 46.2 30.8 47C36 47.5 41 44.5 43 40C43.5 38.8 42.4 37.8 41.2 38.3C38.2 39.8 34.5 40 31.5 38.5C26 35.8 24.5 29.5 27.5 24C29.5 20.5 33.5 19 37.2 20.2C38.5 20.6 39.8 21.4 41 22.8C41.8 23.7 42.8 23.8 43.2 22.8C43.4 22.3 42.8 21.5 42 22.5Z"
-          fill={isLight ? '#171717' : 'url(#logoRed)'}
+          fill={isLight ? '#1A1714' : 'url(#logoRed)'}
         />
 
         {/* Botanical Culinary Leaf Accent at Apex */}
         <path
           d="M34 22.5C38 20.5 44.5 21.5 47.5 25.5C45.5 28 41.5 30 36.5 28.5C35.2 26 34 24 34 22.5Z"
-          fill={isLight ? '#171717' : 'url(#logoRed)'}
+          fill={isLight ? '#1A1714' : 'url(#logoRed)'}
           opacity="0.95"
         />
         <path
           d="M36 28C40 25 44 23.5 47.5 25.5"
-          stroke={isLight ? '#FFFFFF' : '#FFFFFF'}
+          stroke="#FFFFFF"
           strokeWidth="0.8"
           strokeLinecap="round"
         />
@@ -95,12 +91,12 @@ export const CraftslandLogo: React.FC<CraftslandLogoProps> = ({
       {Emblem}
       <div className="flex flex-col justify-center">
         <span
-          className={`font-serif font-bold tracking-[0.18em] leading-none uppercase text-[#171717] ${sizeMap[size].title}`}
+          className={`font-serif font-bold tracking-[0.18em] leading-none uppercase ${isLight ? 'text-[#1A1714]' : 'text-[#F5EFE5]'} ${sizeMap[size].title}`}
         >
           CRAFTSLAND
         </span>
         <span
-          className={`font-sans tracking-[0.24em] font-semibold uppercase mt-1 text-[#B11226] ${sizeMap[size].tag}`}
+          className={`font-sans tracking-[0.24em] font-semibold uppercase mt-1 text-[#B84A32] ${sizeMap[size].tag}`}
         >
           Good Food Brighter Moods
         </span>

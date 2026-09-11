@@ -31,53 +31,53 @@ export const AdminLoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] text-[#171717] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[#171310] text-[#F5EFE5] flex items-center justify-center p-4">
       <MetaTags title="Admin Authentication | Craftsland" />
-      <div className="bg-white max-w-md w-full p-8 rounded-3xl border border-[#E5E5E5] space-y-6 shadow-md">
+      <div className="bg-[#211B16] max-w-md w-full p-8 rounded-3xl border border-[#3A3027] space-y-6 shadow-2xl">
         <div className="text-center space-y-2">
-          <div className="w-14 h-14 rounded-2xl bg-[#B11226]/10 border border-[#B11226]/20 text-[#B11226] flex items-center justify-center mx-auto shadow-sm">
+          <div className="w-14 h-14 rounded-2xl bg-[#B84A32]/15 border border-[#B84A32]/30 text-[#C85A3A] flex items-center justify-center mx-auto shadow-sm">
             <Shield className="w-8 h-8" />
           </div>
           <h1 className="font-serif text-2xl font-bold text-red-gradient">Admin Command Portal</h1>
-          <p className="text-xs text-gray-500">Executive staff access strictly enforced via Supabase RLS</p>
+          <p className="text-xs text-[#B8AEA1]">Executive staff access strictly enforced via Supabase RLS</p>
         </div>
 
         {error && (
-          <div className="bg-red-50 border border-red-200 p-3 rounded-xl text-xs text-red-600 flex items-center gap-2">
-            <AlertCircle className="w-4 h-4 text-red-600 flex-shrink-0" />
+          <div className="bg-red-950/30 border border-red-500/30 p-3 rounded-xl text-xs text-red-400 flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
             <span>{error}</span>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4 text-xs">
           <div className="space-y-1">
-            <label className="text-gray-700 font-semibold">Admin Email</label>
+            <label className="text-[#B8AEA1] font-semibold">Admin Email</label>
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="admin@craftsland.com"
-              className="w-full px-4 py-2.5 bg-white border border-[#E5E5E5] rounded-xl text-[#171717] focus:outline-none focus:border-[#B11226]"
+              className="w-full px-4 py-2.5 bg-[#171310] border border-[#3A3027] rounded-xl text-[#F5EFE5] placeholder-[#B8AEA1]/40 focus:outline-none focus:border-[#B84A32] transition-colors"
             />
           </div>
 
           <div className="space-y-1">
-            <label className="text-gray-700 font-semibold">Passkey</label>
+            <label className="text-[#B8AEA1] font-semibold">Passkey</label>
             <input
               type="password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full px-4 py-2.5 bg-white border border-[#E5E5E5] rounded-xl text-[#171717] focus:outline-none focus:border-[#B11226]"
+              className="w-full px-4 py-2.5 bg-[#171310] border border-[#3A3027] rounded-xl text-[#F5EFE5] placeholder-[#B8AEA1]/40 focus:outline-none focus:border-[#B84A32] transition-colors"
             />
           </div>
 
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full py-3.5 rounded-full bg-gradient-to-r from-[#B11226] to-[#7F0D1D] text-white font-bold uppercase tracking-wider text-xs shadow-md hover:brightness-110 cursor-pointer disabled:opacity-50 transition-all"
+            className="w-full py-3.5 rounded-full bg-gradient-to-r from-[#C85A3A] via-[#B84A32] to-[#8B3525] text-[#F5EFE5] font-bold uppercase tracking-wider text-xs shadow-lg hover:brightness-110 cursor-pointer disabled:opacity-50 transition-all"
           >
             {isSubmitting ? 'Authenticating...' : 'Authenticate Session'}
           </button>

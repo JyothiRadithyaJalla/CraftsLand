@@ -49,7 +49,7 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-[#0B0C10]/94 backdrop-blur-2xl transition-opacity cursor-pointer"
+            className="fixed inset-0 bg-[#0D0B09]/94 backdrop-blur-2xl transition-opacity cursor-pointer"
           />
 
           {/* Close Button with Red Ambient Glow */}
@@ -59,7 +59,7 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
             exit={{ opacity: 0, scale: 0.7 }}
             transition={{ duration: 0.25, delay: 0.1 }}
             onClick={onClose}
-            className="absolute top-6 right-6 z-50 p-3 rounded-full bg-[#111111]/80 border border-[#B11226]/40 text-[#FFFFFF] hover:text-[#D71920] hover:border-[#D71920] hover:bg-[#B11226]/20 transition-all shadow-xl cursor-pointer"
+            className="absolute top-6 right-6 z-50 p-3 rounded-full bg-[#211B16]/80 border border-[#B84A32]/40 text-[#F5EFE5] hover:text-[#C85A3A] hover:border-[#C85A3A] hover:bg-[#B84A32]/20 transition-all shadow-xl cursor-pointer"
             title="Close Preview (Esc)"
           >
             <X className="w-6 h-6" />
@@ -74,13 +74,13 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
             className="relative z-10 max-w-5xl max-h-[85vh] w-full flex flex-col items-center justify-center space-y-4 select-none pointer-events-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative rounded-2xl overflow-hidden border border-[#B11226]/40 shadow-[0_20px_80px_rgba(0,0,0,0.9),_0_0_40px_rgba(177,18,38,0.2)] bg-[#111111]">
+            <div className="relative rounded-2xl overflow-hidden border border-[#B84A32]/40 shadow-[0_20px_80px_rgba(0,0,0,0.9),_0_0_40px_rgba(184,74,50,0.2)] bg-[#171310]">
               <img
                 src={imageUrl}
                 alt={title || 'Craftsland Media'}
                 className="max-h-[75vh] w-auto max-w-full object-contain rounded-2xl"
               />
-              <div className="absolute inset-0 border border-[#B11226]/30 pointer-events-none rounded-2xl" />
+              <div className="absolute inset-0 border border-[#B84A32]/30 pointer-events-none rounded-2xl" />
             </div>
 
             {/* Image Details Caption */}
@@ -93,12 +93,12 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
                 className="text-center space-y-1"
               >
                 {category && (
-                  <span className="text-[10px] font-mono tracking-[0.25em] text-[#D71920] uppercase block font-semibold">
+                  <span className="text-[10px] font-mono tracking-[0.25em] text-[#C85A3A] uppercase block font-semibold">
                     {category}
                   </span>
                 )}
                 {title && (
-                  <h3 className="font-serif text-lg sm:text-xl font-bold text-[#FFFFFF] tracking-wide">
+                  <h3 className="font-serif text-lg sm:text-xl font-bold text-[#F5EFE5] tracking-wide">
                     {title}
                   </h3>
                 )}

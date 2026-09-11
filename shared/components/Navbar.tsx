@@ -39,8 +39,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCart }) => {
     <header
       className={`sticky top-0 z-40 transition-all duration-500 ${
         scrolled || !isHome
-          ? 'bg-white/95 backdrop-blur-xl border-b border-[#E5E5E5] shadow-xs py-4'
-          : 'bg-white/80 backdrop-blur-md py-5 border-b border-[#E5E5E5]/60'
+          ? 'bg-[#211B16]/95 backdrop-blur-xl border-b border-[#3A3027] shadow-xs py-4'
+          : 'bg-[#211B16]/85 backdrop-blur-md py-5 border-b border-[#3A3027]/60'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -48,10 +48,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCart }) => {
           
           {/* Logo / Brand Name */}
           <Link to="/" className="flex flex-col group">
-            <span className="font-serif text-2xl font-bold tracking-wider text-[#171717] group-hover:text-[#B11226] uppercase transition-colors">
+            <span className="font-serif text-2xl font-bold tracking-wider text-[#F5EFE5] group-hover:text-[#B84A32] uppercase transition-colors">
               {RESTAURANT_BRAND.name}
             </span>
-            <span className="font-display text-[9px] tracking-[0.25em] text-[#B11226] font-semibold uppercase -mt-1">
+            <span className="font-display text-[9px] tracking-[0.25em] text-[#B84A32] font-semibold uppercase -mt-1">
               Good Food Brighter Moods
             </span>
           </Link>
@@ -65,12 +65,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCart }) => {
                   key={link.path}
                   to={link.path}
                   className={`text-xs uppercase tracking-widest transition-colors font-medium relative ${
-                    isActive ? 'text-[#B11226] font-bold' : 'text-[#171717]/80 hover:text-[#B11226]'
+                    isActive ? 'text-[#B84A32] font-bold' : 'text-[#F5EFE5]/80 hover:text-[#B84A32]'
                   }`}
                 >
                   {link.name}
                   {isActive && (
-                    <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#B11226] rounded-full" />
+                    <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#B84A32] rounded-full" />
                   )}
                 </Link>
               );
@@ -81,19 +81,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCart }) => {
           <div className="hidden lg:flex items-center space-x-4">
             <Link
               to="/reservation"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-[#B11226] text-[#B11226] text-xs tracking-wider uppercase font-semibold hover:bg-[#B11226] hover:text-white transition-all cursor-pointer shadow-xs"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-[#B84A32] text-[#B84A32] text-xs tracking-wider uppercase font-semibold hover:bg-[#B84A32] hover:text-white transition-all cursor-pointer shadow-xs"
             >
               <Calendar className="w-3.5 h-3.5" /> Reserve
             </Link>
 
             <button
               onClick={onOpenCart}
-              className="relative p-2 rounded-full text-[#171717] hover:text-[#B11226] transition-colors cursor-pointer"
+              className="relative p-2 rounded-full text-[#F5EFE5] hover:text-[#B84A32] transition-colors cursor-pointer"
               aria-label="Cart"
             >
               <ShoppingBag className="w-5 h-5" />
               {totalItemsCount > 0 && (
-                <span className="absolute top-0 right-0 w-4 h-4 rounded-full bg-[#B11226] text-white font-bold text-[10px] flex items-center justify-center">
+                <span className="absolute top-0 right-0 w-4 h-4 rounded-full bg-[#B84A32] text-white font-bold text-[10px] flex items-center justify-center">
                   {totalItemsCount}
                 </span>
               )}
@@ -101,7 +101,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCart }) => {
 
             <Link
               to="/account"
-              className="p-2 rounded-full text-[#171717] hover:text-[#B11226] transition-colors"
+              className="p-2 rounded-full text-[#F5EFE5] hover:text-[#B84A32] transition-colors"
               aria-label="Account"
             >
               <User className="w-5 h-5" />
@@ -110,17 +110,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCart }) => {
 
           {/* Mobile Actions */}
           <div className="flex lg:hidden items-center space-x-3">
-            <button onClick={onOpenCart} className="relative p-2 text-[#171717] cursor-pointer">
+            <button onClick={onOpenCart} className="relative p-2 text-[#F5EFE5] cursor-pointer">
               <ShoppingBag className="w-5 h-5" />
               {totalItemsCount > 0 && (
-                <span className="absolute top-0 right-0 w-4 h-4 rounded-full bg-[#B11226] text-white font-bold text-[10px] flex items-center justify-center">
+                <span className="absolute top-0 right-0 w-4 h-4 rounded-full bg-[#B84A32] text-white font-bold text-[10px] flex items-center justify-center">
                   {totalItemsCount}
                 </span>
               )}
             </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-[#171717] hover:text-[#B11226] focus:outline-none cursor-pointer"
+              className="p-2 text-[#F5EFE5] hover:text-[#B84A32] focus:outline-none cursor-pointer"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
             </button>
@@ -131,22 +131,22 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCart }) => {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-[#E5E5E5] px-6 pt-4 pb-6 space-y-3 mt-4 shadow-lg animate-in slide-in-from-top duration-300">
+        <div className="lg:hidden bg-[#211B16] border-t border-[#3A3027] px-6 pt-4 pb-6 space-y-3 mt-4 shadow-lg animate-in slide-in-from-top duration-300">
           {navLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
               onClick={() => setMobileMenuOpen(false)}
-              className="block text-xs uppercase tracking-widest text-[#171717]/80 hover:text-[#B11226] py-2 font-medium"
+              className="block text-xs uppercase tracking-widest text-[#F5EFE5]/80 hover:text-[#B84A32] py-2 font-medium"
             >
               {link.name}
             </Link>
           ))}
-          <div className="pt-4 border-t border-[#E5E5E5] space-y-3">
+          <div className="pt-4 border-t border-[#3A3027] space-y-3">
             <Link
               to="/reservation"
               onClick={() => setMobileMenuOpen(false)}
-              className="block w-full text-center py-3 rounded-full bg-[#B11226] text-white font-bold uppercase tracking-wider text-xs shadow-md hover:bg-[#7F0D1D]"
+              className="block w-full text-center py-3 rounded-full bg-[#B84A32] text-white font-bold uppercase tracking-wider text-xs shadow-md hover:bg-[#8B3525]"
             >
               Reserve Table
             </Link>

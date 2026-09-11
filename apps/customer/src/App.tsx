@@ -48,7 +48,7 @@ export const App: React.FC = () => {
               <ThemeProvider>
                 <CraftslandCursor />
                 <Router>
-                  <div className="flex flex-col min-h-screen bg-[#FAFAFA] text-[#171717]">
+                  <div className="flex flex-col min-h-screen bg-[#0D0B09] text-[#F5EFE5]">
                     <Navbar onOpenCart={() => setCartDrawerOpen(true)} />
                     <CartDrawer isOpen={cartDrawerOpen} onClose={() => setCartDrawerOpen(false)} />
                     <WhatsAppButton />

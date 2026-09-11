@@ -16,17 +16,17 @@ export const DishCard: React.FC<DishCardProps> = ({ dish, onQuickView }) => {
   const getDietaryBadge = (tag: string) => {
     switch (tag) {
       case 'SIGNATURE':
-        return { label: 'Signature', class: 'bg-[#B11226]/10 text-[#B11226] border-[#B11226]/30' };
+        return { label: 'Signature', class: 'bg-[#B84A32]/20 text-[#D29A55] border-[#D29A55]/40' };
       case 'CHEFS_CHOICE':
-        return { label: "Chef's Pick", class: 'bg-[#D71920]/10 text-[#D71920] border-[#D71920]/30' };
+        return { label: "Chef's Pick", class: 'bg-[#D29A55]/15 text-[#D29A55] border-[#D29A55]/40' };
       case 'VEGETARIAN':
-        return { label: 'Vegetarian', class: 'bg-emerald-500/10 text-emerald-700 border-emerald-500/30' };
+        return { label: 'Vegetarian', class: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30' };
       case 'VEGAN':
-        return { label: 'Vegan', class: 'bg-green-500/10 text-green-700 border-green-500/30' };
+        return { label: 'Vegan', class: 'bg-green-500/15 text-green-400 border-green-500/30' };
       case 'SPICY':
-        return { label: 'Spicy', class: 'bg-red-500/10 text-red-600 border-red-500/30' };
+        return { label: 'Spicy', class: 'bg-red-500/15 text-red-400 border-red-500/30' };
       default:
-        return { label: tag.replace('_', ' '), class: 'bg-gray-100 text-neutral-700 border-gray-200' };
+        return { label: tag.replace('_', ' '), class: 'bg-[#171310] text-[#B8AEA1] border-[#3A3027]' };
     }
   };
 
@@ -36,7 +36,7 @@ export const DishCard: React.FC<DishCardProps> = ({ dish, onQuickView }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      className="group bg-white rounded-2xl border border-[#E5E5E5] overflow-hidden hover:border-[#B11226]/40 hover:shadow-[0_8px_30px_rgba(177,18,38,0.08)] transition-all duration-500 flex flex-col justify-between"
+      className="group bg-[#211B16] rounded-2xl border border-[#3A3027] overflow-hidden hover:border-[#B84A32]/50 hover:shadow-[0_8px_30px_rgba(184,74,50,0.12)] transition-all duration-500 flex flex-col justify-between"
     >
       {/* Media with Video/Hover Zoom & Clickable Lightbox */}
       <div className="relative overflow-hidden">
@@ -52,14 +52,14 @@ export const DishCard: React.FC<DishCardProps> = ({ dish, onQuickView }) => {
         />
 
         {/* Price Tag */}
-        <div className="absolute top-3 right-3 z-20 px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[#B11226] font-serif font-bold text-xs border border-[#E5E5E5] shadow-sm">
+        <div className="absolute top-3 right-3 z-20 px-3 py-1 rounded-full bg-[#171310]/90 backdrop-blur-md text-[#B84A32] font-serif font-bold text-xs border border-[#3A3027] shadow-md">
           ${dish.price.toFixed(2)}
         </div>
 
         {/* Sold Out Overlay */}
         {!dish.isAvailable && (
-          <div className="absolute inset-0 z-30 bg-black/60 backdrop-blur-xs flex items-center justify-center">
-            <span className="px-4 py-1.5 rounded-full bg-neutral-900 text-white border border-neutral-700 text-xs font-bold uppercase tracking-widest">
+          <div className="absolute inset-0 z-30 bg-black/70 backdrop-blur-xs flex items-center justify-center">
+            <span className="px-4 py-1.5 rounded-full bg-[#171310] text-[#B8AEA1] border border-[#3A3027] text-xs font-bold uppercase tracking-widest">
               Sold Out
             </span>
           </div>
@@ -82,25 +82,25 @@ export const DishCard: React.FC<DishCardProps> = ({ dish, onQuickView }) => {
       </div>
 
       {/* Dish Content Information */}
-      <div className="p-5 flex-1 flex flex-col justify-between space-y-4 bg-white">
+      <div className="p-5 flex-1 flex flex-col justify-between space-y-4 bg-[#211B16]">
         <div className="space-y-1.5">
-          <span className="text-[10px] uppercase font-sans tracking-widest text-[#B11226] font-bold block">
+          <span className="text-[10px] uppercase font-sans tracking-widest text-[#B84A32] font-bold block">
             {dish.categorySlug}
           </span>
-          <h3 className="font-serif text-lg font-bold text-[#171717] group-hover:text-[#B11226] transition-colors line-clamp-1">
+          <h3 className="font-serif text-lg font-bold text-[#F5EFE5] group-hover:text-[#B84A32] transition-colors line-clamp-1">
             {dish.name}
           </h3>
-          <p className="text-[#6B6B6B] text-xs leading-relaxed line-clamp-2 font-sans">
+          <p className="text-[#B8AEA1] text-xs leading-relaxed line-clamp-2 font-sans">
             {dish.description}
           </p>
         </div>
 
         {/* Action Controls: Quick View + Add to Bag */}
-        <div className="pt-3 border-t border-[#E5E5E5] flex items-center justify-between gap-3">
+        <div className="pt-3 border-t border-[#3A3027] flex items-center justify-between gap-3">
           <button
             type="button"
             onClick={() => onQuickView(dish)}
-            className="flex-1 py-2 rounded-xl bg-[#F3F3F3] hover:bg-neutral-200 text-[#171717] hover:text-[#B11226] text-xs font-semibold flex items-center justify-center gap-1.5 border border-[#E5E5E5] transition-colors cursor-pointer"
+            className="flex-1 py-2 rounded-xl bg-[#171310] hover:bg-[#0D0B09] text-[#F5EFE5] hover:text-[#B84A32] text-xs font-semibold flex items-center justify-center gap-1.5 border border-[#3A3027] transition-colors cursor-pointer"
           >
             <Eye className="w-3.5 h-3.5" />
             <span>Details</span>
@@ -114,8 +114,8 @@ export const DishCard: React.FC<DishCardProps> = ({ dish, onQuickView }) => {
             }}
             className={`px-4 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
               dish.isAvailable
-                ? 'bg-[#B11226] hover:bg-[#7F0D1D] text-white shadow-sm hover:shadow-md'
-                : 'bg-neutral-200 text-neutral-400 cursor-not-allowed'
+                ? 'bg-[#B84A32] hover:bg-[#8B3525] text-white shadow-sm hover:shadow-md'
+                : 'bg-[#171310] text-[#B8AEA1]/40 border border-[#3A3027] cursor-not-allowed'
             }`}
             title="Add to order"
           >

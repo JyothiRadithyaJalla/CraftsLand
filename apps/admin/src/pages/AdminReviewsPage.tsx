@@ -54,17 +54,17 @@ export const AdminReviewsPage: React.FC = () => {
     <AdminLayout>
       <MetaTags title="Review Moderation | Craftsland Admin" />
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#B11226]/20 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#3A3027] pb-4">
         <div>
           <h1 className="font-serif text-3xl font-bold text-red-gradient">Customer Review Moderation</h1>
-          <p className="text-xs text-gray-400">Review, publish, or hide dining feedback and star ratings</p>
+          <p className="text-xs text-[#B8AEA1]">Review, publish, or hide dining feedback and star ratings</p>
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl overflow-hidden border border-[#B11226]/20 bg-[#FFFFFF]/80">
+      <div className="bg-[#211B16] rounded-2xl overflow-hidden border border-[#3A3027] shadow-lg">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#FAFAFA] border-b border-[#E5E5E5] text-gray-400 uppercase text-[10px] font-mono">
+            <thead className="bg-[#171310] border-b border-[#3A3027] text-[#B8AEA1] uppercase text-[10px] font-mono">
               <tr>
                 <th className="p-4">Customer</th>
                 <th className="p-4">Target Dish</th>
@@ -74,22 +74,22 @@ export const AdminReviewsPage: React.FC = () => {
                 <th className="p-4 text-right">Publication Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody className="divide-y divide-[#3A3027]">
               {reviews.map((rev) => (
-                <tr key={rev.id} className="hover:bg-white/5 transition-colors">
-                  <td className="p-4 font-serif font-bold text-[#171717] text-sm">{rev.customerName}</td>
-                  <td className="p-4 font-mono text-[#B11226]">{rev.dishName}</td>
+                <tr key={rev.id} className="hover:bg-[#2A231C]/60 transition-colors">
+                  <td className="p-4 font-serif font-bold text-[#F5EFE5] text-sm">{rev.customerName}</td>
+                  <td className="p-4 font-mono text-[#C85A3A]">{rev.dishName}</td>
                   <td className="p-4">
-                    <div className="flex items-center gap-1 text-[#B11226]">
+                    <div className="flex items-center gap-1 text-[#D29A55]">
                       {Array.from({ length: rev.rating }).map((_, i) => (
-                        <Star key={i} className="w-3.5 h-3.5 fill-[#B11226]" />
+                        <Star key={i} className="w-3.5 h-3.5 fill-[#D29A55]" />
                       ))}
                     </div>
                   </td>
                   <td className="p-4 max-w-sm">
-                    <p className="text-gray-300 italic font-serif leading-relaxed">"{rev.comment}"</p>
+                    <p className="text-[#B8AEA1] italic font-serif leading-relaxed">"{rev.comment}"</p>
                   </td>
-                  <td className="p-4 font-mono text-gray-400">{rev.date}</td>
+                  <td className="p-4 font-mono text-[#B8AEA1]">{rev.date}</td>
                   <td className="p-4 text-right">
                     <button
                       onClick={() => handleTogglePublish(rev.id)}

@@ -58,7 +58,7 @@ export const KDSTicketCard: React.FC<KDSTicketCardProps> = ({ order, onUpdateSta
         return {
           nextStatus: 'READY' as OrderStatus,
           label: 'Mark Ready for Pass',
-          bgClass: 'bg-gradient-to-r from-[#B11226] to-[#7F0D1D] hover:brightness-110 text-white font-bold',
+          bgClass: 'bg-gradient-to-r from-[#B84A32] to-[#8B3525] hover:brightness-110 text-white font-bold',
           icon: Bell,
         };
       case 'READY':
@@ -106,17 +106,17 @@ export const KDSTicketCard: React.FC<KDSTicketCardProps> = ({ order, onUpdateSta
           ? 'border-red-500 bg-red-50/70 ring-2 ring-red-400 shadow-md'
           : urgencyLevel === 'warning'
           ? 'border-amber-400 bg-amber-50/50'
-          : 'border-[#E5E5E5] bg-white'
+          : 'border-[#E2DDD6] bg-[#FFFFFF]'
       }`}
     >
       {/* Ticket Header */}
       <div className="space-y-2">
-        <div className="flex items-center justify-between border-b border-gray-100 pb-2.5">
+        <div className="flex items-center justify-between border-b border-[#E2DDD6] pb-2.5">
           <div>
-            <span className="font-mono text-base font-bold text-[#B11226] block">
+            <span className="font-mono text-base font-bold text-[#B84A32] block">
               {order.orderNumber}
             </span>
-            <span className="text-[11px] text-gray-500 font-mono">
+            <span className="text-[11px] text-[#6B6560] font-mono">
               {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
             </span>
           </div>
@@ -140,7 +140,7 @@ export const KDSTicketCard: React.FC<KDSTicketCardProps> = ({ order, onUpdateSta
         <div className="flex items-center justify-between text-xs pt-1">
           <div className="flex items-center gap-1.5">
             {order.orderType === 'DINE_IN' && (
-              <span className="inline-flex items-center gap-1 bg-red-50 border border-red-200 text-[#B11226] px-2.5 py-0.5 rounded-full font-bold text-[11px]">
+              <span className="inline-flex items-center gap-1 bg-[#B84A32]/10 border border-[#B84A32]/25 text-[#B84A32] px-2.5 py-0.5 rounded-full font-bold text-[11px]">
                 <Utensils className="w-3 h-3" /> Dine-In
               </span>
             )}
@@ -157,7 +157,7 @@ export const KDSTicketCard: React.FC<KDSTicketCardProps> = ({ order, onUpdateSta
           </div>
 
           {order.tableNumber && (
-            <span className="font-mono font-bold text-white bg-[#B11226] px-2 py-0.5 rounded text-xs">
+            <span className="font-mono font-bold text-white bg-[#B84A32] px-2 py-0.5 rounded text-xs">
               Table {order.tableNumber}
             </span>
           )}
@@ -177,21 +177,21 @@ export const KDSTicketCard: React.FC<KDSTicketCardProps> = ({ order, onUpdateSta
       )}
 
       {/* Item List */}
-      <div className="space-y-3 py-1 border-t border-b border-gray-100 my-1 max-h-56 overflow-y-auto">
+      <div className="space-y-3 py-1 border-t border-b border-[#E2DDD6] my-1 max-h-56 overflow-y-auto">
         {order.items.map((item) => (
           <div key={item.id} className="text-xs space-y-1">
-            <div className="flex items-start justify-between font-bold text-[#171717]">
+            <div className="flex items-start justify-between font-bold text-[#1A1714]">
               <span className="flex gap-2">
-                <span className="text-[#B11226] font-mono text-sm bg-red-50 border border-red-100 px-1.5 py-0.5 rounded font-bold">
+                <span className="text-[#B84A32] font-mono text-sm bg-[#B84A32]/10 border border-[#B84A32]/20 px-1.5 py-0.5 rounded font-bold">
                   {item.quantity}×
                 </span>
-                <span className="text-sm font-serif text-[#171717]">{item.dishName}</span>
+                <span className="text-sm font-serif text-[#1A1714]">{item.dishName}</span>
               </span>
             </div>
 
             {/* Modifiers List */}
             {item.selectedModifiers.length > 0 && (
-              <div className="pl-7 space-y-0.5 text-[11px] text-[#B11226] font-mono">
+              <div className="pl-7 space-y-0.5 text-[11px] text-[#B84A32] font-mono">
                 {item.selectedModifiers.map((m, idx) => (
                   <span key={idx} className="block font-medium">• {m.optionName}</span>
                 ))}
@@ -203,9 +203,9 @@ export const KDSTicketCard: React.FC<KDSTicketCardProps> = ({ order, onUpdateSta
 
       {/* Special Instructions Notes */}
       {order.specialInstructions && (
-        <div className="bg-gray-50 border border-gray-200 p-2.5 rounded-xl text-xs space-y-1">
-          <span className="text-[10px] text-gray-500 uppercase tracking-wider block font-semibold">Special Instructions</span>
-          <p className="text-gray-700 italic font-serif">{order.specialInstructions}</p>
+        <div className="bg-[#F5F2EE] border border-[#E2DDD6] p-2.5 rounded-xl text-xs space-y-1">
+          <span className="text-[10px] text-[#6B6560] uppercase tracking-wider block font-semibold">Special Instructions</span>
+          <p className="text-[#1A1714] italic font-serif">{order.specialInstructions}</p>
         </div>
       )}
 

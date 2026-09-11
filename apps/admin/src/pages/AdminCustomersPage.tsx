@@ -64,28 +64,28 @@ export const AdminCustomersPage: React.FC = () => {
     <AdminLayout>
       <MetaTags title="Customer CRM | Craftsland Admin" />
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#B11226]/20 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#3A3027] pb-4">
         <div>
           <h1 className="font-serif text-3xl font-bold text-red-gradient">Customer Directory & CRM</h1>
-          <p className="text-xs text-gray-400">Registered patron profiles, order history totals, and lifetime value</p>
+          <p className="text-xs text-[#B8AEA1]">Registered patron profiles, order history totals, and lifetime value</p>
         </div>
 
         <div className="relative w-full sm:w-64">
-          <Search className="absolute left-3 top-2.5 w-3.5 h-3.5 text-gray-400" />
+          <Search className="absolute left-3 top-2.5 w-3.5 h-3.5 text-[#B8AEA1]" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search name, email, or phone..."
-            className="w-full bg-[#FFFFFF] border border-[#E5E5E5] rounded-xl pl-9 pr-4 py-1.5 text-xs text-[#171717] focus:outline-none focus:border-[#B11226]"
+            className="w-full bg-[#171310] border border-[#3A3027] rounded-xl pl-9 pr-4 py-1.5 text-xs text-[#F5EFE5] placeholder-[#B8AEA1]/40 focus:outline-none focus:border-[#B84A32] transition-colors"
           />
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl overflow-hidden border border-[#B11226]/20 bg-[#FFFFFF]/80">
+      <div className="bg-[#211B16] rounded-2xl overflow-hidden border border-[#3A3027] shadow-lg">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#FAFAFA] border-b border-[#E5E5E5] text-gray-400 uppercase text-[10px] font-mono">
+            <thead className="bg-[#171310] border-b border-[#3A3027] text-[#B8AEA1] uppercase text-[10px] font-mono">
               <tr>
                 <th className="p-4">Customer Name</th>
                 <th className="p-4">Contact Info</th>
@@ -95,21 +95,21 @@ export const AdminCustomersPage: React.FC = () => {
                 <th className="p-4 text-right">Latest Dining</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody className="divide-y divide-[#3A3027]">
               {filteredCustomers.map((c) => (
-                <tr key={c.id} className="hover:bg-white/5 transition-colors">
+                <tr key={c.id} className="hover:bg-[#2A231C]/60 transition-colors">
                   <td className="p-4">
-                    <span className="font-serif font-bold text-[#171717] text-sm block">{c.fullName}</span>
-                    <span className="text-[10px] text-[#B11226] font-mono">{c.role}</span>
+                    <span className="font-serif font-bold text-[#F5EFE5] text-sm block">{c.fullName}</span>
+                    <span className="text-[10px] text-[#C85A3A] font-mono">{c.role}</span>
                   </td>
-                  <td className="p-4 font-mono text-gray-300">
-                    <span className="block">{c.email}</span>
-                    <span className="text-gray-400 text-[11px]">{c.phone}</span>
+                  <td className="p-4 font-mono">
+                    <span className="block text-[#F5EFE5]">{c.email}</span>
+                    <span className="text-[#B8AEA1] text-[11px]">{c.phone}</span>
                   </td>
-                  <td className="p-4 font-mono text-gray-400">{c.registeredDate}</td>
-                  <td className="p-4 font-mono font-bold text-[#171717]">{c.ordersCount} orders</td>
-                  <td className="p-4 font-mono font-bold text-[#B11226]">${c.totalSpent.toFixed(2)}</td>
-                  <td className="p-4 font-mono text-gray-400 text-right">{c.lastOrderDate}</td>
+                  <td className="p-4 font-mono text-[#B8AEA1]">{c.registeredDate}</td>
+                  <td className="p-4 font-mono font-bold text-[#F5EFE5]">{c.ordersCount} orders</td>
+                  <td className="p-4 font-mono font-bold text-[#C85A3A]">${c.totalSpent.toFixed(2)}</td>
+                  <td className="p-4 font-mono text-[#B8AEA1] text-right">{c.lastOrderDate}</td>
                 </tr>
               ))}
             </tbody>

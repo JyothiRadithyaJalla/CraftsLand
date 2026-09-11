@@ -39,8 +39,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCart }) => {
     <header
       className={`sticky top-0 z-40 transition-all duration-500 ${
         scrolled || !isHome
-          ? 'bg-white/95 backdrop-blur-xl border-b border-[#E5E5E5] py-3.5 shadow-sm'
-          : 'bg-white/85 backdrop-blur-md py-4 border-b border-[#E5E5E5]/50'
+          ? 'bg-[#0D0B09]/95 backdrop-blur-xl border-b border-[#3A3027] py-3.5 shadow-lg'
+          : 'bg-[#0D0B09]/80 backdrop-blur-md py-4 border-b border-[#3A3027]/50'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -61,13 +61,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCart }) => {
                   to={link.path}
                   className={`text-xs font-semibold tracking-[0.15em] uppercase transition-all duration-300 relative py-1 ${
                     isActive
-                      ? 'text-[#B11226]'
-                      : 'text-[#171717]/80 hover:text-[#B11226]'
+                      ? 'text-[#B84A32]'
+                      : 'text-[#B8AEA1] hover:text-[#F5EFE5]'
                   }`}
                 >
                   {link.name}
                   {isActive && (
-                    <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#B11226] rounded-full" />
+                    <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#B84A32] rounded-full" />
                   )}
                 </Link>
               );
@@ -79,7 +79,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCart }) => {
             {/* Table Reservation Button */}
             <Link
               to="/reservation"
-              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#B11226] bg-[#B11226] hover:bg-[#7F0D1D] text-white font-sans font-semibold text-xs tracking-wider uppercase transition-all duration-300 shadow-sm"
+              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#B84A32] bg-[#B84A32] hover:bg-[#8B3525] text-white font-sans font-semibold text-xs tracking-wider uppercase transition-all duration-300 shadow-sm"
             >
               <Calendar className="w-3.5 h-3.5" />
               <span>Reserve Table</span>
@@ -88,7 +88,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCart }) => {
             {/* Account Profile Icon */}
             <Link
               to="/account"
-              className="p-2 rounded-full text-[#171717] hover:text-[#B11226] hover:bg-neutral-100 transition-colors"
+              className="p-2 rounded-full text-[#F5EFE5] hover:text-[#B84A32] hover:bg-[#211B16] transition-colors"
               title="Customer Account"
             >
               <User className="w-5 h-5" />
@@ -97,12 +97,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCart }) => {
             {/* Cart Drawer Trigger */}
             <button
               onClick={onOpenCart}
-              className="relative p-2 rounded-full text-[#171717] hover:text-[#B11226] hover:bg-neutral-100 transition-colors cursor-pointer"
+              className="relative p-2 rounded-full text-[#F5EFE5] hover:text-[#B84A32] hover:bg-[#211B16] transition-colors cursor-pointer"
               title="View Bag"
             >
               <ShoppingBag className="w-5 h-5" />
               {totalItemsCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-[#B11226] text-white font-bold text-[10px] flex items-center justify-center border-2 border-white animate-in zoom-in-50">
+                <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-[#B84A32] text-white font-bold text-[10px] flex items-center justify-center border-2 border-[#0D0B09] animate-in zoom-in-50">
                   {totalItemsCount}
                 </span>
               )}
@@ -111,7 +111,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCart }) => {
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg text-[#171717] hover:text-[#B11226] cursor-pointer"
+              className="lg:hidden p-2 rounded-lg text-[#F5EFE5] hover:text-[#B84A32] cursor-pointer"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
             </button>
@@ -121,7 +121,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCart }) => {
 
       {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-[#E5E5E5] bg-white px-6 py-8 space-y-5 shadow-lg animate-in slide-in-from-top-4 duration-300">
+        <div className="lg:hidden border-t border-[#3A3027] bg-[#171310] px-6 py-8 space-y-5 shadow-2xl animate-in slide-in-from-top-4 duration-300">
           <div className="flex flex-col space-y-4">
             {navLinks.map((link) => (
               <Link
@@ -129,7 +129,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCart }) => {
                 to={link.path}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`text-sm font-semibold tracking-widest uppercase transition-colors ${
-                  location.pathname === link.path ? 'text-[#B11226]' : 'text-[#171717]/80'
+                  location.pathname === link.path ? 'text-[#B84A32]' : 'text-[#B8AEA1] hover:text-[#F5EFE5]'
                 }`}
               >
                 {link.name}
@@ -137,11 +137,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCart }) => {
             ))}
           </div>
 
-          <div className="pt-4 border-t border-[#E5E5E5] flex flex-col gap-3">
+          <div className="pt-4 border-t border-[#3A3027] flex flex-col gap-3">
             <Link
               to="/reservation"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-3 rounded-full bg-[#B11226] text-white font-bold text-xs uppercase tracking-wider shadow-md hover:bg-[#7F0D1D]"
+              className="w-full text-center py-3 rounded-full bg-[#B84A32] text-white font-bold text-xs uppercase tracking-wider shadow-md hover:bg-[#8B3525]"
             >
               Reserve a Table
             </Link>
