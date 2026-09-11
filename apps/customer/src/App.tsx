@@ -8,6 +8,7 @@ import { MenuProvider } from '@shared/context/MenuContext';
 import { OrderProvider } from '@shared/context/OrderContext';
 import { ThemeProvider } from '@shared/context/ThemeContext';
 import { ErrorBoundary } from '@shared/components/ErrorBoundary';
+import { RouteGuard } from '@shared/components/RouteGuard';
 import { CraftslandCursor } from '@shared/components/CraftslandCursor';
 
 // Customer Components
@@ -66,7 +67,18 @@ export const App: React.FC = () => {
                         <Route path="/gallery" element={<GalleryPage />} />
                         <Route path="/events" element={<EventsPage />} />
                         <Route path="/contact" element={<ContactPage />} />
-                        <Route path="/account" element={<AccountPage />} />
+                        <Route
+                          path="/account"
+                          element={
+                            <RouteGuard
+                              allowedRoles={['CUSTOMER', 'ADMIN', 'SUPER_ADMIN']}
+                              appName="Customer Concierge Portal"
+                              loginPath="/login"
+                            >
+                              <AccountPage />
+                            </RouteGuard>
+                          }
+                        />
                         <Route path="/favorites" element={<FavoritesPage />} />
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/register" element={<RegisterPage />} />

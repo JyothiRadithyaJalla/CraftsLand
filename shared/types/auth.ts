@@ -11,6 +11,26 @@ export interface UserProfile {
 
 export interface AuthState {
   user: UserProfile | null;
+  role: UserRole;
   isAuthenticated: boolean;
   isLoading: boolean;
 }
+
+export interface RegisterPayload {
+  email: string;
+  password: string;
+  fullName: string;
+  phone?: string;
+}
+
+export interface LoginPayload {
+  email: string;
+  password: string;
+}
+
+export interface AuthResult {
+  user: UserProfile | null;
+  error?: string;
+  requiresEmailVerification?: boolean;
+}
+

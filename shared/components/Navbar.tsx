@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ShoppingBag, Calendar, User, Menu as MenuIcon, X, Shield, ChefHat } from 'lucide-react';
+import { ShoppingBag, Calendar, User, Menu as MenuIcon, X } from 'lucide-react';
 import { useCart } from '../hooks/useCart';
-import { useAuth } from '../hooks/useAuth';
 import { RESTAURANT_BRAND } from '../config/constants';
-import type { UserRole } from '../types/auth';
 
 interface NavbarProps {
   onOpenCart?: () => void;
@@ -15,7 +13,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCart }) => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { items } = useCart();
-  const { role, switchRoleForDev } = useAuth();
 
   const totalItemsCount = items.reduce((acc, i) => acc + i.quantity, 0);
 
@@ -35,8 +32,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCart }) => {
     { name: 'Private Events', path: '/events' },
     { name: 'Contact', path: '/contact' },
   ];
-
-  const devRoles: UserRole[] = ['CUSTOMER', 'ADMIN', 'KITCHEN', 'SUPER_ADMIN'];
 
   const isHome = location.pathname === '/';
 
@@ -82,44 +77,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCart }) => {
             })}
           </nav>
 
-          {/* Actions & Dev Switcher */}
+          {/* Actions & Utilities */}
           <div className="hidden lg:flex items-center space-x-4">
-            {/* Dev Mode Role Switcher */}
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F3F3F3] border border-[#E5E5E5] text-[11px]">
-              <Shield className="w-3.5 h-3.5 text-[#B11226]" />
-              <span className="text-[#6B6B6B] font-mono text-[10px] uppercase">Dev Role:</span>
-              <select
-                value={role}
-                onChange={(e) => switchRoleForDev(e.target.value as UserRole)}
-                className="bg-transparent text-[#B11226] font-semibold focus:outline-none cursor-pointer"
-              >
-                {devRoles.map((r) => (
-                  <option key={r} value={r} className="bg-white text-[#171717]">
-                    {r}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Role Portals Links */}
-            {(role === 'ADMIN' || role === 'SUPER_ADMIN') && (
-              <Link
-                to="/admin"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#B11226]/10 text-[#B11226] border border-[#B11226]/25 text-xs font-medium hover:bg-[#B11226]/20 transition-all"
-              >
-                <Shield className="w-3.5 h-3.5" /> Admin
-              </Link>
-            )}
-
-            {(role === 'KITCHEN' || role === 'ADMIN' || role === 'SUPER_ADMIN') && (
-              <Link
-                to="/kitchen"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-100 text-[#171717] border border-[#E5E5E5] text-xs font-medium hover:bg-neutral-200 transition-all"
-              >
-                <ChefHat className="w-3.5 h-3.5 text-[#B11226]" /> KDS
-              </Link>
-            )}
-
             <Link
               to="/reservation"
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-[#B11226] text-[#B11226] text-xs tracking-wider uppercase font-semibold hover:bg-[#B11226] hover:text-white transition-all cursor-pointer shadow-xs"

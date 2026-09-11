@@ -17,8 +17,11 @@ export const KitchenLoginPage: React.FC = () => {
     setIsSubmitting(true);
     setError(null);
     try {
-      await login(email, password);
-      // In development, dev role can be KITCHEN
+      const result = await login({ email, password });
+      if (result.error) {
+        setError(result.error);
+        return;
+      }
       navigate('/');
     } catch (err: any) {
       setError(err?.message || 'Authentication failed. Please verify credentials.');

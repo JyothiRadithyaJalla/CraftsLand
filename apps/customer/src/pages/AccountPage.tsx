@@ -1,28 +1,39 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@shared/hooks/useAuth';
 import { useOrders } from '@shared/hooks/useOrders';
 import { ReservationService } from '@shared/services/reservationService';
 import type { Reservation } from '@shared/types/reservation';
 import { MetaTags } from '@shared/components/MetaTags';
 import { SEATING_SECTIONS } from '@shared/config/constants';
-import { User, Shield, ShoppingBag, Clock, ArrowRight, Calendar, Users, XCircle } from 'lucide-react';
+import { User, Shield, ShoppingBag, Clock, ArrowRight, Calendar, Users, XCircle, LogOut } from 'lucide-react';
 
 export const AccountPage: React.FC = () => {
-  const { user, role } = useAuth();
+  const navigate = useNavigate();
+  const { user, role, logout, isAuthenticated } = useAuth();
   const { orders } = useOrders();
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [loadingReservations, setLoadingReservations] = useState<boolean>(true);
 
+  // If unauthenticated, redirect to login
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/login', { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
+
   const fetchReservations = async () => {
+    if (!user) return;
     setLoadingReservations(true);
-    const list = await ReservationService.getCustomerReservations(user?.id, user?.email);
+    const list = await ReservationService.getCustomerReservations(user.id, user.email);
     setReservations(list);
     setLoadingReservations(false);
   };
 
   useEffect(() => {
-    fetchReservations();
+    if (user) {
+      fetchReservations();
+    }
   }, [user]);
 
   const handleCancelReservation = async (id: string) => {
@@ -34,21 +45,36 @@ export const AccountPage: React.FC = () => {
     }
   };
 
+  const handleSignOut = async () => {
+    await logout();
+    navigate('/login', { replace: true });
+  };
+
   return (
     <div className="max-w-3xl mx-auto px-4 py-12 space-y-8 text-[#171717]">
       <MetaTags title="Guest Account | Craftsland" />
 
       {/* Account Info */}
       <div className="bg-white p-8 rounded-2xl space-y-6 border border-[#E5E5E5] shadow-sm">
-        <div className="flex items-center gap-4 border-b border-gray-100 pb-4">
-          <div className="w-14 h-14 rounded-full bg-[#B11226]/10 text-[#B11226] flex items-center justify-center font-bold text-xl">
-            <User className="w-7 h-7" />
+        <div className="flex items-center justify-between border-b border-gray-100 pb-4">
+          <div className="flex items-center gap-4">
+            <div className="w-14 h-14 rounded-full bg-[#B11226]/10 text-[#B11226] flex items-center justify-center font-bold text-xl">
+              <User className="w-7 h-7" />
+            </div>
+            <div>
+              <h1 className="font-serif text-2xl font-bold text-[#171717]">{user?.fullName || 'Distinguished Guest'}</h1>
+              <p className="text-xs text-gray-500">{user?.email || 'guest@craftsland.com'}</p>
+            </div>
           </div>
-          <div>
-            <h1 className="font-serif text-2xl font-bold text-[#171717]">{user?.fullName || 'Distinguished Guest'}</h1>
-            <p className="text-xs text-gray-500">{user?.email || 'guest@craftsland.com'}</p>
-          </div>
+
+          <button
+            onClick={handleSignOut}
+            className="px-4 py-2 rounded-full border border-[#E5E5E5] hover:border-[#B11226] text-gray-600 hover:text-[#B11226] text-xs font-semibold flex items-center gap-2 cursor-pointer transition-colors"
+          >
+            <LogOut className="w-3.5 h-3.5" /> Sign Out
+          </button>
         </div>
+
         <div className="flex items-center justify-between text-xs text-gray-600">
           <span>Assigned Permission Role:</span>
           <span className="inline-flex items-center gap-1 font-mono font-bold text-[#B11226] bg-[#B11226]/10 px-3 py-1 rounded-full border border-[#B11226]/20">

@@ -17,7 +17,11 @@ export const AdminLoginPage: React.FC = () => {
     setIsSubmitting(true);
     setError(null);
     try {
-      await login(email, password);
+      const result = await login({ email, password });
+      if (result.error) {
+        setError(result.error);
+        return;
+      }
       navigate('/');
     } catch (err: any) {
       setError(err?.message || 'Authentication failed. Please verify admin credentials.');
