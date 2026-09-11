@@ -64,9 +64,9 @@ export const AdminCustomersPage: React.FC = () => {
     <AdminLayout>
       <MetaTags title="Customer CRM | Craftsland Admin" />
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#D4AF37]/20 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#B11226]/20 pb-4">
         <div>
-          <h1 className="font-serif text-3xl font-bold text-gold-gradient">Customer Directory & CRM</h1>
+          <h1 className="font-serif text-3xl font-bold text-red-gradient">Customer Directory & CRM</h1>
           <p className="text-xs text-gray-400">Registered patron profiles, order history totals, and lifetime value</p>
         </div>
 
@@ -77,15 +77,15 @@ export const AdminCustomersPage: React.FC = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search name, email, or phone..."
-            className="w-full bg-[#12141C] border border-white/15 rounded-xl pl-9 pr-4 py-1.5 text-xs text-[#F4F1EA] focus:outline-none focus:border-[#D4AF37]"
+            className="w-full bg-[#FFFFFF] border border-[#E5E5E5] rounded-xl pl-9 pr-4 py-1.5 text-xs text-[#171717] focus:outline-none focus:border-[#B11226]"
           />
         </div>
       </div>
 
-      <div className="glass-panel rounded-2xl overflow-hidden border border-[#D4AF37]/20 bg-[#12141C]/80">
+      <div className="bg-white rounded-2xl overflow-hidden border border-[#B11226]/20 bg-[#FFFFFF]/80">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#0B0C10] border-b border-white/10 text-gray-400 uppercase text-[10px] font-mono">
+            <thead className="bg-[#FAFAFA] border-b border-[#E5E5E5] text-gray-400 uppercase text-[10px] font-mono">
               <tr>
                 <th className="p-4">Customer Name</th>
                 <th className="p-4">Contact Info</th>
@@ -99,16 +99,16 @@ export const AdminCustomersPage: React.FC = () => {
               {filteredCustomers.map((c) => (
                 <tr key={c.id} className="hover:bg-white/5 transition-colors">
                   <td className="p-4">
-                    <span className="font-serif font-bold text-[#F4F1EA] text-sm block">{c.fullName}</span>
-                    <span className="text-[10px] text-[#D4AF37] font-mono">{c.role}</span>
+                    <span className="font-serif font-bold text-[#171717] text-sm block">{c.fullName}</span>
+                    <span className="text-[10px] text-[#B11226] font-mono">{c.role}</span>
                   </td>
                   <td className="p-4 font-mono text-gray-300">
                     <span className="block">{c.email}</span>
                     <span className="text-gray-400 text-[11px]">{c.phone}</span>
                   </td>
                   <td className="p-4 font-mono text-gray-400">{c.registeredDate}</td>
-                  <td className="p-4 font-mono font-bold text-[#F4F1EA]">{c.ordersCount} orders</td>
-                  <td className="p-4 font-mono font-bold text-[#D4AF37]">${c.totalSpent.toFixed(2)}</td>
+                  <td className="p-4 font-mono font-bold text-[#171717]">{c.ordersCount} orders</td>
+                  <td className="p-4 font-mono font-bold text-[#B11226]">${c.totalSpent.toFixed(2)}</td>
                   <td className="p-4 font-mono text-gray-400 text-right">{c.lastOrderDate}</td>
                 </tr>
               ))}

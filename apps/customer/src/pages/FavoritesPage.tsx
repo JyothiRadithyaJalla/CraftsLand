@@ -10,7 +10,7 @@ export const FavoritesPage: React.FC = () => {
       <EmptyState
         title="No Saved Favorites Yet"
         description="Bookmark dishes from our Haute Menu for effortless quick ordering on your next dining journey."
-        icon={<Heart className="w-7 h-7 text-[#D4AF37]" />}
+        icon={<Heart className="w-7 h-7 text-[#B11226]" />}
       />
     </div>
   );

@@ -24,7 +24,11 @@ export interface OrderItem {
 export interface Order {
   id: string;
   orderNumber: string;
+  trackingToken?: string;
   customerId?: string;
+  guestName?: string;
+  guestEmail?: string;
+  guestPhone?: string;
   orderType: OrderType;
   tableNumber?: string;
   deliveryAddress?: string;

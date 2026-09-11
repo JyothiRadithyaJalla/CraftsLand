@@ -63,21 +63,21 @@ export const AdminReservationsPage: React.FC = () => {
       <MetaTags title="Reservations Control | Craftsland Admin" />
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#D4AF37]/20 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#B11226]/20 pb-4">
         <div>
-          <h1 className="font-serif text-3xl font-bold text-gold-gradient">Table Reservations Suite</h1>
+          <h1 className="font-serif text-3xl font-bold text-red-gradient">Table Reservations Suite</h1>
           <p className="text-xs text-gray-400">Manage seating section allocations, guest check-ins, and booking status</p>
         </div>
         <button
           onClick={() => loadReservations()}
-          className="px-4 py-2.5 rounded-xl border border-white/15 bg-white/5 text-gray-300 hover:text-white text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer"
+          className="px-4 py-2.5 rounded-xl border border-[#E5E5E5] bg-white/5 text-gray-300 hover:text-white text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer"
         >
           <RefreshCw className="w-3.5 h-3.5" /> Sync Bookings
         </button>
       </div>
 
       {/* Filters & Search */}
-      <div className="glass-panel p-4 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4 text-xs bg-[#12141C]/80">
+      <div className="bg-white p-4 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4 text-xs bg-[#FFFFFF]/80">
         <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
           {/* Status Filter */}
           <div className="space-y-1">
@@ -85,7 +85,7 @@ export const AdminReservationsPage: React.FC = () => {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="bg-[#0B0C10] border border-white/15 rounded-xl px-3 py-1.5 text-xs text-[#F4F1EA] focus:outline-none focus:border-[#D4AF37]"
+              className="bg-[#FAFAFA] border border-[#E5E5E5] rounded-xl px-3 py-1.5 text-xs text-[#171717] focus:outline-none focus:border-[#B11226]"
             >
               <option value="ALL">All Statuses</option>
               <option value="CONFIRMED">CONFIRMED</option>
@@ -101,7 +101,7 @@ export const AdminReservationsPage: React.FC = () => {
             <select
               value={sectionFilter}
               onChange={(e) => setSectionFilter(e.target.value)}
-              className="bg-[#0B0C10] border border-white/15 rounded-xl px-3 py-1.5 text-xs text-[#F4F1EA] focus:outline-none focus:border-[#D4AF37]"
+              className="bg-[#FAFAFA] border border-[#E5E5E5] rounded-xl px-3 py-1.5 text-xs text-[#171717] focus:outline-none focus:border-[#B11226]"
             >
               <option value="ALL">All Sections</option>
               {SEATING_SECTIONS.map((sec) => (
@@ -119,16 +119,16 @@ export const AdminReservationsPage: React.FC = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search booking #, guest, or email..."
-            className="w-full bg-[#0B0C10] border border-white/15 rounded-xl pl-9 pr-4 py-1.5 text-xs text-[#F4F1EA] focus:outline-none focus:border-[#D4AF37]"
+            className="w-full bg-[#FAFAFA] border border-[#E5E5E5] rounded-xl pl-9 pr-4 py-1.5 text-xs text-[#171717] focus:outline-none focus:border-[#B11226]"
           />
         </div>
       </div>
 
       {/* Reservations Table */}
-      <div className="glass-panel rounded-2xl overflow-hidden border border-[#D4AF37]/20 bg-[#12141C]/80">
+      <div className="bg-white rounded-2xl overflow-hidden border border-[#B11226]/20 bg-[#FFFFFF]/80">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#0B0C10] border-b border-white/10 text-gray-400 uppercase text-[10px] font-mono">
+            <thead className="bg-[#FAFAFA] border-b border-[#E5E5E5] text-gray-400 uppercase text-[10px] font-mono">
               <tr>
                 <th className="p-4">Reference #</th>
                 <th className="p-4">Guest Info</th>
@@ -157,26 +157,26 @@ export const AdminReservationsPage: React.FC = () => {
                   const sectionObj = SEATING_SECTIONS.find((s) => s.id === res.seatingSection);
                   return (
                     <tr key={res.id} className="hover:bg-white/5 transition-colors">
-                      <td className="p-4 font-mono font-bold text-[#D4AF37]">{res.bookingReference}</td>
+                      <td className="p-4 font-mono font-bold text-[#B11226]">{res.bookingReference}</td>
                       <td className="p-4">
-                        <span className="font-serif font-bold text-[#F4F1EA] text-sm block">{res.guestName}</span>
+                        <span className="font-serif font-bold text-[#171717] text-sm block">{res.guestName}</span>
                         <span className="text-[11px] text-gray-400 font-mono">{res.guestEmail} • {res.guestPhone}</span>
                         {res.specialRequests && (
-                          <p className="text-[10px] text-[#D4AF37] italic mt-0.5 max-w-xs truncate">
+                          <p className="text-[10px] text-[#B11226] italic mt-0.5 max-w-xs truncate">
                             "{res.specialRequests}"
                           </p>
                         )}
                       </td>
                       <td className="p-4 font-mono text-gray-300">
-                        <span className="block font-bold text-[#F4F1EA]">{res.reservationDate}</span>
-                        <span className="text-[#D4AF37]">{res.reservationTime}</span>
+                        <span className="block font-bold text-[#171717]">{res.reservationDate}</span>
+                        <span className="text-[#B11226]">{res.reservationTime}</span>
                       </td>
-                      <td className="p-4 font-mono font-bold text-[#F4F1EA]">{res.partySize} Guests</td>
+                      <td className="p-4 font-mono font-bold text-[#171717]">{res.partySize} Guests</td>
                       <td className="p-4 font-mono text-gray-300">{sectionObj?.name || res.seatingSection}</td>
                       <td className="p-4">
                         <span className={`px-2.5 py-1 rounded-full uppercase text-[10px] font-bold ${
                           res.status === 'CONFIRMED'
-                            ? 'bg-[#D4AF37]/20 text-[#D4AF37] border border-[#D4AF37]/40'
+                            ? 'bg-[#B11226]/20 text-[#B11226] border border-[#B11226]/40'
                             : res.status === 'SEATED'
                             ? 'bg-blue-500/20 text-blue-300 border border-blue-500/40'
                             : res.status === 'COMPLETED'
@@ -190,7 +190,7 @@ export const AdminReservationsPage: React.FC = () => {
                         <select
                           value={res.status}
                           onChange={(e) => handleStatusChange(res.id, e.target.value as ReservationStatus)}
-                          className="bg-[#0B0C10] border border-white/15 rounded-lg px-2.5 py-1 text-xs text-[#F4F1EA] focus:outline-none focus:border-[#D4AF37]"
+                          className="bg-[#FAFAFA] border border-[#E5E5E5] rounded-lg px-2.5 py-1 text-xs text-[#171717] focus:outline-none focus:border-[#B11226]"
                         >
                           <option value="CONFIRMED">CONFIRMED</option>
                           <option value="SEATED">SEATED</option>

@@ -78,13 +78,13 @@ export const GalleryPage: React.FC = () => {
 
       {/* Header */}
       <div className="text-center space-y-3">
-        <span className="font-sans text-xs font-bold text-[#D4AF37] tracking-[0.3em] uppercase block">
+        <span className="font-sans text-xs font-bold text-[#B11226] tracking-[0.3em] uppercase block">
           Visual Showcase
         </span>
-        <h1 className="font-serif text-4xl sm:text-5xl font-bold text-gold-gradient">
+        <h1 className="font-serif text-4xl sm:text-5xl font-bold text-red-gradient">
           Craftsland Visual Gallery
         </h1>
-        <p className="text-gray-400 text-sm max-w-xl mx-auto font-light font-sans">
+        <p className="text-gray-500 text-sm max-w-xl mx-auto font-light font-sans">
           A photography collection highlighting our scratch culinary plating, warm stone-baked creations, and inviting dining spaces.
         </p>
       </div>
@@ -102,8 +102,8 @@ export const GalleryPage: React.FC = () => {
             onClick={() => setSelectedCategory(cat.key)}
             className={`px-5 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all cursor-pointer ${
               selectedCategory === cat.key
-                ? 'bg-[#D4AF37] text-[#0B0C10] font-bold shadow-md'
-                : 'bg-[#12141C] text-gray-400 hover:text-white border border-white/10'
+                ? 'bg-[#B11226] text-white font-bold shadow-md'
+                : 'bg-white text-gray-600 hover:text-[#B11226] border border-[#E5E5E5]'
             }`}
           >
             {cat.label}
@@ -118,7 +118,7 @@ export const GalleryPage: React.FC = () => {
             key={item.id}
             data-cursor="image"
             onClick={() => setActiveLightboxImage({ url: item.url, title: item.title, category: item.category })}
-            className="group relative aspect-[4/3] rounded-2xl overflow-hidden glass-card cursor-pointer border border-white/10 hover:border-[#D4AF37]/60 hover:shadow-[0_8px_32px_rgba(212,175,55,0.2)] transition-all duration-500"
+            className="group relative aspect-[4/3] rounded-2xl overflow-hidden bg-white cursor-pointer border border-[#E5E5E5] hover:border-[#B11226]/60 hover:shadow-[0_8px_32px_rgba(177,18,38,0.15)] transition-all duration-500"
           >
             <img
               src={item.url}
@@ -126,15 +126,15 @@ export const GalleryPage: React.FC = () => {
               className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C10]/95 via-[#0B0C10]/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-5">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-5">
               <div className="flex justify-end">
-                <span className="p-2.5 rounded-full bg-black/60 text-[#D4AF37] border border-[#D4AF37]/30 shadow-lg">
+                <span className="p-2.5 rounded-full bg-black/60 text-[#D71920] border border-[#D71920]/40 shadow-lg">
                   <ZoomIn className="w-4 h-4" />
                 </span>
               </div>
               <div>
-                <p className="font-serif text-sm font-bold text-[#F4F1EA]">{item.title}</p>
-                <p className="text-[10px] text-[#D4AF37] uppercase font-mono tracking-wider mt-0.5">{item.category}</p>
+                <p className="font-serif text-sm font-bold text-white">{item.title}</p>
+                <p className="text-[10px] text-[#D71920] uppercase font-mono tracking-wider mt-0.5">{item.category}</p>
               </div>
             </div>
           </div>

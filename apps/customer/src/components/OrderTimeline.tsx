@@ -81,11 +81,11 @@ export const OrderTimeline: React.FC<OrderTimelineProps> = ({ orderStatus, order
       {/* Step Indicators Bar (Horizontal Desktop & Compact) */}
       <div className="relative flex items-center justify-between max-w-2xl mx-auto px-4">
         {/* Background Line */}
-        <div className="absolute top-1/2 left-8 right-8 -translate-y-1/2 h-0.5 bg-white/10 -z-10" />
+        <div className="absolute top-1/2 left-8 right-8 -translate-y-1/2 h-0.5 bg-[#E5E5E5] -z-10" />
         
         {/* Active Progress Line */}
         <motion.div
-          className="absolute top-1/2 left-8 -translate-y-1/2 h-0.5 bg-gradient-to-r from-[#D4AF37] to-[#8C7853] -z-10"
+          className="absolute top-1/2 left-8 -translate-y-1/2 h-0.5 bg-gradient-to-r from-[#D71920] to-[#B11226] -z-10"
           initial={{ width: '0%' }}
           animate={{
             width: `${Math.min(100, Math.max(0, (currentIndex / (steps.length - 1)) * 100))}%`,
@@ -107,17 +107,17 @@ export const OrderTimeline: React.FC<OrderTimelineProps> = ({ orderStatus, order
                 }}
                 className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all ${
                   isDone
-                    ? 'bg-[#D4AF37] border-[#D4AF37] text-[#0B0C10]'
+                    ? 'bg-[#B11226] border-[#B11226] text-white'
                     : isCurrent
-                    ? 'bg-[#0B0C10] border-[#D4AF37] text-[#D4AF37] ring-4 ring-[#D4AF37]/20 shadow-[0_0_15px_rgba(212,175,55,0.4)]'
-                    : 'bg-[#12141C] border-white/10 text-gray-500'
+                    ? 'bg-white border-[#B11226] text-[#B11226] ring-4 ring-[#B11226]/15 shadow-sm'
+                    : 'bg-[#FAFAFA] border-[#E5E5E5] text-neutral-400'
                 }`}
               >
                 {isDone ? <CheckCircle2 className="w-5 h-5" /> : <StepIcon className="w-5 h-5" />}
               </motion.div>
 
               <div className="mt-2 text-center hidden sm:block">
-                <p className={`text-[11px] font-bold ${isCurrent ? 'text-[#D4AF37]' : isDone ? 'text-[#F4F1EA]' : 'text-gray-500'}`}>
+                <p className={`text-[11px] font-bold ${isCurrent ? 'text-[#B11226]' : isDone ? 'text-[#171717]' : 'text-neutral-400'}`}>
                   {step.label}
                 </p>
               </div>
@@ -132,13 +132,13 @@ export const OrderTimeline: React.FC<OrderTimelineProps> = ({ orderStatus, order
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="glass-card p-5 rounded-2xl border border-[#D4AF37]/30 text-center space-y-1.5 max-w-lg mx-auto bg-[#12141C]/80"
+        className="bg-white p-5 rounded-2xl border border-[#E5E5E5] text-center space-y-1.5 max-w-lg mx-auto shadow-sm"
       >
-        <span className="text-[10px] uppercase tracking-widest text-[#D4AF37] font-semibold">Live Order Status</span>
-        <h3 className="font-serif text-2xl font-bold text-gold-gradient">
+        <span className="text-[10px] uppercase tracking-widest text-[#B11226] font-bold">Live Order Status</span>
+        <h3 className="font-serif text-2xl font-bold text-[#171717]">
           {steps[currentIndex]?.label || 'Processing Order'}
         </h3>
-        <p className="text-xs text-gray-300">
+        <p className="text-xs text-[#6B6B6B]">
           {steps[currentIndex]?.sublabel || 'Updating status with kitchen staff...'}
         </p>
       </motion.div>

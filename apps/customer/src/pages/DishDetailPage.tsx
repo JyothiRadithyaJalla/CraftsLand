@@ -32,8 +32,8 @@ export const DishDetailPage: React.FC = () => {
   if (!dish) {
     return (
       <div className="max-w-xl mx-auto px-4 py-16 text-center space-y-4">
-        <h2 className="font-serif text-2xl font-bold text-gold-gradient">Dish Not Found</h2>
-        <Link to="/menu" className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#D4AF37] text-[#0B0C10] font-bold text-xs uppercase">
+        <h2 className="font-serif text-2xl font-bold text-[#171717]">Dish Not Found</h2>
+        <Link to="/menu" className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#B11226] text-white font-bold text-xs uppercase shadow-sm hover:bg-[#7F0D1D]">
           Return to Menu
         </Link>
       </div>
@@ -63,18 +63,18 @@ export const DishDetailPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10 space-y-8">
+    <div className="max-w-5xl mx-auto px-4 py-10 space-y-8 text-[#171717]">
       <MetaTags title={`${dish.name} | Craftsland`} />
 
-      <Link to="/menu" className="inline-flex items-center gap-2 text-xs text-[#D4AF37] hover:underline font-mono uppercase tracking-widest">
-        <ArrowLeft className="w-4 h-4" /> Back to Haute Menu
+      <Link to="/menu" className="inline-flex items-center gap-2 text-xs text-[#B11226] hover:underline font-mono uppercase tracking-widest font-semibold">
+        <ArrowLeft className="w-4 h-4" /> Back to Menu
       </Link>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
         {/* Media */}
-        <div className="relative aspect-[4/3] rounded-2xl overflow-hidden glass-panel border border-[#D4AF37]/30 shadow-2xl">
+        <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-white border border-[#E5E5E5] shadow-lg">
           <img src={dish.mediaUrl} alt={dish.name} className="w-full h-full object-cover" />
-          <div className="absolute top-4 right-4 px-4 py-1.5 rounded-full bg-[#0B0C10]/90 text-[#D4AF37] font-serif font-bold text-base border border-[#D4AF37]/30 shadow-lg">
+          <div className="absolute top-4 right-4 px-4 py-1.5 rounded-full bg-white/95 text-[#B11226] font-serif font-bold text-base border border-[#E5E5E5] shadow-sm">
             ${unitPrice.toFixed(2)}
           </div>
         </div>
@@ -82,23 +82,23 @@ export const DishDetailPage: React.FC = () => {
         {/* Info & Modifiers */}
         <div className="space-y-6">
           <div className="space-y-2">
-            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-gold-gradient">{dish.name}</h1>
-            <p className="text-gray-300 text-sm leading-relaxed font-sans">{dish.description}</p>
+            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#171717]">{dish.name}</h1>
+            <p className="text-[#6B6B6B] text-sm leading-relaxed font-sans">{dish.description}</p>
           </div>
 
-          <div className="flex flex-wrap gap-4 text-xs text-gray-400 py-3 border-y border-white/10">
+          <div className="flex flex-wrap gap-4 text-xs text-[#6B6B6B] py-3 border-y border-[#E5E5E5]">
             {dish.calories && (
-              <span className="flex items-center gap-1.5 text-amber-400 font-mono">
+              <span className="flex items-center gap-1.5 text-amber-600 font-mono">
                 <Flame className="w-4 h-4" /> {dish.calories} calories
               </span>
             )}
             {dish.winePairing && (
-              <span className="flex items-center gap-1.5 text-[#D4AF37] font-mono">
+              <span className="flex items-center gap-1.5 text-[#B11226] font-mono">
                 <Wine className="w-4 h-4" /> Pairing: {dish.winePairing}
               </span>
             )}
             {dish.allergens.length > 0 && (
-              <span className="flex items-center gap-1.5 text-red-300 font-mono">
+              <span className="flex items-center gap-1.5 text-red-600 font-mono">
                 <ShieldAlert className="w-4 h-4" /> Allergens: {dish.allergens.join(', ')}
               </span>
             )}
@@ -107,14 +107,14 @@ export const DishDetailPage: React.FC = () => {
           {/* Modifiers Selection */}
           {dish.modifiers && dish.modifiers.length > 0 && (
             <div className="space-y-4 pt-2">
-              <h4 className="font-serif text-sm font-bold text-[#D4AF37] uppercase tracking-wider">
+              <h4 className="font-serif text-sm font-bold text-[#171717] uppercase tracking-wider">
                 Custom Preparation Options
               </h4>
               {dish.modifiers.map((mod) => (
                 <div key={mod.id} className="space-y-2">
-                  <div className="flex items-center justify-between text-xs font-semibold text-[#F4F1EA]">
+                  <div className="flex items-center justify-between text-xs font-semibold text-[#171717]">
                     <span>{mod.title}</span>
-                    {mod.required && <span className="text-[10px] text-amber-400 uppercase font-mono">(Required)</span>}
+                    {mod.required && <span className="text-[10px] text-[#B11226] uppercase font-mono">(Required)</span>}
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {mod.options.map((opt) => {
@@ -128,12 +128,12 @@ export const DishDetailPage: React.FC = () => {
                           onClick={() => handleModifierToggle(mod.title, opt.name, opt.price, mod.required)}
                           className={`p-3 rounded-xl text-xs flex items-center justify-between border transition-all cursor-pointer ${
                             isSelected
-                              ? 'bg-[#D4AF37]/20 border-[#D4AF37] text-white'
-                              : 'bg-white/5 border-white/10 text-gray-400 hover:border-white/20'
+                              ? 'bg-[#B11226]/10 border-[#B11226] text-[#171717] font-semibold'
+                              : 'bg-[#FAFAFA] border-[#E5E5E5] text-[#6B6B6B] hover:border-neutral-400'
                           }`}
                         >
                           <span>{opt.name}</span>
-                          {opt.price > 0 && <span className="font-mono text-[#D4AF37]">+${opt.price.toFixed(2)}</span>}
+                          {opt.price > 0 && <span className="font-mono text-[#B11226] font-bold">+${opt.price.toFixed(2)}</span>}
                         </button>
                       );
                     })}
@@ -144,20 +144,20 @@ export const DishDetailPage: React.FC = () => {
           )}
 
           {/* Add to Cart Actions */}
-          <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center gap-4">
-            <div className="flex items-center border border-[#D4AF37]/30 rounded-full overflow-hidden bg-[#12141C]">
-              <button onClick={() => setQuantity((q) => Math.max(1, q - 1))} className="px-4 py-2.5 text-gray-400 hover:text-white cursor-pointer">
+          <div className="pt-6 border-t border-[#E5E5E5] flex flex-col sm:flex-row items-center gap-4">
+            <div className="flex items-center border border-[#E5E5E5] rounded-full overflow-hidden bg-[#FAFAFA]">
+              <button onClick={() => setQuantity((q) => Math.max(1, q - 1))} className="px-4 py-2.5 text-[#6B6B6B] hover:text-[#171717] cursor-pointer">
                 <Minus className="w-4 h-4" />
               </button>
-              <span className="px-4 font-mono font-bold text-sm text-[#D4AF37]">{quantity}</span>
-              <button onClick={() => setQuantity((q) => q + 1)} className="px-4 py-2.5 text-gray-400 hover:text-white cursor-pointer">
+              <span className="px-4 font-mono font-bold text-sm text-[#B11226]">{quantity}</span>
+              <button onClick={() => setQuantity((q) => q + 1)} className="px-4 py-2.5 text-[#6B6B6B] hover:text-[#171717] cursor-pointer">
                 <Plus className="w-4 h-4" />
               </button>
             </div>
 
             <button
               onClick={handleAddToCart}
-              className="w-full sm:flex-1 py-3.5 rounded-full bg-gradient-to-r from-[#D4AF37] to-[#8C7853] text-[#0B0C10] font-bold text-xs uppercase tracking-widest hover:opacity-90 transition-opacity flex items-center justify-center gap-2 cursor-pointer shadow-lg"
+              className="w-full sm:flex-1 py-3.5 rounded-full bg-[#B11226] hover:bg-[#7F0D1D] text-white font-bold text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md"
             >
               <ShoppingBag className="w-4 h-4" /> Add to Order • ${totalPrice.toFixed(2)}
             </button>

@@ -147,30 +147,48 @@ export class ReservationService {
       return newReservation;
     }
 
-    // Production Supabase Persistence
-    const { data, error } = await supabase
-      .from('reservations')
-      .insert({
-        booking_reference: bookingReference,
-        customer_id: payload.customerId || null,
-        guest_name: payload.guestName,
-        guest_email: payload.guestEmail,
-        guest_phone: payload.guestPhone,
-        party_size: payload.partySize,
-        reservation_date: payload.reservationDate,
-        reservation_time: payload.reservationTime,
-        seating_section: payload.seatingSection,
-        special_requests: payload.specialRequests || null,
-        status: 'CONFIRMED',
-      })
-      .select()
-      .single();
+    // Production Supabase Persistence via Concurrency-Safe RPC
+    const rpcPayload = {
+      party_size: payload.partySize,
+      reservation_date: payload.reservationDate,
+      reservation_time: payload.reservationTime,
+      seating_section: payload.seatingSection,
+      guest_name: payload.guestName,
+      guest_email: payload.guestEmail,
+      guest_phone: payload.guestPhone,
+      special_requests: payload.specialRequests || null,
+    };
 
-    if (error || !data) {
-      throw new Error(error?.message || 'Failed to create table reservation.');
+    const { data: rpcData, error: rpcError } = await supabase.rpc('create_verified_reservation', {
+      p_payload: rpcPayload,
+    });
+
+    if (rpcError || !rpcData) {
+      // If RPC failed due to capacity error, propagate clear error
+      console.error('Reservation creation RPC failed:', rpcError);
+      throw new Error(rpcError?.message || 'Failed to create table reservation with concierge registry.');
     }
 
-    return this.mapSupabaseReservation(data);
+    const createdRes = await this.getReservationById(rpcData.id || rpcData.booking_reference);
+    if (!createdRes) {
+      return {
+        id: rpcData.id,
+        bookingReference: rpcData.booking_reference,
+        customerId: payload.customerId,
+        guestName: payload.guestName,
+        guestEmail: payload.guestEmail,
+        guestPhone: payload.guestPhone,
+        partySize: payload.partySize,
+        reservationDate: payload.reservationDate,
+        reservationTime: payload.reservationTime,
+        seatingSection: payload.seatingSection,
+        specialRequests: payload.specialRequests,
+        status: 'CONFIRMED',
+        createdAt: new Date().toISOString(),
+      };
+    }
+
+    return createdRes;
   }
 
   /**

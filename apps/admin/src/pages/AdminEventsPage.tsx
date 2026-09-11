@@ -51,17 +51,17 @@ export const AdminEventsPage: React.FC = () => {
     <AdminLayout>
       <MetaTags title="Private Event Inquiries | Craftsland Admin" />
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#D4AF37]/20 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#B11226]/20 pb-4">
         <div>
-          <h1 className="font-serif text-3xl font-bold text-gold-gradient">Private Event Requests</h1>
+          <h1 className="font-serif text-3xl font-bold text-red-gradient">Private Event Requests</h1>
           <p className="text-xs text-gray-400">VIP Private Vault and Garden Terrace special event inquiries</p>
         </div>
       </div>
 
-      <div className="glass-panel rounded-2xl overflow-hidden border border-[#D4AF37]/20 bg-[#12141C]/80">
+      <div className="bg-white rounded-2xl overflow-hidden border border-[#B11226]/20 bg-[#FFFFFF]/80">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#0B0C10] border-b border-white/10 text-gray-400 uppercase text-[10px] font-mono">
+            <thead className="bg-[#FAFAFA] border-b border-[#E5E5E5] text-gray-400 uppercase text-[10px] font-mono">
               <tr>
                 <th className="p-4">Requester</th>
                 <th className="p-4">Event Type</th>
@@ -75,18 +75,18 @@ export const AdminEventsPage: React.FC = () => {
               {inquiries.map((inq) => (
                 <tr key={inq.id} className="hover:bg-white/5 transition-colors">
                   <td className="p-4">
-                    <span className="font-serif font-bold text-[#F4F1EA] text-sm block">{inq.requesterName}</span>
+                    <span className="font-serif font-bold text-[#171717] text-sm block">{inq.requesterName}</span>
                     <span className="text-[11px] text-gray-400 font-mono">{inq.email} • {inq.phone}</span>
                   </td>
-                  <td className="p-4 font-mono font-bold text-[#D4AF37]">{inq.eventType}</td>
+                  <td className="p-4 font-mono font-bold text-[#B11226]">{inq.eventType}</td>
                   <td className="p-4 font-mono text-gray-300">{inq.eventDate}</td>
-                  <td className="p-4 font-mono font-bold text-[#F4F1EA]">{inq.guestCount} Guests</td>
+                  <td className="p-4 font-mono font-bold text-[#171717]">{inq.guestCount} Guests</td>
                   <td className="p-4 max-w-xs text-gray-300 italic font-serif">"{inq.message}"</td>
                   <td className="p-4 text-right">
                     <select
                       value={inq.status}
                       onChange={(e) => handleStatusChange(inq.id, e.target.value as EventInquiry['status'])}
-                      className="bg-[#0B0C10] border border-white/15 rounded-lg px-2.5 py-1 text-xs text-[#F4F1EA] focus:outline-none focus:border-[#D4AF37]"
+                      className="bg-[#FAFAFA] border border-[#E5E5E5] rounded-lg px-2.5 py-1 text-xs text-[#171717] focus:outline-none focus:border-[#B11226]"
                     >
                       <option value="NEW">NEW</option>
                       <option value="CONTACTED">CONTACTED</option>

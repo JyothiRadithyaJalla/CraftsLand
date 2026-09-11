@@ -15,9 +15,9 @@ export const CartPage: React.FC = () => {
         <EmptyState
           title="Your Cart is Empty"
           description="You have not added any dishes from our reserve menu to your current dining order."
-          icon={<ShoppingBag className="w-7 h-7" />}
+          icon={<ShoppingBag className="w-7 h-7 text-[#B11226]" />}
           action={
-            <Link to="/menu" className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#D4AF37] text-[#0B0C10] font-semibold text-xs uppercase tracking-wider">
+            <Link to="/menu" className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#B11226] text-white font-semibold text-xs uppercase tracking-wider hover:bg-[#7F0D1D] shadow-md transition-all">
               Explore Haute Menu
             </Link>
           }
@@ -29,23 +29,23 @@ export const CartPage: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-10 space-y-8">
       <MetaTags title="Your Selection | Craftsland" />
-      <h1 className="font-serif text-3xl font-bold text-gold-gradient">Your Culinary Selection</h1>
+      <h1 className="font-serif text-3xl font-bold text-red-gradient">Your Culinary Selection</h1>
 
       <div className="space-y-4">
         {items.map((item) => (
-          <div key={item.dish.id} className="glass-card p-4 rounded-xl flex items-center justify-between gap-4">
+          <div key={item.dish.id} className="bg-white p-4 rounded-xl flex items-center justify-between gap-4 border border-[#E5E5E5] shadow-sm">
             <img src={item.dish.mediaUrl} alt={item.dish.name} className="w-16 h-16 rounded-lg object-cover" />
             <div className="flex-1">
-              <h3 className="font-serif font-bold text-[#F4F1EA] text-sm">{item.dish.name}</h3>
-              <p className="text-xs text-[#D4AF37]">${item.dish.price.toFixed(2)} each</p>
+              <h3 className="font-serif font-bold text-[#171717] text-sm">{item.dish.name}</h3>
+              <p className="text-xs text-[#B11226] font-semibold">${item.dish.price.toFixed(2)} each</p>
             </div>
             <div className="flex items-center gap-3">
-              <div className="flex items-center border border-white/10 rounded-lg overflow-hidden text-xs">
-                <button onClick={() => updateQuantity(item.dish.id, item.quantity - 1)} className="px-2.5 py-1 text-gray-400 hover:text-white">-</button>
-                <span className="px-3 font-mono font-bold text-[#D4AF37]">{item.quantity}</span>
-                <button onClick={() => updateQuantity(item.dish.id, item.quantity + 1)} className="px-2.5 py-1 text-gray-400 hover:text-white">+</button>
+              <div className="flex items-center border border-[#E5E5E5] rounded-lg overflow-hidden text-xs">
+                <button onClick={() => updateQuantity(item.dish.id, item.quantity - 1)} className="px-2.5 py-1 text-gray-500 hover:text-black hover:bg-gray-100">-</button>
+                <span className="px-3 font-mono font-bold text-[#B11226]">{item.quantity}</span>
+                <button onClick={() => updateQuantity(item.dish.id, item.quantity + 1)} className="px-2.5 py-1 text-gray-500 hover:text-black hover:bg-gray-100">+</button>
               </div>
-              <button onClick={() => removeItem(item.dish.id)} className="text-gray-400 hover:text-red-400 p-1">
+              <button onClick={() => removeItem(item.dish.id)} className="text-gray-400 hover:text-red-600 p-1 transition-colors">
                 <Trash2 className="w-4 h-4" />
               </button>
             </div>
@@ -54,12 +54,12 @@ export const CartPage: React.FC = () => {
       </div>
 
       {/* Summary */}
-      <div className="glass-panel p-6 rounded-xl space-y-3 max-w-md ml-auto">
-        <div className="flex justify-between text-xs text-gray-400"><span>Subtotal:</span><span>${subtotal.toFixed(2)}</span></div>
-        <div className="flex justify-between text-xs text-gray-400"><span>Estimated Tax:</span><span>${taxAmount.toFixed(2)}</span></div>
-        <div className="flex justify-between text-xs text-gray-400"><span>Delivery Fee:</span><span>${deliveryFee.toFixed(2)}</span></div>
-        <div className="flex justify-between text-sm font-bold text-[#F4F1EA] pt-2 border-t border-white/10"><span>Total:</span><span className="text-[#D4AF37]">${totalAmount.toFixed(2)}</span></div>
-        <Link to="/checkout" className="w-full mt-4 inline-flex items-center justify-center gap-2 py-3 rounded-full bg-gradient-to-r from-[#D4AF37] to-[#8C7853] text-[#0B0C10] font-bold text-xs uppercase tracking-widest">
+      <div className="bg-white p-6 rounded-xl space-y-3 max-w-md ml-auto border border-[#E5E5E5] shadow-sm">
+        <div className="flex justify-between text-xs text-gray-500"><span>Subtotal:</span><span>${subtotal.toFixed(2)}</span></div>
+        <div className="flex justify-between text-xs text-gray-500"><span>Estimated Tax:</span><span>${taxAmount.toFixed(2)}</span></div>
+        <div className="flex justify-between text-xs text-gray-500"><span>Delivery Fee:</span><span>${deliveryFee.toFixed(2)}</span></div>
+        <div className="flex justify-between text-sm font-bold text-[#171717] pt-2 border-t border-gray-100"><span>Total:</span><span className="text-[#B11226] font-mono">${totalAmount.toFixed(2)}</span></div>
+        <Link to="/checkout" className="w-full mt-4 inline-flex items-center justify-center gap-2 py-3 rounded-full bg-gradient-to-r from-[#B11226] to-[#7F0D1D] text-white font-bold text-xs uppercase tracking-widest shadow-md hover:brightness-110 transition-all">
           Proceed to Checkout <ArrowRight className="w-4 h-4" />
         </Link>
       </div>

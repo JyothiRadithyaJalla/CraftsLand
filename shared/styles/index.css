@@ -2,12 +2,31 @@
 
 @layer base {
   :root {
-    --color-obsidian: #0B0C10;
-    --color-deep-onyx: #12141C;
-    --color-champagne-gold: #D4AF37;
-    --color-gold-hover: #E5C158;
-    --color-warm-ivory: #F4F1EA;
-    --color-muted-bronze: #8C7853;
+    /* Craftsland Red & White Theme Palette */
+    --color-primary-red: #B11226;
+    --color-deep-red: #7F0D1D;
+    --color-accent-red: #D71920;
+    --color-surface-white: #FFFFFF;
+    --color-surface-soft: #FAFAFA;
+    --color-surface-gray: #F3F3F3;
+    --color-border-subtle: #E5E5E5;
+    --color-border-dark: #D9D9D9;
+    --color-text-dark: #171717;
+    --color-text-muted: #6B6B6B;
+    --color-surface-dark: #111111;
+
+    /* Backward-compatibility bridge for existing references */
+    --color-obsidian: #FFFFFF;
+    --color-deep-onyx: #FAFAFA;
+    --color-champagne-gold: #B11226;
+    --color-gold-hover: #D71920;
+    --color-warm-ivory: #171717;
+    --color-muted-bronze: #7F0D1D;
+  }
+
+  body {
+    background-color: #FAFAFA;
+    color: #171717;
   }
 }
 
@@ -24,32 +43,34 @@
   font-family: 'Outfit', sans-serif;
 }
 
-/* Custom Glassmorphism Utilities */
+/* Custom Glass & Card Utilities for Red & White Theme */
 .glass-panel {
-  background: rgba(18, 20, 28, 0.75);
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(212, 175, 55, 0.15);
+  border: 1px solid #E5E5E5;
 }
 
 .glass-card {
-  background: rgba(18, 20, 28, 0.6);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid #E5E5E5;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
 }
 
-.glass-card-gold {
-  background: rgba(18, 20, 28, 0.8);
+.glass-card-gold,
+.glass-card-red {
+  background: #FFFFFF;
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  box-shadow: 0 8px 32px 0 rgba(212, 175, 55, 0.08);
+  border: 1px solid rgba(177, 18, 38, 0.2);
+  box-shadow: 0 10px 30px -4px rgba(177, 18, 38, 0.08);
 }
 
-/* Custom Gold Accent Text Gradient */
-.text-gold-gradient {
-  background: linear-[#D4AF37, #F4F1EA, #8C7853];
-  background: linear-gradient(135deg, #E5C158 0%, #D4AF37 50%, #8C7853 100%);
+/* Red Accent Text Gradient */
+.text-gold-gradient,
+.text-red-gradient {
+  background: linear-gradient(135deg, #D71920 0%, #B11226 50%, #7F0D1D 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -61,15 +82,15 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #0B0C10;
+  background: #F3F3F3;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1E2025;
+  background: #D9D9D9;
   border-radius: 4px;
-  border: 1px solid rgba(212, 175, 55, 0.2);
+  border: 1px solid #E5E5E5;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #8C7853;
+  background: #B11226;
 }

@@ -143,59 +143,59 @@ export const ReservationPage: React.FC = () => {
   // SUCCESS CONFIRMATION VIEW
   if (confirmedReservation) {
     return (
-      <div className="max-w-2xl mx-auto px-4 py-12 space-y-8 text-[#F4F1EA]">
+      <div className="max-w-2xl mx-auto px-4 py-12 space-y-8 text-[#171717]">
         <MetaTags title="Reservation Confirmed | Craftsland" />
 
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="glass-panel p-8 rounded-3xl text-center space-y-6 border border-[#D4AF37]/30 shadow-2xl relative overflow-hidden"
+          className="bg-white p-8 rounded-3xl text-center space-y-6 border border-[#E5E5E5] shadow-xl relative overflow-hidden"
         >
-          {/* Subtle Ambient Gold Glow */}
-          <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-72 h-72 bg-[#D4AF37]/10 rounded-full blur-3xl -z-10" />
+          {/* Subtle Ambient Red Glow */}
+          <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-72 h-72 bg-[#B11226]/5 rounded-full blur-3xl -z-10" />
 
-          <div className="w-16 h-16 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37] text-[#D4AF37] flex items-center justify-center mx-auto shadow-lg">
+          <div className="w-16 h-16 rounded-full bg-[#B11226]/10 border border-[#B11226] text-[#B11226] flex items-center justify-center mx-auto shadow-sm">
             <CheckCircle className="w-8 h-8" />
           </div>
 
           <div className="space-y-2">
-            <span className="text-xs uppercase tracking-widest text-[#D4AF37] font-semibold">
+            <span className="text-xs uppercase tracking-widest text-[#B11226] font-bold">
               Reservation Successfully Booked
             </span>
-            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-gold-gradient">
+            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#171717]">
               Welcome to Craftsland
             </h1>
-            <p className="text-xs sm:text-sm text-gray-300">
+            <p className="text-xs sm:text-sm text-[#6B6B6B]">
               A dining table has been reserved under your name. A confirmation email has been dispatched to{' '}
-              <span className="text-[#D4AF37] font-semibold">{confirmedReservation.guestEmail}</span>.
+              <span className="text-[#B11226] font-semibold">{confirmedReservation.guestEmail}</span>.
             </p>
           </div>
 
           {/* Booking Reference Box */}
-          <div className="bg-[#12141C] border border-[#D4AF37]/40 p-4 rounded-2xl space-y-1">
-            <span className="text-[11px] uppercase tracking-wider text-gray-400">Booking Reference</span>
-            <p className="font-mono text-2xl font-bold text-[#D4AF37] tracking-widest">
+          <div className="bg-[#FAFAFA] border border-[#B11226]/30 p-4 rounded-2xl space-y-1">
+            <span className="text-[11px] uppercase tracking-wider text-[#6B6B6B]">Booking Reference</span>
+            <p className="font-mono text-2xl font-bold text-[#B11226] tracking-widest">
               {confirmedReservation.bookingReference}
             </p>
           </div>
 
           {/* Details Breakdown */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs border-t border-white/10 pt-6">
-            <div className="glass-card p-3 rounded-xl">
-              <span className="text-gray-400 block text-[10px] uppercase">Date</span>
-              <span className="font-bold text-[#F4F1EA]">{confirmedReservation.reservationDate}</span>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs border-t border-[#E5E5E5] pt-6">
+            <div className="bg-[#FAFAFA] border border-[#E5E5E5] p-3 rounded-xl">
+              <span className="text-[#6B6B6B] block text-[10px] uppercase">Date</span>
+              <span className="font-bold text-[#171717]">{confirmedReservation.reservationDate}</span>
             </div>
-            <div className="glass-card p-3 rounded-xl">
-              <span className="text-gray-400 block text-[10px] uppercase">Time</span>
-              <span className="font-bold text-[#D4AF37]">{confirmedReservation.reservationTime}</span>
+            <div className="bg-[#FAFAFA] border border-[#E5E5E5] p-3 rounded-xl">
+              <span className="text-[#6B6B6B] block text-[10px] uppercase">Time</span>
+              <span className="font-bold text-[#B11226]">{confirmedReservation.reservationTime}</span>
             </div>
-            <div className="glass-card p-3 rounded-xl">
-              <span className="text-gray-400 block text-[10px] uppercase">Party</span>
-              <span className="font-bold text-[#F4F1EA]">{confirmedReservation.partySize} Guests</span>
+            <div className="bg-[#FAFAFA] border border-[#E5E5E5] p-3 rounded-xl">
+              <span className="text-[#6B6B6B] block text-[10px] uppercase">Party</span>
+              <span className="font-bold text-[#171717]">{confirmedReservation.partySize} Guests</span>
             </div>
-            <div className="glass-card p-3 rounded-xl">
-              <span className="text-gray-400 block text-[10px] uppercase">Section</span>
-              <span className="font-bold text-[#F4F1EA] truncate block">
+            <div className="bg-[#FAFAFA] border border-[#E5E5E5] p-3 rounded-xl">
+              <span className="text-[#6B6B6B] block text-[10px] uppercase">Section</span>
+              <span className="font-bold text-[#171717] truncate block">
                 {SEATING_SECTIONS.find((s) => s.id === confirmedReservation.seatingSection)?.name || confirmedReservation.seatingSection}
               </span>
             </div>
@@ -205,13 +205,13 @@ export const ReservationPage: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-3 pt-4">
             <Link
               to="/account"
-              className="flex-1 py-3.5 rounded-full bg-gradient-to-r from-[#D4AF37] to-[#8C7853] text-[#0B0C10] font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:opacity-90"
+              className="flex-1 py-3.5 rounded-full bg-[#B11226] hover:bg-[#7F0D1D] text-white font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer shadow-md transition-colors"
             >
               View My Reservations <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
               to="/"
-              className="py-3.5 px-6 rounded-full border border-white/15 text-gray-300 hover:text-white text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer"
+              className="py-3.5 px-6 rounded-full border border-[#E5E5E5] bg-white text-[#171717] hover:text-[#B11226] hover:border-[#B11226] text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-xs transition-colors"
             >
               Back to Home
             </Link>
@@ -223,66 +223,66 @@ export const ReservationPage: React.FC = () => {
 
   // MULTI-STEP WIZARD VIEW
   return (
-    <div className="max-w-4xl mx-auto px-4 py-10 space-y-8 text-[#F4F1EA]">
+    <div className="max-w-4xl mx-auto px-4 py-10 space-y-8 text-[#171717]">
       <MetaTags title="Table Reservations | Craftsland" />
 
       {/* Page Header */}
       <div className="text-center space-y-2">
-        <h1 className="font-serif text-3xl sm:text-4xl font-bold text-gold-gradient">
+        <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#171717]">
           Reserve Your Table
         </h1>
-        <p className="text-gray-400 text-xs sm:text-sm tracking-wide max-w-lg mx-auto">
-          Immerse in an unforgettable sensory dining experience. Select your preferred date, seating, and party size.
+        <p className="text-[#6B6B6B] text-xs sm:text-sm tracking-wide max-w-lg mx-auto">
+          Immerse in an unforgettable culinary experience. Select your preferred date, seating, and party size.
         </p>
       </div>
 
       {/* Step Indicator */}
-      <div className="flex items-center justify-between max-w-xl mx-auto border-b border-white/10 pb-4 text-xs font-semibold">
+      <div className="flex items-center justify-between max-w-xl mx-auto border-b border-[#E5E5E5] pb-4 text-xs font-semibold">
         <button
           onClick={() => setStep(1)}
           className={`flex items-center gap-2 cursor-pointer transition-colors ${
-            step === 1 ? 'text-[#D4AF37]' : step > 1 ? 'text-gray-300' : 'text-gray-500'
+            step === 1 ? 'text-[#B11226]' : step > 1 ? 'text-[#171717]' : 'text-[#6B6B6B]'
           }`}
         >
-          <span className={`w-6 h-6 rounded-full flex items-center justify-center ${step === 1 ? 'bg-[#D4AF37] text-[#0B0C10] font-bold' : 'bg-white/10'}`}>1</span>
+          <span className={`w-6 h-6 rounded-full flex items-center justify-center ${step === 1 ? 'bg-[#B11226] text-white font-bold' : 'bg-neutral-100 text-[#6B6B6B]'}`}>1</span>
           <span>Date & Guests</span>
         </button>
-        <div className="w-6 h-px bg-white/10" />
+        <div className="w-8 h-px bg-[#E5E5E5]" />
         <button
           onClick={() => { if (step > 1) setStep(2); }}
           className={`flex items-center gap-2 cursor-pointer transition-colors ${
-            step === 2 ? 'text-[#D4AF37]' : step > 2 ? 'text-gray-300' : 'text-gray-500'
+            step === 2 ? 'text-[#B11226]' : step > 2 ? 'text-[#171717]' : 'text-[#6B6B6B]'
           }`}
         >
-          <span className={`w-6 h-6 rounded-full flex items-center justify-center ${step === 2 ? 'bg-[#D4AF37] text-[#0B0C10] font-bold' : 'bg-white/10'}`}>2</span>
+          <span className={`w-6 h-6 rounded-full flex items-center justify-center ${step === 2 ? 'bg-[#B11226] text-white font-bold' : 'bg-neutral-100 text-[#6B6B6B]'}`}>2</span>
           <span>Time & Seating</span>
         </button>
-        <div className="w-6 h-px bg-white/10" />
+        <div className="w-8 h-px bg-[#E5E5E5]" />
         <button
           onClick={() => { if (step > 2) setStep(3); }}
           className={`flex items-center gap-2 cursor-pointer transition-colors ${
-            step === 3 ? 'text-[#D4AF37]' : step > 3 ? 'text-gray-300' : 'text-gray-500'
+            step === 3 ? 'text-[#B11226]' : step > 3 ? 'text-[#171717]' : 'text-[#6B6B6B]'
           }`}
         >
-          <span className={`w-6 h-6 rounded-full flex items-center justify-center ${step === 3 ? 'bg-[#D4AF37] text-[#0B0C10] font-bold' : 'bg-white/10'}`}>3</span>
+          <span className={`w-6 h-6 rounded-full flex items-center justify-center ${step === 3 ? 'bg-[#B11226] text-white font-bold' : 'bg-neutral-100 text-[#6B6B6B]'}`}>3</span>
           <span>Guest Details</span>
         </button>
-        <div className="w-6 h-px bg-white/10" />
+        <div className="w-8 h-px bg-[#E5E5E5]" />
         <button
           onClick={() => { if (validateStep3()) setStep(4); }}
           className={`flex items-center gap-2 cursor-pointer transition-colors ${
-            step === 4 ? 'text-[#D4AF37]' : 'text-gray-500'
+            step === 4 ? 'text-[#B11226]' : 'text-[#6B6B6B]'
           }`}
         >
-          <span className={`w-6 h-6 rounded-full flex items-center justify-center ${step === 4 ? 'bg-[#D4AF37] text-[#0B0C10] font-bold' : 'bg-white/10'}`}>4</span>
+          <span className={`w-6 h-6 rounded-full flex items-center justify-center ${step === 4 ? 'bg-[#B11226] text-white font-bold' : 'bg-neutral-100 text-[#6B6B6B]'}`}>4</span>
           <span>Confirm</span>
         </button>
       </div>
 
       {/* Global Error Banner */}
       {errorMsg && (
-        <div className="glass-card p-4 rounded-xl border border-red-500/40 bg-red-950/20 text-red-300 flex items-center gap-3 text-xs max-w-2xl mx-auto">
-          <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
+        <div className="bg-red-50 p-4 rounded-xl border border-red-200 text-red-700 flex items-center gap-3 text-xs max-w-2xl mx-auto">
+          <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
           <span>{errorMsg}</span>
         </div>
       )}
@@ -296,30 +296,30 @@ export const ReservationPage: React.FC = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 20 }}
-            className="glass-panel p-6 sm:p-8 rounded-3xl space-y-6 max-w-2xl mx-auto"
+            className="bg-white border border-[#E5E5E5] p-6 sm:p-8 rounded-3xl space-y-6 max-w-2xl mx-auto shadow-sm"
           >
-            <h3 className="font-serif text-xl font-bold text-[#F4F1EA] border-b border-white/10 pb-3 flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-[#D4AF37]" /> Select Date & Guests
+            <h3 className="font-serif text-xl font-bold text-[#171717] border-b border-[#E5E5E5] pb-3 flex items-center gap-2">
+              <Calendar className="w-5 h-5 text-[#B11226]" /> Select Date & Guests
             </h3>
 
             {/* Date Selection */}
             <div className="space-y-2">
-              <label className="text-xs uppercase tracking-wider text-gray-300 font-semibold flex items-center gap-1.5">
-                <Calendar className="w-3.5 h-3.5 text-[#D4AF37]" /> Reservation Date <span className="text-red-400">*</span>
+              <label className="text-xs uppercase tracking-wider text-[#171717] font-semibold flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5 text-[#B11226]" /> Reservation Date <span className="text-[#B11226]">*</span>
               </label>
               <input
                 type="date"
                 min={todayStr}
                 value={reservationDate}
                 onChange={(e) => setReservationDate(e.target.value)}
-                className="w-full bg-[#12141C] border border-white/15 rounded-xl px-4 py-3 text-sm text-[#F4F1EA] focus:outline-none focus:border-[#D4AF37] font-mono cursor-pointer"
+                className="w-full bg-[#FAFAFA] border border-[#E5E5E5] rounded-xl px-4 py-3 text-sm text-[#171717] focus:outline-none focus:border-[#B11226] font-mono cursor-pointer"
               />
             </div>
 
             {/* Party Size Selector */}
             <div className="space-y-3">
-              <label className="text-xs uppercase tracking-wider text-gray-300 font-semibold flex items-center gap-1.5">
-                <Users className="w-3.5 h-3.5 text-[#D4AF37]" /> Number of Guests (1 – 12) <span className="text-red-400">*</span>
+              <label className="text-xs uppercase tracking-wider text-[#171717] font-semibold flex items-center gap-1.5">
+                <Users className="w-3.5 h-3.5 text-[#B11226]" /> Number of Guests (1 – 12) <span className="text-[#B11226]">*</span>
               </label>
 
               <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
@@ -330,8 +330,8 @@ export const ReservationPage: React.FC = () => {
                     onClick={() => setPartySize(size)}
                     className={`py-3 rounded-xl border text-xs font-mono transition-all cursor-pointer ${
                       partySize === size
-                        ? 'bg-[#D4AF37]/20 border-[#D4AF37] text-[#D4AF37] font-bold ring-1 ring-[#D4AF37]'
-                        : 'bg-white/5 border-white/10 text-gray-400 hover:text-white'
+                        ? 'bg-[#B11226] border-[#B11226] text-white font-bold'
+                        : 'bg-[#FAFAFA] border-[#E5E5E5] text-[#6B6B6B] hover:text-[#171717]'
                     }`}
                   >
                     {size} {size === 1 ? 'Guest' : 'Guests'}
@@ -340,23 +340,23 @@ export const ReservationPage: React.FC = () => {
               </div>
 
               <div className="flex items-center gap-3 pt-2">
-                <span className="text-xs text-gray-400">Custom Party Size:</span>
+                <span className="text-xs text-[#6B6B6B]">Custom Party Size:</span>
                 <input
                   type="number"
                   min={1}
                   max={12}
                   value={partySize}
                   onChange={(e) => setPartySize(Math.max(1, Math.min(12, Number(e.target.value) || 1)))}
-                  className="w-24 bg-[#12141C] border border-white/15 rounded-lg px-3 py-1.5 text-xs text-[#F4F1EA] font-mono focus:outline-none focus:border-[#D4AF37]"
+                  className="w-24 bg-[#FAFAFA] border border-[#E5E5E5] rounded-lg px-3 py-1.5 text-xs text-[#171717] font-mono focus:outline-none focus:border-[#B11226]"
                 />
               </div>
             </div>
 
-            <div className="flex justify-end pt-4 border-t border-white/10">
+            <div className="flex justify-end pt-4 border-t border-[#E5E5E5]">
               <button
                 type="button"
                 onClick={handleNextStep}
-                className="px-8 py-3.5 rounded-full bg-gradient-to-r from-[#D4AF37] to-[#8C7853] text-[#0B0C10] font-bold text-xs uppercase tracking-widest flex items-center gap-2 cursor-pointer shadow-lg hover:opacity-90"
+                className="px-8 py-3.5 rounded-full bg-[#B11226] hover:bg-[#7F0D1D] text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2 cursor-pointer shadow-md transition-colors"
               >
                 Choose Time & Section <ArrowRight className="w-4 h-4" />
               </button>
@@ -371,15 +371,15 @@ export const ReservationPage: React.FC = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 20 }}
-            className="glass-panel p-6 sm:p-8 rounded-3xl space-y-6 max-w-3xl mx-auto"
+            className="bg-white border border-[#E5E5E5] p-6 sm:p-8 rounded-3xl space-y-6 max-w-3xl mx-auto shadow-sm"
           >
-            <h3 className="font-serif text-xl font-bold text-[#F4F1EA] border-b border-white/10 pb-3 flex items-center gap-2">
-              <MapPin className="w-5 h-5 text-[#D4AF37]" /> Seating Section & Time Slot
+            <h3 className="font-serif text-xl font-bold text-[#171717] border-b border-[#E5E5E5] pb-3 flex items-center gap-2">
+              <MapPin className="w-5 h-5 text-[#B11226]" /> Seating Section & Time Slot
             </h3>
 
             {/* Seating Section Visual Cards */}
             <div className="space-y-3">
-              <label className="text-xs uppercase tracking-wider text-gray-300 font-semibold">
+              <label className="text-xs uppercase tracking-wider text-[#171717] font-semibold">
                 Select Dining Ambience & Section
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -390,15 +390,15 @@ export const ReservationPage: React.FC = () => {
                     onClick={() => setSeatingSection(sec.id as SeatingSection)}
                     className={`p-4 rounded-2xl border text-left transition-all cursor-pointer space-y-1 ${
                       seatingSection === sec.id
-                        ? 'bg-[#D4AF37]/15 border-[#D4AF37] text-[#F4F1EA] ring-1 ring-[#D4AF37]'
-                        : 'bg-white/5 border-white/10 text-gray-400 hover:border-white/20'
+                        ? 'bg-[#B11226]/10 border-[#B11226] text-[#171717] ring-1 ring-[#B11226]'
+                        : 'bg-[#FAFAFA] border-[#E5E5E5] text-[#6B6B6B] hover:border-neutral-400'
                     }`}
                   >
                     <div className="flex justify-between items-center">
-                      <span className="font-serif font-bold text-sm text-[#F4F1EA]">{sec.name}</span>
-                      {seatingSection === sec.id && <Sparkles className="w-4 h-4 text-[#D4AF37]" />}
+                      <span className="font-serif font-bold text-sm text-[#171717]">{sec.name}</span>
+                      {seatingSection === sec.id && <Sparkles className="w-4 h-4 text-[#B11226]" />}
                     </div>
-                    <p className="text-xs text-gray-400">{sec.desc}</p>
+                    <p className="text-xs text-[#6B6B6B]">{sec.desc}</p>
                   </button>
                 ))}
               </div>
@@ -406,18 +406,18 @@ export const ReservationPage: React.FC = () => {
 
             {/* Available Time Slots Grid */}
             <div className="space-y-3 pt-2">
-              <label className="text-xs uppercase tracking-wider text-gray-300 font-semibold flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-[#D4AF37]" /> Available Time Slots
+              <label className="text-xs uppercase tracking-wider text-[#171717] font-semibold flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5 text-[#B11226]" /> Available Time Slots
               </label>
 
               {isCheckingSlots ? (
-                <div className="text-center py-6 text-xs text-gray-400 animate-pulse">
+                <div className="text-center py-6 text-xs text-[#6B6B6B] animate-pulse">
                   Checking table availability for {reservationDate}...
                 </div>
               ) : availableSlots.length === 0 ? (
-                <div className="glass-card p-4 rounded-xl text-center space-y-1 bg-red-950/10 border border-red-500/20 text-red-300 text-xs">
+                <div className="bg-red-50 p-4 rounded-xl text-center space-y-1 border border-red-200 text-red-700 text-xs">
                   <p className="font-semibold">No Table Slots Available</p>
-                  <p className="text-gray-400">All tables in this section are fully committed for the selected date. Please try another section or date.</p>
+                  <p className="text-[#6B6B6B]">All tables in this section are fully committed for the selected date. Please try another section or date.</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
@@ -428,8 +428,8 @@ export const ReservationPage: React.FC = () => {
                       onClick={() => setReservationTime(slot)}
                       className={`py-3 rounded-xl border text-xs font-mono transition-all cursor-pointer ${
                         reservationTime === slot
-                          ? 'bg-[#D4AF37] border-[#D4AF37] text-[#0B0C10] font-bold shadow-md'
-                          : 'bg-white/5 border-white/10 text-gray-300 hover:text-white'
+                          ? 'bg-[#B11226] border-[#B11226] text-white font-bold shadow-xs'
+                          : 'bg-[#FAFAFA] border-[#E5E5E5] text-[#171717] hover:border-[#B11226]'
                       }`}
                     >
                       {slot}
@@ -439,11 +439,11 @@ export const ReservationPage: React.FC = () => {
               )}
             </div>
 
-            <div className="flex justify-between items-center pt-4 border-t border-white/10">
+            <div className="flex justify-between items-center pt-4 border-t border-[#E5E5E5]">
               <button
                 type="button"
                 onClick={() => setStep(1)}
-                className="text-xs text-gray-400 hover:text-[#D4AF37] flex items-center gap-1.5 cursor-pointer"
+                className="text-xs text-[#6B6B6B] hover:text-[#B11226] flex items-center gap-1.5 cursor-pointer font-medium"
               >
                 <ArrowLeft className="w-4 h-4" /> Back to Date & Guests
               </button>
@@ -451,7 +451,7 @@ export const ReservationPage: React.FC = () => {
                 type="button"
                 onClick={handleNextStep}
                 disabled={availableSlots.length === 0}
-                className="px-8 py-3.5 rounded-full bg-gradient-to-r from-[#D4AF37] to-[#8C7853] text-[#0B0C10] font-bold text-xs uppercase tracking-widest flex items-center gap-2 cursor-pointer shadow-lg hover:opacity-90 disabled:opacity-40"
+                className="px-8 py-3.5 rounded-full bg-[#B11226] hover:bg-[#7F0D1D] text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2 cursor-pointer shadow-md transition-colors disabled:opacity-40"
               >
                 Guest Details <ArrowRight className="w-4 h-4" />
               </button>
@@ -466,14 +466,14 @@ export const ReservationPage: React.FC = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 20 }}
-            className="glass-panel p-6 sm:p-8 rounded-3xl space-y-6 max-w-2xl mx-auto"
+            className="bg-white border border-[#E5E5E5] p-6 sm:p-8 rounded-3xl space-y-6 max-w-2xl mx-auto shadow-sm"
           >
-            <h3 className="font-serif text-xl font-bold text-[#F4F1EA] border-b border-white/10 pb-3 flex items-center gap-2">
-              <User className="w-5 h-5 text-[#D4AF37]" /> Guest Contact Details
+            <h3 className="font-serif text-xl font-bold text-[#171717] border-b border-[#E5E5E5] pb-3 flex items-center gap-2">
+              <User className="w-5 h-5 text-[#B11226]" /> Guest Contact Details
             </h3>
 
             {user && (
-              <div className="bg-[#D4AF37]/10 border border-[#D4AF37]/30 p-3 rounded-xl text-xs text-[#D4AF37] flex items-center gap-2">
+              <div className="bg-[#B11226]/10 border border-[#B11226]/20 p-3 rounded-xl text-xs text-[#B11226] flex items-center gap-2">
                 <Shield className="w-4 h-4" />
                 <span>Logged in as <strong>{user.fullName}</strong>. Profile information pre-filled below.</span>
               </div>
@@ -481,71 +481,71 @@ export const ReservationPage: React.FC = () => {
 
             <div className="space-y-4">
               <div className="space-y-1.5">
-                <label className="text-xs text-gray-300 font-semibold flex items-center gap-1">
-                  <User className="w-3.5 h-3.5 text-[#D4AF37]" /> Full Name <span className="text-red-400">*</span>
+                <label className="text-xs text-[#171717] font-semibold flex items-center gap-1">
+                  <User className="w-3.5 h-3.5 text-[#B11226]" /> Full Name <span className="text-[#B11226]">*</span>
                 </label>
                 <input
                   type="text"
                   value={guestName}
                   onChange={(e) => setGuestName(e.target.value)}
-                  placeholder="Lord Sterling Vance"
-                  className="w-full bg-[#12141C] border border-white/15 rounded-xl px-4 py-2.5 text-sm text-[#F4F1EA] focus:outline-none focus:border-[#D4AF37]"
+                  placeholder="Sterling Vance"
+                  className="w-full bg-[#FAFAFA] border border-[#E5E5E5] rounded-xl px-4 py-2.5 text-sm text-[#171717] focus:outline-none focus:border-[#B11226]"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-xs text-gray-300 font-semibold flex items-center gap-1">
-                    <Mail className="w-3.5 h-3.5 text-[#D4AF37]" /> Email Address <span className="text-red-400">*</span>
+                  <label className="text-xs text-[#171717] font-semibold flex items-center gap-1">
+                    <Mail className="w-3.5 h-3.5 text-[#B11226]" /> Email Address <span className="text-[#B11226]">*</span>
                   </label>
                   <input
                     type="email"
                     value={guestEmail}
                     onChange={(e) => setGuestEmail(e.target.value)}
-                    placeholder="sterling@vance-holdings.com"
-                    className="w-full bg-[#12141C] border border-white/15 rounded-xl px-4 py-2.5 text-sm text-[#F4F1EA] focus:outline-none focus:border-[#D4AF37]"
+                    placeholder="sterling@example.com"
+                    className="w-full bg-[#FAFAFA] border border-[#E5E5E5] rounded-xl px-4 py-2.5 text-sm text-[#171717] focus:outline-none focus:border-[#B11226]"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-xs text-gray-300 font-semibold flex items-center gap-1">
-                    <Phone className="w-3.5 h-3.5 text-[#D4AF37]" /> Phone Number <span className="text-red-400">*</span>
+                  <label className="text-xs text-[#171717] font-semibold flex items-center gap-1">
+                    <Phone className="w-3.5 h-3.5 text-[#B11226]" /> Phone Number <span className="text-[#B11226]">*</span>
                   </label>
                   <input
                     type="tel"
                     value={guestPhone}
                     onChange={(e) => setGuestPhone(e.target.value)}
                     placeholder="+1 (555) 019-2834"
-                    className="w-full bg-[#12141C] border border-white/15 rounded-xl px-4 py-2.5 text-sm text-[#F4F1EA] focus:outline-none focus:border-[#D4AF37]"
+                    className="w-full bg-[#FAFAFA] border border-[#E5E5E5] rounded-xl px-4 py-2.5 text-sm text-[#171717] focus:outline-none focus:border-[#B11226]"
                   />
                 </div>
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs text-gray-300 font-semibold flex items-center gap-1">
-                  <MessageSquare className="w-3.5 h-3.5 text-[#D4AF37]" /> Special Requests or Occasion Notes (Optional)
+                <label className="text-xs text-[#171717] font-semibold flex items-center gap-1">
+                  <MessageSquare className="w-3.5 h-3.5 text-[#B11226]" /> Special Requests or Occasion Notes (Optional)
                 </label>
                 <textarea
                   value={specialRequests}
                   onChange={(e) => setSpecialRequests(e.target.value)}
                   placeholder="e.g. Anniversary celebration, quiet corner table, champagne toast request..."
                   rows={3}
-                  className="w-full bg-[#12141C] border border-white/15 rounded-xl px-4 py-2.5 text-sm text-[#F4F1EA] focus:outline-none focus:border-[#D4AF37]"
+                  className="w-full bg-[#FAFAFA] border border-[#E5E5E5] rounded-xl px-4 py-2.5 text-sm text-[#171717] focus:outline-none focus:border-[#B11226]"
                 />
               </div>
             </div>
 
-            <div className="flex justify-between items-center pt-4 border-t border-white/10">
+            <div className="flex justify-between items-center pt-4 border-t border-[#E5E5E5]">
               <button
                 type="button"
                 onClick={() => setStep(2)}
-                className="text-xs text-gray-400 hover:text-[#D4AF37] flex items-center gap-1.5 cursor-pointer"
+                className="text-xs text-[#6B6B6B] hover:text-[#B11226] flex items-center gap-1.5 cursor-pointer font-medium"
               >
                 <ArrowLeft className="w-4 h-4" /> Back to Time & Section
               </button>
               <button
                 type="button"
                 onClick={handleNextStep}
-                className="px-8 py-3.5 rounded-full bg-gradient-to-r from-[#D4AF37] to-[#8C7853] text-[#0B0C10] font-bold text-xs uppercase tracking-widest flex items-center gap-2 cursor-pointer shadow-lg hover:opacity-90"
+                className="px-8 py-3.5 rounded-full bg-[#B11226] hover:bg-[#7F0D1D] text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2 cursor-pointer shadow-md transition-colors"
               >
                 Review Booking <ArrowRight className="w-4 h-4" />
               </button>
@@ -560,68 +560,68 @@ export const ReservationPage: React.FC = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 20 }}
-            className="glass-panel p-6 sm:p-8 rounded-3xl space-y-6 max-w-2xl mx-auto"
+            className="bg-white border border-[#E5E5E5] p-6 sm:p-8 rounded-3xl space-y-6 max-w-2xl mx-auto shadow-sm"
           >
-            <h3 className="font-serif text-xl font-bold text-[#F4F1EA] border-b border-white/10 pb-3 flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-[#D4AF37]" /> Confirm Table Booking
+            <h3 className="font-serif text-xl font-bold text-[#171717] border-b border-[#E5E5E5] pb-3 flex items-center gap-2">
+              <CheckCircle className="w-5 h-5 text-[#B11226]" /> Confirm Table Booking
             </h3>
 
             {/* Summary Breakdown Card */}
-            <div className="glass-card p-6 rounded-2xl space-y-4 text-xs bg-[#12141C]/90">
-              <div className="flex justify-between items-center border-b border-white/10 pb-3">
-                <span className="font-serif text-lg font-bold text-gold-gradient">Reservation Overview</span>
-                <span className="text-[10px] uppercase font-mono bg-[#D4AF37]/20 text-[#D4AF37] px-2.5 py-1 rounded-full font-bold">
+            <div className="bg-[#FAFAFA] border border-[#E5E5E5] p-6 rounded-2xl space-y-4 text-xs">
+              <div className="flex justify-between items-center border-b border-[#E5E5E5] pb-3">
+                <span className="font-serif text-lg font-bold text-[#171717]">Reservation Overview</span>
+                <span className="text-[10px] uppercase font-mono bg-[#B11226]/10 text-[#B11226] px-2.5 py-1 rounded-full font-bold">
                   Status: Pending Confirmation
                 </span>
               </div>
 
-              <div className="grid grid-cols-2 gap-4 font-mono text-gray-300">
+              <div className="grid grid-cols-2 gap-4 font-mono text-[#171717]">
                 <div>
-                  <span className="text-gray-400 block text-[10px]">Date:</span>
-                  <span className="text-[#F4F1EA] font-bold">{reservationDate}</span>
+                  <span className="text-[#6B6B6B] block text-[10px]">Date:</span>
+                  <span className="font-bold">{reservationDate}</span>
                 </div>
                 <div>
-                  <span className="text-gray-400 block text-[10px]">Time Slot:</span>
-                  <span className="text-[#D4AF37] font-bold">{reservationTime}</span>
+                  <span className="text-[#6B6B6B] block text-[10px]">Time Slot:</span>
+                  <span className="text-[#B11226] font-bold">{reservationTime}</span>
                 </div>
                 <div>
-                  <span className="text-gray-400 block text-[10px]">Party Size:</span>
-                  <span className="text-[#F4F1EA] font-bold">{partySize} Guests</span>
+                  <span className="text-[#6B6B6B] block text-[10px]">Party Size:</span>
+                  <span className="font-bold">{partySize} Guests</span>
                 </div>
                 <div>
-                  <span className="text-gray-400 block text-[10px]">Seating Section:</span>
-                  <span className="text-[#F4F1EA] font-bold">{selectedSectionInfo?.name}</span>
+                  <span className="text-[#6B6B6B] block text-[10px]">Seating Section:</span>
+                  <span className="font-bold">{selectedSectionInfo?.name}</span>
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-white/10 space-y-1">
-                <div className="flex justify-between text-gray-300">
+              <div className="pt-3 border-t border-[#E5E5E5] space-y-1">
+                <div className="flex justify-between text-[#6B6B6B]">
                   <span>Guest Name:</span>
-                  <span className="text-[#F4F1EA] font-bold">{guestName}</span>
+                  <span className="text-[#171717] font-bold">{guestName}</span>
                 </div>
-                <div className="flex justify-between text-gray-300">
+                <div className="flex justify-between text-[#6B6B6B]">
                   <span>Email:</span>
-                  <span className="text-[#F4F1EA] font-bold">{guestEmail}</span>
+                  <span className="text-[#171717] font-bold">{guestEmail}</span>
                 </div>
-                <div className="flex justify-between text-gray-300">
+                <div className="flex justify-between text-[#6B6B6B]">
                   <span>Phone:</span>
-                  <span className="text-[#F4F1EA] font-bold">{guestPhone}</span>
+                  <span className="text-[#171717] font-bold">{guestPhone}</span>
                 </div>
                 {specialRequests && (
-                  <div className="pt-2 text-gray-300">
-                    <span className="text-gray-400 block text-[10px]">Special Requests:</span>
-                    <p className="text-xs italic text-[#F4F1EA] bg-white/5 p-2.5 rounded-lg mt-1">{specialRequests}</p>
+                  <div className="pt-2 text-[#6B6B6B]">
+                    <span className="block text-[10px]">Special Requests:</span>
+                    <p className="text-xs italic text-[#171717] bg-white border border-[#E5E5E5] p-2.5 rounded-lg mt-1">{specialRequests}</p>
                   </div>
                 )}
               </div>
             </div>
 
-            <div className="flex justify-between items-center pt-4 border-t border-white/10">
+            <div className="flex justify-between items-center pt-4 border-t border-[#E5E5E5]">
               <button
                 type="button"
                 onClick={() => setStep(3)}
                 disabled={isSubmitting}
-                className="text-xs text-gray-400 hover:text-[#D4AF37] flex items-center gap-1.5 cursor-pointer"
+                className="text-xs text-[#6B6B6B] hover:text-[#B11226] flex items-center gap-1.5 cursor-pointer font-medium"
               >
                 <ArrowLeft className="w-4 h-4" /> Edit Guest Details
               </button>
@@ -629,11 +629,11 @@ export const ReservationPage: React.FC = () => {
                 type="button"
                 onClick={handleConfirmReservation}
                 disabled={isSubmitting}
-                className="px-8 py-3.5 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#F4F1EA] to-[#D4AF37] text-[#0B0C10] font-bold text-xs uppercase tracking-widest flex items-center gap-2 cursor-pointer shadow-xl hover:opacity-95 disabled:opacity-50"
+                className="px-8 py-3.5 rounded-full bg-[#B11226] hover:bg-[#7F0D1D] text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2 cursor-pointer shadow-md transition-colors disabled:opacity-50"
               >
                 {isSubmitting ? (
                   <span className="flex items-center gap-2">
-                    <span className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                    <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                     Confirming Reservation...
                   </span>
                 ) : (

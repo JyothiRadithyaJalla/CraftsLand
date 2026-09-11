@@ -31,19 +31,19 @@ export class ErrorBoundary extends Component<Props, State> {
   public render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-[#0B0C10] text-[#F4F1EA] flex flex-col items-center justify-center p-6 text-center">
-          <div className="w-16 h-16 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center mb-6">
-            <AlertTriangle className="w-8 h-8 text-[#D4AF37]" />
+        <div className="min-h-screen bg-[#FAFAFA] text-[#171717] flex flex-col items-center justify-center p-6 text-center">
+          <div className="w-16 h-16 rounded-full bg-[#B11226]/10 border border-[#B11226]/20 flex items-center justify-center mb-6">
+            <AlertTriangle className="w-8 h-8 text-[#B11226]" />
           </div>
-          <h1 className="font-serif text-3xl font-bold mb-3 tracking-wide text-gold-gradient">
+          <h1 className="font-serif text-3xl font-bold mb-3 tracking-wide text-red-gradient">
             An Unexpected Interruption Occurred
           </h1>
-          <p className="text-gray-400 max-w-md mb-8 text-sm leading-relaxed">
-            Our luxury dining application encountered a temporary discrepancy. Please refresh the page to restore your session.
+          <p className="text-gray-500 max-w-md mb-8 text-sm leading-relaxed">
+            Our dining application encountered a temporary discrepancy. Please refresh the page to restore your session.
           </p>
           <button
             onClick={this.handleReload}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#D4AF37] to-[#8C7853] text-[#0B0C10] font-semibold text-sm hover:opacity-90 transition-opacity cursor-pointer"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#B11226] to-[#7F0D1D] text-white font-semibold text-sm hover:brightness-110 shadow-md transition-all cursor-pointer"
           >
             <RefreshCw className="w-4 h-4" /> Reload Experience
           </button>

@@ -54,17 +54,17 @@ export const AdminReviewsPage: React.FC = () => {
     <AdminLayout>
       <MetaTags title="Review Moderation | Craftsland Admin" />
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#D4AF37]/20 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#B11226]/20 pb-4">
         <div>
-          <h1 className="font-serif text-3xl font-bold text-gold-gradient">Customer Review Moderation</h1>
+          <h1 className="font-serif text-3xl font-bold text-red-gradient">Customer Review Moderation</h1>
           <p className="text-xs text-gray-400">Review, publish, or hide dining feedback and star ratings</p>
         </div>
       </div>
 
-      <div className="glass-panel rounded-2xl overflow-hidden border border-[#D4AF37]/20 bg-[#12141C]/80">
+      <div className="bg-white rounded-2xl overflow-hidden border border-[#B11226]/20 bg-[#FFFFFF]/80">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#0B0C10] border-b border-white/10 text-gray-400 uppercase text-[10px] font-mono">
+            <thead className="bg-[#FAFAFA] border-b border-[#E5E5E5] text-gray-400 uppercase text-[10px] font-mono">
               <tr>
                 <th className="p-4">Customer</th>
                 <th className="p-4">Target Dish</th>
@@ -77,12 +77,12 @@ export const AdminReviewsPage: React.FC = () => {
             <tbody className="divide-y divide-white/5">
               {reviews.map((rev) => (
                 <tr key={rev.id} className="hover:bg-white/5 transition-colors">
-                  <td className="p-4 font-serif font-bold text-[#F4F1EA] text-sm">{rev.customerName}</td>
-                  <td className="p-4 font-mono text-[#D4AF37]">{rev.dishName}</td>
+                  <td className="p-4 font-serif font-bold text-[#171717] text-sm">{rev.customerName}</td>
+                  <td className="p-4 font-mono text-[#B11226]">{rev.dishName}</td>
                   <td className="p-4">
-                    <div className="flex items-center gap-1 text-[#D4AF37]">
+                    <div className="flex items-center gap-1 text-[#B11226]">
                       {Array.from({ length: rev.rating }).map((_, i) => (
-                        <Star key={i} className="w-3.5 h-3.5 fill-[#D4AF37]" />
+                        <Star key={i} className="w-3.5 h-3.5 fill-[#B11226]" />
                       ))}
                     </div>
                   </td>

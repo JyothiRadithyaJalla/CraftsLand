@@ -26,25 +26,25 @@ export const AdminSettingsPage: React.FC = () => {
     <AdminLayout>
       <MetaTags title="Restaurant Settings | Craftsland Admin" />
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#D4AF37]/20 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#B11226]/20 pb-4">
         <div>
-          <h1 className="font-serif text-3xl font-bold text-gold-gradient">Restaurant System Settings</h1>
+          <h1 className="font-serif text-3xl font-bold text-red-gradient">Restaurant System Settings</h1>
           <p className="text-xs text-gray-400">Configure operating parameters, concierge contacts, taxes, and store status</p>
         </div>
       </div>
 
       {savedMsg && (
-        <div className="glass-card p-4 rounded-xl border border-emerald-500/40 bg-emerald-950/20 text-emerald-300 text-xs flex items-center gap-2">
+        <div className="bg-white p-4 rounded-xl border border-emerald-500/40 bg-emerald-950/20 text-emerald-300 text-xs flex items-center gap-2">
           <CheckCircle2 className="w-4 h-4 text-emerald-400" />
           <span>Restaurant system settings saved successfully.</span>
         </div>
       )}
 
-      <form onSubmit={handleSaveSettings} className="glass-panel p-6 sm:p-8 rounded-3xl space-y-6 border border-[#D4AF37]/20 bg-[#12141C]/80 max-w-3xl">
+      <form onSubmit={handleSaveSettings} className="bg-white p-6 sm:p-8 rounded-3xl space-y-6 border border-[#B11226]/20 bg-[#FFFFFF]/80 max-w-3xl">
         {/* Store Open / Closed Override */}
-        <div className="flex items-center justify-between bg-[#0B0C10] p-4 rounded-2xl border border-white/10">
+        <div className="flex items-center justify-between bg-[#FAFAFA] p-4 rounded-2xl border border-[#E5E5E5]">
           <div>
-            <h3 className="font-serif font-bold text-sm text-[#F4F1EA]">Restaurant Operational State</h3>
+            <h3 className="font-serif font-bold text-sm text-[#171717]">Restaurant Operational State</h3>
             <p className="text-xs text-gray-400">Toggle whether the online ordering pass & table reservations are active</p>
           </div>
 
@@ -64,7 +64,7 @@ export const AdminSettingsPage: React.FC = () => {
 
         {/* Brand Details */}
         <div className="space-y-4">
-          <h3 className="font-serif text-lg font-bold text-[#F4F1EA] border-b border-white/10 pb-2">
+          <h3 className="font-serif text-lg font-bold text-[#171717] border-b border-[#E5E5E5] pb-2">
             Brand Identity & Concierge Info
           </h3>
 
@@ -75,7 +75,7 @@ export const AdminSettingsPage: React.FC = () => {
                 type="text"
                 value={brandName}
                 onChange={(e) => setBrandName(e.target.value)}
-                className="w-full bg-[#0B0C10] border border-white/15 rounded-xl px-3 py-2 text-xs text-[#F4F1EA] focus:outline-none focus:border-[#D4AF37]"
+                className="w-full bg-[#FAFAFA] border border-[#E5E5E5] rounded-xl px-3 py-2 text-xs text-[#171717] focus:outline-none focus:border-[#B11226]"
               />
             </div>
             <div className="space-y-1">
@@ -84,7 +84,7 @@ export const AdminSettingsPage: React.FC = () => {
                 type="text"
                 value={tagline}
                 onChange={(e) => setTagline(e.target.value)}
-                className="w-full bg-[#0B0C10] border border-white/15 rounded-xl px-3 py-2 text-xs text-[#F4F1EA] focus:outline-none focus:border-[#D4AF37]"
+                className="w-full bg-[#FAFAFA] border border-[#E5E5E5] rounded-xl px-3 py-2 text-xs text-[#171717] focus:outline-none focus:border-[#B11226]"
               />
             </div>
           </div>
@@ -96,7 +96,7 @@ export const AdminSettingsPage: React.FC = () => {
                 type="text"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full bg-[#0B0C10] border border-white/15 rounded-xl px-3 py-2 text-xs text-[#F4F1EA] focus:outline-none focus:border-[#D4AF37]"
+                className="w-full bg-[#FAFAFA] border border-[#E5E5E5] rounded-xl px-3 py-2 text-xs text-[#171717] focus:outline-none focus:border-[#B11226]"
               />
             </div>
             <div className="space-y-1">
@@ -105,7 +105,7 @@ export const AdminSettingsPage: React.FC = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-[#0B0C10] border border-white/15 rounded-xl px-3 py-2 text-xs text-[#F4F1EA] focus:outline-none focus:border-[#D4AF37]"
+                className="w-full bg-[#FAFAFA] border border-[#E5E5E5] rounded-xl px-3 py-2 text-xs text-[#171717] focus:outline-none focus:border-[#B11226]"
               />
             </div>
           </div>
@@ -116,14 +116,14 @@ export const AdminSettingsPage: React.FC = () => {
               type="text"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              className="w-full bg-[#0B0C10] border border-white/15 rounded-xl px-3 py-2 text-xs text-[#F4F1EA] focus:outline-none focus:border-[#D4AF37]"
+              className="w-full bg-[#FAFAFA] border border-[#E5E5E5] rounded-xl px-3 py-2 text-xs text-[#171717] focus:outline-none focus:border-[#B11226]"
             />
           </div>
         </div>
 
         {/* Financial & Financial Config */}
-        <div className="space-y-4 pt-4 border-t border-white/10">
-          <h3 className="font-serif text-lg font-bold text-[#F4F1EA] border-b border-white/10 pb-2">
+        <div className="space-y-4 pt-4 border-t border-[#E5E5E5]">
+          <h3 className="font-serif text-lg font-bold text-[#171717] border-b border-[#E5E5E5] pb-2">
             Tax Rates & Logistics Fees
           </h3>
 
@@ -135,7 +135,7 @@ export const AdminSettingsPage: React.FC = () => {
                 step="0.1"
                 value={taxRate}
                 onChange={(e) => setTaxRate(parseFloat(e.target.value) || 0)}
-                className="w-full bg-[#0B0C10] border border-white/15 rounded-xl px-3 py-2 text-xs text-[#F4F1EA] font-mono focus:outline-none focus:border-[#D4AF37]"
+                className="w-full bg-[#FAFAFA] border border-[#E5E5E5] rounded-xl px-3 py-2 text-xs text-[#171717] font-mono focus:outline-none focus:border-[#B11226]"
               />
             </div>
 
@@ -146,7 +146,7 @@ export const AdminSettingsPage: React.FC = () => {
                 step="0.5"
                 value={deliveryFee}
                 onChange={(e) => setDeliveryFee(parseFloat(e.target.value) || 0)}
-                className="w-full bg-[#0B0C10] border border-white/15 rounded-xl px-3 py-2 text-xs text-[#F4F1EA] font-mono focus:outline-none focus:border-[#D4AF37]"
+                className="w-full bg-[#FAFAFA] border border-[#E5E5E5] rounded-xl px-3 py-2 text-xs text-[#171717] font-mono focus:outline-none focus:border-[#B11226]"
               />
             </div>
 
@@ -156,7 +156,7 @@ export const AdminSettingsPage: React.FC = () => {
                 type="text"
                 value={hours}
                 onChange={(e) => setHours(e.target.value)}
-                className="w-full bg-[#0B0C10] border border-white/15 rounded-xl px-3 py-2 text-xs text-[#F4F1EA] focus:outline-none focus:border-[#D4AF37]"
+                className="w-full bg-[#FAFAFA] border border-[#E5E5E5] rounded-xl px-3 py-2 text-xs text-[#171717] focus:outline-none focus:border-[#B11226]"
               />
             </div>
           </div>
@@ -165,7 +165,7 @@ export const AdminSettingsPage: React.FC = () => {
         <div className="pt-4 flex justify-end">
           <button
             type="submit"
-            className="px-8 py-3.5 rounded-full bg-gradient-to-r from-[#D4AF37] to-[#8C7853] text-[#0B0C10] font-bold text-xs uppercase tracking-widest flex items-center gap-2 cursor-pointer shadow-lg hover:opacity-90"
+            className="px-8 py-3.5 rounded-full bg-gradient-to-r from-[#B11226] to-[#7F0D1D] text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2 cursor-pointer shadow-lg hover:opacity-90"
           >
             <Save className="w-4 h-4" /> Save System Settings
           </button>

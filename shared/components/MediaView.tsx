@@ -88,7 +88,7 @@ export const MediaView: React.FC<MediaViewProps> = ({
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`relative overflow-hidden bg-[#12141C] ${aspectRatio} ${clickable ? 'cursor-pointer group' : ''} ${className}`}
+      className={`relative overflow-hidden bg-gray-100 ${aspectRatio} ${clickable ? 'cursor-pointer group' : ''} ${className}`}
     >
       {/* High-res Image / Poster */}
       {isInView && (
@@ -123,8 +123,8 @@ export const MediaView: React.FC<MediaViewProps> = ({
 
       {/* Video Indicator Badge */}
       {resolvedVideo && !isPlaying && (
-        <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#0B0C10]/85 backdrop-blur-md border border-[#D4AF37]/35 text-[#D4AF37] text-[10px] font-sans font-semibold tracking-wider shadow-lg">
-          <Play className="w-2.5 h-2.5 fill-[#D4AF37]" />
+        <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-[#B11226]/40 text-[#D71920] text-[10px] font-sans font-semibold tracking-wider shadow-lg">
+          <Play className="w-2.5 h-2.5 fill-[#D71920]" />
           <span>Cinematic Preview</span>
         </div>
       )}
@@ -140,7 +140,7 @@ export const MediaView: React.FC<MediaViewProps> = ({
               setIsMuted(!isMuted);
             }
           }}
-          className="absolute bottom-3 right-3 z-20 p-1.5 rounded-full bg-[#0B0C10]/80 backdrop-blur-md text-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#0B0C10] transition-colors border border-[#D4AF37]/30 cursor-pointer"
+          className="absolute bottom-3 right-3 z-20 p-1.5 rounded-full bg-black/80 backdrop-blur-md text-[#D71920] hover:bg-[#B11226] hover:text-white transition-colors border border-[#B11226]/40 cursor-pointer"
           title={isMuted ? 'Unmute video' : 'Mute video'}
         >
           {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
@@ -148,7 +148,7 @@ export const MediaView: React.FC<MediaViewProps> = ({
       )}
 
       {/* Ambient Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#12141C] via-transparent to-transparent opacity-60 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60 pointer-events-none" />
     </div>
   );
 };

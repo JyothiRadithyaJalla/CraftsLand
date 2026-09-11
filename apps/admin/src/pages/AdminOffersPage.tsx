@@ -83,23 +83,23 @@ export const AdminOffersPage: React.FC = () => {
     <AdminLayout>
       <MetaTags title="Offers & Promo Codes | Craftsland Admin" />
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#D4AF37]/20 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#B11226]/20 pb-4">
         <div>
-          <h1 className="font-serif text-3xl font-bold text-gold-gradient">Promo Codes & Offers</h1>
+          <h1 className="font-serif text-3xl font-bold text-red-gradient">Promo Codes & Offers</h1>
           <p className="text-xs text-gray-400">Configure promotional discounts and validity dates</p>
         </div>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#8C7853] text-[#0B0C10] font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:opacity-90"
+          className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#B11226] to-[#7F0D1D] text-white font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:opacity-90"
         >
           <Plus className="w-4 h-4" /> Create Promo Code
         </button>
       </div>
 
-      <div className="glass-panel rounded-2xl overflow-hidden border border-[#D4AF37]/20 bg-[#12141C]/80">
+      <div className="bg-white rounded-2xl overflow-hidden border border-[#B11226]/20 bg-[#FFFFFF]/80">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#0B0C10] border-b border-white/10 text-gray-400 uppercase text-[10px] font-mono">
+            <thead className="bg-[#FAFAFA] border-b border-[#E5E5E5] text-gray-400 uppercase text-[10px] font-mono">
               <tr>
                 <th className="p-4">Promo Code</th>
                 <th className="p-4">Discount %</th>
@@ -111,8 +111,8 @@ export const AdminOffersPage: React.FC = () => {
             <tbody className="divide-y divide-white/5">
               {offers.map((off) => (
                 <tr key={off.id} className="hover:bg-white/5 transition-colors">
-                  <td className="p-4 font-mono font-bold text-[#D4AF37] text-sm">{off.code}</td>
-                  <td className="p-4 font-mono font-bold text-[#F4F1EA]">{off.discountPercent}% OFF</td>
+                  <td className="p-4 font-mono font-bold text-[#B11226] text-sm">{off.code}</td>
+                  <td className="p-4 font-mono font-bold text-[#171717]">{off.discountPercent}% OFF</td>
                   <td className="p-4 font-mono text-gray-400">
                     {off.activeFrom} to {off.activeTo}
                   </td>
@@ -145,13 +145,13 @@ export const AdminOffersPage: React.FC = () => {
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0B0C10]/80 backdrop-blur-md">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#FAFAFA]/80 backdrop-blur-md">
           <form
             onSubmit={handleCreateOffer}
-            className="glass-panel w-full max-w-md bg-[#12141C] border border-[#D4AF37]/30 rounded-3xl p-6 space-y-4 text-[#F4F1EA]"
+            className="bg-white w-full max-w-md bg-[#FFFFFF] border border-[#B11226]/30 rounded-3xl p-6 space-y-4 text-[#171717]"
           >
-            <div className="flex justify-between items-center border-b border-white/10 pb-3">
-              <h3 className="font-serif text-xl font-bold text-gold-gradient">Create Promo Code</h3>
+            <div className="flex justify-between items-center border-b border-[#E5E5E5] pb-3">
+              <h3 className="font-serif text-xl font-bold text-red-gradient">Create Promo Code</h3>
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
@@ -177,7 +177,7 @@ export const AdminOffersPage: React.FC = () => {
                   value={newCode}
                   onChange={(e) => setNewCode(e.target.value)}
                   placeholder="e.g. LUXURY25"
-                  className="w-full bg-[#0B0C10] border border-white/15 rounded-xl px-3 py-2 text-xs text-[#F4F1EA] font-mono focus:outline-none focus:border-[#D4AF37]"
+                  className="w-full bg-[#FAFAFA] border border-[#E5E5E5] rounded-xl px-3 py-2 text-xs text-[#171717] font-mono focus:outline-none focus:border-[#B11226]"
                 />
               </div>
 
@@ -190,7 +190,7 @@ export const AdminOffersPage: React.FC = () => {
                   required
                   value={newDiscount}
                   onChange={(e) => setNewDiscount(Number(e.target.value) || 10)}
-                  className="w-full bg-[#0B0C10] border border-white/15 rounded-xl px-3 py-2 text-xs text-[#F4F1EA] font-mono focus:outline-none focus:border-[#D4AF37]"
+                  className="w-full bg-[#FAFAFA] border border-[#E5E5E5] rounded-xl px-3 py-2 text-xs text-[#171717] font-mono focus:outline-none focus:border-[#B11226]"
                 />
               </div>
 
@@ -201,7 +201,7 @@ export const AdminOffersPage: React.FC = () => {
                     type="date"
                     value={newActiveFrom}
                     onChange={(e) => setNewActiveFrom(e.target.value)}
-                    className="w-full bg-[#0B0C10] border border-white/15 rounded-xl px-3 py-2 text-xs text-[#F4F1EA] font-mono focus:outline-none focus:border-[#D4AF37]"
+                    className="w-full bg-[#FAFAFA] border border-[#E5E5E5] rounded-xl px-3 py-2 text-xs text-[#171717] font-mono focus:outline-none focus:border-[#B11226]"
                   />
                 </div>
                 <div className="space-y-1">
@@ -210,23 +210,23 @@ export const AdminOffersPage: React.FC = () => {
                     type="date"
                     value={newActiveTo}
                     onChange={(e) => setNewActiveTo(e.target.value)}
-                    className="w-full bg-[#0B0C10] border border-white/15 rounded-xl px-3 py-2 text-xs text-[#F4F1EA] font-mono focus:outline-none focus:border-[#D4AF37]"
+                    className="w-full bg-[#FAFAFA] border border-[#E5E5E5] rounded-xl px-3 py-2 text-xs text-[#171717] font-mono focus:outline-none focus:border-[#B11226]"
                   />
                 </div>
               </div>
             </div>
 
-            <div className="flex justify-end gap-3 pt-4 border-t border-white/10 text-xs">
+            <div className="flex justify-end gap-3 pt-4 border-t border-[#E5E5E5] text-xs">
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="px-5 py-2 rounded-full border border-white/15 text-gray-400 hover:text-white cursor-pointer"
+                className="px-5 py-2 rounded-full border border-[#E5E5E5] text-gray-400 hover:text-white cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-6 py-2 rounded-full bg-gradient-to-r from-[#D4AF37] to-[#8C7853] text-[#0B0C10] font-bold uppercase tracking-wider cursor-pointer shadow-lg hover:opacity-90"
+                className="px-6 py-2 rounded-full bg-gradient-to-r from-[#B11226] to-[#7F0D1D] text-white font-bold uppercase tracking-wider cursor-pointer shadow-lg hover:opacity-90"
               >
                 Create Code
               </button>

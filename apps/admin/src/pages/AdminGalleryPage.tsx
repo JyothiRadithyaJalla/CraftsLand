@@ -79,14 +79,14 @@ export const AdminGalleryPage: React.FC = () => {
     <AdminLayout>
       <MetaTags title="Media Gallery Manager | Craftsland Admin" />
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#D4AF37]/20 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#B11226]/20 pb-4">
         <div>
-          <h1 className="font-serif text-3xl font-bold text-gold-gradient">Media Gallery Asset Manager</h1>
+          <h1 className="font-serif text-3xl font-bold text-red-gradient">Media Gallery Asset Manager</h1>
           <p className="text-xs text-gray-400">Curate luxury visual assets, photos, and featured highlights</p>
         </div>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#8C7853] text-[#0B0C10] font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:opacity-90"
+          className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#B11226] to-[#7F0D1D] text-white font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:opacity-90"
         >
           <Plus className="w-4 h-4" /> Add Media URL
         </button>
@@ -94,15 +94,15 @@ export const AdminGalleryPage: React.FC = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {mediaList.map((item) => (
-          <div key={item.id} className="glass-panel p-4 rounded-2xl space-y-3 border border-[#D4AF37]/20 bg-[#12141C]/80">
+          <div key={item.id} className="bg-white p-4 rounded-2xl space-y-3 border border-[#B11226]/20 bg-[#FFFFFF]/80">
             <div
               data-cursor="image"
               onClick={() => setSelectedImage({ url: item.url, title: item.title, category: item.category })}
-              className="relative aspect-video rounded-xl overflow-hidden group cursor-pointer border border-white/5 hover:border-[#D4AF37]/50 transition-all duration-300"
+              className="relative aspect-video rounded-xl overflow-hidden group cursor-pointer border border-[#E5E5E5] hover:border-[#B11226]/50 transition-all duration-300"
             >
               <img src={item.url} alt={item.title} className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500" />
               {item.isFeatured && (
-                <span className="absolute top-2 right-2 bg-[#D4AF37] text-[#0B0C10] font-bold text-[10px] uppercase px-2 py-0.5 rounded-full shadow-md">
+                <span className="absolute top-2 right-2 bg-[#B11226] text-white font-bold text-[10px] uppercase px-2 py-0.5 rounded-full shadow-md">
                   Featured
                 </span>
               )}
@@ -110,7 +110,7 @@ export const AdminGalleryPage: React.FC = () => {
 
             <div className="flex justify-between items-center text-xs">
               <div>
-                <h4 className="font-serif font-bold text-[#F4F1EA]">{item.title}</h4>
+                <h4 className="font-serif font-bold text-[#171717]">{item.title}</h4>
                 <span className="text-[10px] text-gray-400 font-mono uppercase">{item.category}</span>
               </div>
 
@@ -118,7 +118,7 @@ export const AdminGalleryPage: React.FC = () => {
                 <button
                   onClick={() => handleToggleFeatured(item.id)}
                   className={`p-1.5 rounded-lg border text-xs cursor-pointer transition-colors ${
-                    item.isFeatured ? 'bg-[#D4AF37]/20 border-[#D4AF37] text-[#D4AF37]' : 'bg-white/5 border-white/10 text-gray-400'
+                    item.isFeatured ? 'bg-[#B11226]/20 border-[#B11226] text-[#B11226]' : 'bg-white/5 border-[#E5E5E5] text-gray-400'
                   }`}
                   title="Toggle Featured"
                 >
@@ -138,13 +138,13 @@ export const AdminGalleryPage: React.FC = () => {
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0B0C10]/80 backdrop-blur-md">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#FAFAFA]/80 backdrop-blur-md">
           <form
             onSubmit={handleAddMedia}
-            className="glass-panel w-full max-w-md bg-[#12141C] border border-[#D4AF37]/30 rounded-3xl p-6 space-y-4 text-[#F4F1EA]"
+            className="bg-white w-full max-w-md bg-[#FFFFFF] border border-[#B11226]/30 rounded-3xl p-6 space-y-4 text-[#171717]"
           >
-            <div className="flex justify-between items-center border-b border-white/10 pb-3">
-              <h3 className="font-serif text-xl font-bold text-gold-gradient">Add Media Asset</h3>
+            <div className="flex justify-between items-center border-b border-[#E5E5E5] pb-3">
+              <h3 className="font-serif text-xl font-bold text-red-gradient">Add Media Asset</h3>
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
@@ -163,7 +163,7 @@ export const AdminGalleryPage: React.FC = () => {
                   value={newUrl}
                   onChange={(e) => setNewUrl(e.target.value)}
                   placeholder="https://images.unsplash.com/..."
-                  className="w-full bg-[#0B0C10] border border-white/15 rounded-xl px-3 py-2 text-xs text-[#F4F1EA] focus:outline-none focus:border-[#D4AF37]"
+                  className="w-full bg-[#FAFAFA] border border-[#E5E5E5] rounded-xl px-3 py-2 text-xs text-[#171717] focus:outline-none focus:border-[#B11226]"
                 />
               </div>
 
@@ -174,7 +174,7 @@ export const AdminGalleryPage: React.FC = () => {
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
                   placeholder="Chef Pass Presentation"
-                  className="w-full bg-[#0B0C10] border border-white/15 rounded-xl px-3 py-2 text-xs text-[#F4F1EA] focus:outline-none focus:border-[#D4AF37]"
+                  className="w-full bg-[#FAFAFA] border border-[#E5E5E5] rounded-xl px-3 py-2 text-xs text-[#171717] focus:outline-none focus:border-[#B11226]"
                 />
               </div>
 
@@ -183,7 +183,7 @@ export const AdminGalleryPage: React.FC = () => {
                 <select
                   value={newCategory}
                   onChange={(e) => setNewCategory(e.target.value)}
-                  className="w-full bg-[#0B0C10] border border-white/15 rounded-xl px-3 py-2 text-xs text-[#F4F1EA] focus:outline-none focus:border-[#D4AF37]"
+                  className="w-full bg-[#FAFAFA] border border-[#E5E5E5] rounded-xl px-3 py-2 text-xs text-[#171717] focus:outline-none focus:border-[#B11226]"
                 >
                   <option value="plating">Plating</option>
                   <option value="interior">Interior</option>
@@ -193,17 +193,17 @@ export const AdminGalleryPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex justify-end gap-3 pt-4 border-t border-white/10 text-xs">
+            <div className="flex justify-end gap-3 pt-4 border-t border-[#E5E5E5] text-xs">
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="px-5 py-2 rounded-full border border-white/15 text-gray-400 hover:text-white cursor-pointer"
+                className="px-5 py-2 rounded-full border border-[#E5E5E5] text-gray-400 hover:text-white cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-6 py-2 rounded-full bg-gradient-to-r from-[#D4AF37] to-[#8C7853] text-[#0B0C10] font-bold uppercase tracking-wider cursor-pointer shadow-lg hover:opacity-90"
+                className="px-6 py-2 rounded-full bg-gradient-to-r from-[#B11226] to-[#7F0D1D] text-white font-bold uppercase tracking-wider cursor-pointer shadow-lg hover:opacity-90"
               >
                 Add Asset
               </button>

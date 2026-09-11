@@ -71,7 +71,7 @@ export const HomePage: React.FC = () => {
       {/* ========================================================================= */}
       {/* 1. CINEMATIC HERO SECTION */}
       {/* ========================================================================= */}
-      <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden rounded-3xl mx-3 sm:mx-8 my-4 border border-[#D4AF37]/30 shadow-[0_0_60px_rgba(0,0,0,0.85)]">
+      <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden rounded-3xl mx-3 sm:mx-8 my-4 border border-[#E5E5E5] shadow-lg bg-white">
         {/* Background Ambient Imagery with Cinematic Slow Zoom */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           <motion.img
@@ -80,11 +80,11 @@ export const HomePage: React.FC = () => {
             transition={{ duration: 18, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
             src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1920&auto=format&fit=crop"
             alt="Craftsland Warm Dining Atmosphere"
-            className="w-full h-full object-cover opacity-45"
+            className="w-full h-full object-cover opacity-15"
             loading="eager"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C10] via-[#0B0C10]/60 to-transparent" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-[#0B0C10]/40 to-[#0B0C10]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-white/60 to-white" />
         </div>
 
         {/* Hero Content */}
@@ -96,8 +96,8 @@ export const HomePage: React.FC = () => {
             transition={{ duration: 0.7 }}
             className="flex justify-center"
           >
-            <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/40 text-[#D4AF37] text-xs font-sans font-bold tracking-[0.25em] uppercase backdrop-blur-md shadow-lg">
-              <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
+            <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-[#B11226]/10 border border-[#B11226]/30 text-[#B11226] text-xs font-sans font-bold tracking-[0.25em] uppercase backdrop-blur-md shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-[#B11226]" />
               <span>A World of Crafted Flavors</span>
             </div>
           </motion.div>
@@ -109,10 +109,10 @@ export const HomePage: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="space-y-3"
           >
-            <h1 className="font-serif text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight text-gold-gradient leading-[1.05] drop-shadow-[0_4px_25px_rgba(212,175,55,0.25)]">
+            <h1 className="font-serif text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight text-[#171717] leading-[1.05]">
               {RESTAURANT_BRAND.name}
             </h1>
-            <p className="font-serif italic text-2xl sm:text-3xl text-amber-100/90 font-light">
+            <p className="font-serif italic text-2xl sm:text-3xl text-[#B11226] font-medium">
               "{RESTAURANT_BRAND.tagline}"
             </p>
           </motion.div>
@@ -122,7 +122,7 @@ export const HomePage: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.35 }}
-            className="font-sans text-base sm:text-lg text-[#F4F1EA]/85 max-w-2xl mx-auto font-light leading-relaxed tracking-wide"
+            className="font-sans text-base sm:text-lg text-[#6B6B6B] max-w-2xl mx-auto font-normal leading-relaxed tracking-wide"
           >
             {RESTAURANT_BRAND.storySubheading}
           </motion.p>
@@ -136,7 +136,7 @@ export const HomePage: React.FC = () => {
           >
             <Link
               to="/menu"
-              className="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-[#D4AF37] to-[#8C7853] hover:from-[#E5C158] hover:to-[#A38D62] text-[#0B0C10] font-sans font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 shadow-xl hover:shadow-[0_0_25px_rgba(212,175,55,0.5)] flex items-center justify-center gap-2 group"
+              className="w-full sm:w-auto px-8 py-4 rounded-full bg-[#B11226] hover:bg-[#7F0D1D] text-white font-sans font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer"
             >
               <span>Explore Menu</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -144,9 +144,9 @@ export const HomePage: React.FC = () => {
 
             <Link
               to="/reservation"
-              className="w-full sm:w-auto px-8 py-4 rounded-full glass-panel hover:bg-white/10 text-[#F4F1EA] hover:text-[#D4AF37] font-sans font-semibold text-xs uppercase tracking-[0.2em] border border-[#D4AF37]/40 transition-all duration-300 flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-8 py-4 rounded-full bg-white hover:bg-[#FAFAFA] text-[#171717] hover:text-[#B11226] font-sans font-semibold text-xs uppercase tracking-[0.2em] border border-[#E5E5E5] transition-all duration-300 flex items-center justify-center gap-2 shadow-xs cursor-pointer"
             >
-              <Calendar className="w-4 h-4 text-[#D4AF37]" />
+              <Calendar className="w-4 h-4 text-[#B11226]" />
               <span>Reserve a Table</span>
             </Link>
           </motion.div>
@@ -167,15 +167,15 @@ export const HomePage: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="glass-card p-6 sm:p-8 rounded-3xl border border-white/10 hover:border-[#D4AF37]/40 transition-all duration-300 space-y-4 text-center group"
+                className="bg-white p-6 sm:p-8 rounded-3xl border border-[#E5E5E5] hover:border-[#B11226]/40 hover:shadow-md transition-all duration-300 space-y-4 text-center group"
               >
-                <div className="w-14 h-14 rounded-2xl bg-[#D4AF37]/15 border border-[#D4AF37]/35 text-[#D4AF37] flex items-center justify-center mx-auto transition-transform group-hover:scale-110">
+                <div className="w-14 h-14 rounded-2xl bg-[#B11226]/10 border border-[#B11226]/20 text-[#B11226] flex items-center justify-center mx-auto transition-transform group-hover:scale-110">
                   <Icon className="w-7 h-7" />
                 </div>
-                <h3 className="font-serif text-lg font-bold text-[#F4F1EA] group-hover:text-gold-gradient transition-colors">
+                <h3 className="font-serif text-lg font-bold text-[#171717] group-hover:text-[#B11226] transition-colors">
                   {item.title}
                 </h3>
-                <p className="text-gray-400 text-xs leading-relaxed font-sans">
+                <p className="text-[#6B6B6B] text-xs leading-relaxed font-sans">
                   "{item.desc}"
                 </p>
               </motion.div>
@@ -188,21 +188,21 @@ export const HomePage: React.FC = () => {
       {/* 3. SIGNATURE FEATURED DISHES (WITH VIDEO MEDIA) */}
       {/* ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#D4AF37]/20 pb-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#E5E5E5] pb-6">
           <div className="space-y-2">
-            <span className="font-sans text-xs font-bold text-[#D4AF37] tracking-[0.25em] uppercase block">
-              Cinematic Selections
+            <span className="font-sans text-xs font-bold text-[#B11226] tracking-[0.25em] uppercase block">
+              Curated Selections
             </span>
-            <h2 className="font-serif text-3xl sm:text-5xl font-bold text-gold-gradient">
+            <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#171717]">
               Signature Dishes
             </h2>
-            <p className="text-gray-400 text-sm font-light max-w-xl">
+            <p className="text-[#6B6B6B] text-sm font-light max-w-xl">
               Hover over dishes to experience motion sizzle previews and culinary artistry.
             </p>
           </div>
           <Link
             to="/menu"
-            className="inline-flex items-center gap-2 text-xs font-bold text-[#D4AF37] hover:text-[#E5C158] uppercase tracking-widest group"
+            className="inline-flex items-center gap-2 text-xs font-bold text-[#B11226] hover:text-[#7F0D1D] uppercase tracking-widest group"
           >
             <span>View Full Menu</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
@@ -225,13 +225,13 @@ export const HomePage: React.FC = () => {
       {/* ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div className="text-center space-y-3">
-          <span className="font-sans text-xs font-bold text-[#D4AF37] tracking-[0.25em] uppercase block">
-            Curated Menus
+          <span className="font-sans text-xs font-bold text-[#B11226] tracking-[0.25em] uppercase block">
+            Crafted Menus
           </span>
-          <h2 className="font-serif text-3xl sm:text-5xl font-bold text-gold-gradient">
+          <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#171717]">
             Food Categories
           </h2>
-          <p className="text-gray-400 text-sm max-w-lg mx-auto font-light">
+          <p className="text-[#6B6B6B] text-sm max-w-lg mx-auto font-light">
             Every course is thoughtfully composed with artisanal flair and vibrant seasoning.
           </p>
         </div>
@@ -241,20 +241,20 @@ export const HomePage: React.FC = () => {
             <Link
               key={cat.id}
               to={`/menu/${cat.slug}`}
-              className="group relative aspect-[3/4] rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-[#D4AF37]/50 transition-all duration-500 flex flex-col justify-end p-4 text-center"
+              className="group relative aspect-[3/4] rounded-2xl overflow-hidden bg-white border border-[#E5E5E5] hover:border-[#B11226]/50 hover:shadow-md transition-all duration-500 flex flex-col justify-end p-4 text-center"
             >
               <img
                 src={cat.imageUrl || 'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop'}
                 alt={cat.name}
                 loading="lazy"
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60 group-hover:opacity-80"
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80 group-hover:opacity-95"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C10] via-[#0B0C10]/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#171717]/90 via-[#171717]/30 to-transparent" />
               <div className="relative z-10 space-y-1">
-                <h3 className="font-serif text-base font-bold text-[#F4F1EA] group-hover:text-[#D4AF37] transition-colors">
+                <h3 className="font-serif text-base font-bold text-white group-hover:text-[#D71920] transition-colors">
                   {cat.name}
                 </h3>
-                <span className="text-[10px] text-gray-400 uppercase tracking-wider block font-sans">
+                <span className="text-[10px] text-gray-200 uppercase tracking-wider block font-sans">
                   Explore
                 </span>
               </div>
@@ -267,24 +267,24 @@ export const HomePage: React.FC = () => {
       {/* 5. OUR STORY SECTION */}
       {/* ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="glass-panel p-8 sm:p-16 rounded-3xl border border-[#D4AF37]/25 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="bg-white p-8 sm:p-16 rounded-3xl border border-[#E5E5E5] shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
-            <span className="font-sans text-xs font-bold text-[#D4AF37] tracking-[0.3em] uppercase block">
+            <span className="font-sans text-xs font-bold text-[#B11226] tracking-[0.3em] uppercase block">
               Our Story
             </span>
-            <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#F4F1EA] leading-tight">
+            <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#171717] leading-tight">
               {RESTAURANT_BRAND.storyHeading}
             </h2>
-            <p className="text-gray-300 text-sm leading-relaxed font-sans">
+            <p className="text-[#6B6B6B] text-sm leading-relaxed font-sans">
               At Craftsland, culinary excellence is more than culinary technique—it is an art form committed to brighter moods. We celebrate harvest freshness, flame-roasted authenticity, and the simple joy of gathering around a table of exceptional food.
             </p>
-            <p className="text-gray-400 text-sm leading-relaxed font-sans">
+            <p className="text-[#6B6B6B] text-sm leading-relaxed font-sans">
               From our slow-simmered risotto to stone-fired sourdough pizzas, every dish is an invitation to pause, savor, and create memories.
             </p>
             <div className="pt-2">
               <Link
                 to="/about"
-                className="inline-flex items-center gap-2 text-xs font-bold text-[#D4AF37] hover:text-[#E5C158] uppercase tracking-widest group"
+                className="inline-flex items-center gap-2 text-xs font-bold text-[#B11226] hover:text-[#7F0D1D] uppercase tracking-widest group"
               >
                 <span>Discover Our Heritage</span>
                 <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -292,16 +292,16 @@ export const HomePage: React.FC = () => {
             </div>
           </div>
 
-          <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-[#D4AF37]/35 shadow-2xl">
+          <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-[#E5E5E5] shadow-lg">
             <img
               src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=1000&auto=format&fit=crop"
               alt="Craftsland culinary team"
               className="w-full h-full object-cover"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C10]/80 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
             <div className="absolute bottom-6 left-6 right-6">
-              <p className="font-serif text-sm font-bold text-[#D4AF37] italic">
+              <p className="font-serif text-sm font-bold text-white italic">
                 "We don't simply cook food; we craft happiness."
               </p>
             </div>
@@ -312,31 +312,31 @@ export const HomePage: React.FC = () => {
       {/* ========================================================================= */}
       {/* 6. RESERVATION CTA */}
       {/* ========================================================================= */}
-      <section className="relative rounded-3xl mx-3 sm:mx-8 overflow-hidden border border-[#D4AF37]/30 shadow-2xl py-20 px-6 sm:px-12 text-center">
+      <section className="relative rounded-3xl mx-3 sm:mx-8 overflow-hidden border border-[#B11226]/30 shadow-xl py-20 px-6 sm:px-12 text-center bg-[#B11226]">
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1920&auto=format&fit=crop"
             alt="Craftsland dining table"
-            className="w-full h-full object-cover opacity-25"
+            className="w-full h-full object-cover opacity-20"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C10] via-[#0B0C10]/70 to-[#0B0C10]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#7F0D1D] via-[#B11226]/80 to-[#7F0D1D]" />
         </div>
 
         <div className="relative z-10 max-w-2xl mx-auto space-y-6">
-          <div className="w-12 h-12 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/40 text-[#D4AF37] flex items-center justify-center mx-auto">
+          <div className="w-12 h-12 rounded-full bg-white/20 border border-white/40 text-white flex items-center justify-center mx-auto">
             <Calendar className="w-6 h-6" />
           </div>
-          <h2 className="font-serif text-4xl sm:text-5xl font-bold text-gold-gradient">
+          <h2 className="font-serif text-4xl sm:text-5xl font-bold text-white">
             Your Table Awaits
           </h2>
-          <p className="text-gray-300 text-sm font-light leading-relaxed font-sans">
+          <p className="text-white/90 text-sm font-light leading-relaxed font-sans">
             Whether an intimate dinner for two, a celebration with close friends, or a grand family reunion, reserve your sanctuary at Craftsland today.
           </p>
           <div className="pt-4">
             <Link
               to="/reservation"
-              className="inline-flex items-center gap-2 px-9 py-4 rounded-full bg-[#D4AF37] hover:bg-[#E5C158] text-[#0B0C10] font-sans font-bold text-xs uppercase tracking-[0.2em] transition-all shadow-xl hover:shadow-[0_0_30px_rgba(212,175,55,0.4)]"
+              className="inline-flex items-center gap-2 px-9 py-4 rounded-full bg-white hover:bg-neutral-100 text-[#B11226] font-sans font-bold text-xs uppercase tracking-[0.2em] transition-all shadow-xl hover:shadow-2xl cursor-pointer"
             >
               <span>Reserve Your Table</span>
               <ArrowRight className="w-4 h-4" />
@@ -350,10 +350,10 @@ export const HomePage: React.FC = () => {
       {/* ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div className="text-center space-y-3">
-          <span className="font-sans text-xs font-bold text-[#D4AF37] tracking-[0.25em] uppercase block">
+          <span className="font-sans text-xs font-bold text-[#B11226] tracking-[0.25em] uppercase block">
             Accolades & Voices
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-gold-gradient">
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#171717]">
             What Our Patrons Say
           </h2>
         </div>
@@ -362,21 +362,21 @@ export const HomePage: React.FC = () => {
           {testimonials.map((t) => (
             <div
               key={t.name}
-              className="glass-card p-8 rounded-3xl border border-white/10 space-y-4 flex flex-col justify-between"
+              className="bg-white p-8 rounded-3xl border border-[#E5E5E5] space-y-4 flex flex-col justify-between shadow-xs hover:border-[#B11226]/30 transition-colors"
             >
               <div className="space-y-3">
-                <div className="flex text-[#D4AF37]">
+                <div className="flex text-[#B11226]">
                   {[...Array(t.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-[#D4AF37]" />
+                    <Star key={i} className="w-4 h-4 fill-[#B11226]" />
                   ))}
                 </div>
-                <p className="text-gray-300 text-xs leading-relaxed italic font-serif">
+                <p className="text-[#6B6B6B] text-xs leading-relaxed italic font-serif">
                   "{t.review}"
                 </p>
               </div>
-              <div className="pt-4 border-t border-white/10">
-                <h4 className="font-serif font-bold text-sm text-[#F4F1EA]">{t.name}</h4>
-                <p className="text-[11px] text-[#D4AF37] font-sans">{t.role}</p>
+              <div className="pt-4 border-t border-[#E5E5E5]">
+                <h4 className="font-serif font-bold text-sm text-[#171717]">{t.name}</h4>
+                <p className="text-[11px] text-[#B11226] font-sans font-semibold">{t.role}</p>
               </div>
             </div>
           ))}
