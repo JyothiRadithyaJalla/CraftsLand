@@ -9,11 +9,13 @@ import { useCart } from '@shared/hooks/useCart';
 import { useOrders } from '@shared/hooks/useOrders';
 import { useAuth } from '@shared/hooks/useAuth';
 import { MetaTags } from '@shared/components/MetaTags';
+import { env } from '@shared/config/env';
+import { RESTAURANT_BRAND } from '@shared/config/constants';
 
 export const CheckoutPage: React.FC = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { placeOrder, isPlacingOrder } = useOrders();
+  const { placeOrder, isPlacingOrder, isPaymentConfigured } = useOrders();
   const {
     items,
     orderType,
@@ -199,12 +201,12 @@ export const CheckoutPage: React.FC = () => {
                     <img src={item.dish.mediaUrl} alt={item.dish.name} className="w-16 h-16 rounded-lg object-cover" />
                     <div className="flex-1">
                       <h4 className="font-serif font-bold text-[#F5EFE5] text-sm">{item.dish.name}</h4>
-                      <p className="text-xs text-[#B84A32] font-mono font-bold">${item.dish.price.toFixed(2)} each</p>
+                      <p className="text-xs text-[#B84A32] font-mono font-bold">{RESTAURANT_BRAND.currencySymbol}{item.dish.price.toFixed(2)} each</p>
 
                       {item.selectedModifiers.length > 0 && (
                         <div className="text-[11px] text-[#B8AEA1] mt-1">
                           {item.selectedModifiers.map((m, idx) => (
-                            <span key={idx} className="block">• {m.optionName} {m.price > 0 && `(+$${m.price.toFixed(2)})`}</span>
+                            <span key={idx} className="block">• {m.optionName} {m.price > 0 && `(+${RESTAURANT_BRAND.currencySymbol}${m.price.toFixed(2)})`}</span>
                           ))}
                         </div>
                       )}
@@ -221,7 +223,7 @@ export const CheckoutPage: React.FC = () => {
                         </button>
                       </div>
                       <span className="font-mono text-sm font-bold text-[#F5EFE5] min-w-[60px] text-right">
-                        ${item.itemSubtotal.toFixed(2)}
+                        {RESTAURANT_BRAND.currencySymbol}{item.itemSubtotal.toFixed(2)}
                       </span>
                       <button onClick={() => removeItem(item.dish.id)} className="text-[#B8AEA1] hover:text-red-400 p-1 cursor-pointer transition-colors">
                         <Trash2 className="w-4 h-4" />
@@ -233,7 +235,7 @@ export const CheckoutPage: React.FC = () => {
 
               <div className="flex justify-between items-center pt-4 border-t border-[#3A3027] text-sm">
                 <span className="text-[#B8AEA1]">Subtotal:</span>
-                <span className="font-mono font-bold text-[#B84A32] text-lg">${subtotal.toFixed(2)}</span>
+                <span className="font-mono font-bold text-[#B84A32] text-lg">{RESTAURANT_BRAND.currencySymbol}{subtotal.toFixed(2)}</span>
               </div>
             </div>
 
@@ -432,61 +434,53 @@ export const CheckoutPage: React.FC = () => {
                   </span>
                 </div>
 
-                <div className="bg-[#B84A32]/10 border border-[#B84A32]/30 p-4 rounded-xl text-xs space-y-1 text-[#B84A32]">
-                  <p className="font-bold flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4" /> Demo Environment Active
-                  </p>
-                  <p className="text-[#B8AEA1]">
-                    Payment will be processed via <span className="font-mono font-bold text-[#B84A32]">MockPaymentProvider</span>. No real bank charges will be incurred.
-                  </p>
-                </div>
-
-                {/* Mock Card Input Simulation */}
-                <div className="space-y-4 opacity-80 pointer-events-none">
-                  <div className="space-y-1">
-                    <label className="text-xs text-[#B8AEA1]">Cardholder Name</label>
-                    <input
-                      type="text"
-                      readOnly
-                      value={customerName || "Sterling Vance"}
-                      className="w-full bg-[#171310] border border-[#3A3027] rounded-xl px-4 py-2 text-xs text-[#F5EFE5]"
-                    />
-                  </div>
-                  <div className="grid grid-cols-3 gap-3">
-                    <div className="col-span-2 space-y-1">
-                      <label className="text-xs text-[#B8AEA1]">Card Number</label>
-                      <input
-                        type="text"
-                        readOnly
-                        value="•••• •••• •••• 8892"
-                        className="w-full bg-[#171310] border border-[#3A3027] rounded-xl px-4 py-2 text-xs text-[#F5EFE5] font-mono"
-                      />
+                {env.isRazorpayConfigured ? (
+                  <div className="bg-[#B84A32]/10 border border-[#B84A32]/30 p-4 rounded-xl text-xs space-y-2 text-[#F5EFE5]">
+                    <div className="flex items-center gap-2 text-[#D29A55] font-bold">
+                      <CheckCircle2 className="w-4 h-4 text-[#B84A32]" />
+                      <span>Razorpay Sandbox (TEST Mode) Active</span>
                     </div>
-                    <div className="space-y-1">
-                      <label className="text-xs text-[#B8AEA1]">CVV / Expiry</label>
-                      <input
-                        type="text"
-                        readOnly
-                        value="*** | 12/28"
-                        className="w-full bg-[#171310] border border-[#3A3027] rounded-xl px-4 py-2 text-xs text-[#F5EFE5] font-mono"
-                      />
+                    <p className="text-[#B8AEA1] leading-relaxed">
+                      Your transaction will be processed via <span className="font-bold text-[#F5EFE5]">Razorpay Test Gateway</span>. You can safely authenticate with test UPI, Netbanking, or mock test cards. No real bank charges will be incurred.
+                    </p>
+                    <div className="flex items-center gap-2 text-[11px] font-mono text-[#B8AEA1]/80 pt-1">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                      <span>Currency: {RESTAURANT_BRAND.currency} ({RESTAURANT_BRAND.currencySymbol})</span>
                     </div>
                   </div>
-                </div>
+                ) : !isPaymentConfigured ? (
+                  <div className="bg-red-950/40 border border-red-900/50 p-4 rounded-xl text-xs space-y-1 text-red-300">
+                    <p className="font-bold flex items-center gap-1.5">
+                      <AlertCircle className="w-4 h-4 text-red-400" /> Gateway Unavailable
+                    </p>
+                    <p>
+                      Online payment gateway is temporarily unconfigured. Please contact restaurant concierge.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="bg-[#B84A32]/10 border border-[#B84A32]/30 p-4 rounded-xl text-xs space-y-1 text-[#B84A32]">
+                    <p className="font-bold flex items-center gap-1.5">
+                      <CheckCircle2 className="w-4 h-4" /> Local Development Simulation Active
+                    </p>
+                    <p className="text-[#B8AEA1]">
+                      Local developer mock provider is running. Configure <span className="font-mono text-white">VITE_RAZORPAY_KEY_ID</span> to test live Razorpay checkout.
+                    </p>
+                  </div>
+                )}
 
                 <button
                   onClick={handlePayAndPlaceOrder}
-                  disabled={isPlacingOrder}
+                  disabled={isPlacingOrder || !isPaymentConfigured}
                   className="w-full py-4 rounded-full bg-[#B84A32] hover:bg-[#8B3525] text-white font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer shadow-md transition-colors disabled:opacity-50"
                 >
                   {isPlacingOrder ? (
                     <span className="flex items-center gap-2">
                       <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      Authenticating Payment...
+                      Authenticating Razorpay Gateway...
                     </span>
                   ) : (
                     <>
-                      <Lock className="w-4 h-4" /> Pay & Place Order (${totalAmount.toFixed(2)})
+                      <Lock className="w-4 h-4" /> Pay with Razorpay ({RESTAURANT_BRAND.currencySymbol}{totalAmount.toFixed(2)})
                     </>
                   )}
                 </button>
@@ -532,16 +526,16 @@ export const CheckoutPage: React.FC = () => {
                 </div>
 
                 <div className="space-y-2 pt-3 border-t border-[#3A3027]">
-                  <div className="flex justify-between text-[#B8AEA1]"><span>Subtotal:</span><span>${subtotal.toFixed(2)}</span></div>
-                  <div className="flex justify-between text-[#B8AEA1]"><span>Tax (8.5%):</span><span>${taxAmount.toFixed(2)}</span></div>
+                  <div className="flex justify-between text-[#B8AEA1]"><span>Subtotal:</span><span>{RESTAURANT_BRAND.currencySymbol}{subtotal.toFixed(2)}</span></div>
+                  <div className="flex justify-between text-[#B8AEA1]"><span>Tax (8.5%):</span><span>{RESTAURANT_BRAND.currencySymbol}{taxAmount.toFixed(2)}</span></div>
                   {orderType === 'DELIVERY' && (
-                    <div className="flex justify-between text-[#B8AEA1]"><span>Delivery Fee:</span><span>${deliveryFee.toFixed(2)}</span></div>
+                    <div className="flex justify-between text-[#B8AEA1]"><span>Delivery Fee:</span><span>{RESTAURANT_BRAND.currencySymbol}{deliveryFee.toFixed(2)}</span></div>
                   )}
-                  <div className="flex justify-between text-[#B8AEA1]"><span>Concierge Tip ({tipPercent}%):</span><span>${tipAmount.toFixed(2)}</span></div>
+                  <div className="flex justify-between text-[#B8AEA1]"><span>Concierge Tip ({tipPercent}%):</span><span>{RESTAURANT_BRAND.currencySymbol}{tipAmount.toFixed(2)}</span></div>
                   
                   <div className="flex justify-between font-serif text-base font-bold text-[#F5EFE5] pt-3 border-t border-[#3A3027]">
                     <span>Total Amount:</span>
-                    <span className="text-[#B84A32] font-mono font-bold">${totalAmount.toFixed(2)}</span>
+                    <span className="text-[#B84A32] font-mono font-bold">{RESTAURANT_BRAND.currencySymbol}{totalAmount.toFixed(2)}</span>
                   </div>
                 </div>
               </div>

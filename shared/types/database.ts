@@ -91,6 +91,13 @@ export interface DatabasePaymentRow {
   updated_at: string;
 }
 
+export interface DatabaseProcessedWebhookEventRow {
+  event_id: string;
+  event_type: string;
+  resource_id: string;
+  processed_at: string;
+}
+
 export interface DatabaseReservationRow {
   id: string;
   booking_reference: string;

@@ -1,28 +1,47 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useMemo } from 'react';
 import type { Order, OrderStatus, CreateOrderPayload } from '../types/order';
+import type { PaymentGateway } from '../types/payment';
 import { OrderService } from '../services/orderService';
 import { MockPaymentProvider } from '../services/payment/MockPaymentProvider';
+import { RazorpayPaymentProvider } from '../services/payment/RazorpayPaymentProvider';
+import { env } from '../config/env';
 
 interface OrderContextType {
   orders: Order[];
   activeOrder: Order | null;
   isLoading: boolean;
   isPlacingOrder: boolean;
+  isPaymentConfigured: boolean;
   updateOrderStatus: (orderId: string, status: OrderStatus) => Promise<boolean>;
   refreshOrders: () => Promise<void>;
   placeOrder: (payload: CreateOrderPayload) => Promise<Order>;
+  payPendingOrder: (order: Order) => Promise<Order>;
   getOrderById: (orderId: string) => Promise<Order | null>;
   subscribeToOrder: (orderId: string, callback: (order: Order) => void) => () => void;
 }
 
 const OrderContext = createContext<OrderContextType | undefined>(undefined);
 
-const paymentGateway = new MockPaymentProvider();
-
 export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isPlacingOrder, setIsPlacingOrder] = useState<boolean>(false);
+
+  const isPaymentConfigured = useMemo(() => {
+    if (env.isRazorpayConfigured) return true;
+    // Mock is ONLY allowed in local development
+    return env.isDevelopment && !env.isProduction;
+  }, []);
+
+  const paymentGateway = useMemo<PaymentGateway>(() => {
+    if (env.isRazorpayConfigured) {
+      return new RazorpayPaymentProvider();
+    }
+    if (env.isProduction || env.appEnv === 'production') {
+      throw new Error('[Security Exception] Online payment gateway is not configured for production.');
+    }
+    return new MockPaymentProvider();
+  }, []);
 
   const refreshOrders = async () => {
     const list = await OrderService.getOrders();
@@ -46,36 +65,100 @@ export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return await OrderService.getOrderById(orderId);
   };
 
-  const placeOrder = async (payload: CreateOrderPayload): Promise<Order> => {
+  // Process payment for an existing unpaid order (for retrying abandoned or failed payments)
+  const payPendingOrder = async (order: Order): Promise<Order> => {
     setIsPlacingOrder(true);
     try {
-      // 1. Initialize Mock Payment
+      if (order.paymentStatus === 'PAID') {
+        return order;
+      }
+
+      if (paymentGateway instanceof RazorpayPaymentProvider) {
+        const initResult = await paymentGateway.initializePayment({
+          orderId: order.id,
+          orderNumber: order.orderNumber,
+          trackingToken: order.trackingToken,
+          amount: order.totalAmount,
+          currency: 'INR',
+          customerName: order.guestName,
+          customerEmail: order.guestEmail,
+          customerPhone: order.guestPhone,
+        });
+
+        const verifyPromise = new Promise<{ razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string }>((resolve, reject) => {
+          (paymentGateway as RazorpayPaymentProvider).openCheckoutModal({
+            keyId: initResult.keyId || env.razorpayKeyId,
+            razorpayOrderId: initResult.razorpayOrderId,
+            amountPaise: Math.round(order.totalAmount * 100),
+            currency: 'INR',
+            customerName: order.guestName,
+            customerEmail: order.guestEmail,
+            customerPhone: order.guestPhone,
+            orderNumber: order.orderNumber,
+            onSuccess: (resp) => resolve(resp),
+            onDismiss: () => reject(new Error('Payment window closed before completion. Your ticket is preserved and can be paid anytime.')),
+            onError: (err) => reject(new Error(err?.description || 'Payment was declined by payment gateway.')),
+          }).catch(reject);
+        });
+
+        const razorpayResp = await verifyPromise;
+
+        const verification = await paymentGateway.verifyPayment({
+          orderId: order.id,
+          razorpayOrderId: razorpayResp.razorpay_order_id,
+          razorpayPaymentId: razorpayResp.razorpay_payment_id,
+          razorpaySignature: razorpayResp.razorpay_signature,
+          trackingToken: order.trackingToken,
+        });
+
+        if (!verification.success) {
+          throw new Error(verification.errorMessage || 'Cryptographic payment verification failed.');
+        }
+
+        await refreshOrders();
+        const updatedOrder = await OrderService.getOrderById(order.id, order.trackingToken);
+        return updatedOrder || { ...order, paymentStatus: 'PAID', paymentReference: razorpayResp.razorpay_payment_id };
+      }
+
+      // Mock Gateway flow (local development only)
+      if (env.isProduction || env.appEnv === 'production') {
+        throw new Error('[Security Exception] Mock payment execution is prohibited in production.');
+      }
+
       const initResult = await paymentGateway.initializePayment({
-        orderId: `temp_${Date.now()}`,
-        amount: payload.totalAmount,
-        currency: 'USD',
-        customerName: payload.customerName,
-        customerEmail: payload.customerEmail,
+        orderId: order.id,
+        amount: order.totalAmount,
+        currency: 'INR',
+        customerName: order.guestName,
+        customerEmail: order.guestEmail,
       });
 
-      // 2. Verify Payment
       const verification = await paymentGateway.verifyPayment(
         initResult.paymentIntentId,
-        `pay_ref_${Date.now()}`
+        `mock_pay_${Date.now()}`
       );
 
       if (!verification.success) {
-        throw new Error(verification.errorMessage || 'Payment authorization failed.');
+        throw new Error(verification.errorMessage || 'Mock payment authorization failed.');
       }
 
-      // 3. Create Order
-      const newOrder = await OrderService.createOrder({
+      await refreshOrders();
+      return { ...order, paymentStatus: 'PAID', paymentReference: verification.paymentReference };
+    } finally {
+      setIsPlacingOrder(false);
+    }
+  };
+
+  const placeOrder = async (payload: CreateOrderPayload): Promise<Order> => {
+    setIsPlacingOrder(true);
+    try {
+      // 1. Create Server-Verified Order in Database (created as UNPAID & PENDING)
+      const createdOrder = await OrderService.createOrder({
         ...payload,
-        paymentReference: verification.paymentReference,
       });
 
-      await refreshOrders();
-      return newOrder;
+      // 2. Execute Payment Settlement
+      return await payPendingOrder(createdOrder);
     } finally {
       setIsPlacingOrder(false);
     }
@@ -99,9 +182,11 @@ export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         activeOrder,
         isLoading,
         isPlacingOrder,
+        isPaymentConfigured,
         updateOrderStatus,
         refreshOrders,
         placeOrder,
+        payPendingOrder,
         getOrderById,
         subscribeToOrder,
       }}
@@ -118,3 +203,4 @@ export const useOrderContext = () => {
   }
   return context;
 };
+

@@ -9,8 +9,8 @@ export const RESTAURANT_BRAND = {
   phone: "+1 (555) 321-4567",
   whatsapp: "+15553214567",
   email: "concierge@craftsland.com",
-  currency: "USD",
-  currencySymbol: "$",
+  currency: "INR",
+  currencySymbol: "₹",
   defaultTaxRate: 0.085, // 8.5%
   defaultDeliveryFee: 12.00,
   freeDeliveryThreshold: 120.00,

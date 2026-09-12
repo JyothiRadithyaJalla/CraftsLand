@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { X, Trash2, Plus, Minus, ShoppingBag, ArrowRight, Utensils, Truck, Store } from 'lucide-react';
 import { useCart } from '@shared/hooks/useCart';
+import { RESTAURANT_BRAND } from '@shared/config/constants';
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -100,7 +101,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
                   <div className="flex justify-between items-start gap-2">
                     <div>
                       <h4 className="font-serif font-bold text-sm text-[#F5EFE5]">{item.dish.name}</h4>
-                      <p className="text-xs text-[#B84A32] font-mono font-bold">${item.dish.price.toFixed(2)}</p>
+                      <p className="text-xs text-[#B84A32] font-mono font-bold">{RESTAURANT_BRAND.currencySymbol}{item.dish.price.toFixed(2)}</p>
                     </div>
                     <button onClick={() => removeItem(item.dish.id)} className="text-[#B8AEA1] hover:text-red-400 p-1 cursor-pointer transition-colors">
                       <Trash2 className="w-4 h-4" />
@@ -113,7 +114,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
                       {item.selectedModifiers.map((m, idx) => (
                         <div key={idx} className="flex justify-between">
                           <span>• {m.optionName}</span>
-                          {m.price > 0 && <span className="font-mono text-[#B84A32]">+${m.price.toFixed(2)}</span>}
+                          {m.price > 0 && <span className="font-mono text-[#B84A32]">+{RESTAURANT_BRAND.currencySymbol}{m.price.toFixed(2)}</span>}
                         </div>
                       ))}
                     </div>
@@ -130,7 +131,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
                         <Plus className="w-3 h-3" />
                       </button>
                     </div>
-                    <span className="font-mono text-xs font-bold text-[#F5EFE5]">${item.itemSubtotal.toFixed(2)}</span>
+                    <span className="font-mono text-xs font-bold text-[#F5EFE5]">{RESTAURANT_BRAND.currencySymbol}{item.itemSubtotal.toFixed(2)}</span>
                   </div>
                 </div>
               ))
@@ -160,14 +161,14 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
 
               {/* Totals */}
               <div className="space-y-1.5 text-xs">
-                <div className="flex justify-between text-[#B8AEA1]"><span>Subtotal:</span><span>${subtotal.toFixed(2)}</span></div>
-                <div className="flex justify-between text-[#B8AEA1]"><span>Tax (8.5%):</span><span>${taxAmount.toFixed(2)}</span></div>
+                <div className="flex justify-between text-[#B8AEA1]"><span>Subtotal:</span><span>{RESTAURANT_BRAND.currencySymbol}{subtotal.toFixed(2)}</span></div>
+                <div className="flex justify-between text-[#B8AEA1]"><span>Tax (8.5%):</span><span>{RESTAURANT_BRAND.currencySymbol}{taxAmount.toFixed(2)}</span></div>
                 {orderType === 'DELIVERY' && (
-                  <div className="flex justify-between text-[#B8AEA1]"><span>Delivery Fee:</span><span>${deliveryFee.toFixed(2)}</span></div>
+                  <div className="flex justify-between text-[#B8AEA1]"><span>Delivery Fee:</span><span>{RESTAURANT_BRAND.currencySymbol}{deliveryFee.toFixed(2)}</span></div>
                 )}
                 <div className="flex justify-between font-serif text-sm font-bold text-[#F5EFE5] pt-2 border-t border-[#3A3027]">
                   <span>Total Amount:</span>
-                  <span className="text-[#B84A32] font-mono font-bold">${totalAmount.toFixed(2)}</span>
+                  <span className="text-[#B84A32] font-mono font-bold">{RESTAURANT_BRAND.currencySymbol}{totalAmount.toFixed(2)}</span>
                 </div>
               </div>
 

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { MetaTags } from '@shared/components/MetaTags';
 import { ShoppingBag, Trash2, ArrowRight } from 'lucide-react';
 import { EmptyState } from '@shared/components/EmptyState';
+import { RESTAURANT_BRAND } from '@shared/config/constants';
 
 export const CartPage: React.FC = () => {
   const { items, updateQuantity, removeItem, subtotal, taxAmount, deliveryFee, totalAmount } = useCart();
@@ -37,7 +38,7 @@ export const CartPage: React.FC = () => {
             <img src={item.dish.mediaUrl} alt={item.dish.name} className="w-16 h-16 rounded-lg object-cover border border-[#3A3027]" />
             <div className="flex-1">
               <h3 className="font-serif font-bold text-[#F5EFE5] text-sm">{item.dish.name}</h3>
-              <p className="text-xs text-[#B84A32] font-semibold">${item.dish.price.toFixed(2)} each</p>
+              <p className="text-xs text-[#B84A32] font-semibold">{RESTAURANT_BRAND.currencySymbol}{item.dish.price.toFixed(2)} each</p>
             </div>
             <div className="flex items-center gap-3">
               <div className="flex items-center border border-[#3A3027] bg-[#171310] rounded-lg overflow-hidden text-xs">
@@ -55,10 +56,10 @@ export const CartPage: React.FC = () => {
 
       {/* Summary */}
       <div className="bg-[#211B16] p-6 rounded-xl space-y-3 max-w-md ml-auto border border-[#3A3027] shadow-xl">
-        <div className="flex justify-between text-xs text-[#B8AEA1]"><span>Subtotal:</span><span>${subtotal.toFixed(2)}</span></div>
-        <div className="flex justify-between text-xs text-[#B8AEA1]"><span>Estimated Tax:</span><span>${taxAmount.toFixed(2)}</span></div>
-        <div className="flex justify-between text-xs text-[#B8AEA1]"><span>Delivery Fee:</span><span>${deliveryFee.toFixed(2)}</span></div>
-        <div className="flex justify-between text-sm font-bold text-[#F5EFE5] pt-2 border-t border-[#3A3027]"><span>Total:</span><span className="text-[#F5EFE5] font-mono">${totalAmount.toFixed(2)}</span></div>
+        <div className="flex justify-between text-xs text-[#B8AEA1]"><span>Subtotal:</span><span>{RESTAURANT_BRAND.currencySymbol}{subtotal.toFixed(2)}</span></div>
+        <div className="flex justify-between text-xs text-[#B8AEA1]"><span>Estimated Tax:</span><span>{RESTAURANT_BRAND.currencySymbol}{taxAmount.toFixed(2)}</span></div>
+        <div className="flex justify-between text-xs text-[#B8AEA1]"><span>Delivery Fee:</span><span>{RESTAURANT_BRAND.currencySymbol}{deliveryFee.toFixed(2)}</span></div>
+        <div className="flex justify-between text-sm font-bold text-[#F5EFE5] pt-2 border-t border-[#3A3027]"><span>Total:</span><span className="text-[#F5EFE5] font-mono">{RESTAURANT_BRAND.currencySymbol}{totalAmount.toFixed(2)}</span></div>
         <Link to="/checkout" className="w-full mt-4 inline-flex items-center justify-center gap-2 py-3 rounded-full bg-gradient-to-r from-[#B84A32] to-[#8B3525] hover:from-[#C85A3A] hover:to-[#B84A32] text-[#F5EFE5] font-bold text-xs uppercase tracking-widest shadow-md transition-all">
           Proceed to Checkout <ArrowRight className="w-4 h-4" />
         </Link>

@@ -4,15 +4,17 @@ import { MetaTags } from '@shared/components/MetaTags';
 import { OrderTimeline } from '../components/OrderTimeline';
 import { useOrders } from '@shared/hooks/useOrders';
 import type { Order } from '@shared/types/order';
-import { Clock, ShoppingBag, ArrowLeft, AlertCircle } from 'lucide-react';
+import { Clock, ShoppingBag, ArrowLeft, AlertCircle, CreditCard } from 'lucide-react';
 import { LoadingSpinner } from '@shared/components/LoadingSpinner';
+import { RESTAURANT_BRAND } from '@shared/config/constants';
 
 export const OrderStatusPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { getOrderById, subscribeToOrder } = useOrders();
+  const { getOrderById, subscribeToOrder, payPendingOrder, isPlacingOrder } = useOrders();
   const [order, setOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [payError, setPayError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!id) {
@@ -113,18 +115,18 @@ export const OrderStatusPage: React.FC = () => {
                 <div>
                   <h4 className="font-serif font-bold text-[#F5EFE5] text-sm">{item.dishName}</h4>
                   <p className="text-xs text-[#B84A32] font-mono font-bold">
-                    ${item.unitPrice.toFixed(2)} × {item.quantity}
+                    {RESTAURANT_BRAND.currencySymbol}{item.unitPrice.toFixed(2)} × {item.quantity}
                   </p>
                   {item.selectedModifiers.length > 0 && (
                     <div className="text-[11px] text-[#B8AEA1] mt-1">
                       {item.selectedModifiers.map((m, idx) => (
-                        <span key={idx} className="block">• {m.optionName} {m.price > 0 && `(+$${m.price.toFixed(2)})`}</span>
+                        <span key={idx} className="block">• {m.optionName} {m.price > 0 && `(+${RESTAURANT_BRAND.currencySymbol}${m.price.toFixed(2)})`}</span>
                       ))}
                     </div>
                   )}
                 </div>
                 <span className="font-mono text-sm font-bold text-[#F5EFE5]">
-                  ${item.itemSubtotal.toFixed(2)}
+                  {RESTAURANT_BRAND.currencySymbol}{item.itemSubtotal.toFixed(2)}
                 </span>
               </div>
             ))}
@@ -133,6 +135,13 @@ export const OrderStatusPage: React.FC = () => {
 
         {/* Summary Info Sidebar */}
         <div className="space-y-6">
+          {payError && (
+            <div className="bg-red-950/40 border border-red-900/50 p-4 rounded-xl text-xs text-red-300 flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
+              <span>{payError}</span>
+            </div>
+          )}
+
           <div className="bg-[#211B16] border border-[#3A3027] p-6 rounded-2xl space-y-4 text-xs shadow-xl">
             <h4 className="font-serif text-lg font-bold text-[#F5EFE5] border-b border-[#3A3027] pb-2">
               Ticket Overview
@@ -141,7 +150,9 @@ export const OrderStatusPage: React.FC = () => {
             <div className="space-y-2 text-[#F5EFE5] font-mono">
               <div className="flex justify-between">
                 <span className="text-[#B8AEA1]">Payment Status:</span>
-                <span className="text-emerald-500 font-bold">{order.paymentStatus}</span>
+                <span className={`font-bold ${order.paymentStatus === 'PAID' ? 'text-emerald-400' : order.paymentStatus === 'FAILED' ? 'text-red-400' : 'text-amber-400'}`}>
+                  {order.paymentStatus}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-[#B8AEA1]">Reference:</span>
@@ -162,18 +173,46 @@ export const OrderStatusPage: React.FC = () => {
             </div>
 
             <div className="space-y-2 pt-3 border-t border-[#3A3027]">
-              <div className="flex justify-between text-[#B8AEA1]"><span>Subtotal:</span><span>${order.subtotal.toFixed(2)}</span></div>
-              <div className="flex justify-between text-[#B8AEA1]"><span>Tax:</span><span>${order.taxAmount.toFixed(2)}</span></div>
+              <div className="flex justify-between text-[#B8AEA1]"><span>Subtotal:</span><span>{RESTAURANT_BRAND.currencySymbol}{order.subtotal.toFixed(2)}</span></div>
+              <div className="flex justify-between text-[#B8AEA1]"><span>Tax:</span><span>{RESTAURANT_BRAND.currencySymbol}{order.taxAmount.toFixed(2)}</span></div>
               {order.deliveryFee > 0 && (
-                <div className="flex justify-between text-[#B8AEA1]"><span>Delivery Fee:</span><span>${order.deliveryFee.toFixed(2)}</span></div>
+                <div className="flex justify-between text-[#B8AEA1]"><span>Delivery Fee:</span><span>{RESTAURANT_BRAND.currencySymbol}{order.deliveryFee.toFixed(2)}</span></div>
               )}
-              <div className="flex justify-between text-[#B8AEA1]"><span>Gratuity:</span><span>${order.tipAmount.toFixed(2)}</span></div>
+              <div className="flex justify-between text-[#B8AEA1]"><span>Gratuity:</span><span>{RESTAURANT_BRAND.currencySymbol}{order.tipAmount.toFixed(2)}</span></div>
 
               <div className="flex justify-between font-serif text-base font-bold text-[#F5EFE5] pt-2 border-t border-[#3A3027]">
                 <span>Total Amount:</span>
-                <span className="text-[#B84A32] font-mono font-bold">${order.totalAmount.toFixed(2)}</span>
+                <span className="text-[#B84A32] font-mono font-bold">{RESTAURANT_BRAND.currencySymbol}{order.totalAmount.toFixed(2)}</span>
               </div>
             </div>
+
+            {/* Abandoned / Failed Payment Retry Button */}
+            {order.paymentStatus !== 'PAID' && order.orderStatus !== 'CANCELLED' && (
+              <button
+                onClick={async () => {
+                  try {
+                    setPayError(null);
+                    const updated = await payPendingOrder(order);
+                    setOrder(updated);
+                  } catch (e: any) {
+                    setPayError(e?.message || 'Payment retry was interrupted.');
+                  }
+                }}
+                disabled={isPlacingOrder}
+                className="w-full mt-2 py-3 rounded-full bg-[#B84A32] hover:bg-[#8B3525] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-md transition-colors disabled:opacity-50"
+              >
+                {isPlacingOrder ? (
+                  <span className="flex items-center gap-2">
+                    <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Connecting Gateway...
+                  </span>
+                ) : (
+                  <>
+                    <CreditCard className="w-4 h-4" /> Complete Payment ({RESTAURANT_BRAND.currencySymbol}{order.totalAmount.toFixed(2)})
+                  </>
+                )}
+              </button>
+            )}
           </div>
 
           <Link
@@ -182,6 +221,7 @@ export const OrderStatusPage: React.FC = () => {
           >
             <ArrowLeft className="w-4 h-4" /> Back to Menu
           </Link>
+
         </div>
       </div>
     </div>

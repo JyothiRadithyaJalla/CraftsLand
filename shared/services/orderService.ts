@@ -65,7 +65,7 @@ export class OrderService {
   static async createOrder(payload: CreateOrderPayload): Promise<Order> {
     const orderNumber = `#CFL-${new Date().toISOString().slice(0, 10).replace(/-/g, '')}-${Math.floor(10000 + Math.random() * 90000)}`;
 
-    if (env.isDevelopment) {
+    if (env.isDevelopment && !env.isRazorpayConfigured) {
       const mockTrackingToken = `dev_tok_${Math.random().toString(36).substring(2, 18)}`;
       const newOrder: Order = {
         id: `ord-${Date.now()}`,
@@ -263,6 +263,30 @@ export class OrderService {
     return () => {
       supabase.removeChannel(channel);
     };
+  }
+
+  static async createRazorpayOrder(orderId: string, trackingToken?: string) {
+    const headers: Record<string, string> = {};
+    if (trackingToken) headers['x-order-token'] = trackingToken;
+    return await supabase.functions.invoke('create-razorpay-order', {
+      body: { orderId, trackingToken },
+      headers,
+    });
+  }
+
+  static async verifyRazorpayPayment(payload: {
+    orderId: string;
+    razorpayOrderId: string;
+    razorpayPaymentId: string;
+    razorpaySignature: string;
+    trackingToken?: string;
+  }) {
+    const headers: Record<string, string> = {};
+    if (payload.trackingToken) headers['x-order-token'] = payload.trackingToken;
+    return await supabase.functions.invoke('verify-razorpay-payment', {
+      body: payload,
+      headers,
+    });
   }
 
   private static mapSupabaseOrder(o: any): Order {
