@@ -71,7 +71,7 @@ export const HomePage: React.FC = () => {
       {/* ========================================================================= */}
       {/* 1. CINEMATIC HERO SECTION */}
       {/* ========================================================================= */}
-      <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden rounded-3xl mx-3 sm:mx-8 my-4 border border-[#3A3027] shadow-2xl bg-[#0D0B09]">
+      <section className="relative min-h-[75vh] sm:min-h-[85vh] flex items-center justify-center overflow-hidden rounded-3xl mx-3 sm:mx-8 my-4 border border-[#3A3027] shadow-2xl bg-[#0D0B09]">
         {/* Background Ambient Imagery with Cinematic Slow Zoom */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           <motion.img
@@ -88,7 +88,7 @@ export const HomePage: React.FC = () => {
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-7 pt-12">
+        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-5 sm:space-y-7 pt-6 sm:pt-12">
           {/* Brand Monogram Reveal */}
           <motion.div
             initial={{ opacity: 0, scale: 0.85 }}
@@ -112,7 +112,7 @@ export const HomePage: React.FC = () => {
             <h1 className="font-serif text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight text-[#F5EFE5] leading-[1.05]">
               {RESTAURANT_BRAND.name}
             </h1>
-            <p className="font-serif italic text-2xl sm:text-3xl text-[#B84A32] font-medium">
+            <p className="font-serif italic text-2xl sm:text-3xl text-[#C85A3A] font-medium">
               "{RESTAURANT_BRAND.tagline}"
             </p>
           </motion.div>
@@ -122,7 +122,7 @@ export const HomePage: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.35 }}
-            className="font-sans text-base sm:text-lg text-[#B8AEA1] max-w-2xl mx-auto font-normal leading-relaxed tracking-wide"
+            className="font-sans text-base sm:text-lg text-[#F5EFE5] max-w-2xl mx-auto font-normal leading-relaxed tracking-wide"
           >
             {RESTAURANT_BRAND.storySubheading}
           </motion.p>
