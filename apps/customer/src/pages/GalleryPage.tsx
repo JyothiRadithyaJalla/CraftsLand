@@ -59,7 +59,7 @@ export const GalleryPage: React.FC = () => {
     },
     {
       id: 'g8',
-      url: 'https://images.unsplash.com/photo-1621996346565-e3d5d6281691?q=80&w=1000&auto=format&fit=crop',
+      url: 'https://images.unsplash.com/photo-1645112411341-6c4fd023714a?q=80&w=1000&auto=format&fit=crop',
       category: 'dishes',
       title: 'Tagliatelle Alfredo with Cultured Butter',
     },

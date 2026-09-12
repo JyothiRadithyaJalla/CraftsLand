@@ -146,7 +146,9 @@ export const AdminOrdersPage: React.FC = () => {
                     <td className="p-4">
                       <span className="font-semibold text-[#F5EFE5] block">{o.orderType}</span>
                       <span className="text-[11px] text-[#B8AEA1]">
-                        {o.orderType === 'DINE_IN' ? `Table ${o.tableNumber || 'N/A'}` : o.deliveryAddress || 'Pickup'}
+                        {o.orderType === 'DINE_IN'
+                          ? (o.tableNumber?.startsWith('Table') ? o.tableNumber : `Table ${o.tableNumber || 'N/A'}`)
+                          : o.deliveryAddress || 'Pickup'}
                       </span>
                     </td>
                     <td className="p-4 font-mono text-[#B8AEA1]">{o.items.reduce((acc, i) => acc + i.quantity, 0)} items</td>

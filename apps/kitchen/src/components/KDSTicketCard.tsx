@@ -158,7 +158,7 @@ export const KDSTicketCard: React.FC<KDSTicketCardProps> = ({ order, onUpdateSta
 
           {order.tableNumber && (
             <span className="font-mono font-bold text-white bg-[#B84A32] px-2 py-0.5 rounded text-xs">
-              Table {order.tableNumber}
+              {order.tableNumber.startsWith('Table') ? order.tableNumber : `Table ${order.tableNumber}`}
             </span>
           )}
         </div>
