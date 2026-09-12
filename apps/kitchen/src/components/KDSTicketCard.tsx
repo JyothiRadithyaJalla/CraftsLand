@@ -191,7 +191,7 @@ export const KDSTicketCard: React.FC<KDSTicketCardProps> = ({ order, onUpdateSta
 
             {/* Modifiers List */}
             {item.selectedModifiers.length > 0 && (
-              <div className="pl-7 space-y-0.5 text-[11px] text-[#B84A32] font-mono">
+              <div className="pl-7 space-y-0.5 text-[11px] text-[#8B3525] font-mono">
                 {item.selectedModifiers.map((m, idx) => (
                   <span key={idx} className="block font-medium">• {m.optionName}</span>
                 ))}

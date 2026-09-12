@@ -336,7 +336,7 @@ export const HomePage: React.FC = () => {
           <div className="pt-4">
             <Link
               to="/reservation"
-              className="inline-flex items-center gap-2 px-9 py-4 rounded-full bg-[#F5EFE5] hover:bg-white text-[#0D0B09] font-sans font-bold text-xs uppercase tracking-[0.2em] transition-all shadow-xl hover:shadow-2xl cursor-pointer"
+              className="inline-flex items-center gap-2 px-9 py-4 rounded-full bg-[#F5EFE5] hover:bg-[#F5EFE5]/90 text-[#0D0B09] font-sans font-bold text-xs uppercase tracking-[0.2em] transition-all shadow-xl hover:shadow-2xl cursor-pointer"
             >
               <span>Reserve Your Table</span>
               <ArrowRight className="w-4 h-4" />
