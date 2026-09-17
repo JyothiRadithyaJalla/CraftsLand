@@ -46,18 +46,18 @@ export const CheckoutPage: React.FC = () => {
 
   if (items.length === 0 && !isPlacingOrder) {
     return (
-      <div className="max-w-2xl mx-auto px-4 py-16 text-center space-y-6 text-[#111A15]">
+      <div className="max-w-2xl mx-auto px-4 py-16 text-center space-y-6 text-[#182019]">
         <MetaTags title="Checkout | Craftsland" />
-        <div className="w-16 h-16 rounded-2xl bg-[#15803D]/10 text-[#15803D] border border-[#15803D]/20 flex items-center justify-center mx-auto">
+        <div className="w-16 h-16 rounded-2xl bg-[#31543A]/10 text-[#31543A] border border-[#31543A]/20 flex items-center justify-center mx-auto">
           <ShoppingBag className="w-8 h-8" />
         </div>
-        <h2 className="font-serif text-3xl font-bold text-[#111A15]">Your Cart is Empty</h2>
-        <p className="text-[#5C6E63] text-sm max-w-md mx-auto">
+        <h2 className="font-serif text-3xl font-bold text-[#182019]">Your Cart is Empty</h2>
+        <p className="text-[#626F64] text-sm max-w-md mx-auto">
           Please add dishes from our artisan menu to your selection before proceeding to checkout.
         </p>
         <Link
           to="/menu"
-          className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[#15803D] hover:bg-[#166534] text-white font-bold text-xs uppercase tracking-widest shadow-xs border border-[#166534] transition-colors min-h-[44px]"
+          className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[#31543A] hover:bg-[#26432E] text-white font-bold text-xs uppercase tracking-widest shadow-xs border border-[#26432E] transition-colors min-h-[44px]"
         >
           Explore Menu
         </Link>
@@ -128,54 +128,54 @@ export const CheckoutPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-10 space-y-8 text-[#111A15]">
+    <div className="max-w-4xl mx-auto px-4 py-10 space-y-8 text-[#182019]">
       <MetaTags title="Checkout & Payment | Craftsland" />
 
       {/* Header */}
       <div className="text-center space-y-2">
-        <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#111A15]">Checkout Portal</h1>
-        <p className="text-[#5C6E63] text-xs sm:text-sm tracking-wide">
+        <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#182019]">Checkout Portal</h1>
+        <p className="text-[#626F64] text-xs sm:text-sm tracking-wide">
           Finalize your culinary order with our concierge service
         </p>
       </div>
 
       {/* 3-Step Wizard Navigation */}
-      <div className="flex items-center justify-between max-w-xl mx-auto border-b border-[#E2E8E0] pb-4 text-xs font-semibold">
+      <div className="flex items-center justify-between max-w-xl mx-auto border-b border-[#DDD9CB] pb-4 text-xs font-semibold">
         <button
           onClick={() => setStep(1)}
           className={`flex items-center gap-2 cursor-pointer transition-colors ${
-            step === 1 ? 'text-[#15803D]' : step > 1 ? 'text-[#111A15]' : 'text-[#5C6E63]/60'
+            step === 1 ? 'text-[#31543A]' : step > 1 ? 'text-[#182019]' : 'text-[#626F64]/60'
           }`}
         >
-          <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${step === 1 ? 'bg-[#15803D] text-white font-bold' : 'bg-white text-[#37473D] border border-[#E2E8E0]'}`}>1</span>
+          <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${step === 1 ? 'bg-[#31543A] text-white font-bold' : 'bg-white text-[#3A453C] border border-[#DDD9CB]'}`}>1</span>
           <span>Review Selection</span>
         </button>
-        <div className="w-8 h-px bg-[#E2E8E0]" />
+        <div className="w-8 h-px bg-[#DDD9CB]" />
         <button
           onClick={() => { if (step > 1 || items.length > 0) setStep(2); }}
           className={`flex items-center gap-2 cursor-pointer transition-colors ${
-            step === 2 ? 'text-[#15803D]' : step > 2 ? 'text-[#111A15]' : 'text-[#5C6E63]/60'
+            step === 2 ? 'text-[#31543A]' : step > 2 ? 'text-[#182019]' : 'text-[#626F64]/60'
           }`}
         >
-          <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${step === 2 ? 'bg-[#15803D] text-white font-bold' : 'bg-white text-[#37473D] border border-[#E2E8E0]'}`}>2</span>
+          <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${step === 2 ? 'bg-[#31543A] text-white font-bold' : 'bg-white text-[#3A453C] border border-[#DDD9CB]'}`}>2</span>
           <span>Dining Details</span>
         </button>
-        <div className="w-8 h-px bg-[#E2E8E0]" />
+        <div className="w-8 h-px bg-[#DDD9CB]" />
         <button
           onClick={() => { if (validateStep2()) setStep(3); }}
           className={`flex items-center gap-2 cursor-pointer transition-colors ${
-            step === 3 ? 'text-[#15803D]' : 'text-[#5C6E63]/60'
+            step === 3 ? 'text-[#31543A]' : 'text-[#626F64]/60'
           }`}
         >
-          <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${step === 3 ? 'bg-[#15803D] text-white font-bold' : 'bg-white text-[#37473D] border border-[#E2E8E0]'}`}>3</span>
+          <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${step === 3 ? 'bg-[#31543A] text-white font-bold' : 'bg-white text-[#3A453C] border border-[#DDD9CB]'}`}>3</span>
           <span>Payment</span>
         </button>
       </div>
 
       {/* Global Error Banner */}
       {errorMsg && (
-        <div className="bg-rose-50 p-4 rounded-xl border border-rose-200 text-rose-800 flex items-center gap-3 text-xs">
-          <AlertCircle className="w-5 h-5 text-rose-600 shrink-0" />
+        <div className="bg-[#A8382B]/10 p-4 rounded-xl border border-[#A8382B]/20 text-[#A8382B] flex items-center gap-3 text-xs">
+          <AlertCircle className="w-5 h-5 text-[#A8382B] shrink-0" />
           <span>{errorMsg}</span>
         </div>
       )}
@@ -191,21 +191,21 @@ export const CheckoutPage: React.FC = () => {
             exit={{ opacity: 0, x: 20 }}
             className="space-y-6"
           >
-            <div className="bg-white border border-[#E2E8E0] p-6 rounded-2xl space-y-4 shadow-xs">
-              <h3 className="font-serif text-xl font-bold text-[#111A15] border-b border-[#E2E8E0] pb-3 flex items-center gap-2">
-                <ShoppingBag className="w-5 h-5 text-[#15803D]" /> Review Dishes & Quantities
+            <div className="bg-white border border-[#DDD9CB] p-6 rounded-2xl space-y-4 shadow-xs">
+              <h3 className="font-serif text-xl font-bold text-[#182019] border-b border-[#DDD9CB] pb-3 flex items-center gap-2">
+                <ShoppingBag className="w-5 h-5 text-[#31543A]" /> Review Dishes & Quantities
               </h3>
 
               <div className="space-y-4">
                 {items.map((item) => (
-                  <div key={item.dish.id} className="bg-[#FAF9F5] border border-[#E2E8E0] p-4 rounded-xl flex items-center justify-between gap-4">
+                  <div key={item.dish.id} className="bg-[#FAF8F3] border border-[#DDD9CB] p-4 rounded-xl flex items-center justify-between gap-4">
                     <img src={item.dish.mediaUrl} alt={item.dish.name} className="w-16 h-16 rounded-lg object-cover" />
                     <div className="flex-1">
-                      <h4 className="font-serif font-bold text-[#111A15] text-sm">{item.dish.name}</h4>
-                      <p className="text-xs text-[#15803D] font-mono font-bold">{formatPrice(item.dish.price)} each</p>
+                      <h4 className="font-serif font-bold text-[#182019] text-sm">{item.dish.name}</h4>
+                      <p className="text-xs text-[#31543A] font-mono font-bold">{formatPrice(item.dish.price)} each</p>
 
                       {item.selectedModifiers.length > 0 && (
-                        <div className="text-[11px] text-[#5C6E63] mt-1">
+                        <div className="text-[11px] text-[#626F64] mt-1">
                           {item.selectedModifiers.map((m, idx) => (
                             <span key={idx} className="block">• {m.optionName} {m.price > 0 && `(+${formatPrice(m.price)})`}</span>
                           ))}
@@ -214,19 +214,19 @@ export const CheckoutPage: React.FC = () => {
                     </div>
 
                     <div className="flex items-center gap-3">
-                      <div className="flex items-center border border-[#E2E8E0] rounded-lg overflow-hidden bg-white text-xs">
-                        <button onClick={() => updateQuantity(item.dish.id, item.quantity - 1)} className="px-2.5 py-1 text-[#5C6E63] hover:text-[#111A15] cursor-pointer">
+                      <div className="flex items-center border border-[#DDD9CB] rounded-lg overflow-hidden bg-white text-xs">
+                        <button onClick={() => updateQuantity(item.dish.id, item.quantity - 1)} className="px-2.5 py-1 text-[#626F64] hover:text-[#182019] cursor-pointer">
                           <Minus className="w-3.5 h-3.5" />
                         </button>
-                        <span className="px-3 font-mono font-bold text-[#111A15]">{item.quantity}</span>
-                        <button onClick={() => updateQuantity(item.dish.id, item.quantity + 1)} className="px-2.5 py-1 text-[#5C6E63] hover:text-[#111A15] cursor-pointer">
+                        <span className="px-3 font-mono font-bold text-[#182019]">{item.quantity}</span>
+                        <button onClick={() => updateQuantity(item.dish.id, item.quantity + 1)} className="px-2.5 py-1 text-[#626F64] hover:text-[#182019] cursor-pointer">
                           <Plus className="w-3.5 h-3.5" />
                         </button>
                       </div>
-                      <span className="font-mono text-sm font-bold text-[#111A15] min-w-[60px] text-right">
+                      <span className="font-mono text-sm font-bold text-[#182019] min-w-[60px] text-right">
                         {formatPrice(item.itemSubtotal)}
                       </span>
-                      <button onClick={() => removeItem(item.dish.id)} className="text-[#5C6E63] hover:text-rose-600 p-1 cursor-pointer transition-colors">
+                      <button onClick={() => removeItem(item.dish.id)} className="text-[#626F64] hover:text-[#A8382B] p-1 cursor-pointer transition-colors">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
@@ -234,19 +234,19 @@ export const CheckoutPage: React.FC = () => {
                 ))}
               </div>
 
-              <div className="flex justify-between items-center pt-4 border-t border-[#E2E8E0] text-sm">
-                <span className="text-[#5C6E63]">Subtotal:</span>
-                <span className="font-mono font-bold text-[#15803D] text-lg">{formatPrice(subtotal)}</span>
+              <div className="flex justify-between items-center pt-4 border-t border-[#DDD9CB] text-sm">
+                <span className="text-[#626F64]">Subtotal:</span>
+                <span className="font-mono font-bold text-[#31543A] text-lg">{formatPrice(subtotal)}</span>
               </div>
             </div>
 
             <div className="flex justify-between items-center">
-              <Link to="/menu" className="text-xs text-[#5C6E63] hover:text-[#15803D] flex items-center gap-1.5 font-medium transition-colors">
+              <Link to="/menu" className="text-xs text-[#626F64] hover:text-[#31543A] flex items-center gap-1.5 font-medium transition-colors">
                 <ArrowLeft className="w-4 h-4" /> Add More Dishes
               </Link>
               <button
                 onClick={handleNextStep}
-                className="px-8 py-3.5 rounded-xl bg-[#15803D] hover:bg-[#166534] text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2 cursor-pointer shadow-xs border border-[#166534] transition-colors min-h-[44px]"
+                className="px-8 py-3.5 rounded-xl bg-[#31543A] hover:bg-[#26432E] text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2 cursor-pointer shadow-xs border border-[#26432E] transition-colors min-h-[44px]"
               >
                 Proceed to Details <ArrowRight className="w-4 h-4" />
               </button>
@@ -263,22 +263,22 @@ export const CheckoutPage: React.FC = () => {
             exit={{ opacity: 0, x: 20 }}
             className="space-y-6"
           >
-            <div className="bg-white border border-[#E2E8E0] p-6 rounded-2xl space-y-6 shadow-xs">
-              <h3 className="font-serif text-xl font-bold text-[#111A15] border-b border-[#E2E8E0] pb-3 flex items-center gap-2">
-                <Utensils className="w-5 h-5 text-[#15803D]" /> Select Order Mode & Details
+            <div className="bg-white border border-[#DDD9CB] p-6 rounded-2xl space-y-6 shadow-xs">
+              <h3 className="font-serif text-xl font-bold text-[#182019] border-b border-[#DDD9CB] pb-3 flex items-center gap-2">
+                <Utensils className="w-5 h-5 text-[#31543A]" /> Select Order Mode & Details
               </h3>
 
               {/* Order Type Selector */}
               <div className="space-y-2">
-                <label className="text-xs uppercase tracking-wider text-[#111A15] font-semibold">Dining Method</label>
+                <label className="text-xs uppercase tracking-wider text-[#182019] font-semibold">Dining Method</label>
                 <div className="grid grid-cols-3 gap-3 text-xs sm:text-sm">
                   <button
                     type="button"
                     onClick={() => setOrderType('DINE_IN')}
                     className={`py-3 px-4 rounded-xl border flex flex-col items-center gap-2 cursor-pointer transition-all ${
                       orderType === 'DINE_IN'
-                        ? 'bg-[#15803D]/10 border-[#15803D] text-[#15803D] font-bold ring-1 ring-[#15803D]'
-                        : 'bg-[#FAF9F5] border-[#E2E8E0] text-[#37473D] hover:text-[#111A15]'
+                        ? 'bg-[#31543A]/10 border-[#31543A] text-[#31543A] font-bold ring-1 ring-[#31543A]'
+                        : 'bg-[#FAF8F3] border-[#DDD9CB] text-[#3A453C] hover:text-[#182019]'
                     }`}
                   >
                     <Utensils className="w-5 h-5" /> Dine-In
@@ -288,8 +288,8 @@ export const CheckoutPage: React.FC = () => {
                     onClick={() => setOrderType('PICKUP')}
                     className={`py-3 px-4 rounded-xl border flex flex-col items-center gap-2 cursor-pointer transition-all ${
                       orderType === 'PICKUP'
-                        ? 'bg-[#15803D]/10 border-[#15803D] text-[#15803D] font-bold ring-1 ring-[#15803D]'
-                        : 'bg-[#FAF9F5] border-[#E2E8E0] text-[#37473D] hover:text-[#111A15]'
+                        ? 'bg-[#31543A]/10 border-[#31543A] text-[#31543A] font-bold ring-1 ring-[#31543A]'
+                        : 'bg-[#FAF8F3] border-[#DDD9CB] text-[#3A453C] hover:text-[#182019]'
                     }`}
                   >
                     <Store className="w-5 h-5" /> Pickup
@@ -299,8 +299,8 @@ export const CheckoutPage: React.FC = () => {
                     onClick={() => setOrderType('DELIVERY')}
                     className={`py-3 px-4 rounded-xl border flex flex-col items-center gap-2 cursor-pointer transition-all ${
                       orderType === 'DELIVERY'
-                        ? 'bg-[#15803D]/10 border-[#15803D] text-[#15803D] font-bold ring-1 ring-[#15803D]'
-                        : 'bg-[#FAF9F5] border-[#E2E8E0] text-[#37473D] hover:text-[#111A15]'
+                        ? 'bg-[#31543A]/10 border-[#31543A] text-[#31543A] font-bold ring-1 ring-[#31543A]'
+                        : 'bg-[#FAF8F3] border-[#DDD9CB] text-[#3A453C] hover:text-[#182019]'
                     }`}
                   >
                     <Truck className="w-5 h-5" /> Delivery
@@ -311,30 +311,30 @@ export const CheckoutPage: React.FC = () => {
               {/* Conditional Inputs based on orderType */}
               {orderType === 'DINE_IN' && (
                 <div className="space-y-2">
-                  <label className="text-xs text-[#111A15] font-semibold flex items-center gap-1.5">
-                    <Utensils className="w-3.5 h-3.5 text-[#15803D]" /> Table Number <span className="text-[#15803D]">*</span>
+                  <label className="text-xs text-[#182019] font-semibold flex items-center gap-1.5">
+                    <Utensils className="w-3.5 h-3.5 text-[#31543A]" /> Table Number <span className="text-[#31543A]">*</span>
                   </label>
                   <input
                     type="text"
                     value={tableNumber}
                     onChange={(e) => setTableNumber(e.target.value)}
                     placeholder="e.g. Table 14"
-                    className="w-full bg-[#FAF9F5] border border-[#E2E8E0] rounded-xl px-4 py-2.5 text-sm text-[#111A15] placeholder-[#5C6E63]/50 focus:outline-none focus:border-[#15803D] focus:bg-white"
+                    className="w-full bg-[#FAF8F3] border border-[#DDD9CB] rounded-xl px-4 py-2.5 text-sm text-[#182019] placeholder-[#626F64]/50 focus:outline-none focus:border-[#31543A] focus:bg-white"
                   />
                 </div>
               )}
 
               {orderType === 'DELIVERY' && (
                 <div className="space-y-2">
-                  <label className="text-xs text-[#111A15] font-semibold flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-[#15803D]" /> Delivery Address <span className="text-[#15803D]">*</span>
+                  <label className="text-xs text-[#182019] font-semibold flex items-center gap-1.5">
+                    <MapPin className="w-3.5 h-3.5 text-[#31543A]" /> Delivery Address <span className="text-[#31543A]">*</span>
                   </label>
                   <textarea
                     value={deliveryAddress}
                     onChange={(e) => setDeliveryAddress(e.target.value)}
                     placeholder="Enter your residence or suite delivery address..."
                     rows={3}
-                    className="w-full bg-[#FAF9F5] border border-[#E2E8E0] rounded-xl px-4 py-2.5 text-sm text-[#111A15] placeholder-[#5C6E63]/50 focus:outline-none focus:border-[#15803D] focus:bg-white"
+                    className="w-full bg-[#FAF8F3] border border-[#DDD9CB] rounded-xl px-4 py-2.5 text-sm text-[#182019] placeholder-[#626F64]/50 focus:outline-none focus:border-[#31543A] focus:bg-white"
                   />
                 </div>
               )}
@@ -342,42 +342,42 @@ export const CheckoutPage: React.FC = () => {
               {/* Guest Information */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                 <div className="space-y-1.5">
-                  <label className="text-xs text-[#111A15] font-semibold">Guest Name</label>
+                  <label className="text-xs text-[#182019] font-semibold">Guest Name</label>
                   <input
                     type="text"
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
                     placeholder="Lord / Lady Sterling"
-                    className="w-full bg-[#FAF9F5] border border-[#E2E8E0] rounded-xl px-4 py-2.5 text-sm text-[#111A15] placeholder-[#5C6E63]/50 focus:outline-none focus:border-[#15803D] focus:bg-white"
+                    className="w-full bg-[#FAF8F3] border border-[#DDD9CB] rounded-xl px-4 py-2.5 text-sm text-[#182019] placeholder-[#626F64]/50 focus:outline-none focus:border-[#31543A] focus:bg-white"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-xs text-[#111A15] font-semibold">Contact Email</label>
+                  <label className="text-xs text-[#182019] font-semibold">Contact Email</label>
                   <input
                     type="email"
                     value={customerEmail}
                     onChange={(e) => setCustomerEmail(e.target.value)}
                     placeholder="guest@craftsland.com"
-                    className="w-full bg-[#FAF9F5] border border-[#E2E8E0] rounded-xl px-4 py-2.5 text-sm text-[#111A15] placeholder-[#5C6E63]/50 focus:outline-none focus:border-[#15803D] focus:bg-white"
+                    className="w-full bg-[#FAF8F3] border border-[#DDD9CB] rounded-xl px-4 py-2.5 text-sm text-[#182019] placeholder-[#626F64]/50 focus:outline-none focus:border-[#31543A] focus:bg-white"
                   />
                 </div>
               </div>
 
               {/* Special Instructions */}
               <div className="space-y-1.5">
-                <label className="text-xs text-[#111A15] font-semibold">Special Instructions or Dietary Notes</label>
+                <label className="text-xs text-[#182019] font-semibold">Special Instructions or Dietary Notes</label>
                 <textarea
                   value={specialInstructions}
                   onChange={(e) => setSpecialInstructions(e.target.value)}
                   placeholder="e.g. Preferred doneness, allergy warnings, sommelier notes..."
                   rows={2}
-                  className="w-full bg-[#FAF9F5] border border-[#E2E8E0] rounded-xl px-4 py-2.5 text-sm text-[#111A15] placeholder-[#5C6E63]/50 focus:outline-none focus:border-[#15803D] focus:bg-white"
+                  className="w-full bg-[#FAF8F3] border border-[#DDD9CB] rounded-xl px-4 py-2.5 text-sm text-[#182019] placeholder-[#626F64]/50 focus:outline-none focus:border-[#31543A] focus:bg-white"
                 />
               </div>
 
               {/* Concierge Gratuity Selector */}
-              <div className="space-y-2 pt-2 border-t border-[#E2E8E0]">
-                <label className="text-xs text-[#111A15] font-semibold">Concierge Gratuity (Tip)</label>
+              <div className="space-y-2 pt-2 border-t border-[#DDD9CB]">
+                <label className="text-xs text-[#182019] font-semibold">Concierge Gratuity (Tip)</label>
                 <div className="grid grid-cols-4 gap-2 text-xs">
                   {[10, 15, 18, 20].map((percent) => (
                     <button
@@ -386,8 +386,8 @@ export const CheckoutPage: React.FC = () => {
                       onClick={() => setTipPercent(percent)}
                       className={`py-2 rounded-xl border font-mono transition-all cursor-pointer ${
                         tipPercent === percent
-                          ? 'bg-[#15803D] border-[#15803D] text-white font-bold'
-                          : 'bg-[#FAF9F5] border-[#E2E8E0] text-[#37473D] hover:text-[#111A15]'
+                          ? 'bg-[#31543A] border-[#31543A] text-white font-bold'
+                          : 'bg-[#FAF8F3] border-[#DDD9CB] text-[#3A453C] hover:text-[#182019]'
                       }`}
                     >
                       {percent}%
@@ -400,13 +400,13 @@ export const CheckoutPage: React.FC = () => {
             <div className="flex justify-between items-center">
               <button
                 onClick={() => setStep(1)}
-                className="text-xs text-[#5C6E63] hover:text-[#15803D] flex items-center gap-1.5 cursor-pointer font-medium transition-colors"
+                className="text-xs text-[#626F64] hover:text-[#31543A] flex items-center gap-1.5 cursor-pointer font-medium transition-colors"
               >
                 <ArrowLeft className="w-4 h-4" /> Back to Review
               </button>
               <button
                 onClick={handleNextStep}
-                className="px-8 py-3.5 rounded-xl bg-[#15803D] hover:bg-[#166534] text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2 cursor-pointer shadow-xs border border-[#166534] transition-colors min-h-[44px]"
+                className="px-8 py-3.5 rounded-xl bg-[#31543A] hover:bg-[#26432E] text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2 cursor-pointer shadow-xs border border-[#26432E] transition-colors min-h-[44px]"
               >
                 Proceed to Payment <ArrowRight className="w-4 h-4" />
               </button>
@@ -425,46 +425,46 @@ export const CheckoutPage: React.FC = () => {
           >
             {/* Payment Authorization Form */}
             <div className="md:col-span-2 space-y-6">
-              <div className="bg-white border border-[#E2E8E0] p-6 rounded-2xl space-y-6 shadow-xs">
-                <div className="flex items-center justify-between border-b border-[#E2E8E0] pb-3">
-                  <h3 className="font-serif text-xl font-bold text-[#111A15] flex items-center gap-2">
-                    <CreditCard className="w-5 h-5 text-[#15803D]" /> Payment Authentication
+              <div className="bg-white border border-[#DDD9CB] p-6 rounded-2xl space-y-6 shadow-xs">
+                <div className="flex items-center justify-between border-b border-[#DDD9CB] pb-3">
+                  <h3 className="font-serif text-xl font-bold text-[#182019] flex items-center gap-2">
+                    <CreditCard className="w-5 h-5 text-[#31543A]" /> Payment Authentication
                   </h3>
-                  <span className="text-[11px] text-[#5C6E63] flex items-center gap-1 font-medium">
-                    <Lock className="w-3.5 h-3.5 text-[#15803D]" /> 256-Bit Encrypted
+                  <span className="text-[11px] text-[#626F64] flex items-center gap-1 font-medium">
+                    <Lock className="w-3.5 h-3.5 text-[#31543A]" /> 256-Bit Encrypted
                   </span>
                 </div>
 
                 {env.isRazorpayConfigured ? (
-                  <div className="bg-emerald-50 border border-emerald-200 p-4 rounded-xl text-xs space-y-2 text-emerald-950">
-                    <div className="flex items-center gap-2 text-emerald-900 font-bold">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-700" />
+                  <div className="bg-[#31543A]/10 border border-[#31543A]/20 p-4 rounded-xl text-xs space-y-2 text-[#182019]">
+                    <div className="flex items-center gap-2 text-[#31543A] font-bold">
+                      <CheckCircle2 className="w-4 h-4 text-[#31543A]" />
                       <span>Razorpay Sandbox (TEST Mode) Active</span>
                     </div>
-                    <p className="text-emerald-800 leading-relaxed">
-                      Your transaction will be processed via <span className="font-bold text-emerald-950">Razorpay Test Gateway</span>. You can safely authenticate with test UPI, Netbanking, or test cards. No real bank charges will be incurred.
+                    <p className="text-[#3A453C] leading-relaxed">
+                      Your transaction will be processed via <span className="font-bold text-[#182019]">Razorpay Test Gateway</span>. You can safely authenticate with test UPI, Netbanking, or test cards. No real bank charges will be incurred.
                     </p>
-                    <div className="flex items-center gap-2 text-[11px] font-mono text-emerald-800 pt-1">
-                      <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
+                    <div className="flex items-center gap-2 text-[11px] font-mono text-[#31543A] pt-1">
+                      <span className="w-2 h-2 rounded-full bg-[#31543A] animate-pulse" />
                       <span>Currency: {RESTAURANT_BRAND.currency} ({RESTAURANT_BRAND.currencySymbol})</span>
                     </div>
                   </div>
                 ) : !isPaymentConfigured ? (
-                  <div className="bg-rose-50 border border-rose-200 p-4 rounded-xl text-xs space-y-1 text-rose-800">
+                  <div className="bg-[#A8382B]/10 border border-[#A8382B]/20 p-4 rounded-xl text-xs space-y-1 text-[#A8382B]">
                     <p className="font-bold flex items-center gap-1.5">
-                      <AlertCircle className="w-4 h-4 text-rose-600" /> Gateway Unavailable
+                      <AlertCircle className="w-4 h-4 text-[#A8382B]" /> Gateway Unavailable
                     </p>
                     <p>
                       Online payment gateway is temporarily unconfigured. Please contact restaurant concierge.
                     </p>
                   </div>
                 ) : (
-                  <div className="bg-[#15803D]/10 border border-[#15803D]/20 p-4 rounded-xl text-xs space-y-1 text-[#15803D]">
+                  <div className="bg-[#31543A]/10 border border-[#31543A]/20 p-4 rounded-xl text-xs space-y-1 text-[#31543A]">
                     <p className="font-bold flex items-center gap-1.5">
                       <CheckCircle2 className="w-4 h-4" /> Local Development Simulation Active
                     </p>
-                    <p className="text-[#37473D]">
-                      Local developer mock provider is running. Configure <span className="font-mono text-[#111A15]">VITE_RAZORPAY_KEY_ID</span> to test live Razorpay checkout.
+                    <p className="text-[#3A453C]">
+                      Local developer mock provider is running. Configure <span className="font-mono text-[#182019]">VITE_RAZORPAY_KEY_ID</span> to test live Razorpay checkout.
                     </p>
                   </div>
                 )}
@@ -472,7 +472,7 @@ export const CheckoutPage: React.FC = () => {
                 <button
                   onClick={handlePayAndPlaceOrder}
                   disabled={isPlacingOrder || !isPaymentConfigured}
-                  className="w-full py-4 rounded-xl bg-[#15803D] hover:bg-[#166534] text-white font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer shadow-xs border border-[#166534] transition-colors disabled:opacity-50 min-h-[48px]"
+                  className="w-full py-4 rounded-xl bg-[#31543A] hover:bg-[#26432E] text-white font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer shadow-xs border border-[#26432E] transition-colors disabled:opacity-50 min-h-[48px]"
                 >
                   {isPlacingOrder ? (
                     <span className="flex items-center gap-2">
@@ -490,7 +490,7 @@ export const CheckoutPage: React.FC = () => {
               <button
                 onClick={() => setStep(2)}
                 disabled={isPlacingOrder}
-                className="text-xs text-[#5C6E63] hover:text-[#15803D] flex items-center gap-1.5 cursor-pointer font-medium transition-colors"
+                className="text-xs text-[#626F64] hover:text-[#31543A] flex items-center gap-1.5 cursor-pointer font-medium transition-colors"
               >
                 <ArrowLeft className="w-4 h-4" /> Edit Order Details
               </button>
@@ -498,45 +498,45 @@ export const CheckoutPage: React.FC = () => {
 
             {/* Sidebar Order Summary */}
             <div className="space-y-4">
-              <div className="bg-white border border-[#E2E8E0] p-6 rounded-2xl space-y-4 text-xs shadow-xs">
-                <h4 className="font-serif text-lg font-bold text-[#111A15] border-b border-[#E2E8E0] pb-2">
+              <div className="bg-white border border-[#DDD9CB] p-6 rounded-2xl space-y-4 text-xs shadow-xs">
+                <h4 className="font-serif text-lg font-bold text-[#182019] border-b border-[#DDD9CB] pb-2">
                   Order Summary
                 </h4>
 
-                <div className="space-y-2 font-mono text-[#111A15]">
+                <div className="space-y-2 font-mono text-[#182019]">
                   <div className="flex justify-between">
-                    <span className="text-[#5C6E63]">Order Type:</span>
-                    <span className="text-[#15803D] font-bold">{orderType}</span>
+                    <span className="text-[#626F64]">Order Type:</span>
+                    <span className="text-[#31543A] font-bold">{orderType}</span>
                   </div>
                   {orderType === 'DINE_IN' && (
                     <div className="flex justify-between">
-                      <span className="text-[#5C6E63]">Table Number:</span>
-                      <span className="text-[#111A15] font-bold">{tableNumber}</span>
+                      <span className="text-[#626F64]">Table Number:</span>
+                      <span className="text-[#182019] font-bold">{tableNumber}</span>
                     </div>
                   )}
                   {orderType === 'DELIVERY' && (
                     <div className="flex justify-between">
-                      <span className="text-[#5C6E63]">Delivery Address:</span>
-                      <span className="text-[#111A15] truncate max-w-[120px]">{deliveryAddress}</span>
+                      <span className="text-[#626F64]">Delivery Address:</span>
+                      <span className="text-[#182019] truncate max-w-[120px]">{deliveryAddress}</span>
                     </div>
                   )}
                   <div className="flex justify-between">
-                    <span className="text-[#5C6E63]">Items Count:</span>
+                    <span className="text-[#626F64]">Items Count:</span>
                     <span>{items.reduce((acc, i) => acc + i.quantity, 0)}</span>
                   </div>
                 </div>
 
-                <div className="space-y-2 pt-3 border-t border-[#E2E8E0]">
-                  <div className="flex justify-between text-[#5C6E63]"><span>Subtotal:</span><span>{formatPrice(subtotal)}</span></div>
-                  <div className="flex justify-between text-[#5C6E63]"><span>Tax (8.5%):</span><span>{formatPrice(taxAmount)}</span></div>
+                <div className="space-y-2 pt-3 border-t border-[#DDD9CB]">
+                  <div className="flex justify-between text-[#626F64]"><span>Subtotal:</span><span>{formatPrice(subtotal)}</span></div>
+                  <div className="flex justify-between text-[#626F64]"><span>Tax (8.5%):</span><span>{formatPrice(taxAmount)}</span></div>
                   {orderType === 'DELIVERY' && (
-                    <div className="flex justify-between text-[#5C6E63]"><span>Delivery Fee:</span><span>{formatPrice(deliveryFee)}</span></div>
+                    <div className="flex justify-between text-[#626F64]"><span>Delivery Fee:</span><span>{formatPrice(deliveryFee)}</span></div>
                   )}
-                  <div className="flex justify-between text-[#5C6E63]"><span>Concierge Tip ({tipPercent}%):</span><span>{formatPrice(tipAmount)}</span></div>
+                  <div className="flex justify-between text-[#626F64]"><span>Concierge Tip ({tipPercent}%):</span><span>{formatPrice(tipAmount)}</span></div>
                   
-                  <div className="flex justify-between font-serif text-base font-bold text-[#111A15] pt-3 border-t border-[#E2E8E0]">
+                  <div className="flex justify-between font-serif text-base font-bold text-[#182019] pt-3 border-t border-[#DDD9CB]">
                     <span>Total Amount:</span>
-                    <span className="text-[#15803D] font-mono font-bold text-lg">{formatPrice(totalAmount)}</span>
+                    <span className="text-[#31543A] font-mono font-bold text-lg">{formatPrice(totalAmount)}</span>
                   </div>
                 </div>
               </div>

@@ -35,28 +35,28 @@ export const Modal: React.FC<ModalProps> = ({
 
   const styleMap = {
     customer: {
-      card: 'bg-white border border-[#E2E8E0] text-[#111A15]',
-      header: 'border-b border-[#E2E8E0]',
-      title: 'text-[#111A15]',
-      close: 'text-[#5C6E63] hover:text-[#15803D] hover:bg-[#F1F7F2]',
+      card: 'bg-white border border-[#DDD9CB] text-[#182019]',
+      header: 'border-b border-[#DDD9CB]',
+      title: 'text-[#182019]',
+      close: 'text-[#626F64] hover:text-[#31543A] hover:bg-[#FAF8F3]',
     },
     admin: {
-      card: 'bg-white border border-[#D8D8D2] text-[#0F172A]',
-      header: 'border-b border-[#D8D8D2]',
-      title: 'text-[#0F172A]',
-      close: 'text-slate-500 hover:text-[#0F172A] hover:bg-[#F4F4F1]',
+      card: 'bg-white border border-[#DDD9CB] text-[#182019]',
+      header: 'border-b border-[#DDD9CB]',
+      title: 'text-[#182019]',
+      close: 'text-[#626F64] hover:text-[#31543A] hover:bg-[#FAF8F3]',
     },
     kitchen: {
-      card: 'bg-white border-2 border-[#CBD8D8] text-[#0F2424]',
-      header: 'border-b border-[#CBD8D8]',
-      title: 'text-[#0D474A]',
-      close: 'text-slate-500 hover:text-[#0D474A] hover:bg-[#EEF3F3]',
+      card: 'bg-white border-2 border-[#DDD9CB] text-[#182019]',
+      header: 'border-b border-[#DDD9CB]',
+      title: 'text-[#31543A]',
+      close: 'text-[#626F64] hover:text-[#31543A] hover:bg-[#FAF8F3]',
     },
     dark: {
-      card: 'bg-[#211B16] border border-[#3A3027] text-[#F5EFE5]',
-      header: 'border-b border-[#3A3027]',
-      title: 'text-[#F5EFE5]',
-      close: 'text-[#B8AEA1] hover:text-[#B84A32] hover:bg-white/5',
+      card: 'bg-[#182019] border border-[#31543A]/40 text-[#F7F4EC]',
+      header: 'border-b border-[#31543A]/30',
+      title: 'text-[#F7F4EC]',
+      close: 'text-[#E8E5D8] hover:text-[#C97852] hover:bg-white/10',
     },
   };
 

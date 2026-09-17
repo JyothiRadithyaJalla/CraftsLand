@@ -83,23 +83,23 @@ export const AdminOffersPage: React.FC = () => {
     <AdminLayout>
       <MetaTags title="Offers & Promo Codes | Craftsland Admin" />
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#D8D8D2] pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#DDD9CB] pb-4">
         <div>
-          <h1 className="font-serif text-3xl font-bold text-[#0F172A]">Promo Codes & Offers</h1>
-          <p className="text-xs text-slate-500 font-medium">Configure promotional discounts and validity dates</p>
+          <h1 className="font-serif text-3xl font-bold text-[#182019]">Promo Codes & Offers</h1>
+          <p className="text-xs text-[#626F64] font-medium">Configure promotional discounts and validity dates</p>
         </div>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="px-5 py-2.5 rounded-xl bg-[#0F172A] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-md hover:bg-[#1E293B] transition-all min-h-[44px]"
+          className="px-5 py-2.5 rounded-xl bg-[#31543A] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-md hover:bg-[#26432E] transition-all min-h-[44px]"
         >
           <Plus className="w-4 h-4" /> Create Promo Code
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl overflow-hidden border border-[#D8D8D2] shadow-sm">
+      <div className="bg-white rounded-2xl overflow-hidden border border-[#DDD9CB] shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#F8FAFC] border-b border-[#D8D8D2] text-slate-600 uppercase text-[10px] font-mono font-bold tracking-wider">
+            <thead className="bg-[#FAF8F3] border-b border-[#DDD9CB] text-[#3A453C] uppercase text-[10px] font-mono font-bold tracking-wider">
               <tr>
                 <th className="p-4">Promo Code</th>
                 <th className="p-4">Discount %</th>
@@ -108,17 +108,17 @@ export const AdminOffersPage: React.FC = () => {
                 <th className="p-4 text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#E2E8F0]">
+            <tbody className="divide-y divide-[#DDD9CB]">
               {offers.map((off) => (
-                <tr key={off.id} className="hover:bg-[#F8FAFC] transition-colors">
-                  <td className="p-4 font-mono font-bold text-[#0F172A] text-sm">{off.code}</td>
-                  <td className="p-4 font-mono font-bold text-[#0F172A]">{off.discountPercent}% OFF</td>
-                  <td className="p-4 font-mono text-slate-500">
+                <tr key={off.id} className="hover:bg-[#FAF8F3]/60 transition-colors">
+                  <td className="p-4 font-mono font-bold text-[#182019] text-sm">{off.code}</td>
+                  <td className="p-4 font-mono font-bold text-[#182019]">{off.discountPercent}% OFF</td>
+                  <td className="p-4 font-mono text-[#626F64]">
                     {off.activeFrom} to {off.activeTo}
                   </td>
                   <td className="p-4">
                     <span className={`px-2.5 py-0.5 rounded-full text-[10px] uppercase font-bold font-mono ${
-                      off.isActive ? 'bg-emerald-50 text-emerald-800 border border-emerald-300' : 'bg-red-50 text-red-800 border border-red-300'
+                      off.isActive ? 'bg-[#31543A]/10 text-[#31543A] border border-[#31543A]/20' : 'bg-[#A8382B]/10 text-[#A8382B] border border-[#A8382B]/20'
                     }`}>
                       {off.isActive ? 'Active' : 'Disabled'}
                     </span>
@@ -128,11 +128,11 @@ export const AdminOffersPage: React.FC = () => {
                       onClick={() => handleToggleActive(off.id)}
                       className={`px-3 py-1 rounded-lg font-mono text-xs font-bold cursor-pointer transition-colors flex items-center gap-1.5 ml-auto shadow-xs ${
                         off.isActive
-                          ? 'bg-emerald-50 text-emerald-800 border border-emerald-300'
-                          : 'bg-red-50 text-red-800 border border-red-300'
+                          ? 'bg-[#31543A]/10 text-[#31543A] border border-[#31543A]/20'
+                          : 'bg-[#A8382B]/10 text-[#A8382B] border border-[#A8382B]/20'
                       }`}
                     >
-                      {off.isActive ? <ToggleRight className="w-4 h-4 text-emerald-600" /> : <ToggleLeft className="w-4 h-4 text-red-600" />}
+                      {off.isActive ? <ToggleRight className="w-4 h-4 text-[#31543A]" /> : <ToggleLeft className="w-4 h-4 text-[#A8382B]" />}
                       {off.isActive ? 'Deactivate' : 'Activate'}
                     </button>
                   </td>
@@ -148,41 +148,41 @@ export const AdminOffersPage: React.FC = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
           <form
             onSubmit={handleCreateOffer}
-            className="bg-white w-full max-w-md border border-[#D8D8D2] rounded-3xl p-6 space-y-4 text-[#0F172A] shadow-2xl"
+            className="bg-white w-full max-w-md border border-[#DDD9CB] rounded-3xl p-6 space-y-4 text-[#182019] shadow-2xl"
           >
-            <div className="flex justify-between items-center border-b border-[#D8D8D2] pb-3">
-              <h3 className="font-serif text-xl font-bold text-[#0F172A]">Create Promo Code</h3>
+            <div className="flex justify-between items-center border-b border-[#DDD9CB] pb-3">
+              <h3 className="font-serif text-xl font-bold text-[#182019]">Create Promo Code</h3>
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="p-1.5 rounded-full text-slate-400 hover:text-[#0F172A] hover:bg-slate-100 cursor-pointer transition-colors"
+                className="p-1.5 rounded-full text-[#626F64] hover:text-[#182019] hover:bg-[#FAF8F3] cursor-pointer transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {errorMsg && (
-              <div className="bg-red-50 border border-red-200 p-3 rounded-xl text-xs text-red-700 flex items-center gap-2 font-medium">
-                <AlertCircle className="w-4 h-4 text-red-500 flex-shrink-0" />
+              <div className="bg-[#A8382B]/10 border border-[#A8382B]/20 p-3 rounded-xl text-xs text-[#A8382B] flex items-center gap-2 font-medium">
+                <AlertCircle className="w-4 h-4 text-[#A8382B] flex-shrink-0" />
                 <span>{errorMsg}</span>
               </div>
             )}
 
             <div className="space-y-3 text-xs">
               <div className="space-y-1">
-                <label className="text-slate-600 font-bold uppercase text-[10px] tracking-wider">Promo Code *</label>
+                <label className="text-[#3A453C] font-bold uppercase text-[10px] tracking-wider">Promo Code *</label>
                 <input
                   type="text"
                   required
                   value={newCode}
                   onChange={(e) => setNewCode(e.target.value)}
                   placeholder="e.g. LUXURY25"
-                  className="w-full bg-[#F8FAFC] border border-[#CBD5E1] rounded-xl px-3 py-2 text-xs text-[#0F172A] placeholder-slate-400 font-mono focus:outline-none focus:border-[#0F172A] transition-colors font-medium"
+                  className="w-full bg-[#FAF8F3] border border-[#DDD9CB] rounded-xl px-3 py-2 text-xs text-[#182019] placeholder-[#626F64]/60 font-mono focus:outline-none focus:border-[#31543A] transition-colors font-medium"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-slate-600 font-bold uppercase text-[10px] tracking-wider">Discount Percentage (1 - 100%) *</label>
+                <label className="text-[#3A453C] font-bold uppercase text-[10px] tracking-wider">Discount Percentage (1 - 100%) *</label>
                 <input
                   type="number"
                   min={1}
@@ -190,43 +190,43 @@ export const AdminOffersPage: React.FC = () => {
                   required
                   value={newDiscount}
                   onChange={(e) => setNewDiscount(Number(e.target.value) || 10)}
-                  className="w-full bg-[#F8FAFC] border border-[#CBD5E1] rounded-xl px-3 py-2 text-xs text-[#0F172A] font-mono focus:outline-none focus:border-[#0F172A] transition-colors font-medium"
+                  className="w-full bg-[#FAF8F3] border border-[#DDD9CB] rounded-xl px-3 py-2 text-xs text-[#182019] font-mono focus:outline-none focus:border-[#31543A] transition-colors font-medium"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1">
-                  <label className="text-slate-600 font-bold uppercase text-[10px] tracking-wider">Active From</label>
+                  <label className="text-[#3A453C] font-bold uppercase text-[10px] tracking-wider">Active From</label>
                   <input
                     type="date"
                     value={newActiveFrom}
                     onChange={(e) => setNewActiveFrom(e.target.value)}
-                    className="w-full bg-[#F8FAFC] border border-[#CBD5E1] rounded-xl px-3 py-2 text-xs text-[#0F172A] font-mono focus:outline-none focus:border-[#0F172A] transition-colors font-medium"
+                    className="w-full bg-[#FAF8F3] border border-[#DDD9CB] rounded-xl px-3 py-2 text-xs text-[#182019] font-mono focus:outline-none focus:border-[#31543A] transition-colors font-medium"
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-slate-600 font-bold uppercase text-[10px] tracking-wider">Active To</label>
+                  <label className="text-[#3A453C] font-bold uppercase text-[10px] tracking-wider">Active To</label>
                   <input
                     type="date"
                     value={newActiveTo}
                     onChange={(e) => setNewActiveTo(e.target.value)}
-                    className="w-full bg-[#F8FAFC] border border-[#CBD5E1] rounded-xl px-3 py-2 text-xs text-[#0F172A] font-mono focus:outline-none focus:border-[#0F172A] transition-colors font-medium"
+                    className="w-full bg-[#FAF8F3] border border-[#DDD9CB] rounded-xl px-3 py-2 text-xs text-[#182019] font-mono focus:outline-none focus:border-[#31543A] transition-colors font-medium"
                   />
                 </div>
               </div>
             </div>
 
-            <div className="flex justify-end gap-3 pt-4 border-t border-[#D8D8D2] text-xs">
+            <div className="flex justify-end gap-3 pt-4 border-t border-[#DDD9CB] text-xs">
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="px-5 py-2.5 rounded-xl border border-[#D8D8D2] text-[#0F172A] hover:bg-[#F4F4F1] font-bold cursor-pointer transition-colors shadow-xs"
+                className="px-5 py-2.5 rounded-xl border border-[#DDD9CB] text-[#182019] hover:bg-[#FAF8F3] font-bold cursor-pointer transition-colors shadow-xs"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-xl bg-[#0F172A] text-white hover:bg-[#1E293B] font-bold uppercase tracking-wider cursor-pointer shadow-md transition-all"
+                className="px-6 py-2.5 rounded-xl bg-[#31543A] text-white hover:bg-[#26432E] font-bold uppercase tracking-wider cursor-pointer shadow-md transition-all"
               >
                 Create Code
               </button>

@@ -178,13 +178,13 @@ export const PremiumAutoVideo: React.FC<PremiumAutoVideoProps> = ({
     <div
       ref={containerRef}
       onClick={onClick}
-      className={`relative overflow-hidden bg-[#F1F7F2] ${aspectRatio} ${onClick ? 'cursor-pointer' : ''} ${className}`}
+      className={`relative overflow-hidden bg-[#FAF8F3] ${aspectRatio} ${onClick ? 'cursor-pointer' : ''} ${className}`}
     >
       {/* Shimmer placeholder */}
       {!imgLoaded && (
-        <div className="absolute inset-0 bg-[#F1F7F2] animate-pulse flex items-center justify-center z-[1]">
-          <div className="w-8 h-8 rounded-full border border-[#E2E8E0] bg-white flex items-center justify-center opacity-60">
-            <span className="w-2 h-2 rounded-full bg-[#15803D]/50 animate-ping" />
+        <div className="absolute inset-0 bg-[#FAF8F3] animate-pulse flex items-center justify-center z-[1]">
+          <div className="w-8 h-8 rounded-full border border-[#DDD9CB] bg-white flex items-center justify-center opacity-60">
+            <span className="w-2 h-2 rounded-full bg-[#31543A]/50 animate-ping" />
           </div>
         </div>
       )}
@@ -225,7 +225,7 @@ export const PremiumAutoVideo: React.FC<PremiumAutoVideoProps> = ({
       {/* Live indicator when video is playing */}
       {isPlaying && isVideoReady && (
         <div className="absolute top-3 left-3 z-[3] flex items-center gap-1.5 opacity-60">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#4ADE80] animate-pulse" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[#78956A] animate-pulse" />
         </div>
       )}
     </div>

@@ -4,40 +4,60 @@
 @source "..";
 
 @theme {
-  /* Customer Theme: Fresh Green + Natural Leafy Dark Green + Warm Off-White */
-  --color-cust-bg: #FAF9F5;
-  --color-cust-pale: #F1F7F2;
+  /* CraftsLand Unified Botanical Palette (Inspired by THE OH! aesthetic) */
+  --color-brand-bg: #F7F4EC;
+  --color-brand-cream: #FAF8F3;
+  --color-brand-surface: #E8E5D8;
+  --color-brand-border: #DDD9CB;
+  --color-brand-card: #FFFFFF;
+  --color-brand-text: #182019;
+  --color-brand-text-secondary: #3A453C;
+  --color-brand-muted: #626F64;
+  --color-brand-botanical: #31543A;
+  --color-brand-botanical-hover: #26432E;
+  --color-brand-botanical-dark: #1E3524;
+  --color-brand-botanical-light: #E4ECE5;
+  --color-brand-sage: #78956A;
+  --color-brand-sage-hover: #67825A;
+  --color-brand-sage-light: #EEF3EB;
+  --color-brand-terracotta: #C97852;
+  --color-brand-terracotta-hover: #B56641;
+  --color-brand-terracotta-light: #F7ECE6;
+  --color-brand-error: #A8382B;
+  --color-brand-error-light: #FCEBE9;
+
+  /* Backward Compatible Semantic Mappings */
+  --color-cust-bg: #F7F4EC;
+  --color-cust-pale: #FAF8F3;
   --color-cust-card: #FFFFFF;
-  --color-cust-border: #E2E8E0;
-  --color-cust-green: #15803D;
-  --color-cust-green-hover: #166534;
-  --color-cust-green-dark: #14532D;
-  --color-cust-green-light: #DCFCE7;
-  --color-cust-text: #111A15;
-  --color-cust-text-secondary: #37473D;
-  --color-cust-muted: #5C6E63;
+  --color-cust-border: #DDD9CB;
+  --color-cust-green: #31543A;
+  --color-cust-green-hover: #26432E;
+  --color-cust-green-dark: #1E3524;
+  --color-cust-green-light: #E4ECE5;
+  --color-cust-text: #182019;
+  --color-cust-text-secondary: #3A453C;
+  --color-cust-muted: #626F64;
 
-  /* Admin Theme: Soft Stone + Deep Navy */
-  --color-admin-stone: #F4F4F1;
-  --color-admin-stone-dark: #E9E9E4;
+  --color-admin-stone: #F7F4EC;
+  --color-admin-stone-dark: #E8E5D8;
   --color-admin-card: #FFFFFF;
-  --color-admin-border: #D8D8D2;
-  --color-admin-navy: #0F172A;
-  --color-admin-navy-hover: #1E293B;
-  --color-admin-navy-accent: #1E3A5F;
-  --color-admin-text: #0F172A;
-  --color-admin-muted: #64748B;
+  --color-admin-border: #DDD9CB;
+  --color-admin-navy: #31543A;
+  --color-admin-navy-hover: #26432E;
+  --color-admin-navy-accent: #78956A;
+  --color-admin-text: #182019;
+  --color-admin-muted: #626F64;
 
-  /* Kitchen Theme: Cool Mist + Deep Teal */
-  --color-kitchen-mist: #EEF3F3;
-  --color-kitchen-mist-dark: #E2EAEA;
+  --color-kitchen-mist: #F7F4EC;
+  --color-kitchen-mist-dark: #E8E5D8;
   --color-kitchen-card: #FFFFFF;
-  --color-kitchen-border: #CBD8D8;
-  --color-kitchen-teal: #0D474A;
-  --color-kitchen-teal-hover: #083638;
-  --color-kitchen-teal-light: #E0EBEB;
-  --color-kitchen-text: #0F2424;
-  --color-kitchen-muted: #506565;
+  --color-kitchen-border: #DDD9CB;
+  --color-kitchen-teal: #31543A;
+  --color-kitchen-teal-hover: #26432E;
+  --color-kitchen-teal-light: #E4ECE5;
+  --color-kitchen-text: #182019;
+  --color-kitchen-muted: #626F64;
 }
 
 @layer base {
@@ -53,6 +73,8 @@
 
   body {
     font-family: var(--font-sans);
+    background-color: #F7F4EC;
+    color: #182019;
     -webkit-font-smoothing: antialiased;
   }
 }
@@ -77,32 +99,32 @@
 }
 
 .craft-shadow-sm {
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 3px 0 rgba(24, 32, 25, 0.04), 0 1px 2px -1px rgba(24, 32, 25, 0.04);
 }
 
 .craft-shadow-md {
-  box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.08), 0 2px 6px -2px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 12px -2px rgba(24, 32, 25, 0.06), 0 2px 6px -2px rgba(24, 32, 25, 0.03);
 }
 
 .craft-shadow-lg {
-  box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 10px -4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 25px -3px rgba(24, 32, 25, 0.08), 0 4px 10px -4px rgba(24, 32, 25, 0.04);
 }
 
-/* Scrollbar Customization - Clean Neutral */
+/* Scrollbar Customization - Clean Botanical Warm Neutral */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #F1F1EF;
+  background: #F7F4EC;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D4D4D0;
+  background: #DDD9CB;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #B0B0A8;
+  background: #C2BDAF;
 }

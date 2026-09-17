@@ -64,14 +64,14 @@ export const AdminDashboardPage: React.FC = () => {
       <MetaTags title="Executive Dashboard | Craftsland Admin" />
 
       {/* Page Title */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#D8D8D2] pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#DDD9CB] pb-4">
         <div>
-          <h1 className="font-serif text-3xl font-bold text-[#0F172A]">Executive Command Center</h1>
-          <p className="text-xs text-slate-500 font-medium">Realtime revenue performance & dining suite metrics</p>
+          <h1 className="font-serif text-3xl font-bold text-[#182019]">Executive Command Center</h1>
+          <p className="text-xs text-[#626F64] font-medium">Realtime revenue performance & dining suite metrics</p>
         </div>
         <Link
           to="/orders"
-          className="px-4 py-2.5 rounded-xl bg-[#0F172A] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-[#1E293B] shadow-sm border border-[#0F172A] transition-all"
+          className="px-4 py-2.5 rounded-xl bg-[#31543A] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-[#26432E] shadow-sm border border-[#31543A] transition-all"
         >
           View Orders Queue <ArrowRight className="w-4 h-4" />
         </Link>
@@ -87,18 +87,18 @@ export const AdminDashboardPage: React.FC = () => {
         <motion.div
           variants={cardItemVariants}
           whileHover={{ y: -4, transition: { duration: 0.2 } }}
-          className="bg-white p-5 rounded-2xl flex items-center justify-between border border-[#D8D8D2] shadow-sm hover:shadow-md transition-shadow group"
+          className="bg-white p-5 rounded-2xl flex items-center justify-between border border-[#DDD9CB] shadow-sm hover:shadow-md transition-shadow group"
         >
           <div>
-            <p className="text-xs text-slate-500 font-sans font-medium">Today's Revenue</p>
-            <p className="text-2xl font-serif font-bold text-[#0F172A]">
+            <p className="text-xs text-[#626F64] font-sans font-medium">Today's Revenue</p>
+            <p className="text-2xl font-serif font-bold text-[#182019]">
               <AnimatedCounter value={totalRevenue} formatter={(v) => formatPrice(v)} />
             </p>
-            <span className="text-[10px] text-emerald-700 font-mono font-bold">↑ +14.2% vs yesterday</span>
+            <span className="text-[10px] text-[#31543A] font-mono font-bold">↑ +14.2% vs yesterday</span>
           </div>
           <motion.div
             whileHover={{ scale: 1.15, rotate: 5 }}
-            className="p-3 rounded-2xl bg-emerald-50 text-emerald-800 border border-emerald-200"
+            className="p-3 rounded-2xl bg-[#FAF8F3] text-[#31543A] border border-[#31543A]/20"
           >
             <span className="text-lg font-bold font-mono">₹</span>
           </motion.div>
@@ -107,11 +107,11 @@ export const AdminDashboardPage: React.FC = () => {
         <motion.div
           variants={cardItemVariants}
           whileHover={{ y: -4, transition: { duration: 0.2 } }}
-          className="bg-white p-5 rounded-2xl flex items-center justify-between border border-[#D8D8D2] shadow-sm hover:shadow-md transition-shadow group"
+          className="bg-white p-5 rounded-2xl flex items-center justify-between border border-[#DDD9CB] shadow-sm hover:shadow-md transition-shadow group"
         >
           <div>
-            <p className="text-xs text-slate-500 font-sans font-medium">Active Kitchen Tickets</p>
-            <p className="text-2xl font-serif font-bold text-[#0F172A]">
+            <p className="text-xs text-[#626F64] font-sans font-medium">Active Kitchen Tickets</p>
+            <p className="text-2xl font-serif font-bold text-[#182019]">
               <AnimatedCounter value={activeOrdersCount} />
             </p>
             <span className="text-[10px] text-blue-700 font-mono font-bold">In prep & pass</span>
@@ -127,11 +127,11 @@ export const AdminDashboardPage: React.FC = () => {
         <motion.div
           variants={cardItemVariants}
           whileHover={{ y: -4, transition: { duration: 0.2 } }}
-          className="bg-white p-5 rounded-2xl flex items-center justify-between border border-[#D8D8D2] shadow-sm hover:shadow-md transition-shadow group"
+          className="bg-white p-5 rounded-2xl flex items-center justify-between border border-[#DDD9CB] shadow-sm hover:shadow-md transition-shadow group"
         >
           <div>
-            <p className="text-xs text-slate-500 font-sans font-medium">Bookings Today</p>
-            <p className="text-2xl font-serif font-bold text-[#0F172A]">
+            <p className="text-xs text-[#626F64] font-sans font-medium">Bookings Today</p>
+            <p className="text-2xl font-serif font-bold text-[#182019]">
               <AnimatedCounter value={todayReservations.length} />
             </p>
             <span className="text-[10px] text-purple-700 font-mono font-bold">Confirmed reservations</span>
@@ -147,18 +147,18 @@ export const AdminDashboardPage: React.FC = () => {
         <motion.div
           variants={cardItemVariants}
           whileHover={{ y: -4, transition: { duration: 0.2 } }}
-          className="bg-white p-5 rounded-2xl flex items-center justify-between border border-[#D8D8D2] shadow-sm hover:shadow-md transition-shadow group"
+          className="bg-white p-5 rounded-2xl flex items-center justify-between border border-[#DDD9CB] shadow-sm hover:shadow-md transition-shadow group"
         >
           <div>
-            <p className="text-xs text-slate-500 font-sans font-medium">Avg Ticket Value</p>
-            <p className="text-2xl font-serif font-bold text-[#0F172A]">
+            <p className="text-xs text-[#626F64] font-sans font-medium">Avg Ticket Value</p>
+            <p className="text-2xl font-serif font-bold text-[#182019]">
               <AnimatedCounter value={avgOrderValue} formatter={(v) => formatPrice(v)} />
             </p>
-            <span className="text-[10px] text-emerald-700 font-mono font-bold">High-tier dining average</span>
+            <span className="text-[10px] text-[#31543A] font-mono font-bold">High-tier dining average</span>
           </div>
           <motion.div
             whileHover={{ scale: 1.15, rotate: 5 }}
-            className="p-3 rounded-2xl bg-slate-100 text-[#0F172A] border border-slate-200"
+            className="p-3 rounded-2xl bg-[#FAF8F3] text-[#31543A] border border-[#DDD9CB]"
           >
             <TrendingUp className="w-6 h-6" />
           </motion.div>
@@ -171,21 +171,21 @@ export const AdminDashboardPage: React.FC = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.4 }}
-        className="bg-white p-6 rounded-2xl border border-[#D8D8D2] shadow-sm space-y-4"
+        className="bg-white p-6 rounded-2xl border border-[#DDD9CB] shadow-sm space-y-4"
       >
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#D8D8D2] pb-3">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#DDD9CB] pb-3">
           <div>
-            <h3 className="font-serif text-lg font-bold text-[#0F172A] flex items-center gap-2">
-              <BarChart3 className="w-5 h-5 text-[#0F172A]" /> Weekly Revenue Velocity
+            <h3 className="font-serif text-lg font-bold text-[#182019] flex items-center gap-2">
+              <BarChart3 className="w-5 h-5 text-[#31543A]" /> Weekly Revenue Velocity
             </h3>
-            <p className="text-[11px] text-slate-500">7-day dining room & online revenue distribution</p>
+            <p className="text-[11px] text-[#626F64]">7-day dining room & online revenue distribution</p>
           </div>
           <div className="flex items-center gap-3 text-xs font-mono">
-            <span className="flex items-center gap-1.5 text-slate-600">
-              <span className="w-2.5 h-2.5 rounded-sm bg-slate-400" /> Past Days
+            <span className="flex items-center gap-1.5 text-[#3A453C]">
+              <span className="w-2.5 h-2.5 rounded-sm bg-[#DDD9CB]" /> Past Days
             </span>
-            <span className="flex items-center gap-1.5 text-emerald-800 font-bold">
-              <span className="w-2.5 h-2.5 rounded-sm bg-emerald-600" /> Live Today
+            <span className="flex items-center gap-1.5 text-[#31543A] font-bold">
+              <span className="w-2.5 h-2.5 rounded-sm bg-[#31543A]" /> Live Today
             </span>
           </div>
         </div>
@@ -193,10 +193,10 @@ export const AdminDashboardPage: React.FC = () => {
         <div className="grid grid-cols-7 gap-2 sm:gap-4 items-end h-40 pt-4 px-2">
           {revenueTrend.map((item) => (
             <div key={item.day} className="flex flex-col items-center gap-2 h-full justify-end group">
-              <span className="text-[10px] font-mono text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+              <span className="text-[10px] font-mono text-[#626F64] opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                 {formatPrice(item.amount)}
               </span>
-              <div className="w-full bg-[#F1F5F9] rounded-xl overflow-hidden h-28 flex items-end p-1">
+              <div className="w-full bg-[#FAF8F3] rounded-xl overflow-hidden h-28 flex items-end p-1">
                 <motion.div
                   initial={{ height: 0 }}
                   whileInView={{ height: `${item.pct}%` }}
@@ -204,12 +204,12 @@ export const AdminDashboardPage: React.FC = () => {
                   transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                   className={`w-full rounded-lg transition-colors ${
                     item.isToday
-                      ? 'bg-gradient-to-t from-emerald-700 to-emerald-500 shadow-xs'
-                      : 'bg-gradient-to-t from-slate-700 to-slate-500 group-hover:from-slate-800 group-hover:to-slate-600'
+                      ? 'bg-gradient-to-t from-[#31543A] to-[#78956A] shadow-xs'
+                      : 'bg-gradient-to-t from-[#3A453C] to-[#626F64] group-hover:from-[#182019] group-hover:to-[#3A453C]'
                   }`}
                 />
               </div>
-              <span className={`text-[10px] font-mono font-bold ${item.isToday ? 'text-emerald-700' : 'text-slate-500'}`}>
+              <span className={`text-[10px] font-mono font-bold ${item.isToday ? 'text-[#31543A]' : 'text-[#626F64]'}`}>
                 {item.day}
               </span>
             </div>
@@ -220,24 +220,24 @@ export const AdminDashboardPage: React.FC = () => {
       {/* Main Grid: Recent Orders & Top Selling Dishes */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Recent Orders List */}
-        <div className="lg:col-span-2 bg-white p-6 rounded-2xl space-y-4 border border-[#D8D8D2] shadow-sm">
-          <div className="flex justify-between items-center border-b border-[#D8D8D2] pb-3">
-            <h3 className="font-serif text-xl font-bold text-[#0F172A] flex items-center gap-2">
-              <ShoppingBag className="w-5 h-5 text-[#0F172A]" /> Live Orders Queue
+        <div className="lg:col-span-2 bg-white p-6 rounded-2xl space-y-4 border border-[#DDD9CB] shadow-sm">
+          <div className="flex justify-between items-center border-b border-[#DDD9CB] pb-3">
+            <h3 className="font-serif text-xl font-bold text-[#182019] flex items-center gap-2">
+              <ShoppingBag className="w-5 h-5 text-[#31543A]" /> Live Orders Queue
             </h3>
-            <Link to="/orders" className="text-xs text-slate-600 hover:text-[#0F172A] font-bold flex items-center gap-1 transition-colors">
+            <Link to="/orders" className="text-xs text-[#626F64] hover:text-[#31543A] font-bold flex items-center gap-1 transition-colors">
               View All <ChevronRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
           <div className="space-y-3">
             {orders.length === 0 ? (
-              <div className="py-10 text-center space-y-3 border border-dashed border-[#D8D8D2] rounded-xl bg-[#F8FAFC]">
-                <div className="w-10 h-10 rounded-full bg-white border border-[#D8D8D2] text-slate-500 flex items-center justify-center mx-auto">
+              <div className="py-10 text-center space-y-3 border border-dashed border-[#DDD9CB] rounded-xl bg-[#FAF8F3]">
+                <div className="w-10 h-10 rounded-full bg-white border border-[#DDD9CB] text-[#31543A] flex items-center justify-center mx-auto">
                   <CheckCircle2 className="w-5 h-5" />
                 </div>
-                <p className="font-serif text-[#0F172A] font-semibold text-sm">All Kitchen Orders Clear</p>
-                <p className="text-xs text-slate-500 max-w-xs mx-auto">All active orders have been fulfilled.</p>
+                <p className="font-serif text-[#182019] font-semibold text-sm">All Kitchen Orders Clear</p>
+                <p className="text-xs text-[#626F64] max-w-xs mx-auto">All active orders have been fulfilled.</p>
               </div>
             ) : (
               <AnimatePresence mode="popLayout">
@@ -250,26 +250,26 @@ export const AdminDashboardPage: React.FC = () => {
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.25 }}
                     whileHover={{ x: 3, transition: { duration: 0.15 } }}
-                    className="p-4 rounded-xl flex items-center justify-between gap-4 text-xs border border-[#E2E8F0] bg-[#F8FAFC] hover:border-[#0F172A]/40 transition-colors shadow-2xs"
+                    className="p-4 rounded-xl flex items-center justify-between gap-4 text-xs border border-[#DDD9CB] bg-[#FAF8F3] hover:border-[#31543A] transition-colors shadow-2xs"
                   >
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-mono font-bold text-[#0F172A] text-sm">{o.orderNumber}</span>
-                        <span className="px-2 py-0.5 rounded-full bg-white text-slate-700 border border-[#D8D8D2] font-semibold uppercase text-[10px]">
+                        <span className="font-mono font-bold text-[#182019] text-sm">{o.orderNumber}</span>
+                        <span className="px-2 py-0.5 rounded-full bg-white text-[#182019] border border-[#DDD9CB] font-semibold uppercase text-[10px]">
                           {o.orderType}
                         </span>
                       </div>
-                      <p className="text-slate-500 text-[11px] mt-0.5 font-medium">
+                      <p className="text-[#626F64] text-[11px] mt-0.5 font-medium">
                         {o.items.length} item(s) • {new Date(o.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </p>
                     </div>
 
                     <div className="text-right">
-                      <span className="font-mono font-bold text-[#0F172A] text-sm block">
+                      <span className="font-mono font-bold text-[#182019] text-sm block">
                         {formatPrice(o.totalAmount)}
                       </span>
                       <span className={`text-[10px] font-bold uppercase tracking-wider ${
-                        o.orderStatus === 'COMPLETED' ? 'text-emerald-700' : 'text-slate-700'
+                        o.orderStatus === 'COMPLETED' ? 'text-[#31543A]' : 'text-[#3A453C]'
                       }`}>
                         {o.orderStatus}
                       </span>
@@ -282,12 +282,12 @@ export const AdminDashboardPage: React.FC = () => {
         </div>
 
         {/* Top Selling Dishes */}
-        <div className="bg-white p-6 rounded-2xl space-y-4 border border-[#D8D8D2] shadow-sm">
-          <div className="flex justify-between items-center border-b border-[#D8D8D2] pb-3">
-            <h3 className="font-serif text-xl font-bold text-[#0F172A] flex items-center gap-2">
-              <UtensilsCrossed className="w-5 h-5 text-[#0F172A]" /> Top Selling Dishes
+        <div className="bg-white p-6 rounded-2xl space-y-4 border border-[#DDD9CB] shadow-sm">
+          <div className="flex justify-between items-center border-b border-[#DDD9CB] pb-3">
+            <h3 className="font-serif text-xl font-bold text-[#182019] flex items-center gap-2">
+              <UtensilsCrossed className="w-5 h-5 text-[#31543A]" /> Top Selling Dishes
             </h3>
-            <Link to="/menu" className="text-xs text-slate-600 hover:text-[#0F172A] font-bold transition-colors">
+            <Link to="/menu" className="text-xs text-[#626F64] hover:text-[#31543A] font-bold transition-colors">
               Menu
             </Link>
           </div>
@@ -297,20 +297,20 @@ export const AdminDashboardPage: React.FC = () => {
               <motion.div
                 key={dish.dishId}
                 whileHover={{ x: 3, transition: { duration: 0.15 } }}
-                className="p-3 rounded-xl flex items-center justify-between gap-3 border border-[#E2E8F0] bg-[#F8FAFC] hover:border-[#0F172A]/30 transition-colors"
+                className="p-3 rounded-xl flex items-center justify-between gap-3 border border-[#DDD9CB] bg-[#FAF8F3] hover:border-[#31543A] transition-colors"
               >
                 <div className="flex items-center gap-3">
-                  <span className="w-6 h-6 rounded-full bg-white text-[#0F172A] border border-[#D8D8D2] font-bold font-mono text-xs flex items-center justify-center">
+                  <span className="w-6 h-6 rounded-full bg-white text-[#182019] border border-[#DDD9CB] font-bold font-mono text-xs flex items-center justify-center">
                     #{idx + 1}
                   </span>
                   <div>
-                    <h4 className="font-serif font-bold text-[#0F172A] truncate max-w-[140px]">{dish.name}</h4>
-                    <p className="text-[10px] text-slate-500">{dish.category}</p>
+                    <h4 className="font-serif font-bold text-[#182019] truncate max-w-[140px]">{dish.name}</h4>
+                    <p className="text-[10px] text-[#626F64]">{dish.category}</p>
                   </div>
                 </div>
                 <div className="text-right font-mono">
-                  <span className="text-[#0F172A] font-bold block">{formatPrice(dish.revenue)}</span>
-                  <span className="text-slate-500 text-[10px]">{dish.unitsSold} sold</span>
+                  <span className="text-[#182019] font-bold block">{formatPrice(dish.revenue)}</span>
+                  <span className="text-[#626F64] text-[10px]">{dish.unitsSold} sold</span>
                 </div>
               </motion.div>
             ))}
@@ -319,12 +319,12 @@ export const AdminDashboardPage: React.FC = () => {
       </div>
 
       {/* Today's Table Reservations Section */}
-      <div className="bg-white p-6 rounded-2xl space-y-4 border border-[#D8D8D2] shadow-sm">
-        <div className="flex justify-between items-center border-b border-[#D8D8D2] pb-3">
-          <h3 className="font-serif text-xl font-bold text-[#0F172A] flex items-center gap-2">
-            <Calendar className="w-5 h-5 text-[#0F172A]" /> Today's Table Reservations
+      <div className="bg-white p-6 rounded-2xl space-y-4 border border-[#DDD9CB] shadow-sm">
+        <div className="flex justify-between items-center border-b border-[#DDD9CB] pb-3">
+          <h3 className="font-serif text-xl font-bold text-[#182019] flex items-center gap-2">
+            <Calendar className="w-5 h-5 text-[#31543A]" /> Today's Table Reservations
           </h3>
-          <Link to="/reservations" className="text-xs text-slate-600 hover:text-[#0F172A] font-bold flex items-center gap-1 transition-colors">
+          <Link to="/reservations" className="text-xs text-[#626F64] hover:text-[#31543A] font-bold flex items-center gap-1 transition-colors">
             Manage Reservations <ChevronRight className="w-3.5 h-3.5" />
           </Link>
         </div>
@@ -334,18 +334,18 @@ export const AdminDashboardPage: React.FC = () => {
             <motion.div
               key={res.id}
               whileHover={{ y: -3, transition: { duration: 0.15 } }}
-              className="p-4 rounded-xl space-y-2 text-xs border border-[#E2E8F0] bg-[#F8FAFC] hover:border-[#0F172A]/30 transition-colors shadow-2xs"
+              className="p-4 rounded-xl space-y-2 text-xs border border-[#DDD9CB] bg-[#FAF8F3] hover:border-[#31543A] transition-colors shadow-2xs"
             >
               <div className="flex justify-between items-start">
                 <div>
-                  <span className="font-mono font-bold text-[#0F172A] text-sm block">{res.bookingReference}</span>
-                  <h4 className="font-serif font-bold text-[#0F172A]">{res.guestName}</h4>
+                  <span className="font-mono font-bold text-[#182019] text-sm block">{res.bookingReference}</span>
+                  <h4 className="font-serif font-bold text-[#182019]">{res.guestName}</h4>
                 </div>
-                <span className="px-2 py-0.5 rounded-full bg-white text-[#0F172A] border border-[#D8D8D2] font-bold text-[10px]">
+                <span className="px-2 py-0.5 rounded-full bg-white text-[#31543A] border border-[#DDD9CB] font-bold text-[10px]">
                   {res.status}
                 </span>
               </div>
-              <div className="flex justify-between text-slate-500 text-[11px] pt-2 border-t border-[#D8D8D2] font-mono">
+              <div className="flex justify-between text-[#626F64] text-[11px] pt-2 border-t border-[#DDD9CB] font-mono">
                 <span>{res.reservationTime} • {res.partySize} Guests</span>
                 <span>{res.seatingSection}</span>
               </div>

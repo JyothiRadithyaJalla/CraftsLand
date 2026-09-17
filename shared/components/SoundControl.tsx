@@ -19,7 +19,7 @@ export const SoundControl: React.FC = () => {
             transition={{ duration: 0.18 }}
             className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-black/85 backdrop-blur-md text-white text-[11px] font-sans border border-white/15 shadow-xl"
           >
-            <Music className="w-3 h-3 text-[#4ADE80]" />
+            <Music className="w-3 h-3 text-[#78956A]" />
             <div className="flex flex-col">
               <span className="font-semibold text-white/95 leading-tight">{currentTrack.title}</span>
               <span className="text-[9px] text-white/60">{currentTrack.artist}</span>
@@ -31,7 +31,7 @@ export const SoundControl: React.FC = () => {
                   e.stopPropagation();
                   nextTrack();
                 }}
-                className="ml-1 p-1 hover:text-[#4ADE80] text-white/70 transition-colors cursor-pointer"
+                className="ml-1 p-1 hover:text-[#78956A] text-white/70 transition-colors cursor-pointer"
                 title="Next Ambient Track"
               >
                 <SkipForward className="w-3 h-3" />
@@ -41,7 +41,7 @@ export const SoundControl: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* Floating Premium Blue Pill Button */}
+      {/* Floating Botanical Pill Button */}
       <motion.button
         type="button"
         whileTap={{ scale: 0.95 }}
@@ -50,10 +50,10 @@ export const SoundControl: React.FC = () => {
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
         style={{
-          background: 'linear-gradient(180deg, #2587FE 0%, #1074FD 50%, #0258EB 100%)',
-          boxShadow: '0 8px 25px rgba(2, 88, 235, 0.5), 0 2px 6px rgba(0, 0, 0, 0.15)',
+          background: 'linear-gradient(180deg, #386043 0%, #31543A 50%, #26432E 100%)',
+          boxShadow: '0 8px 25px rgba(49, 84, 58, 0.45), 0 2px 6px rgba(24, 32, 25, 0.2)',
         }}
-        className="group relative flex items-center gap-2 sm:gap-3 px-4 py-2 sm:px-6 sm:py-2.5 md:px-7 md:py-3 rounded-full border border-white/35 border-t-white/50 text-white cursor-pointer select-none touch-manipulation transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2"
+        className="group relative flex items-center gap-2 sm:gap-3 px-4 py-2 sm:px-6 sm:py-2.5 md:px-7 md:py-3 rounded-full border border-white/35 border-t-white/50 text-white cursor-pointer select-none touch-manipulation transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#78956A] focus:ring-offset-2"
         title={isPlaying ? 'Mute Ambient Music' : 'Play Ambient Dining Music'}
         aria-label={isPlaying ? 'Sound On - Click to mute' : 'Sound Off - Click to play'}
       >
@@ -101,13 +101,13 @@ export const SoundControl: React.FC = () => {
                 strokeWidth="2.5"
                 strokeLinecap="round"
               />
-              {/* Red Diagonal Strike Through Icon */}
+              {/* Terracotta Diagonal Strike Through Icon */}
               <line
                 x1="4"
                 y1="5"
                 x2="20"
                 y2="19"
-                stroke="#FF3B30"
+                stroke="#C97852"
                 strokeWidth="2.8"
                 strokeLinecap="round"
               />

@@ -18,42 +18,42 @@ export const CraftslandLogo: React.FC<CraftslandLogoProps> = ({
     xl: { crest: 'w-20 h-20', title: 'text-5xl', tag: 'text-xs' },
   };
 
-  let primaryColor = '#15803D';
-  let titleColor = 'text-[#111A15]';
-  let tagColor = 'text-[#15803D]';
+  let primaryColor = '#31543A';
+  let titleColor = 'text-[#182019]';
+  let tagColor = 'text-[#78956A]';
 
   if (variant === 'green' || variant === 'fresh' || variant === 'primary') {
-    primaryColor = '#15803D';
-    titleColor = 'text-[#111A15]';
-    tagColor = 'text-[#15803D]';
+    primaryColor = '#31543A';
+    titleColor = 'text-[#182019]';
+    tagColor = 'text-[#78956A]';
   } else if (variant === 'green-invert') {
-    primaryColor = '#22C55E';
-    titleColor = 'text-[#FAF9F5]';
-    tagColor = 'text-[#22C55E]';
+    primaryColor = '#78956A';
+    titleColor = 'text-[#F7F4EC]';
+    tagColor = 'text-[#78956A]';
   } else if (variant === 'burgundy') {
-    primaryColor = '#6B1D2A';
-    titleColor = 'text-[#1C1917]';
-    tagColor = 'text-[#6B1D2A]';
+    primaryColor = '#C97852';
+    titleColor = 'text-[#182019]';
+    tagColor = 'text-[#C97852]';
   } else if (variant === 'burgundy-invert') {
-    primaryColor = '#D9777F';
-    titleColor = 'text-[#FAF7F2]';
-    tagColor = 'text-[#D9777F]';
+    primaryColor = '#C97852';
+    titleColor = 'text-[#F7F4EC]';
+    tagColor = 'text-[#C97852]';
   } else if (variant === 'navy') {
-    primaryColor = '#0F172A';
-    titleColor = 'text-[#0F172A]';
-    tagColor = 'text-[#1E3A5F]';
+    primaryColor = '#31543A';
+    titleColor = 'text-[#182019]';
+    tagColor = 'text-[#78956A]';
   } else if (variant === 'teal') {
-    primaryColor = '#0D474A';
-    titleColor = 'text-[#0F2424]';
-    tagColor = 'text-[#0D474A]';
+    primaryColor = '#31543A';
+    titleColor = 'text-[#182019]';
+    tagColor = 'text-[#78956A]';
   } else if (variant === 'dark') {
-    primaryColor = '#22C55E';
+    primaryColor = '#78956A';
     titleColor = 'text-white';
-    tagColor = 'text-[#22C55E]';
+    tagColor = 'text-[#78956A]';
   } else if (variant === 'light') {
-    primaryColor = '#111A15';
-    titleColor = 'text-[#111A15]';
-    tagColor = 'text-[#15803D]';
+    primaryColor = '#182019';
+    titleColor = 'text-[#182019]';
+    tagColor = 'text-[#31543A]';
   }
 
   // Vector Leaf & C Emblem

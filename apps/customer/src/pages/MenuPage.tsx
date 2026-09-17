@@ -134,25 +134,25 @@ export const MenuPage: React.FC = () => {
       {/* ── Sticky Filter & Category Navigation ──────────────────────── */}
       <div
         ref={navRef}
-        className="sticky top-0 z-40 bg-[#FAF9F5]/95 backdrop-blur-md border-b border-[#E2E8E0] shadow-sm"
+        className="sticky top-0 z-40 bg-[#F7F4EC]/95 backdrop-blur-md border-b border-[#DDD9CB] shadow-sm"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-3">
           {/* Search & Dietary Filters */}
           <div className="flex flex-col md:flex-row gap-3 items-center justify-between">
             {/* Live Search */}
             <div className="relative w-full md:w-80">
-              <Search className="absolute left-3.5 top-3 w-4 h-4 text-[#5C6E63]" />
+              <Search className="absolute left-3.5 top-3 w-4 h-4 text-[#626F64]" />
               <input
                 type="text"
                 placeholder="Search dish or ingredient..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-white border border-[#E2E8E0] text-xs text-[#111A15] placeholder-[#5C6E63]/60 focus:outline-none focus:border-[#15803D] focus:ring-1 focus:ring-[#15803D]/20 transition-all"
+                className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-white border border-[#DDD9CB] text-xs text-[#182019] placeholder-[#626F64]/60 focus:outline-none focus:border-[#31543A] focus:ring-1 focus:ring-[#31543A]/20 transition-all"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-3 text-[#5C6E63] hover:text-[#111A15] cursor-pointer"
+                  className="absolute right-3 top-3 text-[#626F64] hover:text-[#182019] cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -161,8 +161,8 @@ export const MenuPage: React.FC = () => {
 
             {/* Dietary Filter Tags */}
             <div className="flex items-center gap-1.5 flex-wrap w-full md:w-auto">
-              <span className="text-xs text-[#5C6E63] font-mono flex items-center gap-1 mr-1.5">
-                <Filter className="w-3.5 h-3.5 text-[#15803D]" />
+              <span className="text-xs text-[#626F64] font-mono flex items-center gap-1 mr-1.5">
+                <Filter className="w-3.5 h-3.5 text-[#31543A]" />
               </span>
               {dietaryOptions.map((tag) => {
                 const isSelected = selectedDietaryTag === tag;
@@ -172,8 +172,8 @@ export const MenuPage: React.FC = () => {
                     onClick={() => setSelectedDietaryTag(isSelected ? null : tag)}
                     className={`px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wider uppercase border transition-all cursor-pointer ${
                       isSelected
-                        ? 'bg-[#15803D] text-white font-bold border-[#15803D]'
-                        : 'bg-white text-[#37473D] border-[#E2E8E0] hover:border-[#15803D]/40 hover:text-[#111A15]'
+                        ? 'bg-[#31543A] text-white font-bold border-[#31543A]'
+                        : 'bg-white text-[#3A453C] border-[#DDD9CB] hover:border-[#31543A]/40 hover:text-[#182019]'
                     }`}
                   >
                     {tag.replace('_', ' ')}
@@ -183,7 +183,7 @@ export const MenuPage: React.FC = () => {
               {selectedDietaryTag && (
                 <button
                   onClick={() => setSelectedDietaryTag(null)}
-                  className="text-[11px] text-[#15803D] underline ml-1 cursor-pointer font-bold"
+                  className="text-[11px] text-[#31543A] underline ml-1 cursor-pointer font-bold"
                 >
                   Reset
                 </button>
@@ -198,13 +198,13 @@ export const MenuPage: React.FC = () => {
               className={`relative px-4 py-2 rounded-xl text-[11px] font-bold tracking-widest uppercase whitespace-nowrap transition-colors cursor-pointer z-0 flex items-center gap-1.5 ${
                 activeCategory === 'all'
                   ? 'text-white'
-                  : 'bg-white text-[#37473D] hover:text-[#111A15] border border-[#E2E8E0] hover:border-[#15803D]/40'
+                  : 'bg-white text-[#3A453C] hover:text-[#182019] border border-[#DDD9CB] hover:border-[#31543A]/40'
               }`}
             >
               {activeCategory === 'all' && (
                 <motion.div
                   layoutId="activeCategoryPill"
-                  className="absolute inset-0 bg-[#15803D] rounded-xl border border-[#166534] shadow-xs -z-10"
+                  className="absolute inset-0 bg-[#31543A] rounded-xl border border-[#26432E] shadow-xs -z-10"
                   transition={{ type: 'spring', stiffness: 400, damping: 32 }}
                 />
               )}
@@ -221,13 +221,13 @@ export const MenuPage: React.FC = () => {
                   className={`relative px-4 py-2 rounded-xl text-[11px] font-bold tracking-widest uppercase whitespace-nowrap transition-colors cursor-pointer z-0 ${
                     activeCategory === cat.slug
                       ? 'text-white'
-                      : 'bg-white text-[#37473D] hover:text-[#111A15] border border-[#E2E8E0] hover:border-[#15803D]/40'
+                      : 'bg-white text-[#3A453C] hover:text-[#182019] border border-[#DDD9CB] hover:border-[#31543A]/40'
                   }`}
                 >
                   {activeCategory === cat.slug && (
                     <motion.div
                       layoutId="activeCategoryPill"
-                      className="absolute inset-0 bg-[#15803D] rounded-xl border border-[#166534] shadow-xs -z-10"
+                      className="absolute inset-0 bg-[#31543A] rounded-xl border border-[#26432E] shadow-xs -z-10"
                       transition={{ type: 'spring', stiffness: 400, damping: 32 }}
                     />
                   )}
@@ -253,7 +253,7 @@ export const MenuPage: React.FC = () => {
                   setSelectedDietaryTag(null);
                   handleCategorySelect('all');
                 }}
-                className="px-6 py-2.5 rounded-xl bg-[#15803D] text-white font-bold text-xs uppercase tracking-wider cursor-pointer shadow-xs hover:bg-[#166534] border border-[#166534]"
+                className="px-6 py-2.5 rounded-xl bg-[#31543A] text-white font-bold text-xs uppercase tracking-wider cursor-pointer shadow-xs hover:bg-[#26432E] border border-[#26432E]"
               >
                 Reset Filters
               </button>
@@ -276,15 +276,15 @@ export const MenuPage: React.FC = () => {
                   transition={{ duration: 0.5, delay: sectionIdx * 0.05 }}
                   className="text-center space-y-3 mb-10"
                 >
-                  <span className="text-[10px] font-sans uppercase tracking-[0.35em] text-[#15803D] font-bold block">
+                  <span className="text-[10px] font-sans uppercase tracking-[0.35em] text-[#31543A] font-bold block">
                     {section.category.name}
                   </span>
-                  <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#111A15]">
+                  <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#182019]">
                     {section.category.name}
                   </h2>
-                  <div className="w-12 h-px bg-[#15803D]/30 mx-auto" />
+                  <div className="w-12 h-px bg-[#31543A]/30 mx-auto" />
                   {section.category.description && (
-                    <p className="text-[#5C6E63] text-xs max-w-md mx-auto font-sans">
+                    <p className="text-[#626F64] text-xs max-w-md mx-auto font-sans">
                       {section.category.description}
                     </p>
                   )}

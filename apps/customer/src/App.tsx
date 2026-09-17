@@ -51,7 +51,7 @@ export const App: React.FC = () => {
                 <MusicProvider>
                   <CraftslandCursor />
                   <Router>
-                    <div className="flex flex-col min-h-screen bg-[#FAF9F5] text-[#111A15]">
+                    <div className="flex flex-col min-h-screen bg-[#F7F4EC] text-[#182019]">
                       <Navbar onOpenCart={() => setCartDrawerOpen(true)} />
                       <CartDrawer isOpen={cartDrawerOpen} onClose={() => setCartDrawerOpen(false)} />
                       <WhatsAppButton />

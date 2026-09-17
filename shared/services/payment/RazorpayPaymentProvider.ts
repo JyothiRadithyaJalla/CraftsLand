@@ -86,7 +86,7 @@ export class RazorpayPaymentProvider implements PaymentGateway {
         contact: params.customerPhone || '',
       },
       theme: {
-        color: '#15803D',
+        color: '#31543A',
       },
       modal: {
         ondismiss: () => {

@@ -21,10 +21,10 @@ export const FavoritesPage: React.FC = () => {
       <MetaTags title="Saved Favorites | Craftsland" description="Your bookmarked artisanal dishes and culinary favorites." />
 
       <div className="text-center space-y-2">
-        <span className="text-xs uppercase font-sans tracking-[0.3em] text-[#15803D] font-bold block">
+        <span className="text-xs uppercase font-sans tracking-[0.3em] text-[#31543A] font-bold block">
           Your Curated Collection
         </span>
-        <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#111A15]">
+        <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#182019]">
           Saved Favorites ({favoritedDishes.length})
         </h1>
       </div>
@@ -34,11 +34,11 @@ export const FavoritesPage: React.FC = () => {
           <EmptyState
             title="No Saved Favorites Yet"
             description="Tap the heart icon (♡) on any dish across our video-first menu to keep your favorite recipes at your fingertips."
-            icon={<Heart className="w-7 h-7 text-[#15803D]" />}
+            icon={<Heart className="w-7 h-7 text-[#C97852]" />}
             action={
               <Link
                 to="/menu"
-                className="inline-flex items-center gap-2 min-h-[44px] px-6 py-2.5 rounded-xl bg-[#15803D] hover:bg-[#166534] text-white font-bold text-xs uppercase tracking-wider shadow-sm transition-colors cursor-pointer"
+                className="inline-flex items-center gap-2 min-h-[44px] px-6 py-2.5 rounded-xl bg-[#31543A] hover:bg-[#26432E] text-white font-bold text-xs uppercase tracking-wider shadow-sm transition-colors cursor-pointer"
               >
                 Explore Video Menu
               </Link>

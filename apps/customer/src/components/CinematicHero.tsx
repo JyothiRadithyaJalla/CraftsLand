@@ -63,7 +63,7 @@ export const CinematicHero: React.FC = () => {
 
       {/* Cinematic overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/70 z-[1]" />
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#FAF9F5] via-[#FAF9F5]/60 to-transparent z-[2]" />
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#F7F4EC] via-[#F7F4EC]/60 to-transparent z-[2]" />
 
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-6">
@@ -87,7 +87,7 @@ export const CinematicHero: React.FC = () => {
         >
           Crafted With Fire,
           <br />
-          <span className="text-[#4ADE80]">Served With Passion</span>
+          <span className="text-[#78956A]">Served With Passion</span>
         </motion.h1>
 
         {/* Subtitle */}
@@ -110,7 +110,7 @@ export const CinematicHero: React.FC = () => {
         >
           <Link
             to="/menu"
-            className="w-full sm:w-auto px-8 py-4 rounded-xl bg-[#15803D] hover:bg-[#166534] text-white font-sans font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 shadow-lg border border-[#166534] flex items-center justify-center gap-2 group cursor-pointer min-h-[48px]"
+            className="w-full sm:w-auto px-8 py-4 rounded-xl bg-[#31543A] hover:bg-[#26432E] text-white font-sans font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 shadow-lg border border-[#26432E] flex items-center justify-center gap-2 group cursor-pointer min-h-[48px]"
           >
             <span>Explore Menu</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

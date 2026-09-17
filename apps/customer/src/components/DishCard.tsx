@@ -48,10 +48,10 @@ export const DishCard: React.FC<DishCardProps> = ({ dish, onQuickView }) => {
       transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
       whileHover={{ y: -4, transition: { duration: 0.2 } }}
       onClick={() => onQuickView(dish)}
-      className="group bg-white rounded-2xl border border-[#E2E8E0] overflow-hidden hover:border-[#15803D]/60 hover:shadow-[0_12px_32px_rgba(21,128,61,0.12)] shadow-xs transition-all duration-300 flex flex-col cursor-pointer"
+      className="group bg-white rounded-2xl border border-[#DDD9CB] overflow-hidden hover:border-[#31543A]/60 hover:shadow-[0_12px_32px_rgba(49,84,58,0.12)] shadow-xs transition-all duration-300 flex flex-col cursor-pointer"
     >
       {/* ── 1. DOMINANT AUTOPLAY FOOD VIDEO (occupies majority of card) ── */}
-      <div className="relative overflow-hidden bg-[#F1F7F2]">
+      <div className="relative overflow-hidden bg-[#FAF8F3]">
         <PremiumAutoVideo
           videoUrl={dish.videoUrl}
           posterUrl={dish.posterUrl || dish.mediaUrl}
@@ -78,11 +78,11 @@ export const DishCard: React.FC<DishCardProps> = ({ dish, onQuickView }) => {
 
           {/* Signature / Chef's Pick Badge */}
           {dish.dietaryTags.includes('SIGNATURE') ? (
-            <span className="px-2 py-0.5 rounded-full text-[9px] font-sans font-bold uppercase tracking-wider bg-[#15803D] text-white shadow-xs">
+            <span className="px-2 py-0.5 rounded-full text-[9px] font-sans font-bold uppercase tracking-wider bg-[#C97852] text-white shadow-xs">
               Signature
             </span>
           ) : dish.dietaryTags.includes('CHEFS_CHOICE') ? (
-            <span className="px-2 py-0.5 rounded-full text-[9px] font-sans font-bold uppercase tracking-wider bg-emerald-800 text-white shadow-xs">
+            <span className="px-2 py-0.5 rounded-full text-[9px] font-sans font-bold uppercase tracking-wider bg-[#31543A] text-white shadow-xs">
               Chef's Pick
             </span>
           ) : null}
@@ -109,7 +109,7 @@ export const DishCard: React.FC<DishCardProps> = ({ dish, onQuickView }) => {
         {/* Sold Out Overlay */}
         {!dish.isAvailable && (
           <div className="absolute inset-0 z-30 bg-black/60 backdrop-blur-xs flex items-center justify-center">
-            <span className="px-4 py-1.5 rounded-full bg-white text-[#37473D] border border-[#E2E8E0] text-xs font-bold uppercase tracking-widest shadow-md">
+            <span className="px-4 py-1.5 rounded-full bg-white text-[#3A453C] border border-[#DDD9CB] text-xs font-bold uppercase tracking-widest shadow-md">
               Sold Out
             </span>
           </div>
@@ -117,20 +117,20 @@ export const DishCard: React.FC<DishCardProps> = ({ dish, onQuickView }) => {
       </div>
 
       {/* ── 2. SEPARATOR LINE & COMPACT TEXT AREA ── */}
-      <div className="p-4 flex-1 flex flex-col justify-between border-t border-[#E2E8E0] bg-white space-y-3">
+      <div className="p-4 flex-1 flex flex-col justify-between border-t border-[#DDD9CB] bg-white space-y-3">
         {/* Title & Ingredient Subtitle */}
         <div className="space-y-1">
-          <h3 className="font-serif text-base sm:text-lg font-bold text-[#111A15] group-hover:text-[#15803D] transition-colors line-clamp-1 leading-snug">
+          <h3 className="font-serif text-base sm:text-lg font-bold text-[#182019] group-hover:text-[#31543A] transition-colors line-clamp-1 leading-snug">
             {dish.name}
           </h3>
-          <p className="text-[#5C6E63] text-xs leading-relaxed line-clamp-1 font-sans">
+          <p className="text-[#626F64] text-xs leading-relaxed line-clamp-1 font-sans">
             {dish.description}
           </p>
         </div>
 
         {/* Bottom Row: Price on Left, Plus Button on Right */}
         <div className="flex items-center justify-between pt-1">
-          <span className="font-mono font-bold text-base text-[#111A15]">
+          <span className="font-mono font-bold text-base text-[#182019]">
             {formatPrice(dish.price)}
           </span>
 
@@ -142,10 +142,10 @@ export const DishCard: React.FC<DishCardProps> = ({ dish, onQuickView }) => {
             onClick={handleQuickAdd}
             className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 shadow-xs cursor-pointer ${
               justAdded
-                ? 'bg-emerald-700 text-white shadow-sm'
+                ? 'bg-[#31543A] text-white shadow-sm'
                 : dish.isAvailable
-                ? 'bg-[#15803D] hover:bg-[#166534] text-white hover:shadow-md hover:scale-105 active:scale-95'
-                : 'bg-[#FAF9F5] text-[#A8A29E] border border-[#E2E8E0] cursor-not-allowed'
+                ? 'bg-[#31543A] hover:bg-[#26432E] text-white hover:shadow-md hover:scale-105 active:scale-95'
+                : 'bg-[#F7F4EC] text-[#626F64] border border-[#DDD9CB] cursor-not-allowed'
             }`}
             title={dish.isAvailable ? 'Add to order' : 'Sold out'}
           >

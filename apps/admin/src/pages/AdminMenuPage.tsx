@@ -109,10 +109,10 @@ export const AdminMenuPage: React.FC = () => {
       <MetaTags title="Reserve Menu Management | Craftsland Admin" />
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#D8D8D2] pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#DDD9CB] pb-4">
         <div>
-          <h1 className="font-serif text-3xl font-bold text-[#0F172A]">Reserve Menu Management</h1>
-          <p className="text-xs text-slate-500 font-medium">Curate haute cuisine offerings, pricing, wine pairings, and availability</p>
+          <h1 className="font-serif text-3xl font-bold text-[#182019]">Reserve Menu Management</h1>
+          <p className="text-xs text-[#626F64] font-medium">Curate haute cuisine offerings, pricing, wine pairings, and availability</p>
         </div>
         <button
           onClick={() => {
@@ -129,24 +129,24 @@ export const AdminMenuPage: React.FC = () => {
             });
             setIsModalOpen(true);
           }}
-          className="px-5 py-2.5 rounded-xl bg-[#0F172A] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-md hover:bg-[#1E293B] transition-all min-h-[44px]"
+          className="px-5 py-2.5 rounded-xl bg-[#31543A] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-md hover:bg-[#26432E] transition-all min-h-[44px]"
         >
           <Plus className="w-4 h-4" /> Add Reserve Dish
         </button>
       </div>
 
       {/* Search & Category Filter */}
-      <div className="bg-white p-4 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4 text-xs border border-[#D8D8D2] shadow-sm">
+      <div className="bg-white p-4 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4 text-xs border border-[#DDD9CB] shadow-sm">
         <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto">
-          <span className="text-slate-500 font-bold uppercase text-[10px] tracking-wider flex items-center gap-1">
-            <Filter className="w-3.5 h-3.5 text-[#0F172A]" /> Category:
+          <span className="text-[#626F64] font-bold uppercase text-[10px] tracking-wider flex items-center gap-1">
+            <Filter className="w-3.5 h-3.5 text-[#31543A]" /> Category:
           </span>
           <button
             onClick={() => setSelectedCategory('all')}
             className={`px-3 py-1.5 rounded-xl border transition-all cursor-pointer font-bold text-xs ${
               selectedCategory === 'all'
-                ? 'bg-[#0F172A] border-[#0F172A] text-white shadow-xs'
-                : 'bg-[#F8FAFC] border-[#CBD5E1] text-[#0F172A] hover:bg-slate-200'
+                ? 'bg-[#31543A] border-[#31543A] text-white shadow-xs'
+                : 'bg-[#FAF8F3] border-[#DDD9CB] text-[#182019] hover:bg-[#DDD9CB]/40'
             }`}
           >
             All Categories
@@ -157,8 +157,8 @@ export const AdminMenuPage: React.FC = () => {
               onClick={() => setSelectedCategory(cat.slug)}
               className={`px-3 py-1.5 rounded-xl border transition-all cursor-pointer font-bold text-xs whitespace-nowrap ${
                 selectedCategory === cat.slug
-                  ? 'bg-[#0F172A] border-[#0F172A] text-white shadow-xs'
-                  : 'bg-[#F8FAFC] border-[#CBD5E1] text-[#0F172A] hover:bg-slate-200'
+                  ? 'bg-[#31543A] border-[#31543A] text-white shadow-xs'
+                  : 'bg-[#FAF8F3] border-[#DDD9CB] text-[#182019] hover:bg-[#DDD9CB]/40'
               }`}
             >
               {cat.name}
@@ -167,22 +167,22 @@ export const AdminMenuPage: React.FC = () => {
         </div>
 
         <div className="relative w-full md:w-64">
-          <Search className="absolute left-3 top-2.5 w-3.5 h-3.5 text-slate-400" />
+          <Search className="absolute left-3 top-2.5 w-3.5 h-3.5 text-[#626F64]" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search dish title or description..."
-            className="w-full bg-[#F8FAFC] border border-[#CBD5E1] rounded-xl pl-9 pr-4 py-1.5 text-xs text-[#0F172A] placeholder-slate-400 focus:outline-none focus:border-[#0F172A] transition-colors"
+            className="w-full bg-[#FAF8F3] border border-[#DDD9CB] rounded-xl pl-9 pr-4 py-1.5 text-xs text-[#182019] placeholder-[#626F64]/50 focus:outline-none focus:border-[#31543A] transition-colors"
           />
         </div>
       </div>
 
       {/* Dish List Table */}
-      <div className="bg-white rounded-2xl overflow-hidden border border-[#D8D8D2] shadow-sm">
+      <div className="bg-white rounded-2xl overflow-hidden border border-[#DDD9CB] shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#F8FAFC] border-b border-[#D8D8D2] text-slate-600 uppercase text-[10px] font-mono font-bold tracking-wider">
+            <thead className="bg-[#FAF8F3] border-b border-[#DDD9CB] text-[#3A453C] uppercase text-[10px] font-mono font-bold tracking-wider">
               <tr>
                 <th className="p-4">Dish</th>
                 <th className="p-4">Category</th>
@@ -192,22 +192,22 @@ export const AdminMenuPage: React.FC = () => {
                 <th className="p-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#E2E8F0]">
+            <tbody className="divide-y divide-[#DDD9CB]">
               {loading ? (
                 <tr>
-                  <td colSpan={6} className="p-8 text-center text-slate-500 font-mono animate-pulse">
+                  <td colSpan={6} className="p-8 text-center text-[#626F64] font-mono animate-pulse">
                     Loading reserve menu registry...
                   </td>
                 </tr>
               ) : filteredDishes.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="p-8 text-center text-slate-500 font-serif text-sm">
+                  <td colSpan={6} className="p-8 text-center text-[#626F64] font-serif text-sm">
                     No dishes found matching search filters.
                   </td>
                 </tr>
               ) : (
                 filteredDishes.map((dish) => (
-                  <tr key={dish.id} className="hover:bg-[#F8FAFC] transition-colors">
+                  <tr key={dish.id} className="hover:bg-[#FAF8F3] transition-colors">
                     <td className="p-4">
                       <div className="flex items-center gap-3">
                         <img
@@ -215,27 +215,27 @@ export const AdminMenuPage: React.FC = () => {
                           alt={dish.name}
                           data-cursor="image"
                           onClick={() => setPreviewImage({ url: dish.mediaUrl, title: dish.name, category: dish.categorySlug })}
-                          className="w-12 h-12 rounded-lg object-cover cursor-pointer border border-[#D8D8D2] hover:border-[#0F172A] hover:scale-105 transition-all"
+                          className="w-12 h-12 rounded-lg object-cover cursor-pointer border border-[#DDD9CB] hover:border-[#31543A] hover:scale-105 transition-all"
                         />
                         <div>
                           <div className="flex items-center gap-1.5">
-                            <h4 className="font-serif font-bold text-[#0F172A] text-sm">{dish.name}</h4>
+                            <h4 className="font-serif font-bold text-[#182019] text-sm">{dish.name}</h4>
                             {dish.videoUrl && (
-                              <span className="px-1.5 py-0.5 rounded text-[8px] font-mono font-bold uppercase tracking-wider bg-emerald-100 text-emerald-700 border border-emerald-200">
+                              <span className="px-1.5 py-0.5 rounded text-[8px] font-mono font-bold uppercase tracking-wider bg-[#FAF8F3] text-[#31543A] border border-[#31543A]/30">
                                 Video
                               </span>
                             )}
                           </div>
-                          <p className="text-[11px] text-slate-500 line-clamp-1 max-w-xs">{dish.description}</p>
+                          <p className="text-[11px] text-[#626F64] line-clamp-1 max-w-xs">{dish.description}</p>
                         </div>
                       </div>
                     </td>
-                    <td className="p-4 font-mono text-slate-600">{dish.categorySlug}</td>
-                    <td className="p-4 font-mono font-bold text-[#0F172A]">{formatPrice(dish.price)}</td>
+                    <td className="p-4 font-mono text-[#626F64]">{dish.categorySlug}</td>
+                    <td className="p-4 font-mono font-bold text-[#182019]">{formatPrice(dish.price)}</td>
                     <td className="p-4">
                       <div className="flex flex-wrap gap-1">
                         {dish.dietaryTags.map((tag, idx) => (
-                          <span key={idx} className="text-[9px] font-mono uppercase bg-slate-100 text-[#0F172A] px-2 py-0.5 rounded-full border border-[#CBD5E1] font-bold">
+                          <span key={idx} className="text-[9px] font-mono uppercase bg-[#FAF8F3] text-[#182019] px-2 py-0.5 rounded-full border border-[#DDD9CB] font-bold">
                             {tag}
                           </span>
                         ))}
@@ -246,11 +246,11 @@ export const AdminMenuPage: React.FC = () => {
                         onClick={() => handleToggleAvailability(dish)}
                         className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-mono text-[11px] font-bold cursor-pointer transition-colors ${
                           dish.isAvailable
-                            ? 'bg-emerald-50 text-emerald-800 border border-emerald-300'
-                            : 'bg-red-50 text-red-800 border border-red-300'
+                            ? 'bg-[#FAF8F3] text-[#31543A] border border-[#31543A]/30'
+                            : 'bg-[#A8382B]/10 text-[#A8382B] border border-[#A8382B]/30'
                         }`}
                       >
-                        {dish.isAvailable ? <ToggleRight className="w-4 h-4 text-emerald-600" /> : <ToggleLeft className="w-4 h-4 text-red-600" />}
+                        {dish.isAvailable ? <ToggleRight className="w-4 h-4 text-[#31543A]" /> : <ToggleLeft className="w-4 h-4 text-[#A8382B]" />}
                         {dish.isAvailable ? 'Available' : 'Sold Out'}
                       </button>
                     </td>
@@ -261,14 +261,14 @@ export const AdminMenuPage: React.FC = () => {
                             setEditingDish(dish);
                             setIsModalOpen(true);
                           }}
-                          className="p-1.5 rounded-lg bg-slate-100 border border-[#CBD5E1] text-[#0F172A] hover:bg-[#0F172A] hover:text-white cursor-pointer transition-colors shadow-xs"
+                          className="p-1.5 rounded-lg bg-[#FAF8F3] border border-[#DDD9CB] text-[#182019] hover:bg-[#31543A] hover:text-white cursor-pointer transition-colors shadow-xs"
                           title="Edit Dish"
                         >
                           <Edit2 className="w-3.5 h-3.5" />
                         </button>
                         <button
                           onClick={() => handleDeleteDish(dish.id)}
-                          className="p-1.5 rounded-lg bg-red-50 border border-red-200 text-red-700 hover:bg-red-100 cursor-pointer transition-colors shadow-xs"
+                          className="p-1.5 rounded-lg bg-[#A8382B]/10 border border-[#A8382B]/20 text-[#A8382B] hover:bg-[#A8382B]/20 cursor-pointer transition-colors shadow-xs"
                           title="Delete Dish"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -288,10 +288,10 @@ export const AdminMenuPage: React.FC = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
           <form
             onSubmit={handleSaveDish}
-            className="bg-white w-full max-w-2xl border border-[#D8D8D2] rounded-3xl p-6 space-y-4 text-[#0F172A] max-h-[90vh] overflow-y-auto shadow-2xl"
+            className="bg-white w-full max-w-2xl border border-[#DDD9CB] rounded-3xl p-6 space-y-4 text-[#182019] max-h-[90vh] overflow-y-auto shadow-2xl"
           >
-            <div className="flex justify-between items-center border-b border-[#D8D8D2] pb-3">
-              <h3 className="font-serif text-xl font-bold text-[#0F172A]">
+            <div className="flex justify-between items-center border-b border-[#DDD9CB] pb-3">
+              <h3 className="font-serif text-xl font-bold text-[#182019]">
                 {editingDish.id ? 'Edit Reserve Dish' : 'Add New Reserve Dish'}
               </h3>
               <button
@@ -300,90 +300,90 @@ export const AdminMenuPage: React.FC = () => {
                   setIsModalOpen(false);
                   setEditingDish(null);
                 }}
-                className="p-1.5 rounded-full text-slate-400 hover:text-[#0F172A] hover:bg-slate-100 cursor-pointer transition-colors"
+                className="p-1.5 rounded-full text-[#626F64] hover:text-[#182019] hover:bg-[#FAF8F3] cursor-pointer transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {saveError && (
-              <div className="bg-red-50 border border-red-200 p-3 rounded-xl text-xs text-red-800 flex items-start gap-2">
-                <AlertCircle className="w-4 h-4 text-red-500 mt-0.5 shrink-0" />
+              <div className="bg-[#A8382B]/10 border border-[#A8382B]/20 p-3 rounded-xl text-xs text-[#A8382B] flex items-start gap-2">
+                <AlertCircle className="w-4 h-4 text-[#A8382B] mt-0.5 shrink-0" />
                 <div className="flex-1">
                   <p className="font-bold text-[11px]">Save Failed</p>
-                  <p className="text-[11px] leading-relaxed text-red-700">{saveError}</p>
+                  <p className="text-[11px] leading-relaxed text-[#A8382B]">{saveError}</p>
                 </div>
               </div>
             )}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               <div className="space-y-1.5">
-                <label className="text-slate-600 font-bold uppercase text-[10px] tracking-wider">Dish Name *</label>
+                <label className="text-[#3A453C] font-bold uppercase text-[10px] tracking-wider">Dish Name *</label>
                 <input
                   type="text"
                   required
                   value={editingDish.name || ''}
                   onChange={(e) => setEditingDish({ ...editingDish, name: e.target.value })}
                   placeholder="e.g. Imperial Beluga Caviar"
-                  className="w-full bg-[#F8FAFC] border border-[#CBD5E1] rounded-xl px-3 py-2 text-xs text-[#0F172A] placeholder-slate-400 focus:outline-none focus:border-[#0F172A] transition-colors font-medium"
+                  className="w-full bg-[#FAF8F3] border border-[#DDD9CB] rounded-xl px-3 py-2 text-xs text-[#182019] placeholder-[#626F64]/50 focus:outline-none focus:border-[#31543A] transition-colors font-medium"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-slate-600 font-bold uppercase text-[10px] tracking-wider">Price (₹ INR) *</label>
+                <label className="text-[#3A453C] font-bold uppercase text-[10px] tracking-wider">Price (₹ INR) *</label>
                 <input
                   type="number"
                   step="0.01"
                   required
                   value={editingDish.price || 0}
                   onChange={(e) => setEditingDish({ ...editingDish, price: parseFloat(e.target.value) || 0 })}
-                  className="w-full bg-[#F8FAFC] border border-[#CBD5E1] rounded-xl px-3 py-2 text-xs text-[#0F172A] font-mono focus:outline-none focus:border-[#0F172A] transition-colors font-medium"
+                  className="w-full bg-[#FAF8F3] border border-[#DDD9CB] rounded-xl px-3 py-2 text-xs text-[#182019] font-mono focus:outline-none focus:border-[#31543A] transition-colors font-medium"
                 />
               </div>
             </div>
 
             <div className="space-y-1.5 text-xs">
-              <label className="text-slate-600 font-bold uppercase text-[10px] tracking-wider">Category</label>
+              <label className="text-[#3A453C] font-bold uppercase text-[10px] tracking-wider">Category</label>
               <select
                 value={editingDish.categorySlug || 'mains'}
                 onChange={(e) => setEditingDish({ ...editingDish, categorySlug: e.target.value })}
-                className="w-full bg-[#F8FAFC] border border-[#CBD5E1] rounded-xl px-3 py-2 text-xs text-[#0F172A] focus:outline-none focus:border-[#0F172A] transition-colors font-medium"
+                className="w-full bg-[#FAF8F3] border border-[#DDD9CB] rounded-xl px-3 py-2 text-xs text-[#182019] focus:outline-none focus:border-[#31543A] transition-colors font-medium"
               >
                 {categories.map((cat) => (
-                  <option key={cat.id} value={cat.slug} className="bg-white text-[#0F172A]">{cat.name}</option>
+                  <option key={cat.id} value={cat.slug} className="bg-white text-[#182019]">{cat.name}</option>
                 ))}
               </select>
             </div>
 
             <div className="space-y-1.5 text-xs">
-              <label className="text-slate-600 font-bold uppercase text-[10px] tracking-wider">Culinary Description</label>
+              <label className="text-[#3A453C] font-bold uppercase text-[10px] tracking-wider">Culinary Description</label>
               <textarea
                 rows={3}
                 value={editingDish.description || ''}
                 onChange={(e) => setEditingDish({ ...editingDish, description: e.target.value })}
                 placeholder="Oscietra caviar, smoked crème fraîche..."
-                className="w-full bg-[#F8FAFC] border border-[#CBD5E1] rounded-xl px-3 py-2 text-xs text-[#0F172A] placeholder-slate-400 focus:outline-none focus:border-[#0F172A] transition-colors font-medium"
+                className="w-full bg-[#FAF8F3] border border-[#DDD9CB] rounded-xl px-3 py-2 text-xs text-[#182019] placeholder-[#626F64]/50 focus:outline-none focus:border-[#31543A] transition-colors font-medium"
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               <div className="space-y-1.5">
-                <label className="text-slate-600 font-bold uppercase text-[10px] tracking-wider">Media Image URL</label>
+                <label className="text-[#3A453C] font-bold uppercase text-[10px] tracking-wider">Media Image URL</label>
                 <input
                   type="url"
                   value={editingDish.mediaUrl || ''}
                   onChange={(e) => setEditingDish({ ...editingDish, mediaUrl: e.target.value, posterUrl: e.target.value })}
-                  className="w-full bg-[#F8FAFC] border border-[#CBD5E1] rounded-xl px-3 py-2 text-xs text-[#0F172A] placeholder-slate-400 focus:outline-none focus:border-[#0F172A] transition-colors font-medium"
+                  className="w-full bg-[#FAF8F3] border border-[#DDD9CB] rounded-xl px-3 py-2 text-xs text-[#182019] placeholder-[#626F64]/50 focus:outline-none focus:border-[#31543A] transition-colors font-medium"
                 />
               </div>
               <div className="space-y-1.5">
-                <label className="text-slate-600 font-bold uppercase text-[10px] tracking-wider">Sommelier Wine Pairing</label>
+                <label className="text-[#3A453C] font-bold uppercase text-[10px] tracking-wider">Sommelier Wine Pairing</label>
                 <input
                   type="text"
                   value={editingDish.winePairing || ''}
                   onChange={(e) => setEditingDish({ ...editingDish, winePairing: e.target.value })}
                   placeholder="Dom Pérignon Vintage 2013"
-                  className="w-full bg-[#F8FAFC] border border-[#CBD5E1] rounded-xl px-3 py-2 text-xs text-[#0F172A] placeholder-slate-400 focus:outline-none focus:border-[#0F172A] transition-colors font-medium"
+                  className="w-full bg-[#FAF8F3] border border-[#DDD9CB] rounded-xl px-3 py-2 text-xs text-[#182019] placeholder-[#626F64]/50 focus:outline-none focus:border-[#31543A] transition-colors font-medium"
                 />
               </div>
             </div>
@@ -413,7 +413,7 @@ export const AdminMenuPage: React.FC = () => {
               }}
             />
 
-            <div className="flex justify-end gap-3 pt-4 border-t border-[#D8D8D2] text-xs">
+            <div className="flex justify-end gap-3 pt-4 border-t border-[#DDD9CB] text-xs">
               <button
                 type="button"
                 disabled={isSaving}
@@ -422,14 +422,14 @@ export const AdminMenuPage: React.FC = () => {
                   setEditingDish(null);
                   setSaveError(null);
                 }}
-                className="px-5 py-2.5 rounded-xl border border-[#D8D8D2] text-[#0F172A] hover:bg-[#F4F4F1] disabled:opacity-50 font-bold cursor-pointer transition-colors shadow-xs"
+                className="px-5 py-2.5 rounded-xl border border-[#DDD9CB] text-[#182019] hover:bg-[#FAF8F3] disabled:opacity-50 font-bold cursor-pointer transition-colors shadow-xs"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={isSaving}
-                className="px-6 py-2.5 rounded-xl bg-[#0F172A] text-white hover:bg-[#1E293B] disabled:opacity-50 font-bold uppercase tracking-wider cursor-pointer shadow-md transition-all flex items-center gap-2"
+                className="px-6 py-2.5 rounded-xl bg-[#31543A] text-white hover:bg-[#26432E] disabled:opacity-50 font-bold uppercase tracking-wider cursor-pointer shadow-md transition-all flex items-center gap-2"
               >
                 {isSaving && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                 {isSaving ? 'Saving Entry...' : 'Save Dish Entry'}
