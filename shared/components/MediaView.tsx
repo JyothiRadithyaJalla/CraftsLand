@@ -88,8 +88,17 @@ export const MediaView: React.FC<MediaViewProps> = ({
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`relative overflow-hidden bg-[#171310] ${aspectRatio} ${clickable ? 'cursor-pointer group' : ''} ${className}`}
+      className={`relative overflow-hidden bg-[#FAF9F5] ${aspectRatio} ${clickable ? 'cursor-pointer group' : ''} ${className}`}
     >
+      {/* Elegant Shimmer Placeholder while image loads */}
+      {!imgLoaded && (
+        <div className="absolute inset-0 bg-[#F1F7F2] animate-pulse flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full border border-[#E2E8E0] bg-white flex items-center justify-center opacity-60">
+            <span className="w-2 h-2 rounded-full bg-[#15803D]/50 animate-ping" />
+          </div>
+        </div>
+      )}
+
       {/* High-res Image / Poster */}
       {isInView && (
         <img
@@ -123,8 +132,8 @@ export const MediaView: React.FC<MediaViewProps> = ({
 
       {/* Video Indicator Badge */}
       {resolvedVideo && !isPlaying && (
-        <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-[#B84A32]/40 text-[#C85A3A] text-[10px] font-sans font-semibold tracking-wider shadow-lg">
-          <Play className="w-2.5 h-2.5 fill-[#C85A3A]" />
+        <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-[#15803D]/40 text-[#4ADE80] text-[10px] font-sans font-semibold tracking-wider shadow-lg">
+          <Play className="w-2.5 h-2.5 fill-[#4ADE80]" />
           <span>Cinematic Preview</span>
         </div>
       )}
@@ -140,7 +149,7 @@ export const MediaView: React.FC<MediaViewProps> = ({
               setIsMuted(!isMuted);
             }
           }}
-          className="absolute bottom-3 right-3 z-20 p-1.5 rounded-full bg-black/80 backdrop-blur-md text-[#C85A3A] hover:bg-[#B84A32] hover:text-white transition-colors border border-[#B84A32]/40 cursor-pointer"
+          className="absolute bottom-3 right-3 z-20 p-1.5 rounded-full bg-black/80 backdrop-blur-md text-[#4ADE80] hover:bg-[#15803D] hover:text-white transition-colors border border-[#15803D]/40 cursor-pointer"
           title={isMuted ? 'Unmute video' : 'Mute video'}
         >
           {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}

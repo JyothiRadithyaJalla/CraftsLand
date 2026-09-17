@@ -34,6 +34,10 @@ export interface Dish {
   mediaUrl: string;
   posterUrl: string;
   videoUrl?: string;
+  videoPublicId?: string;
+  videoPosterUrl?: string;
+  videoDuration?: number;
+  videoStatus?: 'PROCESSING' | 'READY' | 'ERROR';
   featured?: boolean;
   calories?: number;
   dietaryTags: DietaryTag[];

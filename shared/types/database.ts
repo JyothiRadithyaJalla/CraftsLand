@@ -29,6 +29,10 @@ export interface DatabaseDishRow {
   media_url: string;
   poster_url: string;
   video_url?: string;
+  video_public_id?: string;
+  video_poster_url?: string;
+  video_duration?: number;
+  video_status?: string;
   featured?: boolean;
   calories?: number;
   dietary_tags: string[];

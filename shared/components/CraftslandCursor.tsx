@@ -113,22 +113,22 @@ export const CraftslandCursor: React.FC = () => {
     default: {
       width: 32,
       height: 32,
-      borderColor: 'rgba(184, 74, 50, 0.75)',
-      backgroundColor: 'rgba(184, 74, 50, 0.04)',
+      borderColor: 'rgba(21, 128, 61, 0.65)',
+      backgroundColor: 'rgba(21, 128, 61, 0.04)',
       scale: 1,
     },
     hover: {
       width: 48,
       height: 48,
-      borderColor: 'rgba(200, 90, 58, 0.95)',
-      backgroundColor: 'rgba(184, 74, 50, 0.08)',
+      borderColor: 'rgba(21, 128, 61, 0.95)',
+      backgroundColor: 'rgba(21, 128, 61, 0.08)',
       scale: 1.1,
     },
     image: {
       width: 58,
       height: 58,
-      borderColor: 'rgba(200, 90, 58, 0.95)',
-      backgroundColor: 'rgba(184, 74, 50, 0.15)',
+      borderColor: 'rgba(22, 101, 52, 0.95)',
+      backgroundColor: 'rgba(21, 128, 61, 0.15)',
       scale: 1.15,
     },
   };
@@ -137,19 +137,19 @@ export const CraftslandCursor: React.FC = () => {
     default: {
       width: 6,
       height: 6,
-      backgroundColor: '#B84A32',
+      backgroundColor: '#15803D',
       opacity: 1,
     },
     hover: {
       width: 8,
       height: 8,
-      backgroundColor: '#C85A3A',
+      backgroundColor: '#166534',
       opacity: 0.95,
     },
     image: {
       width: 4,
       height: 4,
-      backgroundColor: '#F5EFE5',
+      backgroundColor: '#14532D',
       opacity: 0.9,
     },
   };
@@ -173,8 +173,8 @@ export const CraftslandCursor: React.FC = () => {
               x: '-50%',
               y: '-50%',
               borderRadius: '50%',
-              border: '1.5px solid #B84A32',
-              boxShadow: '0 0 16px rgba(184, 74, 50, 0.4)',
+              border: '1.5px solid #15803D',
+              boxShadow: '0 0 16px rgba(21, 128, 61, 0.4)',
               pointerEvents: 'none',
             }}
           />
@@ -200,7 +200,7 @@ export const CraftslandCursor: React.FC = () => {
           display: isVisible ? 'flex' : 'none',
           alignItems: 'center',
           justifyContent: 'center',
-          boxShadow: '0 0 14px rgba(184, 74, 50, 0.2)',
+          boxShadow: '0 0 14px rgba(21, 128, 61, 0.2)',
         }}
       >
         {/* Subtle VIEW text inside ring when hovering over image */}
@@ -209,7 +209,7 @@ export const CraftslandCursor: React.FC = () => {
             initial={{ opacity: 0, scale: 0.6 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
-            className="font-sans font-bold text-[8px] tracking-[0.2em] text-[#F5EFE5] uppercase select-none drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]"
+            className="font-sans font-bold text-[8px] tracking-[0.2em] text-[#111A15] uppercase select-none drop-shadow-xs"
           >
             VIEW
           </motion.span>
@@ -231,7 +231,7 @@ export const CraftslandCursor: React.FC = () => {
           left: 0,
           borderRadius: '50%',
           display: isVisible ? 'block' : 'none',
-          boxShadow: '0 0 8px rgba(184, 74, 50, 0.8)',
+          boxShadow: '0 0 8px rgba(21, 128, 61, 0.6)',
         }}
       />
     </div>

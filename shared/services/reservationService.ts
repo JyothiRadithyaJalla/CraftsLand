@@ -1,4 +1,4 @@
-import type { Reservation, CreateReservationPayload, SeatingSection } from '../types/reservation';
+import type { Reservation, CreateReservationPayload, SeatingSection, ReservationStatus } from '../types/reservation';
 import { env } from '../config/env';
 import { supabase } from './supabaseClient';
 import { MOCK_RESERVATIONS } from './mockData';
@@ -19,7 +19,7 @@ export class ReservationService {
    * Fetch all reservations (for Admin / KDS or fallback list).
    */
   static async getReservations(): Promise<Reservation[]> {
-    if (env.isDevelopment) {
+    if (env.isDevelopment && !env.supabaseUrl.includes('.supabase.co')) {
       return MOCK_RESERVATIONS;
     }
 
@@ -37,7 +37,7 @@ export class ReservationService {
    * Fetch a single reservation by ID or booking reference.
    */
   static async getReservationById(idOrRef: string): Promise<Reservation | null> {
-    if (env.isDevelopment) {
+    if (env.isDevelopment && !env.supabaseUrl.includes('.supabase.co')) {
       const res = MOCK_RESERVATIONS.find(
         (r) => r.id === idOrRef || r.bookingReference.toLowerCase() === idOrRef.toLowerCase()
       );
@@ -59,7 +59,7 @@ export class ReservationService {
    * Fetch reservations for a specific customer or guest email.
    */
   static async getCustomerReservations(customerId?: string, email?: string): Promise<Reservation[]> {
-    if (env.isDevelopment) {
+    if (env.isDevelopment && !env.supabaseUrl.includes('.supabase.co')) {
       return MOCK_RESERVATIONS.filter(
         (r) => (customerId && r.customerId === customerId) || (email && r.guestEmail === email)
       );
@@ -91,7 +91,7 @@ export class ReservationService {
   ): Promise<string[]> {
     if (partySize < 1 || partySize > 12) return [];
 
-    if (env.isDevelopment) {
+    if (env.isDevelopment && !env.supabaseUrl.includes('.supabase.co')) {
       // Filter out slots already taken for this section on this date
       const bookedSlots = MOCK_RESERVATIONS
         .filter(
@@ -126,7 +126,7 @@ export class ReservationService {
     const randomChars = Math.random().toString(36).substring(2, 7).toUpperCase();
     const bookingReference = `LN-${randomChars}`;
 
-    if (env.isDevelopment) {
+    if (env.isDevelopment && !env.supabaseUrl.includes('.supabase.co')) {
       const newReservation: Reservation = {
         id: `res-${Date.now()}`,
         bookingReference,
@@ -195,7 +195,7 @@ export class ReservationService {
    * Cancel an existing reservation.
    */
   static async cancelReservation(id: string): Promise<boolean> {
-    if (env.isDevelopment) {
+    if (env.isDevelopment && !env.supabaseUrl.includes('.supabase.co')) {
       const res = MOCK_RESERVATIONS.find((r) => r.id === id || r.bookingReference === id);
       if (res) {
         res.status = 'CANCELLED';
@@ -207,6 +207,27 @@ export class ReservationService {
     const { error } = await supabase
       .from('reservations')
       .update({ status: 'CANCELLED' })
+      .or(`id.eq.${id},booking_reference.eq.${id}`);
+
+    return !error;
+  }
+
+  /**
+   * Update status of an existing reservation (Admin / Staff).
+   */
+  static async updateReservationStatus(id: string, status: ReservationStatus): Promise<boolean> {
+    if (env.isDevelopment && !env.supabaseUrl.includes('.supabase.co')) {
+      const res = MOCK_RESERVATIONS.find((r) => r.id === id || r.bookingReference === id);
+      if (res) {
+        res.status = status;
+        return true;
+      }
+      return false;
+    }
+
+    const { error } = await supabase
+      .from('reservations')
+      .update({ status })
       .or(`id.eq.${id},booking_reference.eq.${id}`);
 
     return !error;

@@ -34,38 +34,38 @@ export const ForgotPasswordPage: React.FC = () => {
   return (
     <div className="max-w-md mx-auto px-4 py-16">
       <MetaTags title="Password Recovery | Craftsland" />
-      <div className="bg-[#211B16] p-8 rounded-2xl space-y-6 border border-[#3A3027] shadow-xl">
+      <div className="bg-white p-8 rounded-3xl space-y-6 border border-[#E2E8E0] shadow-sm">
         <div className="text-center space-y-2">
-          <h1 className="font-serif text-2xl font-bold text-[#F5EFE5]">Recover Credentials</h1>
-          <p className="text-xs text-[#B8AEA1]">Enter your email to receive a password recovery link</p>
+          <h1 className="font-serif text-2xl font-bold text-[#111A15]">Recover Credentials</h1>
+          <p className="text-xs text-[#5C6E63]">Enter your email to receive a password recovery link</p>
         </div>
 
         {errorMsg && (
-          <div className="bg-red-950/40 border border-red-800/60 p-3.5 rounded-xl text-xs text-red-300 flex items-start gap-2.5">
-            <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />
+          <div className="bg-rose-50 border border-rose-200 p-3.5 rounded-xl text-xs text-rose-800 flex items-start gap-2.5">
+            <AlertCircle className="w-4 h-4 text-rose-600 flex-shrink-0 mt-0.5" />
             <span>{errorMsg}</span>
           </div>
         )}
 
         {successNotice && (
-          <div className="bg-emerald-950/40 border border-emerald-800/60 p-3.5 rounded-xl text-xs text-emerald-300 flex items-start gap-2.5">
-            <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+          <div className="bg-[#F1F7F2] border border-[#15803D]/30 p-3.5 rounded-xl text-xs text-[#15803D] flex items-start gap-2.5">
+            <CheckCircle2 className="w-4 h-4 text-[#15803D] flex-shrink-0 mt-0.5" />
             <span>{successNotice}</span>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4 text-xs">
           <div>
-            <label className="block text-[#F5EFE5] mb-1 font-semibold">Registered Email</label>
+            <label className="block text-[#111A15] mb-1.5 font-semibold">Registered Email</label>
             <div className="relative">
-              <Mail className="w-4 h-4 text-[#B8AEA1] absolute left-3 top-3" />
+              <Mail className="w-4 h-4 text-[#5C6E63] absolute left-3 top-3" />
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="guest@craftsland.com"
-                className="w-full pl-9 pr-4 py-2.5 bg-[#171310] border border-[#3A3027] focus:border-[#B84A32] rounded-lg text-[#F5EFE5] placeholder:text-[#B8AEA1]/40 outline-none transition-colors"
+                className="w-full pl-9 pr-4 py-2.5 bg-[#FAF9F5] border border-[#E2E8E0] focus:border-[#15803D] rounded-xl text-[#111A15] placeholder:text-[#5C6E63]/40 outline-none transition-colors"
               />
             </div>
           </div>
@@ -73,7 +73,7 @@ export const ForgotPasswordPage: React.FC = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full py-3 rounded-full bg-gradient-to-r from-[#B84A32] to-[#8B3525] hover:from-[#C85A3A] hover:to-[#B84A32] text-[#F5EFE5] font-bold uppercase tracking-wider text-xs shadow-md disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer transition-all"
+            className="w-full min-h-[44px] py-3 rounded-xl bg-[#15803D] hover:bg-[#166534] text-white font-bold uppercase tracking-wider text-xs shadow-sm disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer transition-colors"
           >
             {isSubmitting ? (
               <>
@@ -85,8 +85,8 @@ export const ForgotPasswordPage: React.FC = () => {
           </button>
         </form>
 
-        <div className="text-center text-xs text-[#B8AEA1]">
-          <Link to="/login" className="text-[#B84A32] font-semibold hover:underline">
+        <div className="text-center text-xs text-[#5C6E63]">
+          <Link to="/login" className="text-[#15803D] font-semibold hover:text-[#166534] transition-colors">
             Return to Login
           </Link>
         </div>

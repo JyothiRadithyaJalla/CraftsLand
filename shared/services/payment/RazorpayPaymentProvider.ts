@@ -11,21 +11,38 @@ export class RazorpayPaymentProvider implements PaymentGateway {
     amount: number;
     currency: string;
   }> {
+    const token = payload.trackingToken || (typeof window !== 'undefined' ? (
+      localStorage.getItem(`craftsland_tracking_${payload.orderId}`) ||
+      (payload.orderNumber ? localStorage.getItem(`craftsland_tracking_${payload.orderNumber}`) : null)
+    ) : null) || undefined;
+
     const headers: Record<string, string> = {};
-    if (payload.trackingToken) {
-      headers['x-order-token'] = payload.trackingToken;
+    if (token) {
+      headers['x-order-token'] = token;
     }
 
     const { data, error } = await supabase.functions.invoke('create-razorpay-order', {
       body: {
         orderId: payload.orderId,
-        trackingToken: payload.trackingToken,
+        trackingToken: token,
       },
       headers,
     });
 
     if (error || !data?.razorpayOrderId) {
-      const errorMessage = error?.message || data?.error || 'Failed to generate Razorpay payment order.';
+      let serverErrorMsg = data?.error;
+      if (error) {
+        try {
+          if (typeof (error as any).context?.json === 'function') {
+            const errBody = await (error as any).context.json();
+            serverErrorMsg = errBody?.error || errBody?.message || serverErrorMsg;
+          }
+        } catch {
+          // Ignore parsing error
+        }
+      }
+      const errorMessage = serverErrorMsg || (error?.message && !error.message.includes('non-2xx') ? error.message : 'Unable to initialize secure payment session. Please try again.');
+      console.error('[RazorpayPaymentProvider] Order initialization error:', { error, serverErrorMsg, data });
       throw new Error(errorMessage);
     }
 
@@ -69,7 +86,7 @@ export class RazorpayPaymentProvider implements PaymentGateway {
         contact: params.customerPhone || '',
       },
       theme: {
-        color: '#B84A32',
+        color: '#15803D',
       },
       modal: {
         ondismiss: () => {
@@ -104,20 +121,40 @@ export class RazorpayPaymentProvider implements PaymentGateway {
       verifyPayload = payloadOrTxId;
     }
 
+    const token = verifyPayload.trackingToken || (typeof window !== 'undefined' ? (
+      localStorage.getItem(`craftsland_tracking_${verifyPayload.orderId}`)
+    ) : null) || undefined;
+
     const headers: Record<string, string> = {};
-    if (verifyPayload.trackingToken) {
-      headers['x-order-token'] = verifyPayload.trackingToken;
+    if (token) {
+      headers['x-order-token'] = token;
     }
 
     const { data, error } = await supabase.functions.invoke('verify-razorpay-payment', {
-      body: verifyPayload,
+      body: {
+        ...verifyPayload,
+        trackingToken: token,
+      },
       headers,
     });
 
     if (error || !data?.success) {
+      let serverErrorMsg = data?.error;
+      if (error) {
+        try {
+          if (typeof (error as any).context?.json === 'function') {
+            const errBody = await (error as any).context.json();
+            serverErrorMsg = errBody?.error || errBody?.message || serverErrorMsg;
+          }
+        } catch {
+          // Ignore parsing error
+        }
+      }
+      const errorMessage = serverErrorMsg || (error?.message && !error.message.includes('non-2xx') ? error.message : 'Payment signature verification failed.');
+      console.error('[RazorpayPaymentProvider] Payment verification error:', { error, serverErrorMsg, data });
       return {
         success: false,
-        errorMessage: error?.message || data?.error || 'Payment signature verification failed.',
+        errorMessage,
       };
     }
 

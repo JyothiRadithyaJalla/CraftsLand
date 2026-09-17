@@ -1,9 +1,11 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Plus, Eye } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Plus, Check, Heart } from 'lucide-react';
 import type { Dish } from '@shared/types/menu';
 import { useCart } from '@shared/hooks/useCart';
-import { MediaView } from '@shared/components/MediaView';
+import { useFavorites } from '@shared/hooks/useFavorites';
+import { PremiumAutoVideo } from '@shared/components/PremiumAutoVideo';
+import { formatPrice } from '@shared/utils/formatters';
 
 interface DishCardProps {
   dish: Dish;
@@ -12,116 +14,165 @@ interface DishCardProps {
 
 export const DishCard: React.FC<DishCardProps> = ({ dish, onQuickView }) => {
   const { addItem } = useCart();
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const [justAdded, setJustAdded] = useState(false);
 
-  const getDietaryBadge = (tag: string) => {
-    switch (tag) {
-      case 'SIGNATURE':
-        return { label: 'Signature', class: 'bg-[#B84A32]/20 text-[#D29A55] border-[#D29A55]/40' };
-      case 'CHEFS_CHOICE':
-        return { label: "Chef's Pick", class: 'bg-[#D29A55]/15 text-[#D29A55] border-[#D29A55]/40' };
-      case 'VEGETARIAN':
-        return { label: 'Vegetarian', class: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30' };
-      case 'VEGAN':
-        return { label: 'Vegan', class: 'bg-green-500/15 text-green-400 border-green-500/30' };
-      case 'SPICY':
-        return { label: 'Spicy', class: 'bg-red-500/15 text-red-400 border-red-500/30' };
-      default:
-        return { label: tag.replace('_', ' '), class: 'bg-[#171310] text-[#B8AEA1] border-[#3A3027]' };
+  const isFav = isFavorite(dish.id);
+  const isVegetarian = dish.dietaryTags.some((t) => t === 'VEGETARIAN' || t === 'VEGAN');
+
+  const handleQuickAdd = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!dish.isAvailable) return;
+
+    // If dish has required modifiers, open detail modal for user selection
+    if (dish.modifiers && dish.modifiers.some((m) => m.required)) {
+      onQuickView(dish);
+      return;
     }
+
+    addItem(dish, 1, []);
+    setJustAdded(true);
+    setTimeout(() => setJustAdded(false), 1200);
+  };
+
+  const handleFavoriteToggle = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    toggleFavorite(dish.id);
   };
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      className="group bg-[#211B16] rounded-2xl border border-[#3A3027] overflow-hidden hover:border-[#B84A32]/50 hover:shadow-[0_8px_30px_rgba(184,74,50,0.12)] transition-all duration-500 flex flex-col justify-between"
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+      whileHover={{ y: -4, transition: { duration: 0.2 } }}
+      onClick={() => onQuickView(dish)}
+      className="group bg-white rounded-2xl border border-[#E2E8E0] overflow-hidden hover:border-[#15803D]/60 hover:shadow-[0_12px_32px_rgba(21,128,61,0.12)] shadow-xs transition-all duration-300 flex flex-col cursor-pointer"
     >
-      {/* Media with Video/Hover Zoom & Clickable Lightbox */}
-      <div className="relative overflow-hidden">
-        <MediaView
-          mediaUrl={dish.mediaUrl}
-          posterUrl={dish.posterUrl}
+      {/* ── 1. DOMINANT AUTOPLAY FOOD VIDEO (occupies majority of card) ── */}
+      <div className="relative overflow-hidden bg-[#F1F7F2]">
+        <PremiumAutoVideo
           videoUrl={dish.videoUrl}
+          posterUrl={dish.posterUrl || dish.mediaUrl}
+          fallbackImageUrl={dish.mediaUrl}
           alt={dish.name}
-          aspectRatio="aspect-[4/3]"
-          autoPlayOnHover={true}
-          clickable={true}
-          onImageClick={() => onQuickView(dish)}
+          aspectRatio="aspect-[16/11]"
         />
 
-        {/* Price Tag */}
-        <div className="absolute top-3 right-3 z-20 px-3 py-1 rounded-full bg-[#171310]/90 backdrop-blur-md text-[#B84A32] font-serif font-bold text-xs border border-[#3A3027] shadow-md">
-          ${dish.price.toFixed(2)}
+        {/* Veg / Non-Veg Indicator & Dietary Tag Badge (Top Left) */}
+        <div className="absolute top-3 left-3 z-20 flex items-center gap-1.5">
+          {/* Authentic Dietary Dot Symbol */}
+          <span
+            className={`w-4 h-4 rounded-xs border flex items-center justify-center bg-white/95 backdrop-blur-xs shadow-xs ${
+              isVegetarian ? 'border-emerald-600' : 'border-rose-700'
+            }`}
+            title={isVegetarian ? 'Vegetarian' : 'Non-Vegetarian'}
+          >
+            <span
+              className={`w-2 h-2 rounded-full ${
+                isVegetarian ? 'bg-emerald-600' : 'bg-rose-700'
+              }`}
+            />
+          </span>
+
+          {/* Signature / Chef's Pick Badge */}
+          {dish.dietaryTags.includes('SIGNATURE') ? (
+            <span className="px-2 py-0.5 rounded-full text-[9px] font-sans font-bold uppercase tracking-wider bg-[#15803D] text-white shadow-xs">
+              Signature
+            </span>
+          ) : dish.dietaryTags.includes('CHEFS_CHOICE') ? (
+            <span className="px-2 py-0.5 rounded-full text-[9px] font-sans font-bold uppercase tracking-wider bg-emerald-800 text-white shadow-xs">
+              Chef's Pick
+            </span>
+          ) : null}
         </div>
+
+        {/* Favorite Heart Button (Bottom Right of Video Area, matching reference) */}
+        <button
+          type="button"
+          onClick={handleFavoriteToggle}
+          className={`absolute bottom-3 right-3 z-20 w-8 h-8 rounded-full flex items-center justify-center backdrop-blur-md transition-all duration-200 cursor-pointer shadow-md ${
+            isFav
+              ? 'bg-rose-50/95 text-rose-600 border border-rose-200 scale-105'
+              : 'bg-black/40 hover:bg-black/60 text-white/90 hover:text-white border border-white/25 hover:scale-110'
+          }`}
+          title={isFav ? 'Remove from favorites' : 'Add to favorites'}
+        >
+          <Heart
+            className={`w-4 h-4 transition-transform duration-200 ${
+              isFav ? 'fill-rose-600 stroke-rose-600 scale-110' : 'stroke-[2]'
+            }`}
+          />
+        </button>
 
         {/* Sold Out Overlay */}
         {!dish.isAvailable && (
-          <div className="absolute inset-0 z-30 bg-black/70 backdrop-blur-xs flex items-center justify-center">
-            <span className="px-4 py-1.5 rounded-full bg-[#171310] text-[#B8AEA1] border border-[#3A3027] text-xs font-bold uppercase tracking-widest">
+          <div className="absolute inset-0 z-30 bg-black/60 backdrop-blur-xs flex items-center justify-center">
+            <span className="px-4 py-1.5 rounded-full bg-white text-[#37473D] border border-[#E2E8E0] text-xs font-bold uppercase tracking-widest shadow-md">
               Sold Out
             </span>
           </div>
         )}
-
-        {/* Dietary Tags Overlay */}
-        <div className="absolute bottom-3 left-3 z-20 flex flex-wrap gap-1.5 max-w-[80%]">
-          {dish.dietaryTags.slice(0, 2).map((tag) => {
-            const badge = getDietaryBadge(tag);
-            return (
-              <span
-                key={tag}
-                className={`px-2 py-0.5 rounded-full text-[10px] font-sans font-semibold border backdrop-blur-md ${badge.class}`}
-              >
-                {badge.label}
-              </span>
-            );
-          })}
-        </div>
       </div>
 
-      {/* Dish Content Information */}
-      <div className="p-5 flex-1 flex flex-col justify-between space-y-4 bg-[#211B16]">
-        <div className="space-y-1.5">
-          <span className="text-[10px] uppercase font-sans tracking-widest text-[#B84A32] font-bold block">
-            {dish.categorySlug}
-          </span>
-          <h3 className="font-serif text-lg font-bold text-[#F5EFE5] group-hover:text-[#B84A32] transition-colors line-clamp-1">
+      {/* ── 2. SEPARATOR LINE & COMPACT TEXT AREA ── */}
+      <div className="p-4 flex-1 flex flex-col justify-between border-t border-[#E2E8E0] bg-white space-y-3">
+        {/* Title & Ingredient Subtitle */}
+        <div className="space-y-1">
+          <h3 className="font-serif text-base sm:text-lg font-bold text-[#111A15] group-hover:text-[#15803D] transition-colors line-clamp-1 leading-snug">
             {dish.name}
           </h3>
-          <p className="text-[#B8AEA1] text-xs leading-relaxed line-clamp-2 font-sans">
+          <p className="text-[#5C6E63] text-xs leading-relaxed line-clamp-1 font-sans">
             {dish.description}
           </p>
         </div>
 
-        {/* Action Controls: Quick View + Add to Bag */}
-        <div className="pt-3 border-t border-[#3A3027] flex items-center justify-between gap-3">
-          <button
-            type="button"
-            onClick={() => onQuickView(dish)}
-            className="flex-1 py-2 rounded-xl bg-[#171310] hover:bg-[#0D0B09] text-[#F5EFE5] hover:text-[#B84A32] text-xs font-semibold flex items-center justify-center gap-1.5 border border-[#3A3027] transition-colors cursor-pointer"
-          >
-            <Eye className="w-3.5 h-3.5" />
-            <span>Details</span>
-          </button>
+        {/* Bottom Row: Price on Left, Plus Button on Right */}
+        <div className="flex items-center justify-between pt-1">
+          <span className="font-mono font-bold text-base text-[#111A15]">
+            {formatPrice(dish.price)}
+          </span>
 
-          <button
+          {/* Quick Add '+' Button */}
+          <motion.button
             type="button"
+            whileTap={{ scale: 0.9 }}
             disabled={!dish.isAvailable}
-            onClick={() => {
-              addItem(dish, 1, []);
-            }}
-            className={`px-4 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-              dish.isAvailable
-                ? 'bg-[#B84A32] hover:bg-[#8B3525] text-white shadow-sm hover:shadow-md'
-                : 'bg-[#171310] text-[#B8AEA1]/40 border border-[#3A3027] cursor-not-allowed'
+            onClick={handleQuickAdd}
+            className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 shadow-xs cursor-pointer ${
+              justAdded
+                ? 'bg-emerald-700 text-white shadow-sm'
+                : dish.isAvailable
+                ? 'bg-[#15803D] hover:bg-[#166534] text-white hover:shadow-md hover:scale-105 active:scale-95'
+                : 'bg-[#FAF9F5] text-[#A8A29E] border border-[#E2E8E0] cursor-not-allowed'
             }`}
-            title="Add to order"
+            title={dish.isAvailable ? 'Add to order' : 'Sold out'}
           >
-            <Plus className="w-3.5 h-3.5" />
-            <span>Order</span>
-          </button>
+            <AnimatePresence mode="wait">
+              {justAdded ? (
+                <motion.span
+                  key="check"
+                  initial={{ scale: 0.5, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.5, opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  <Check className="w-4 h-4 stroke-[3]" />
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="plus"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  <Plus className="w-4 h-4 stroke-[2.5]" />
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </motion.button>
         </div>
       </div>
     </motion.div>

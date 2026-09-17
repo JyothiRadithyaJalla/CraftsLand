@@ -51,17 +51,17 @@ export const AdminEventsPage: React.FC = () => {
     <AdminLayout>
       <MetaTags title="Private Event Inquiries | Craftsland Admin" />
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#3A3027] pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#D8D8D2] pb-4">
         <div>
-          <h1 className="font-serif text-3xl font-bold text-red-gradient">Private Event Requests</h1>
-          <p className="text-xs text-[#B8AEA1]">VIP Private Vault and Garden Terrace special event inquiries</p>
+          <h1 className="font-serif text-3xl font-bold text-[#0F172A]">Private Event Requests</h1>
+          <p className="text-xs text-slate-500 font-medium">VIP Private Vault and Garden Terrace special event inquiries</p>
         </div>
       </div>
 
-      <div className="bg-[#211B16] rounded-2xl overflow-hidden border border-[#3A3027] shadow-lg">
+      <div className="bg-white rounded-2xl overflow-hidden border border-[#D8D8D2] shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#171310] border-b border-[#3A3027] text-[#B8AEA1] uppercase text-[10px] font-mono">
+            <thead className="bg-[#F8FAFC] border-b border-[#D8D8D2] text-slate-600 uppercase text-[10px] font-mono font-bold tracking-wider">
               <tr>
                 <th className="p-4">Requester</th>
                 <th className="p-4">Event Type</th>
@@ -71,27 +71,27 @@ export const AdminEventsPage: React.FC = () => {
                 <th className="p-4 text-right">Status Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#3A3027]">
+            <tbody className="divide-y divide-[#E2E8F0]">
               {inquiries.map((inq) => (
-                <tr key={inq.id} className="hover:bg-[#2A231C]/60 transition-colors">
+                <tr key={inq.id} className="hover:bg-[#F8FAFC] transition-colors">
                   <td className="p-4">
-                    <span className="font-serif font-bold text-[#F5EFE5] text-sm block">{inq.requesterName}</span>
-                    <span className="text-[11px] text-[#B8AEA1] font-mono">{inq.email} • {inq.phone}</span>
+                    <span className="font-serif font-bold text-[#0F172A] text-sm block">{inq.requesterName}</span>
+                    <span className="text-[11px] text-slate-500 font-mono">{inq.email} • {inq.phone}</span>
                   </td>
-                  <td className="p-4 font-mono font-bold text-[#C85A3A]">{inq.eventType}</td>
-                  <td className="p-4 font-mono text-[#B8AEA1]">{inq.eventDate}</td>
-                  <td className="p-4 font-mono font-bold text-[#F5EFE5]">{inq.guestCount} Guests</td>
-                  <td className="p-4 max-w-xs text-[#B8AEA1] italic font-serif">"{inq.message}"</td>
+                  <td className="p-4 font-mono font-bold text-[#0F172A]">{inq.eventType}</td>
+                  <td className="p-4 font-mono text-slate-500">{inq.eventDate}</td>
+                  <td className="p-4 font-mono font-bold text-[#0F172A]">{inq.guestCount} Guests</td>
+                  <td className="p-4 max-w-xs text-slate-600 italic font-serif">"{inq.message}"</td>
                   <td className="p-4 text-right">
                     <select
                       value={inq.status}
                       onChange={(e) => handleStatusChange(inq.id, e.target.value as EventInquiry['status'])}
-                      className="bg-[#171310] border border-[#3A3027] rounded-lg px-2.5 py-1 text-xs text-[#F5EFE5] focus:outline-none focus:border-[#B84A32] transition-colors"
+                      className="bg-[#F8FAFC] border border-[#CBD5E1] rounded-lg px-2.5 py-1 text-xs text-[#0F172A] font-medium focus:outline-none focus:border-[#0F172A] transition-colors"
                     >
-                      <option value="NEW" className="bg-[#211B16] text-[#F5EFE5]">NEW</option>
-                      <option value="CONTACTED" className="bg-[#211B16] text-[#F5EFE5]">CONTACTED</option>
-                      <option value="CONFIRMED" className="bg-[#211B16] text-[#F5EFE5]">CONFIRMED</option>
-                      <option value="DECLINED" className="bg-[#211B16] text-[#F5EFE5]">DECLINED</option>
+                      <option value="NEW">NEW</option>
+                      <option value="CONTACTED">CONTACTED</option>
+                      <option value="CONFIRMED">CONFIRMED</option>
+                      <option value="DECLINED">DECLINED</option>
                     </select>
                   </td>
                 </tr>

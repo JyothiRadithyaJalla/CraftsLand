@@ -38,3 +38,8 @@ credentials.json
 .supabase/
 supabase/.temp/
 supabase/.branches/
+
+# Deployment CLI state directories
+.vercel
+.wrangler
+

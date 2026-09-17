@@ -1,6 +1,7 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import type { Category, DietaryTag, Dish } from '../types/menu';
 import { MenuService } from '../services/menuService';
+import { supabase } from '../services/supabaseClient';
 
 interface MenuContextType {
   categories: Category[];
@@ -12,6 +13,7 @@ interface MenuContextType {
   setSearchQuery: (query: string) => void;
   setDietaryFilter: (tag: DietaryTag | null) => void;
   isLoading: boolean;
+  refreshMenu: () => Promise<void>;
 }
 
 const MenuContext = createContext<MenuContextType | undefined>(undefined);
@@ -24,13 +26,40 @@ export const MenuProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [dietaryFilter, setDietaryFilter] = useState<DietaryTag | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  useEffect(() => {
-    Promise.all([MenuService.getCategories(), MenuService.getDishes()]).then(([cats, items]) => {
+  const loadMenuData = useCallback(async () => {
+    try {
+      const [cats, items] = await Promise.all([
+        MenuService.getCategories(),
+        MenuService.getDishes('all', true), // include unavailable so dishes show SOLD OUT badge
+      ]);
       setCategories(cats);
       setDishes(items);
+    } catch (err) {
+      console.error('Failed to load menu data:', err);
+    } finally {
       setIsLoading(false);
-    });
+    }
   }, []);
+
+  useEffect(() => {
+    loadMenuData();
+
+    // Subscribe to realtime dish updates (e.g. stock toggle, price change)
+    const channel = supabase
+      .channel('public_dishes_realtime')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'dishes' },
+        () => {
+          loadMenuData();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [loadMenuData]);
 
   return (
     <MenuContext.Provider
@@ -44,6 +73,7 @@ export const MenuProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setSearchQuery,
         setDietaryFilter,
         isLoading,
+        refreshMenu: loadMenuData,
       }}
     >
       {children}

@@ -5,7 +5,7 @@ import { MOCK_CATEGORIES, MOCK_DISHES } from './mockData';
 
 export class MenuService {
   static async getCategories(): Promise<Category[]> {
-    if (env.isDevelopment) {
+    if (env.isDevelopment && !env.supabaseUrl.includes('.supabase.co')) {
       return MOCK_CATEGORIES;
     }
 
@@ -26,7 +26,7 @@ export class MenuService {
   }
 
   static async getDishes(categorySlug?: string, includeUnavailable = false): Promise<Dish[]> {
-    if (env.isDevelopment) {
+    if (env.isDevelopment && !env.supabaseUrl.includes('.supabase.co')) {
       let filtered = includeUnavailable ? MOCK_DISHES : MOCK_DISHES.filter((d) => d.isAvailable);
       if (categorySlug && categorySlug !== 'all') {
         filtered = filtered.filter((d) => d.categorySlug === categorySlug);
@@ -34,7 +34,7 @@ export class MenuService {
       return filtered;
     }
 
-    let query = supabase.from('dishes').select('*');
+    let query = supabase.from('dishes').select('*, dish_modifiers(*), categories(slug)');
     if (!includeUnavailable) {
       query = query.eq('is_available', true);
     }
@@ -48,49 +48,77 @@ export class MenuService {
     const { data, error } = await query;
     if (error || !data) return [];
 
-    return data.map((d) => ({
+    return data.map((d: any) => ({
       id: d.id,
       categoryId: d.category_id,
-      categorySlug: categorySlug || 'mains',
+      categorySlug: d.categories?.slug || categorySlug || 'mains',
       name: d.name,
       slug: d.slug,
       description: d.description,
       price: Number(d.price),
       mediaUrl: d.media_url,
       posterUrl: d.poster_url,
+      videoUrl: d.video_url,
+      videoPublicId: d.video_public_id,
+      videoPosterUrl: d.video_poster_url,
+      videoDuration: d.video_duration ? Number(d.video_duration) : undefined,
+      videoStatus: d.video_status as any,
+      featured: d.featured,
       calories: d.calories,
       dietaryTags: d.dietary_tags || [],
       allergens: d.allergens || [],
       winePairing: d.wine_pairing,
       isAvailable: d.is_available,
+      modifiers: d.dish_modifiers?.map((m: any) => ({
+        id: m.id,
+        title: m.title,
+        required: m.required,
+        options: m.options,
+      })) || [],
       createdAt: d.created_at,
       updatedAt: d.updated_at,
     }));
   }
 
   static async getDishById(id: string): Promise<Dish | null> {
-    if (env.isDevelopment) {
+    if (env.isDevelopment && !env.supabaseUrl.includes('.supabase.co')) {
       return MOCK_DISHES.find((d) => d.id === id) || MOCK_DISHES[0];
     }
 
-    const { data, error } = await supabase.from('dishes').select('*').eq('id', id).single();
+    const { data, error } = await supabase
+      .from('dishes')
+      .select('*, dish_modifiers(*), categories(slug)')
+      .eq('id', id)
+      .single();
     if (error || !data) return null;
 
     return {
       id: data.id,
       categoryId: data.category_id,
-      categorySlug: 'mains',
+      categorySlug: (data as any).categories?.slug || 'mains',
       name: data.name,
       slug: data.slug,
       description: data.description,
       price: Number(data.price),
       mediaUrl: data.media_url,
       posterUrl: data.poster_url,
+      videoUrl: data.video_url,
+      videoPublicId: data.video_public_id,
+      videoPosterUrl: data.video_poster_url,
+      videoDuration: data.video_duration ? Number(data.video_duration) : undefined,
+      videoStatus: data.video_status as any,
+      featured: data.featured,
       calories: data.calories,
       dietaryTags: data.dietary_tags || [],
       allergens: data.allergens || [],
       winePairing: data.wine_pairing,
       isAvailable: data.is_available,
+      modifiers: (data as any).dish_modifiers?.map((m: any) => ({
+        id: m.id,
+        title: m.title,
+        required: m.required,
+        options: m.options,
+      })) || [],
       createdAt: data.created_at,
       updatedAt: data.updated_at,
     };
@@ -99,7 +127,7 @@ export class MenuService {
   static async createDish(dishData: Partial<Dish>): Promise<Dish> {
     const slug = dishData.slug || dishData.name?.toLowerCase().replace(/\s+/g, '-') || `dish-${Date.now()}`;
 
-    if (env.isDevelopment) {
+    if (env.isDevelopment && !env.supabaseUrl.includes('.supabase.co')) {
       const newDish: Dish = {
         id: `d-${Date.now()}`,
         categoryId: dishData.categoryId || 'c1',
@@ -164,7 +192,7 @@ export class MenuService {
   }
 
   static async updateDish(id: string, dishData: Partial<Dish>): Promise<boolean> {
-    if (env.isDevelopment) {
+    if (env.isDevelopment && !env.supabaseUrl.includes('.supabase.co')) {
       const index = MOCK_DISHES.findIndex((d) => d.id === id);
       if (index !== -1) {
         MOCK_DISHES[index] = { ...MOCK_DISHES[index], ...dishData, updatedAt: new Date().toISOString() };
@@ -181,6 +209,11 @@ export class MenuService {
         ...(dishData.description && { description: dishData.description }),
         ...(dishData.mediaUrl && { media_url: dishData.mediaUrl }),
         ...(dishData.isAvailable !== undefined && { is_available: dishData.isAvailable }),
+        ...(dishData.videoUrl !== undefined && { video_url: dishData.videoUrl || null }),
+        ...(dishData.videoPublicId !== undefined && { video_public_id: dishData.videoPublicId || null }),
+        ...(dishData.videoPosterUrl !== undefined && { video_poster_url: dishData.videoPosterUrl || null }),
+        ...(dishData.videoDuration !== undefined && { video_duration: dishData.videoDuration || null }),
+        ...(dishData.videoStatus !== undefined && { video_status: dishData.videoStatus || null }),
         updated_at: new Date().toISOString(),
       })
       .eq('id', id);
@@ -189,7 +222,7 @@ export class MenuService {
   }
 
   static async deleteDish(id: string): Promise<boolean> {
-    if (env.isDevelopment) {
+    if (env.isDevelopment && !env.supabaseUrl.includes('.supabase.co')) {
       const index = MOCK_DISHES.findIndex((d) => d.id === id);
       if (index !== -1) {
         MOCK_DISHES.splice(index, 1);
@@ -205,7 +238,7 @@ export class MenuService {
   static async createCategory(categoryData: Partial<Category>): Promise<Category> {
     const slug = categoryData.slug || categoryData.name?.toLowerCase().replace(/\s+/g, '-') || `cat-${Date.now()}`;
 
-    if (env.isDevelopment) {
+    if (env.isDevelopment && !env.supabaseUrl.includes('.supabase.co')) {
       const newCat: Category = {
         id: `c-${Date.now()}`,
         name: categoryData.name || 'New Category',
@@ -240,7 +273,7 @@ export class MenuService {
   }
 
   static async updateCategory(id: string, categoryData: Partial<Category>): Promise<boolean> {
-    if (env.isDevelopment) {
+    if (env.isDevelopment && !env.supabaseUrl.includes('.supabase.co')) {
       const cat = MOCK_CATEGORIES.find((c) => c.id === id);
       if (cat) {
         Object.assign(cat, categoryData);

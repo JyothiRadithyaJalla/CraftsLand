@@ -49,26 +49,7 @@ Deno.serve(async (req: Request) => {
     const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
     const event = JSON.parse(rawBody);
 
-    // 2. Webhook Idempotency Check
-    if (eventId) {
-      const { error: insertEventError } = await supabaseAdmin
-        .from("processed_webhook_events")
-        .insert({
-          event_id: eventId,
-          event_type: event.event || "unknown",
-          resource_id: event.payload?.payment?.entity?.id || eventId,
-        });
-
-      // PostgreSQL unique violation error code 23505
-      if (insertEventError && (insertEventError.code === "23505" || insertEventError.message?.includes("duplicate"))) {
-        return new Response(JSON.stringify({ status: "idempotent_duplicate_ignored" }), {
-          status: 200,
-          headers: { "Content-Type": "application/json" },
-        });
-      }
-    }
-
-    // 3. Process Events
+    // 2. Process Events
     const eventType = event.event;
     const paymentEntity = event.payload?.payment?.entity;
 
@@ -108,13 +89,18 @@ Deno.serve(async (req: Request) => {
     }
 
     // A. Handle Payment Capture / Success
+    // Atomic execution: settlement and webhook idempotency recording happen in the same DB transaction.
+    // If settlement fails, the event is NOT marked processed, ensuring Razorpay retries succeed.
     if (eventType === "payment.captured" || eventType === "order.paid") {
-      const { error: settleError } = await supabaseAdmin.rpc("settle_order_payment", {
+      const { data: settleResult, error: settleError } = await supabaseAdmin.rpc("settle_order_payment", {
         p_order_id: craftslandOrderId,
         p_razorpay_order_id: razorpayOrderId,
         p_razorpay_payment_id: razorpayPaymentId,
         p_amount: amountInInr,
         p_currency: currency,
+        p_event_id: eventId || null,
+        p_event_type: eventType,
+        p_resource_id: razorpayPaymentId,
       });
 
       if (settleError) {
@@ -122,6 +108,13 @@ Deno.serve(async (req: Request) => {
           JSON.stringify({ error: settleError.message || "Failed to commit settlement via webhook." }),
           { status: 500, headers: { "Content-Type": "application/json" } }
         );
+      }
+
+      if (settleResult?.idempotent) {
+        return new Response(JSON.stringify({ status: "idempotent_duplicate_ignored" }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        });
       }
 
       return new Response(JSON.stringify({ status: "settled_successfully" }), {
@@ -132,6 +125,21 @@ Deno.serve(async (req: Request) => {
 
     // B. Handle Payment Failure
     if (eventType === "payment.failed") {
+      if (eventId) {
+        const { data: existingEvent } = await supabaseAdmin
+          .from("processed_webhook_events")
+          .select("event_id")
+          .eq("event_id", eventId)
+          .maybeSingle();
+
+        if (existingEvent) {
+          return new Response(JSON.stringify({ status: "idempotent_duplicate_ignored" }), {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+          });
+        }
+      }
+
       // CRITICAL: Inspect current status. A stale FAILED event must NEVER revert a PAID order!
       const { data: currentOrder } = await supabaseAdmin
         .from("orders")
@@ -157,6 +165,16 @@ Deno.serve(async (req: Request) => {
           })
           .eq("provider_order_id", razorpayOrderId)
           .neq("status", "PAID");
+      }
+
+      if (eventId) {
+        await supabaseAdmin
+          .from("processed_webhook_events")
+          .insert({
+            event_id: eventId,
+            event_type: eventType,
+            resource_id: paymentEntity.id || eventId,
+          });
       }
 
       return new Response(JSON.stringify({ status: "failure_recorded" }), {

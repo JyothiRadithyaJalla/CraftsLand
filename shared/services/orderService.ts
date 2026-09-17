@@ -5,7 +5,7 @@ import { MOCK_ORDERS } from './mockData';
 
 export class OrderService {
   static async getOrders(): Promise<Order[]> {
-    if (env.isDevelopment) {
+    if (env.isDevelopment && !env.supabaseUrl.includes('.supabase.co')) {
       return MOCK_ORDERS;
     }
 
@@ -20,40 +20,46 @@ export class OrderService {
   }
 
   static async getOrderById(orderId: string, trackingToken?: string): Promise<Order | null> {
-    if (env.isDevelopment) {
+    if (env.isDevelopment && !env.supabaseUrl.includes('.supabase.co')) {
       const order = MOCK_ORDERS.find((o) => o.id === orderId || o.orderNumber === orderId);
       return order || null;
     }
 
+    const token = trackingToken || (typeof window !== 'undefined' ? localStorage.getItem(`craftsland_tracking_${orderId}`) : null);
+
     // If tracking token is provided, or if the orderId might be an unauthenticated guest lookup
-    if (trackingToken) {
+    if (token) {
       const { data: rpcData, error: rpcError } = await supabase.rpc('get_guest_order_by_token', {
         p_order_number: orderId,
-        p_tracking_token: trackingToken,
+        p_tracking_token: token,
       });
 
       if (!rpcError && rpcData) {
-        return this.mapGuestRpcOrder(rpcData);
+        return this.mapGuestRpcOrder(rpcData, token);
       }
     }
 
     // Authenticated customer or Staff lookup via standard RLS-protected query
-    const { data, error } = await supabase
-      .from('orders')
-      .select('*, order_items(*)')
-      .or(`id.eq.${orderId},order_number.eq.${orderId}`)
-      .maybeSingle();
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(orderId);
+    let query = supabase.from('orders').select('*, order_items(*)');
+    if (isUuid) {
+      query = query.eq('id', orderId);
+    } else {
+      query = query.eq('order_number', orderId);
+    }
+
+    const { data, error } = await query.maybeSingle();
 
     if (error || !data) {
       // Fallback: If caller didn't pass trackingToken in param, check localStorage for a saved token for this order
-      const storedToken = typeof window !== 'undefined' ? localStorage.getItem(`craftsland_tracking_${orderId}`) : null;
+      const storedToken = token || (typeof window !== 'undefined' ? localStorage.getItem(`craftsland_tracking_${orderId}`) : null);
       if (storedToken) {
         const { data: rpcData, error: rpcError } = await supabase.rpc('get_guest_order_by_token', {
           p_order_number: orderId,
           p_tracking_token: storedToken,
         });
         if (!rpcError && rpcData) {
-          return this.mapGuestRpcOrder(rpcData);
+          return this.mapGuestRpcOrder(rpcData, storedToken);
         }
       }
       return null;
@@ -187,11 +193,16 @@ export class OrderService {
       };
     }
 
+    // Ensure trackingToken is explicitly preserved on the returned order
+    if (verifiedResult.tracking_token && !createdOrder.trackingToken) {
+      createdOrder.trackingToken = verifiedResult.tracking_token;
+    }
+
     return createdOrder;
   }
 
   static async updateOrderStatus(orderId: string, status: OrderStatus): Promise<boolean> {
-    if (env.isDevelopment) {
+    if (env.isDevelopment && !env.supabaseUrl.includes('.supabase.co')) {
       const order = MOCK_ORDERS.find((o) => o.id === orderId || o.orderNumber === orderId);
       if (order) {
         order.orderStatus = status;
@@ -200,12 +211,36 @@ export class OrderService {
       return true;
     }
 
-    const { error } = await supabase
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(orderId);
+    let query = supabase
       .from('orders')
-      .update({ order_status: status, updated_at: new Date().toISOString() })
-      .or(`id.eq.${orderId},order_number.eq.${orderId}`);
+      .update({ order_status: status, updated_at: new Date().toISOString() });
+    
+    if (isUuid) {
+      query = query.eq('id', orderId);
+    } else {
+      query = query.eq('order_number', orderId);
+    }
 
-    return !error;
+    const { error } = await query;
+    if (error) {
+      console.error('[OrderService] updateOrderStatus failed:', error);
+      return false;
+    }
+
+    // Broadcast status change immediately so any open tab (customer/admin/kitchen) updates instantly
+    try {
+      const broadcastChannel = supabase.channel(`order-updates-${orderId}`);
+      await broadcastChannel.send({
+        type: 'broadcast',
+        event: 'status_changed',
+        payload: { orderId, orderStatus: status },
+      });
+    } catch {
+      // Non-fatal broadcast warning
+    }
+
+    return true;
   }
 
   static async cancelOrder(orderId: string): Promise<boolean> {
@@ -214,9 +249,10 @@ export class OrderService {
 
   static subscribeToOrderUpdates(
     orderId: string,
-    onUpdate: (order: Order) => void
+    onUpdate: (order: Order) => void,
+    trackingToken?: string
   ): () => void {
-    if (env.isDevelopment) {
+    if (env.isDevelopment && !env.supabaseUrl.includes('.supabase.co')) {
       const statusSequence: OrderStatus[] = ['PENDING', 'ACCEPTED', 'PREPARING', 'READY', 'COMPLETED'];
       let step = 0;
 
@@ -242,34 +278,132 @@ export class OrderService {
       return () => clearInterval(intervalId);
     }
 
-    // Production Realtime via Supabase
+    let isSubscribed = true;
+    let cachedOrder: Order | null = null;
+
+    // Fast-path optimistic UI update (<10ms): updates status immediately when realtime packet arrives
+    const applyFastStatus = (newStatus: OrderStatus) => {
+      if (!isSubscribed || !newStatus) return;
+      if (cachedOrder && cachedOrder.orderStatus !== newStatus) {
+        cachedOrder = {
+          ...cachedOrder,
+          orderStatus: newStatus,
+          updatedAt: new Date().toISOString(),
+        };
+        onUpdate(cachedOrder);
+      }
+    };
+
+    const handleSync = async () => {
+      if (!isSubscribed) return;
+      try {
+        const updated = await this.getOrderById(orderId, trackingToken);
+        if (updated && isSubscribed) {
+          cachedOrder = updated;
+          onUpdate(updated);
+        }
+      } catch (err) {
+        // Handled silently; polling or reconnect will retry
+      }
+    };
+
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(orderId);
+    const orderEventsFilter = isUuid ? `order_id=eq.${orderId}` : `order_number=eq.${orderId}`;
+    const ordersFilter = isUuid ? `id=eq.${orderId}` : `order_number=eq.${orderId}`;
+
+    // Multi-transport Supabase Realtime Channel:
+    // 1. postgres_changes on order_status_events (public table, bypasses guest RLS, zero PII, ultra-fast)
+    // 2. postgres_changes on orders (authenticated users & staff)
+    // 3. broadcast status_changed events (instant client-to-client relay)
     const channel = supabase
       .channel(`order-updates-${orderId}`)
       .on(
         'postgres_changes',
         {
-          event: 'UPDATE',
+          event: 'INSERT',
           schema: 'public',
-          table: 'orders',
-          filter: `id=eq.${orderId}`,
+          table: 'order_status_events',
+          filter: orderEventsFilter,
         },
-        async () => {
-          const updated = await this.getOrderById(orderId);
-          if (updated) onUpdate(updated);
+        (payload: any) => {
+          const status = payload.new?.order_status as OrderStatus;
+          if (status) applyFastStatus(status);
+          handleSync();
         }
       )
-      .subscribe();
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'orders',
+          filter: ordersFilter,
+        },
+        (payload: any) => {
+          const status = (payload.new?.order_status || payload.new?.status) as OrderStatus;
+          if (status) applyFastStatus(status);
+          handleSync();
+        }
+      )
+      .on(
+        'broadcast',
+        { event: 'status_changed' },
+        (payload: any) => {
+          const status = (payload.payload?.orderStatus || payload.payload?.status) as OrderStatus;
+          if (status) applyFastStatus(status);
+          handleSync();
+        }
+      )
+      .subscribe((status) => {
+        if (status === 'SUBSCRIBED') {
+          handleSync();
+        } else if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
+          setTimeout(() => {
+            if (isSubscribed) handleSync();
+          }, 1500);
+        }
+      });
+
+    // Reconnection & tab-visibility recovery listeners
+    const handleOnline = () => {
+      if (isSubscribed) handleSync();
+    };
+    const handleVisibility = () => {
+      if (isSubscribed && typeof document !== 'undefined' && document.visibilityState === 'visible') {
+        handleSync();
+      }
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('online', handleOnline);
+      document.addEventListener('visibilitychange', handleVisibility);
+    }
+
+    // Heartbeat fallback polling every 4 seconds to guarantee zero missed updates in hostile network conditions
+    const pollInterval = setInterval(() => {
+      handleSync();
+    }, 4000);
+
+    // Initial sync
+    handleSync();
 
     return () => {
+      isSubscribed = false;
+      clearInterval(pollInterval);
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('online', handleOnline);
+        document.removeEventListener('visibilitychange', handleVisibility);
+      }
       supabase.removeChannel(channel);
     };
   }
 
   static async createRazorpayOrder(orderId: string, trackingToken?: string) {
+    const token = trackingToken || (typeof window !== 'undefined' ? (localStorage.getItem(`craftsland_tracking_${orderId}`) || undefined) : undefined);
     const headers: Record<string, string> = {};
-    if (trackingToken) headers['x-order-token'] = trackingToken;
+    if (token) headers['x-order-token'] = token;
     return await supabase.functions.invoke('create-razorpay-order', {
-      body: { orderId, trackingToken },
+      body: { orderId, trackingToken: token },
       headers,
     });
   }
@@ -281,10 +415,11 @@ export class OrderService {
     razorpaySignature: string;
     trackingToken?: string;
   }) {
+    const token = payload.trackingToken || (typeof window !== 'undefined' ? (localStorage.getItem(`craftsland_tracking_${payload.orderId}`) || undefined) : undefined);
     const headers: Record<string, string> = {};
-    if (payload.trackingToken) headers['x-order-token'] = payload.trackingToken;
+    if (token) headers['x-order-token'] = token;
     return await supabase.functions.invoke('verify-razorpay-payment', {
-      body: payload,
+      body: { ...payload, trackingToken: token },
       headers,
     });
   }
@@ -330,11 +465,12 @@ export class OrderService {
     };
   }
 
-  private static mapGuestRpcOrder(o: any): Order {
+  private static mapGuestRpcOrder(o: any, fallbackToken?: string): Order {
+    const token = o.tracking_token || fallbackToken || (typeof window !== 'undefined' ? (localStorage.getItem(`craftsland_tracking_${o.id}`) || localStorage.getItem(`craftsland_tracking_${o.order_number}`)) : undefined) || undefined;
     return {
       id: o.id,
       orderNumber: o.order_number,
-      trackingToken: o.tracking_token,
+      trackingToken: token,
       orderType: o.order_type,
       tableNumber: o.table_number,
       deliveryAddress: typeof o.delivery_address === 'string' ? o.delivery_address : o.delivery_address?.text,

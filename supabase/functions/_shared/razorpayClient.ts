@@ -54,6 +54,7 @@ export async function callRazorpayOrderApi(params: {
       amount: params.amountPaise,
       currency: params.currency,
       receipt: params.receipt,
+      payment_capture: 1,
       notes: params.notes || {},
     }),
   });
@@ -65,3 +66,34 @@ export async function callRazorpayOrderApi(params: {
 
   return await response.json();
 }
+
+export async function callRazorpayPaymentApi(params: {
+  keyId: string;
+  keySecret: string;
+  paymentId: string;
+}): Promise<{
+  id: string;
+  order_id: string;
+  amount: number;
+  currency: string;
+  status: string;
+  method?: string;
+  notes?: Record<string, string>;
+}> {
+  const authHeader = `Basic ${btoa(`${params.keyId}:${params.keySecret}`)}`;
+
+  const response = await fetch(`https://api.razorpay.com/v1/payments/${encodeURIComponent(params.paymentId)}`, {
+    method: 'GET',
+    headers: {
+      Authorization: authHeader,
+    },
+  });
+
+  if (!response.ok) {
+    const errorBody = await response.text();
+    throw new Error(`Razorpay Payment API failed (${response.status}): ${errorBody}`);
+  }
+
+  return await response.json();
+}
+

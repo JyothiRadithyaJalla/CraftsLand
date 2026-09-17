@@ -31,53 +31,53 @@ export const KitchenLoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAFAF7] text-[#1A1714] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[#EEF3F3] text-[#0F2424] flex items-center justify-center p-4">
       <MetaTags title="Kitchen Display Authentication | Craftsland" />
-      <div className="bg-[#FFFFFF] max-w-md w-full p-8 rounded-3xl border border-[#E2DDD6] space-y-6 shadow-md">
+      <div className="bg-white max-w-md w-full p-8 rounded-3xl border-2 border-[#CBD8D8] space-y-6 shadow-xl">
         <div className="text-center space-y-2">
-          <div className="w-14 h-14 rounded-2xl bg-[#B84A32]/10 border border-[#B84A32]/20 text-[#B84A32] flex items-center justify-center mx-auto shadow-sm">
+          <div className="w-14 h-14 rounded-2xl bg-[#E0EBEB] border border-[#CBD8D8] text-[#0D474A] flex items-center justify-center mx-auto shadow-xs">
             <ChefHat className="w-8 h-8" />
           </div>
-          <h1 className="font-serif text-2xl font-bold text-red-gradient">Kitchen Display Login</h1>
-          <p className="text-xs text-[#6B6560]">Authorized culinary staff and expeditor pass access</p>
+          <h1 className="font-serif text-2xl font-bold text-[#0D474A]">Kitchen Display Login</h1>
+          <p className="text-xs text-slate-500 font-medium">Authorized culinary staff and expeditor pass access</p>
         </div>
 
         {error && (
-          <div className="bg-red-50 border border-red-200 p-3 rounded-xl text-xs text-red-600 flex items-center gap-2">
-            <AlertCircle className="w-4 h-4 text-red-600 flex-shrink-0" />
+          <div className="bg-red-50 border border-red-200 p-3 rounded-xl text-xs text-red-700 flex items-center gap-2 font-medium">
+            <AlertCircle className="w-4 h-4 text-red-500 flex-shrink-0" />
             <span>{error}</span>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4 text-xs">
           <div className="space-y-1">
-            <label className="text-[#1A1714] font-semibold">Kitchen Pass Email</label>
+            <label className="text-slate-600 font-bold uppercase text-[10px] tracking-wider">Kitchen Pass Email</label>
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="kitchen@craftsland.com"
-              className="w-full px-4 py-2.5 bg-[#FFFFFF] border border-[#E2DDD6] rounded-xl text-[#1A1714] focus:outline-none focus:border-[#B84A32]"
+              className="w-full px-4 py-2.5 bg-[#F4F8F8] border border-[#CBD8D8] rounded-xl text-[#0F2424] placeholder-slate-400 focus:outline-none focus:border-[#0D474A] transition-colors font-medium"
             />
           </div>
 
           <div className="space-y-1">
-            <label className="text-[#1A1714] font-semibold">Passkey</label>
+            <label className="text-slate-600 font-bold uppercase text-[10px] tracking-wider">Passkey</label>
             <input
               type="password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full px-4 py-2.5 bg-[#FFFFFF] border border-[#E2DDD6] rounded-xl text-[#1A1714] focus:outline-none focus:border-[#B84A32]"
+              className="w-full px-4 py-2.5 bg-[#F4F8F8] border border-[#CBD8D8] rounded-xl text-[#0F2424] placeholder-slate-400 focus:outline-none focus:border-[#0D474A] transition-colors font-medium"
             />
           </div>
 
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full py-3.5 rounded-full bg-gradient-to-r from-[#B84A32] to-[#8B3525] text-white font-bold uppercase tracking-wider text-xs shadow-md hover:brightness-110 cursor-pointer disabled:opacity-50 transition-all"
+            className="w-full py-3.5 rounded-xl bg-[#0D474A] hover:bg-[#0A3638] text-white font-bold uppercase tracking-wider text-xs shadow-md cursor-pointer disabled:opacity-50 transition-all min-h-[48px]"
           >
             {isSubmitting ? 'Verifying...' : 'Access Kitchen Display'}
           </button>

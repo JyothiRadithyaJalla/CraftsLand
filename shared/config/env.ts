@@ -7,6 +7,10 @@ export interface AppEnv {
   mediaBaseUrl: string;
   razorpayKeyId: string;
   isRazorpayConfigured: boolean;
+  cloudinaryCloudName: string;
+  cloudinaryApiKey: string;
+  cloudinaryUploadPreset: string;
+  isCloudinaryConfigured: boolean;
   isDevelopment: boolean;
   isProduction: boolean;
 }
@@ -18,6 +22,10 @@ export const env: AppEnv = {
   mediaBaseUrl: import.meta.env.VITE_MEDIA_BASE_URL || '',
   razorpayKeyId: import.meta.env.VITE_RAZORPAY_KEY_ID || '',
   isRazorpayConfigured: Boolean(import.meta.env.VITE_RAZORPAY_KEY_ID && import.meta.env.VITE_RAZORPAY_KEY_ID !== 'rzp_test_placeholder'),
+  cloudinaryCloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || '',
+  cloudinaryApiKey: import.meta.env.VITE_CLOUDINARY_API_KEY || '',
+  cloudinaryUploadPreset: import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || '',
+  isCloudinaryConfigured: Boolean(import.meta.env.VITE_CLOUDINARY_CLOUD_NAME),
   isDevelopment: (import.meta.env.VITE_APP_ENV || 'development') === 'development',
   isProduction: import.meta.env.VITE_APP_ENV === 'production',
 };

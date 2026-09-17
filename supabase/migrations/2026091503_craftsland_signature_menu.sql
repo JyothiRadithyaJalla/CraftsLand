@@ -1,0 +1,328 @@
+-- ================================================================
+-- MIGRATION: 2026091503_craftsland_signature_menu.sql
+-- Updates CraftsLand menu with authentic signature dishes:
+-- STARTERS: Chicken Tikka (₹299), Paneer Tikka (₹249)
+-- MAIN COURSE: CraftsLand Biryani (₹399), Butter Chicken (₹349)
+-- DESSERTS: Gulab Jamun (₹149)
+-- BEVERAGES: Mango Lassi (₹129)
+-- ================================================================
+
+-- 1. Ensure category names match the specified structure
+UPDATE public.categories SET name = 'Starters' WHERE slug = 'starters';
+UPDATE public.categories SET name = 'Main Course' WHERE slug = 'mains';
+UPDATE public.categories SET name = 'Desserts' WHERE slug = 'desserts';
+UPDATE public.categories SET name = 'Beverages' WHERE slug = 'beverages';
+
+-- 2. Upsert the requested dishes with automated videos and exact pricing
+
+-- A. Chicken Tikka (STARTERS - ₹299)
+INSERT INTO public.dishes (
+  id,
+  category_id,
+  name,
+  slug,
+  description,
+  price,
+  media_url,
+  poster_url,
+  video_url,
+  video_public_id,
+  video_poster_url,
+  video_duration,
+  video_status,
+  featured,
+  calories,
+  dietary_tags,
+  allergens,
+  wine_pairing,
+  is_available
+) VALUES (
+  'd1000000-0000-0000-0000-000000000201',
+  'c1000000-0000-0000-0000-000000000001',
+  'Chicken Tikka',
+  'chicken-tikka',
+  'Smoky grilled chicken marinated in roasted tandoori spices and cultured yogurt, charred to tender perfection.',
+  299.00,
+  'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?q=80&w=800&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?q=80&w=600&auto=format&fit=crop',
+  'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+  'craftsland/dishes/chicken_tikka',
+  'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?q=80&w=600&auto=format&fit=crop',
+  15.0,
+  'READY',
+  true,
+  380,
+  ARRAY['SIGNATURE', 'GLUTEN_FREE'],
+  ARRAY['Dairy'],
+  'Dry Riesling or Craft Wheat Ale',
+  true
+) ON CONFLICT (id) DO UPDATE SET
+  name = EXCLUDED.name,
+  description = EXCLUDED.description,
+  price = EXCLUDED.price,
+  media_url = EXCLUDED.media_url,
+  poster_url = EXCLUDED.poster_url,
+  video_url = EXCLUDED.video_url,
+  dietary_tags = EXCLUDED.dietary_tags,
+  featured = true,
+  is_available = true;
+
+-- B. Paneer Tikka (STARTERS - ₹249)
+INSERT INTO public.dishes (
+  id,
+  category_id,
+  name,
+  slug,
+  description,
+  price,
+  media_url,
+  poster_url,
+  video_url,
+  video_public_id,
+  video_poster_url,
+  video_duration,
+  video_status,
+  featured,
+  calories,
+  dietary_tags,
+  allergens,
+  wine_pairing,
+  is_available
+) VALUES (
+  'd1000000-0000-0000-0000-000000000202',
+  'c1000000-0000-0000-0000-000000000001',
+  'Paneer Tikka',
+  'paneer-tikka',
+  'Charred fresh cottage cheese cubes infused with Kashmiri chili, ajwain, and mustard oil, roasted with bell peppers.',
+  249.00,
+  'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?q=80&w=800&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?q=80&w=600&auto=format&fit=crop',
+  'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+  'craftsland/dishes/paneer_tikka',
+  'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?q=80&w=600&auto=format&fit=crop',
+  15.0,
+  'READY',
+  true,
+  340,
+  ARRAY['SIGNATURE', 'VEGETARIAN', 'GLUTEN_FREE'],
+  ARRAY['Dairy'],
+  'Sauvignon Blanc',
+  true
+) ON CONFLICT (id) DO UPDATE SET
+  name = EXCLUDED.name,
+  description = EXCLUDED.description,
+  price = EXCLUDED.price,
+  media_url = EXCLUDED.media_url,
+  poster_url = EXCLUDED.poster_url,
+  video_url = EXCLUDED.video_url,
+  dietary_tags = EXCLUDED.dietary_tags,
+  featured = true,
+  is_available = true;
+
+-- C. CraftsLand Biryani (MAIN COURSE - ₹399)
+INSERT INTO public.dishes (
+  id,
+  category_id,
+  name,
+  slug,
+  description,
+  price,
+  media_url,
+  poster_url,
+  video_url,
+  video_public_id,
+  video_poster_url,
+  video_duration,
+  video_status,
+  featured,
+  calories,
+  dietary_tags,
+  allergens,
+  wine_pairing,
+  is_available
+) VALUES (
+  'd1000000-0000-0000-0000-000000000203',
+  'c1000000-0000-0000-0000-000000000002',
+  'CraftsLand Biryani',
+  'craftsland-biryani',
+  'Royal long-grain aged basmati layered with succulent cuts, saffron dum infusion, caramelized shallots, and fragrant whole spices.',
+  399.00,
+  'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=800&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=600&auto=format&fit=crop',
+  'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
+  'craftsland/dishes/craftsland_biryani',
+  'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?q=80&w=600&auto=format&fit=crop',
+  15.0,
+  'READY',
+  true,
+  620,
+  ARRAY['SIGNATURE', 'CHEFS_CHOICE', 'GLUTEN_FREE'],
+  ARRAY['Dairy'],
+  'Syrah or Pinot Noir',
+  true
+) ON CONFLICT (id) DO UPDATE SET
+  name = EXCLUDED.name,
+  description = EXCLUDED.description,
+  price = EXCLUDED.price,
+  media_url = EXCLUDED.media_url,
+  poster_url = EXCLUDED.poster_url,
+  video_url = EXCLUDED.video_url,
+  dietary_tags = EXCLUDED.dietary_tags,
+  featured = true,
+  is_available = true;
+
+-- D. Butter Chicken (MAIN COURSE - ₹349)
+INSERT INTO public.dishes (
+  id,
+  category_id,
+  name,
+  slug,
+  description,
+  price,
+  media_url,
+  poster_url,
+  video_url,
+  video_public_id,
+  video_poster_url,
+  video_duration,
+  video_status,
+  featured,
+  calories,
+  dietary_tags,
+  allergens,
+  wine_pairing,
+  is_available
+) VALUES (
+  'd1000000-0000-0000-0000-000000000204',
+  'c1000000-0000-0000-0000-000000000002',
+  'Butter Chicken',
+  'butter-chicken',
+  'Tender flame-grilled chicken simmered in a velvety tomato makhani gravy with artisanal butter and sun-dried kasuri methi.',
+  349.00,
+  'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?q=80&w=800&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?q=80&w=600&auto=format&fit=crop',
+  'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyBlazes.mp4',
+  'craftsland/dishes/butter_chicken',
+  'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?q=80&w=600&auto=format&fit=crop',
+  15.0,
+  'READY',
+  true,
+  560,
+  ARRAY['SIGNATURE', 'GLUTEN_FREE'],
+  ARRAY['Dairy', 'Nuts'],
+  'Chardonnay or Viognier',
+  true
+) ON CONFLICT (id) DO UPDATE SET
+  name = EXCLUDED.name,
+  description = EXCLUDED.description,
+  price = EXCLUDED.price,
+  media_url = EXCLUDED.media_url,
+  poster_url = EXCLUDED.poster_url,
+  video_url = EXCLUDED.video_url,
+  dietary_tags = EXCLUDED.dietary_tags,
+  featured = true,
+  is_available = true;
+
+-- E. Gulab Jamun (DESSERTS - ₹149)
+INSERT INTO public.dishes (
+  id,
+  category_id,
+  name,
+  slug,
+  description,
+  price,
+  media_url,
+  poster_url,
+  video_url,
+  video_public_id,
+  video_poster_url,
+  video_duration,
+  video_status,
+  featured,
+  calories,
+  dietary_tags,
+  allergens,
+  wine_pairing,
+  is_available
+) VALUES (
+  'd1000000-0000-0000-0000-000000000205',
+  'c1000000-0000-0000-0000-000000000005',
+  'Gulab Jamun',
+  'gulab-jamun',
+  'Warm golden fried khoya dumplings immersed in fragrant green cardamom and saffron rose syrup, garnished with slivered pistachios.',
+  149.00,
+  'https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=800&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=600&auto=format&fit=crop',
+  'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
+  'craftsland/dishes/gulab_jamun',
+  'https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=600&auto=format&fit=crop',
+  15.0,
+  'READY',
+  true,
+  320,
+  ARRAY['SIGNATURE', 'VEGETARIAN'],
+  ARRAY['Dairy', 'Nuts', 'Gluten'],
+  'Moscato d''Asti',
+  true
+) ON CONFLICT (id) DO UPDATE SET
+  name = EXCLUDED.name,
+  description = EXCLUDED.description,
+  price = EXCLUDED.price,
+  media_url = EXCLUDED.media_url,
+  poster_url = EXCLUDED.poster_url,
+  video_url = EXCLUDED.video_url,
+  dietary_tags = EXCLUDED.dietary_tags,
+  featured = true,
+  is_available = true;
+
+-- F. Mango Lassi (BEVERAGES - ₹129)
+INSERT INTO public.dishes (
+  id,
+  category_id,
+  name,
+  slug,
+  description,
+  price,
+  media_url,
+  poster_url,
+  video_url,
+  video_public_id,
+  video_poster_url,
+  video_duration,
+  video_status,
+  featured,
+  calories,
+  dietary_tags,
+  allergens,
+  wine_pairing,
+  is_available
+) VALUES (
+  'd1000000-0000-0000-0000-000000000206',
+  'c1000000-0000-0000-0000-000000000006',
+  'Mango Lassi',
+  'mango-lassi',
+  'Chilled artisanal cultured yogurt blended with sweet Ratnagiri Alphonso mango pulp, green cardamom, and honey.',
+  129.00,
+  'https://images.unsplash.com/photo-1527661591475-527312dd65f5?q=80&w=800&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1527661591475-527312dd65f5?q=80&w=600&auto=format&fit=crop',
+  'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
+  'craftsland/dishes/mango_lassi',
+  'https://images.unsplash.com/photo-1527661591475-527312dd65f5?q=80&w=600&auto=format&fit=crop',
+  15.0,
+  'READY',
+  true,
+  210,
+  ARRAY['SIGNATURE', 'VEGETARIAN', 'GLUTEN_FREE'],
+  ARRAY['Dairy'],
+  'Non-Alcoholic Botanical Refresher',
+  true
+) ON CONFLICT (id) DO UPDATE SET
+  name = EXCLUDED.name,
+  description = EXCLUDED.description,
+  price = EXCLUDED.price,
+  media_url = EXCLUDED.media_url,
+  poster_url = EXCLUDED.poster_url,
+  video_url = EXCLUDED.video_url,
+  dietary_tags = EXCLUDED.dietary_tags,
+  featured = true,
+  is_available = true;

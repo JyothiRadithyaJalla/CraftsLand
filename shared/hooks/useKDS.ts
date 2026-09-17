@@ -6,14 +6,15 @@ import type { Order } from '../types/order';
 export type KDSFilter = 'ALL' | 'DINE_IN' | 'PICKUP' | 'DELIVERY' | 'URGENT';
 
 export const useKDS = () => {
-  const { orders, updateOrderStatus, isLoading, refreshOrders } = useOrderContext();
+  const { orders, updateOrderStatus, isLoading, refreshOrders, realtimeStatus } = useOrderContext();
 
   const [soundEnabled, setSoundEnabled] = useState<boolean>(true);
   const [filter, setFilter] = useState<KDSFilter>('ALL');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [connectionStatus, setConnectionStatus] = useState<'Connected' | 'Connecting' | 'Disconnected'>('Connected');
+  const connectionStatus = realtimeStatus;
 
-  const previousPendingCount = useRef<number>(0);
+  const knownIncomingIdsRef = useRef<Set<string>>(new Set());
+  const isInitialLoadRef = useRef<boolean>(true);
 
   // Web Audio Synthesizer Chime Function (zero external asset needed)
   const playNewOrderChime = () => {
@@ -52,13 +53,22 @@ export const useKDS = () => {
     }
   };
 
-  // Play chime when new PENDING orders arrive
+  // Play chime when new confirmed PAID & PENDING orders arrive (idempotent, no duplicates)
   useEffect(() => {
-    const currentPendingCount = orders.filter((o) => o.orderStatus === 'PENDING').length;
-    if (currentPendingCount > previousPendingCount.current) {
+    const currentIncomingPaid = orders.filter((o) => o.orderStatus === 'PENDING' && o.paymentStatus === 'PAID');
+
+    // On initial mount, populate existing order IDs without chiming
+    if (isInitialLoadRef.current) {
+      currentIncomingPaid.forEach((o) => knownIncomingIdsRef.current.add(o.id));
+      isInitialLoadRef.current = false;
+      return;
+    }
+
+    const newIncoming = currentIncomingPaid.filter((o) => !knownIncomingIdsRef.current.has(o.id));
+    if (newIncoming.length > 0) {
+      newIncoming.forEach((o) => knownIncomingIdsRef.current.add(o.id));
       playNewOrderChime();
     }
-    previousPendingCount.current = currentPendingCount;
   }, [orders]);
 
   // Filter & Search helper function
@@ -88,14 +98,14 @@ export const useKDS = () => {
     });
   };
 
-  // Active tickets sorted by creation time (oldest first)
+  // Active tickets sorted by creation time (oldest first). Only verified paid orders enter KDS.
   const sortedActiveOrders = [...orders]
-    .filter((o) => o.orderStatus !== 'COMPLETED' && o.orderStatus !== 'CANCELLED')
+    .filter((o) => o.orderStatus !== 'COMPLETED' && o.orderStatus !== 'CANCELLED' && o.paymentStatus === 'PAID')
     .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
 
   const filteredOrders = applyFilters(sortedActiveOrders);
 
-  const incomingOrders = filteredOrders.filter((o) => o.orderStatus === 'PENDING');
+  const incomingOrders = filteredOrders.filter((o) => o.orderStatus === 'PENDING' && o.paymentStatus === 'PAID');
   const acceptedOrders = filteredOrders.filter((o) => o.orderStatus === 'ACCEPTED');
   const preparingOrders = filteredOrders.filter((o) => o.orderStatus === 'PREPARING');
   const readyOrders = filteredOrders.filter((o) => o.orderStatus === 'READY');
@@ -152,7 +162,6 @@ export const useKDS = () => {
     searchQuery,
     setSearchQuery,
     connectionStatus,
-    setConnectionStatus,
     updateOrderStatus,
     isLoading,
     refreshOrders,

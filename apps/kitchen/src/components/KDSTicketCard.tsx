@@ -29,6 +29,10 @@ export const KDSTicketCard: React.FC<KDSTicketCardProps> = ({ order, onUpdateSta
   const displaySeconds = String(elapsedSeconds % 60).padStart(2, '0');
   const displayMinutes = String(elapsedMinutes).padStart(2, '0');
 
+  // Preparation target: 15 minutes (900 seconds) standard benchmark
+  const targetPrepSeconds = 15 * 60;
+  const prepProgressPercent = Math.min(100, (elapsedSeconds / targetPrepSeconds) * 100);
+
   // Urgency tier classification
   let urgencyLevel: 'normal' | 'warning' | 'urgent' = 'normal';
   if (elapsedMinutes >= 20) {
@@ -44,28 +48,28 @@ export const KDSTicketCard: React.FC<KDSTicketCardProps> = ({ order, onUpdateSta
         return {
           nextStatus: 'ACCEPTED' as OrderStatus,
           label: 'Accept Order',
-          bgClass: 'bg-blue-600 hover:bg-blue-500 text-white',
+          bgClass: 'bg-purple-700 hover:bg-purple-800 text-white font-bold shadow-sm',
           icon: CheckCircle2,
         };
       case 'ACCEPTED':
         return {
           nextStatus: 'PREPARING' as OrderStatus,
-          label: 'Start Preparation',
-          bgClass: 'bg-purple-600 hover:bg-purple-500 text-white',
+          label: 'Start Preparing',
+          bgClass: 'bg-[#0D474A] hover:bg-[#0A3638] text-white font-bold shadow-sm',
           icon: ChefHat,
         };
       case 'PREPARING':
         return {
           nextStatus: 'READY' as OrderStatus,
-          label: 'Mark Ready for Pass',
-          bgClass: 'bg-gradient-to-r from-[#B84A32] to-[#8B3525] hover:brightness-110 text-white font-bold',
+          label: 'Mark Ready',
+          bgClass: 'bg-emerald-700 hover:bg-emerald-800 text-white font-bold shadow-sm',
           icon: Bell,
         };
       case 'READY':
         return {
           nextStatus: 'COMPLETED' as OrderStatus,
           label: 'Complete Order',
-          bgClass: 'bg-emerald-600 hover:bg-emerald-500 text-white',
+          bgClass: 'bg-slate-800 hover:bg-slate-900 text-white font-bold shadow-sm',
           icon: CheckCircle2,
         };
       default:
@@ -101,34 +105,47 @@ export const KDSTicketCard: React.FC<KDSTicketCardProps> = ({ order, onUpdateSta
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ duration: 0.2 }}
-      className={`p-4 rounded-2xl border transition-all flex flex-col justify-between space-y-4 shadow-sm ${
+      className={`p-4 rounded-2xl border-2 transition-all flex flex-col justify-between space-y-4 shadow-sm ${
         urgencyLevel === 'urgent'
-          ? 'border-red-500 bg-red-50/70 ring-2 ring-red-400 shadow-md'
+          ? 'border-red-500 bg-red-50/90 ring-2 ring-red-400/50 shadow-md'
           : urgencyLevel === 'warning'
-          ? 'border-amber-400 bg-amber-50/50'
-          : 'border-[#E2DDD6] bg-[#FFFFFF]'
+          ? 'border-amber-400 bg-amber-50/90 ring-1 ring-amber-300 shadow-sm'
+          : 'border-[#CBD8D8] bg-white'
       }`}
     >
       {/* Ticket Header */}
       <div className="space-y-2">
-        <div className="flex items-center justify-between border-b border-[#E2DDD6] pb-2.5">
+        <div className="flex items-center justify-between border-b border-[#E5EEEE] pb-2.5">
           <div>
-            <span className="font-mono text-base font-bold text-[#B84A32] block">
-              {order.orderNumber}
-            </span>
-            <span className="text-[11px] text-[#6B6560] font-mono">
+            <div className="flex items-center gap-2">
+              <span className="font-mono text-lg font-extrabold text-[#0D474A] block">
+                {order.orderNumber}
+              </span>
+              {elapsedSeconds < 120 && (
+                <motion.span
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: [1, 1.06, 1], opacity: 1 }}
+                  transition={{ repeat: Infinity, duration: 1.5 }}
+                  className="px-2 py-0.5 rounded-full bg-blue-600 text-white font-mono font-black text-[10px] tracking-wider uppercase shadow-xs flex items-center gap-1"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
+                  NEW
+                </motion.span>
+              )}
+            </div>
+            <span className="text-xs text-slate-500 font-mono font-medium">
               {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
             </span>
           </div>
 
           {/* Elapsed Timer Badge */}
           <div
-            className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono font-bold ${
               urgencyLevel === 'urgent'
-                ? 'bg-red-600 text-white animate-bounce'
+                ? 'bg-red-100 border border-red-400 text-red-900 ring-2 ring-red-300 font-bold animate-pulse'
                 : urgencyLevel === 'warning'
-                ? 'bg-amber-100 border border-amber-300 text-amber-800'
-                : 'bg-gray-100 text-gray-700'
+                ? 'bg-amber-100 border border-amber-400 text-amber-900 font-bold'
+                : 'bg-[#E0EBEB] border border-[#CBD8D8] text-[#0D474A] font-bold'
             }`}
           >
             <Clock className="w-3.5 h-3.5" />
@@ -136,28 +153,43 @@ export const KDSTicketCard: React.FC<KDSTicketCardProps> = ({ order, onUpdateSta
           </div>
         </div>
 
+        {/* Preparation Target Visual Progress Bar */}
+        <div className="w-full bg-[#E5EEEE] h-1.5 rounded-full overflow-hidden">
+          <motion.div
+            className={`h-full rounded-full transition-all ${
+              urgencyLevel === 'urgent'
+                ? 'bg-red-500'
+                : urgencyLevel === 'warning'
+                ? 'bg-amber-500'
+                : 'bg-[#0D474A]'
+            }`}
+            style={{ width: `${prepProgressPercent}%` }}
+            transition={{ duration: 0.5 }}
+          />
+        </div>
+
         {/* Order Mode Badge & Table Info */}
         <div className="flex items-center justify-between text-xs pt-1">
           <div className="flex items-center gap-1.5">
             {order.orderType === 'DINE_IN' && (
-              <span className="inline-flex items-center gap-1 bg-[#B84A32]/10 border border-[#B84A32]/25 text-[#B84A32] px-2.5 py-0.5 rounded-full font-bold text-[11px]">
+              <span className="inline-flex items-center gap-1 bg-[#E0EBEB] border border-[#CBD8D8] text-[#0D474A] px-2.5 py-1 rounded-full font-bold text-xs">
                 <Utensils className="w-3 h-3" /> Dine-In
               </span>
             )}
             {order.orderType === 'PICKUP' && (
-              <span className="inline-flex items-center gap-1 bg-purple-50 border border-purple-200 text-purple-700 px-2.5 py-0.5 rounded-full font-bold text-[11px]">
+              <span className="inline-flex items-center gap-1 bg-purple-50 border border-purple-200 text-purple-800 px-2.5 py-1 rounded-full font-bold text-xs">
                 <Store className="w-3 h-3" /> Pickup
               </span>
             )}
             {order.orderType === 'DELIVERY' && (
-              <span className="inline-flex items-center gap-1 bg-blue-50 border border-blue-200 text-blue-700 px-2.5 py-0.5 rounded-full font-bold text-[11px]">
+              <span className="inline-flex items-center gap-1 bg-blue-50 border border-blue-200 text-blue-800 px-2.5 py-1 rounded-full font-bold text-xs">
                 <Truck className="w-3 h-3" /> Delivery
               </span>
             )}
           </div>
 
           {order.tableNumber && (
-            <span className="font-mono font-bold text-white bg-[#B84A32] px-2 py-0.5 rounded text-xs">
+            <span className="font-mono font-bold text-[#0D474A] bg-[#E0EBEB] border border-[#CBD8D8] px-2.5 py-1 rounded-lg text-xs tracking-wider shadow-xs">
               {order.tableNumber.startsWith('Table') ? order.tableNumber : `Table ${order.tableNumber}`}
             </span>
           )}
@@ -166,7 +198,7 @@ export const KDSTicketCard: React.FC<KDSTicketCardProps> = ({ order, onUpdateSta
 
       {/* Allergy Callout Warnings */}
       {allergyList.length > 0 && (
-        <div className="bg-red-100 border border-red-300 p-2 rounded-xl space-y-1">
+        <div className="bg-red-50 border-2 border-red-300 p-2.5 rounded-xl space-y-1">
           {allergyList.map((allergy, idx) => (
             <div key={idx} className="flex items-center gap-1.5 text-xs font-bold text-red-800 tracking-wider uppercase">
               <AlertTriangle className="w-4 h-4 text-red-600 flex-shrink-0" />
@@ -177,23 +209,23 @@ export const KDSTicketCard: React.FC<KDSTicketCardProps> = ({ order, onUpdateSta
       )}
 
       {/* Item List */}
-      <div className="space-y-3 py-1 border-t border-b border-[#E2DDD6] my-1 max-h-56 overflow-y-auto">
+      <div className="space-y-3 py-2 border-t border-b border-[#E5EEEE] my-1 max-h-56 overflow-y-auto">
         {order.items.map((item) => (
           <div key={item.id} className="text-xs space-y-1">
-            <div className="flex items-start justify-between font-bold text-[#1A1714]">
-              <span className="flex gap-2">
-                <span className="text-[#B84A32] font-mono text-sm bg-[#B84A32]/10 border border-[#B84A32]/20 px-1.5 py-0.5 rounded font-bold">
+            <div className="flex items-start justify-between font-bold">
+              <span className="flex items-center gap-2">
+                <span className="text-[#0D474A] font-mono text-sm bg-[#E0EBEB] border border-[#CBD8D8] px-2 py-0.5 rounded font-bold">
                   {item.quantity}×
                 </span>
-                <span className="text-sm font-serif text-[#1A1714]">{item.dishName}</span>
+                <span className="text-sm font-serif font-bold text-[#0F2424]">{item.dishName}</span>
               </span>
             </div>
 
             {/* Modifiers List */}
             {item.selectedModifiers.length > 0 && (
-              <div className="pl-7 space-y-0.5 text-[11px] text-[#8B3525] font-mono">
+              <div className="pl-7 space-y-0.5 text-[11px] text-slate-600 font-mono">
                 {item.selectedModifiers.map((m, idx) => (
-                  <span key={idx} className="block font-medium">• {m.optionName}</span>
+                  <span key={idx} className="block font-medium"><strong className="text-[#0D474A]">•</strong> {m.optionName}</span>
                 ))}
               </div>
             )}
@@ -203,18 +235,21 @@ export const KDSTicketCard: React.FC<KDSTicketCardProps> = ({ order, onUpdateSta
 
       {/* Special Instructions Notes */}
       {order.specialInstructions && (
-        <div className="bg-[#F5F2EE] border border-[#E2DDD6] p-2.5 rounded-xl text-xs space-y-1">
-          <span className="text-[10px] text-[#6B6560] uppercase tracking-wider block font-semibold">Special Instructions</span>
-          <p className="text-[#1A1714] italic font-serif">{order.specialInstructions}</p>
+        <div className="bg-[#F4F8F8] border border-[#CBD8D8] p-2.5 rounded-xl text-xs space-y-1">
+          <span className="text-[10px] text-[#0D474A] uppercase tracking-wider block font-bold">Special Instructions</span>
+          <p className="text-[#0F2424] italic font-serif">{order.specialInstructions}</p>
         </div>
       )}
 
-      {/* Status Action Button */}
+      {/* Status Action Button - Minimum 48px touch target */}
       {actionConfig && (
-        <button
+        <motion.button
+          whileTap={{ scale: 0.98 }}
+          whileHover={{ scale: 1.01 }}
+          transition={{ duration: 0.15 }}
           onClick={handleActionClick}
           disabled={isUpdating}
-          className={`w-full py-3 rounded-xl text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all shadow-sm ${actionConfig.bgClass} disabled:opacity-50`}
+          className={`w-full min-h-[48px] py-3.5 rounded-xl text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all shadow-sm ${actionConfig.bgClass} disabled:opacity-50`}
         >
           {isUpdating ? (
             <span className="flex items-center gap-2">
@@ -226,7 +261,7 @@ export const KDSTicketCard: React.FC<KDSTicketCardProps> = ({ order, onUpdateSta
               <actionConfig.icon className="w-4 h-4" /> {actionConfig.label}
             </>
           )}
-        </button>
+        </motion.button>
       )}
     </motion.div>
   );

@@ -1,6 +1,6 @@
 export type SeatingSection = 'MAIN_DINING' | 'CHEFS_COUNTER' | 'TERRACE' | 'PRIVATE_VAULT';
 
-export type ReservationStatus = 'CONFIRMED' | 'SEATED' | 'COMPLETED' | 'CANCELLED';
+export type ReservationStatus = 'PENDING' | 'CONFIRMED' | 'SEATED' | 'COMPLETED' | 'CANCELLED' | 'NO_SHOW';
 
 export interface Reservation {
   id: string;

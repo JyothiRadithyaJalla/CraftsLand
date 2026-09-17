@@ -14,11 +14,15 @@ export const WhatsAppButton: React.FC = () => {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Contact Concierge on WhatsApp"
-      className="fixed bottom-6 right-6 z-40 p-3.5 rounded-full bg-[#25D366] text-white shadow-2xl hover:scale-110 hover:shadow-[0_0_20px_rgba(37,211,102,0.5)] transition-all flex items-center justify-center cursor-pointer group"
+      className="fixed bottom-20 right-6 z-40 px-4 py-3 rounded-full bg-[#15803D] border border-[#166534] text-white shadow-[0_8px_25px_rgba(21,128,61,0.30)] hover:bg-[#166534] hover:scale-105 transition-all duration-300 flex items-center gap-2.5 cursor-pointer group"
     >
-      <MessageCircle className="w-6 h-6 fill-current" />
-      <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-500 ease-out whitespace-nowrap text-xs font-bold pl-0 group-hover:pl-2">
-        Concierge Chat
+      <span className="relative flex h-2.5 w-2.5">
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-300 opacity-75"></span>
+        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-300"></span>
+      </span>
+      <MessageCircle className="w-4 h-4 text-white" />
+      <span className="text-xs font-sans font-bold tracking-wide text-white">
+        Concierge Desk
       </span>
     </a>
   );

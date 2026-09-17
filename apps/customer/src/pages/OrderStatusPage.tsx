@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { MetaTags } from '@shared/components/MetaTags';
-import { OrderTimeline } from '../components/OrderTimeline';
+import { OrderTimeline, STATUS_MESSAGES } from '../components/OrderTimeline';
 import { useOrders } from '@shared/hooks/useOrders';
-import type { Order } from '@shared/types/order';
-import { Clock, ShoppingBag, ArrowLeft, AlertCircle, CreditCard } from 'lucide-react';
+import type { Order, OrderStatus } from '@shared/types/order';
+import { Clock, ShoppingBag, ArrowLeft, AlertCircle, CreditCard, Sparkles, X, Receipt } from 'lucide-react';
 import { LoadingSpinner } from '@shared/components/LoadingSpinner';
+import { InvoiceModal } from '@shared/components/InvoiceModal';
 import { RESTAURANT_BRAND } from '@shared/config/constants';
 
 export const OrderStatusPage: React.FC = () => {
@@ -15,6 +17,37 @@ export const OrderStatusPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [payError, setPayError] = useState<string | null>(null);
+  const [statusToast, setStatusToast] = useState<{ message: string; status: OrderStatus } | null>(null);
+  const [showInvoice, setShowInvoice] = useState<boolean>(false);
+  const prevStatusRef = useRef<OrderStatus | null>(null);
+
+  const playNotificationChime = () => {
+    try {
+      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(587.33, now); // D5
+      osc.frequency.exponentialRampToValueAtTime(880, now + 0.15); // A5
+      gain.gain.setValueAtTime(0.12, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.4);
+    } catch {
+      // Autoplay browser policy catch
+    }
+  };
+
+  useEffect(() => {
+    if (!statusToast) return;
+    const timer = setTimeout(() => setStatusToast(null), 6000);
+    return () => clearTimeout(timer);
+  }, [statusToast]);
 
   useEffect(() => {
     if (!id) {
@@ -32,12 +65,20 @@ export const OrderStatusPage: React.FC = () => {
       const foundOrder = await getOrderById(id);
       if (foundOrder) {
         setOrder(foundOrder);
+        prevStatusRef.current = foundOrder.orderStatus;
         setLoading(false);
 
-        // Subscribe to live status changes
+        // Subscribe to live status changes (multi-transport realtime)
         unsubscribe = subscribeToOrder(foundOrder.id, (updatedOrder) => {
           setOrder(updatedOrder);
-        });
+
+          if (prevStatusRef.current && prevStatusRef.current !== updatedOrder.orderStatus) {
+            const msg = STATUS_MESSAGES[updatedOrder.orderStatus] || `Order status updated to ${updatedOrder.orderStatus}.`;
+            setStatusToast({ message: msg, status: updatedOrder.orderStatus });
+            playNotificationChime();
+          }
+          prevStatusRef.current = updatedOrder.orderStatus;
+        }, foundOrder.trackingToken);
       } else {
         setLoading(false);
         setErrorMsg(`Order ticket "${id}" was not found.`);
@@ -62,16 +103,16 @@ export const OrderStatusPage: React.FC = () => {
 
   if (errorMsg || !order) {
     return (
-      <div className="max-w-2xl mx-auto px-4 py-16 text-center space-y-6 text-[#F5EFE5]">
+      <div className="max-w-2xl mx-auto px-4 py-16 text-center space-y-6 text-[#111A15]">
         <MetaTags title="Order Not Found | Craftsland" />
-        <div className="w-16 h-16 rounded-full bg-red-950/40 text-red-400 flex items-center justify-center mx-auto">
+        <div className="w-16 h-16 rounded-2xl bg-rose-50 border border-rose-200 text-rose-600 flex items-center justify-center mx-auto">
           <AlertCircle className="w-8 h-8" />
         </div>
-        <h2 className="font-serif text-3xl font-bold text-red-400">Ticket Not Found</h2>
-        <p className="text-[#B8AEA1] text-sm max-w-md mx-auto">{errorMsg || 'Unable to locate order ticket.'}</p>
+        <h2 className="font-serif text-3xl font-bold text-[#111A15]">Ticket Not Found</h2>
+        <p className="text-[#5C6E63] text-sm max-w-md mx-auto">{errorMsg || 'Unable to locate order ticket.'}</p>
         <Link
           to="/menu"
-          className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#B84A32] hover:bg-[#8B3525] text-white font-bold text-xs uppercase tracking-widest shadow-md transition-all"
+          className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[#15803D] hover:bg-[#166534] text-white font-bold text-xs uppercase tracking-widest shadow-xs border border-[#166534] transition-all min-h-[44px]"
         >
           Return to Menu
         </Link>
@@ -80,52 +121,81 @@ export const OrderStatusPage: React.FC = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-10 space-y-8 text-[#F5EFE5]">
+    <div className="max-w-4xl mx-auto px-4 py-10 space-y-8 text-[#111A15]">
       <MetaTags title={`Order ${order.orderNumber} Status | Craftsland`} />
+
+      {/* Realtime Status Advancement Notification Toast */}
+      <AnimatePresence>
+        {statusToast && (
+          <motion.div
+            initial={{ opacity: 0, y: -16, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -16, scale: 0.96 }}
+            transition={{ duration: 0.25 }}
+            className="p-4 rounded-2xl bg-[#15803D] text-white shadow-md border border-[#166534] flex items-center justify-between gap-3"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
+                <Sparkles className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <span className="text-[10px] uppercase font-bold tracking-widest text-emerald-200 block">Live Status Update</span>
+                <p className="text-xs sm:text-sm font-semibold">{statusToast.message}</p>
+              </div>
+            </div>
+            <button
+              onClick={() => setStatusToast(null)}
+              className="p-1.5 rounded-lg hover:bg-white/20 transition-colors text-white cursor-pointer"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Header */}
       <div className="text-center space-y-2">
-        <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#B84A32]/15 border border-[#B84A32]/35 text-[#D29A55] text-xs font-mono font-bold">
-          <Clock className="w-3.5 h-3.5 animate-pulse text-[#B84A32]" /> Live Order Tracking
+        <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#15803D]/10 border border-[#15803D]/30 text-[#15803D] text-xs font-mono font-bold">
+          <Clock className="w-3.5 h-3.5 animate-pulse text-[#15803D]" /> Live Order Tracking
         </div>
-        <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#F5EFE5]">
+        <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#111A15]">
           Ticket {order.orderNumber}
         </h1>
-        <p className="text-[#B8AEA1] text-xs sm:text-sm">
-          Placed on {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} • Mode: <span className="text-[#B84A32] font-bold">{order.orderType}</span>
+        <p className="text-[#5C6E63] text-xs sm:text-sm">
+          Placed on {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} • Mode: <span className="text-[#15803D] font-bold">{order.orderType}</span>
         </p>
       </div>
 
       {/* Animated Order Timeline */}
-      <div className="bg-[#211B16] border border-[#3A3027] p-6 sm:p-8 rounded-2xl space-y-8 shadow-xl">
+      <div className="bg-white border border-[#E2E8E0] p-6 sm:p-8 rounded-2xl space-y-8 shadow-xs">
         <OrderTimeline orderStatus={order.orderStatus} orderType={order.orderType} />
       </div>
 
       {/* Ticket Details & Items Breakdown */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Ordered Dishes List */}
-        <div className="md:col-span-2 bg-[#211B16] border border-[#3A3027] p-6 rounded-2xl space-y-4 shadow-xl">
-          <h3 className="font-serif text-xl font-bold text-[#F5EFE5] border-b border-[#3A3027] pb-3 flex items-center gap-2">
-            <ShoppingBag className="w-5 h-5 text-[#B84A32]" /> Prepared Items
+        <div className="md:col-span-2 bg-white border border-[#E2E8E0] p-6 rounded-2xl space-y-4 shadow-xs">
+          <h3 className="font-serif text-xl font-bold text-[#111A15] border-b border-[#E2E8E0] pb-3 flex items-center gap-2">
+            <ShoppingBag className="w-5 h-5 text-[#15803D]" /> Prepared Items
           </h3>
 
           <div className="space-y-3">
             {order.items.map((item) => (
-              <div key={item.id} className="bg-[#171310] border border-[#3A3027] p-4 rounded-xl flex items-center justify-between gap-4">
+              <div key={item.id} className="bg-[#FAF9F5] border border-[#E2E8E0] p-4 rounded-xl flex items-center justify-between gap-4">
                 <div>
-                  <h4 className="font-serif font-bold text-[#F5EFE5] text-sm">{item.dishName}</h4>
-                  <p className="text-xs text-[#B84A32] font-mono font-bold">
+                  <h4 className="font-serif font-bold text-[#111A15] text-sm">{item.dishName}</h4>
+                  <p className="text-xs text-[#15803D] font-mono font-bold">
                     {RESTAURANT_BRAND.currencySymbol}{item.unitPrice.toFixed(2)} × {item.quantity}
                   </p>
                   {item.selectedModifiers.length > 0 && (
-                    <div className="text-[11px] text-[#B8AEA1] mt-1">
+                    <div className="text-[11px] text-[#5C6E63] mt-1">
                       {item.selectedModifiers.map((m, idx) => (
                         <span key={idx} className="block">• {m.optionName} {m.price > 0 && `(+${RESTAURANT_BRAND.currencySymbol}${m.price.toFixed(2)})`}</span>
                       ))}
                     </div>
                   )}
                 </div>
-                <span className="font-mono text-sm font-bold text-[#F5EFE5]">
+                <span className="font-mono text-sm font-bold text-[#111A15]">
                   {RESTAURANT_BRAND.currencySymbol}{item.itemSubtotal.toFixed(2)}
                 </span>
               </div>
@@ -136,53 +206,53 @@ export const OrderStatusPage: React.FC = () => {
         {/* Summary Info Sidebar */}
         <div className="space-y-6">
           {payError && (
-            <div className="bg-red-950/40 border border-red-900/50 p-4 rounded-xl text-xs text-red-300 flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
+            <div className="bg-rose-50 border border-rose-200 p-4 rounded-xl text-xs text-rose-800 flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
               <span>{payError}</span>
             </div>
           )}
 
-          <div className="bg-[#211B16] border border-[#3A3027] p-6 rounded-2xl space-y-4 text-xs shadow-xl">
-            <h4 className="font-serif text-lg font-bold text-[#F5EFE5] border-b border-[#3A3027] pb-2">
+          <div className="bg-white border border-[#E2E8E0] p-6 rounded-2xl space-y-4 text-xs shadow-xs">
+            <h4 className="font-serif text-lg font-bold text-[#111A15] border-b border-[#E2E8E0] pb-2">
               Ticket Overview
             </h4>
 
-            <div className="space-y-2 text-[#F5EFE5] font-mono">
+            <div className="space-y-2 text-[#111A15] font-mono">
               <div className="flex justify-between">
-                <span className="text-[#B8AEA1]">Payment Status:</span>
-                <span className={`font-bold ${order.paymentStatus === 'PAID' ? 'text-emerald-400' : order.paymentStatus === 'FAILED' ? 'text-red-400' : 'text-amber-400'}`}>
+                <span className="text-[#5C6E63]">Payment Status:</span>
+                <span className={`font-bold ${order.paymentStatus === 'PAID' ? 'text-emerald-600' : order.paymentStatus === 'FAILED' ? 'text-rose-600' : 'text-amber-600'}`}>
                   {order.paymentStatus}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#B8AEA1]">Reference:</span>
-                <span className="text-[#F5EFE5] truncate max-w-[100px]">{order.paymentReference || 'N/A'}</span>
+                <span className="text-[#5C6E63]">Reference:</span>
+                <span className="text-[#111A15] truncate max-w-[100px]">{order.paymentReference || 'N/A'}</span>
               </div>
               {order.tableNumber && (
                 <div className="flex justify-between">
-                  <span className="text-[#B8AEA1]">Table Number:</span>
-                  <span className="text-[#B84A32] font-bold">{order.tableNumber}</span>
+                  <span className="text-[#5C6E63]">Table Number:</span>
+                  <span className="text-[#15803D] font-bold">{order.tableNumber}</span>
                 </div>
               )}
               {order.deliveryAddress && (
                 <div className="space-y-1">
-                  <span className="text-[#B8AEA1] block">Delivery Address:</span>
-                  <p className="text-[#F5EFE5] font-sans text-xs bg-[#171310] border border-[#3A3027] p-2 rounded-lg">{order.deliveryAddress}</p>
+                  <span className="text-[#5C6E63] block">Delivery Address:</span>
+                  <p className="text-[#111A15] font-sans text-xs bg-[#FAF9F5] border border-[#E2E8E0] p-2 rounded-lg">{order.deliveryAddress}</p>
                 </div>
               )}
             </div>
 
-            <div className="space-y-2 pt-3 border-t border-[#3A3027]">
-              <div className="flex justify-between text-[#B8AEA1]"><span>Subtotal:</span><span>{RESTAURANT_BRAND.currencySymbol}{order.subtotal.toFixed(2)}</span></div>
-              <div className="flex justify-between text-[#B8AEA1]"><span>Tax:</span><span>{RESTAURANT_BRAND.currencySymbol}{order.taxAmount.toFixed(2)}</span></div>
+            <div className="space-y-2 pt-3 border-t border-[#E2E8E0]">
+              <div className="flex justify-between text-[#5C6E63]"><span>Subtotal:</span><span>{RESTAURANT_BRAND.currencySymbol}{order.subtotal.toFixed(2)}</span></div>
+              <div className="flex justify-between text-[#5C6E63]"><span>Tax:</span><span>{RESTAURANT_BRAND.currencySymbol}{order.taxAmount.toFixed(2)}</span></div>
               {order.deliveryFee > 0 && (
-                <div className="flex justify-between text-[#B8AEA1]"><span>Delivery Fee:</span><span>{RESTAURANT_BRAND.currencySymbol}{order.deliveryFee.toFixed(2)}</span></div>
+                <div className="flex justify-between text-[#5C6E63]"><span>Delivery Fee:</span><span>{RESTAURANT_BRAND.currencySymbol}{order.deliveryFee.toFixed(2)}</span></div>
               )}
-              <div className="flex justify-between text-[#B8AEA1]"><span>Gratuity:</span><span>{RESTAURANT_BRAND.currencySymbol}{order.tipAmount.toFixed(2)}</span></div>
+              <div className="flex justify-between text-[#5C6E63]"><span>Gratuity:</span><span>{RESTAURANT_BRAND.currencySymbol}{order.tipAmount.toFixed(2)}</span></div>
 
-              <div className="flex justify-between font-serif text-base font-bold text-[#F5EFE5] pt-2 border-t border-[#3A3027]">
+              <div className="flex justify-between font-serif text-base font-bold text-[#111A15] pt-2 border-t border-[#E2E8E0]">
                 <span>Total Amount:</span>
-                <span className="text-[#B84A32] font-mono font-bold">{RESTAURANT_BRAND.currencySymbol}{order.totalAmount.toFixed(2)}</span>
+                <span className="text-[#15803D] font-mono font-bold text-lg">{RESTAURANT_BRAND.currencySymbol}{order.totalAmount.toFixed(2)}</span>
               </div>
             </div>
 
@@ -199,7 +269,7 @@ export const OrderStatusPage: React.FC = () => {
                   }
                 }}
                 disabled={isPlacingOrder}
-                className="w-full mt-2 py-3 rounded-full bg-[#B84A32] hover:bg-[#8B3525] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-md transition-colors disabled:opacity-50"
+                className="w-full mt-2 py-3.5 rounded-xl bg-[#15803D] hover:bg-[#166534] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-xs border border-[#166534] transition-colors disabled:opacity-50 min-h-[44px]"
               >
                 {isPlacingOrder ? (
                   <span className="flex items-center gap-2">
@@ -215,15 +285,31 @@ export const OrderStatusPage: React.FC = () => {
             )}
           </div>
 
+          {/* View & Print Tax Invoice Button */}
+          <button
+            type="button"
+            onClick={() => setShowInvoice(true)}
+            className="w-full py-3.5 rounded-xl border border-[#E2E8E0] bg-white hover:border-[#15803D] text-[#111A15] hover:text-[#15803D] text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-xs transition-colors min-h-[44px]"
+          >
+            <Receipt className="w-4 h-4 text-[#15803D]" /> View & Print Tax Invoice
+          </button>
+
           <Link
             to="/menu"
-            className="w-full py-3 rounded-full border border-[#3A3027] bg-[#171310] text-[#F5EFE5] hover:text-[#B84A32] hover:border-[#B84A32] text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-xs transition-colors"
+            className="w-full py-3.5 rounded-xl border border-[#E2E8E0] bg-[#FAF9F5] text-[#111A15] hover:text-[#15803D] hover:border-[#15803D]/40 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-xs transition-colors min-h-[44px]"
           >
             <ArrowLeft className="w-4 h-4" /> Back to Menu
           </Link>
 
         </div>
       </div>
+
+      {/* Official Tax Invoice Modal */}
+      <InvoiceModal
+        order={order}
+        isOpen={showInvoice}
+        onClose={() => setShowInvoice(false)}
+      />
     </div>
   );
 };

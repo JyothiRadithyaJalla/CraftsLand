@@ -92,7 +92,7 @@ BEGIN
 
   -- Pre-generate unique order number and cryptographically secure tracking token
   v_order_number := public.generate_order_number();
-  v_tracking_token := encode(gen_random_bytes(16), 'hex');
+  v_tracking_token := replace(gen_random_uuid()::text, '-', '');
 
   -- Pre-insert order header to acquire ID
   INSERT INTO public.orders (
@@ -343,7 +343,7 @@ BEGIN
   END IF;
 
   -- Generate human-readable booking reference
-  v_booking_ref := 'LN-' || UPPER(SUBSTRING(encode(gen_random_bytes(4), 'hex') FROM 1 FOR 6));
+  v_booking_ref := 'LN-' || UPPER(SUBSTRING(replace(gen_random_uuid()::text, '-', '') FROM 1 FOR 6));
 
   INSERT INTO public.reservations (
     booking_reference,

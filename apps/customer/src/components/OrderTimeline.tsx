@@ -15,6 +15,15 @@ interface TimelineStep {
   icon: React.ComponentType<{ className?: string }>;
 }
 
+export const STATUS_MESSAGES: Record<OrderStatus, string> = {
+  PENDING: 'Order received',
+  ACCEPTED: 'Order accepted by the kitchen',
+  PREPARING: 'Our chefs are preparing your order',
+  READY: 'Your order is ready',
+  COMPLETED: 'Order completed',
+  CANCELLED: 'Order cancelled',
+};
+
 export const OrderTimeline: React.FC<OrderTimelineProps> = ({ orderStatus, orderType }) => {
   const getReadyLabel = () => {
     switch (orderType) {
@@ -31,43 +40,47 @@ export const OrderTimeline: React.FC<OrderTimelineProps> = ({ orderStatus, order
   const steps: TimelineStep[] = [
     {
       key: 'PENDING',
-      label: 'Order Placed',
-      sublabel: 'Received & transmitted to maitre d’',
+      label: 'Order Received',
+      sublabel: STATUS_MESSAGES.PENDING,
       icon: Clock,
     },
     {
       key: 'ACCEPTED',
-      label: 'Confirmed',
-      sublabel: 'Approved by head sommelier & chef',
+      label: 'Accepted',
+      sublabel: STATUS_MESSAGES.ACCEPTED,
       icon: CheckCircle2,
     },
     {
       key: 'PREPARING',
-      label: 'Kitchen Prep',
-      sublabel: 'Artisanal preparation in progress',
+      label: 'Preparing',
+      sublabel: STATUS_MESSAGES.PREPARING,
       icon: ChefHat,
     },
     {
       key: 'READY',
       label: getReadyLabel(),
-      sublabel: orderType === 'DELIVERY' ? 'Courier en route to your address' : 'Awaiting table presentation',
+      sublabel: STATUS_MESSAGES.READY,
       icon: orderType === 'DELIVERY' ? Truck : orderType === 'PICKUP' ? Store : Bell,
     },
     {
       key: 'COMPLETED',
       label: 'Completed',
-      sublabel: 'Delivered with luxury excellence',
+      sublabel: STATUS_MESSAGES.COMPLETED,
       icon: UtensilsCrossed,
     },
   ];
 
   if (orderStatus === 'CANCELLED') {
     return (
-      <div className="p-6 rounded-2xl border border-[#B84A32]/40 text-center space-y-3 bg-[#211B16] shadow-xl">
-        <XCircle className="w-12 h-12 text-[#B84A32] mx-auto animate-pulse" />
-        <h3 className="font-serif text-xl font-bold text-[#F5EFE5]">Order Ticket Cancelled</h3>
-        <p className="text-xs text-[#B8AEA1] max-w-sm mx-auto">
-          This culinary order was cancelled. If you believe this is an error or wish to modify your reservation, please contact our concierge.
+      <div className="p-6 rounded-2xl border border-rose-200 text-center space-y-3 bg-white shadow-xs">
+        <XCircle className="w-12 h-12 text-rose-600 mx-auto" />
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-50 text-rose-700 text-[11px] font-bold tracking-wider uppercase border border-rose-200">
+          ● Current Status
+        </div>
+        <h3 className="font-serif text-2xl font-bold text-rose-900">Order Cancelled</h3>
+        <p className="text-sm font-semibold text-rose-700">Order cancelled</p>
+        <p className="text-xs text-[#5C6E63] max-w-sm mx-auto">
+          This culinary order was cancelled. If you believe this is an error or wish to modify your order, please contact our concierge.
         </p>
       </div>
     );
@@ -79,47 +92,76 @@ export const OrderTimeline: React.FC<OrderTimelineProps> = ({ orderStatus, order
   return (
     <div className="space-y-6">
       {/* Step Indicators Bar (Horizontal Desktop & Compact) */}
-      <div className="relative flex items-center justify-between max-w-2xl mx-auto px-4">
+      <div className="relative flex items-center justify-between max-w-2xl mx-auto px-2 sm:px-4">
         {/* Background Line */}
-        <div className="absolute top-1/2 left-8 right-8 -translate-y-1/2 h-0.5 bg-[#3A3027] -z-10" />
+        <div className="absolute top-5 left-8 right-8 h-0.5 bg-[#E2E8E0] -z-10" />
         
         {/* Active Progress Line */}
         <motion.div
-          className="absolute top-1/2 left-8 -translate-y-1/2 h-0.5 bg-gradient-to-r from-[#C85A3A] to-[#B84A32] -z-10"
+          className="absolute top-5 left-8 -z-10 h-0.5 bg-[#15803D]"
           initial={{ width: '0%' }}
           animate={{
             width: `${Math.min(100, Math.max(0, (currentIndex / (steps.length - 1)) * 100))}%`,
           }}
-          transition={{ duration: 0.8, ease: 'easeInOut' }}
+          transition={{ duration: 0.5, ease: 'easeInOut' }}
         />
 
         {steps.map((step, idx) => {
           const isDone = idx < currentIndex;
           const isCurrent = idx === currentIndex;
+          const isUpcoming = idx > currentIndex;
           const StepIcon = step.icon;
 
           return (
-            <div key={step.key} className="flex flex-col items-center group">
-              <motion.div
-                initial={false}
-                animate={{
-                  scale: isCurrent ? 1.15 : 1,
-                }}
-                className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all ${
-                  isDone
-                    ? 'bg-[#B84A32] border-[#B84A32] text-white'
-                    : isCurrent
-                    ? 'bg-[#211B16] border-[#B84A32] text-[#B84A32] ring-4 ring-[#B84A32]/25 shadow-md'
-                    : 'bg-[#171310] border-[#3A3027] text-[#B8AEA1]/40'
-                }`}
-              >
-                {isDone ? <CheckCircle2 className="w-5 h-5" /> : <StepIcon className="w-5 h-5" />}
-              </motion.div>
+            <div key={step.key} className="flex flex-col items-center group flex-1 max-w-[120px]">
+              <div className="relative flex items-center justify-center">
+                {isCurrent && (
+                  <motion.div
+                    initial={{ scale: 0.9, opacity: 0.6 }}
+                    animate={{ scale: 1.55, opacity: 0 }}
+                    transition={{ repeat: Infinity, duration: 2.0, ease: 'easeOut' }}
+                    className="absolute inset-0 rounded-full bg-[#15803D]/30 pointer-events-none"
+                  />
+                )}
+                <motion.div
+                  initial={false}
+                  animate={{
+                    scale: isCurrent ? 1.12 : 1,
+                  }}
+                  className={`relative w-10 h-10 rounded-full flex items-center justify-center border transition-all ${
+                    isDone
+                      ? 'bg-[#15803D] border-[#15803D] text-white shadow-xs'
+                      : isCurrent
+                      ? 'bg-white border-2 border-[#15803D] text-[#15803D] ring-4 ring-[#15803D]/15 shadow-xs'
+                      : 'bg-[#FAF9F5] border border-[#E2E8E0] text-[#5C6E63]/40'
+                  }`}
+                >
+                  {isDone ? <CheckCircle2 className="w-5 h-5" /> : <StepIcon className="w-5 h-5" />}
+                </motion.div>
+              </div>
 
-              <div className="mt-2 text-center hidden sm:block">
-                <p className={`text-[11px] font-bold ${isCurrent ? 'text-[#B84A32]' : isDone ? 'text-[#F5EFE5]' : 'text-[#B8AEA1]/40'}`}>
+              <div className="mt-2 text-center">
+                <p className={`text-[10px] sm:text-[11px] font-bold leading-tight ${isCurrent ? 'text-[#15803D]' : isDone ? 'text-[#111A15]' : 'text-[#5C6E63]/40'}`}>
                   {step.label}
                 </p>
+                <div className="mt-1">
+                  {isDone && (
+                    <span className="text-[9px] sm:text-[10px] font-semibold text-[#15803D] inline-flex items-center justify-center gap-0.5">
+                      ✓ Done
+                    </span>
+                  )}
+                  {isCurrent && (
+                    <span className="text-[9px] sm:text-[10px] font-bold text-[#15803D] inline-flex items-center justify-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#15803D] animate-ping" />
+                      ● Current Status
+                    </span>
+                  )}
+                  {isUpcoming && (
+                    <span className="text-[9px] sm:text-[10px] text-[#5C6E63]/40 inline-flex items-center justify-center">
+                      ○ Upcoming
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           );
@@ -129,17 +171,20 @@ export const OrderTimeline: React.FC<OrderTimelineProps> = ({ orderStatus, order
       {/* Detailed Current Status Badge */}
       <motion.div
         key={orderStatus}
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="bg-[#211B16] p-5 rounded-2xl border border-[#3A3027] text-center space-y-1.5 max-w-lg mx-auto shadow-xl"
+        initial={{ opacity: 0, y: 8, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.35, ease: 'easeOut' }}
+        className="bg-white p-5 sm:p-6 rounded-2xl border border-[#E2E8E0] text-center space-y-2 max-w-lg mx-auto shadow-xs"
       >
-        <span className="text-[10px] uppercase tracking-widest text-[#B84A32] font-bold">Live Order Status</span>
-        <h3 className="font-serif text-2xl font-bold text-[#F5EFE5]">
-          {steps[currentIndex]?.label || 'Processing Order'}
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#15803D]/10 text-[#15803D] text-[10px] sm:text-[11px] font-bold tracking-wider uppercase">
+          <span className="w-2 h-2 rounded-full bg-[#15803D] animate-ping" />
+          ● Current Status
+        </div>
+        <h3 className="font-serif text-2xl font-bold text-[#111A15]">
+          {steps[currentIndex]?.label || orderStatus}
         </h3>
-        <p className="text-xs text-[#B8AEA1]">
-          {steps[currentIndex]?.sublabel || 'Updating status with kitchen staff...'}
+        <p className="text-sm font-semibold text-[#15803D]">
+          {STATUS_MESSAGES[orderStatus] || steps[currentIndex]?.sublabel}
         </p>
       </motion.div>
     </div>

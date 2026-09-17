@@ -71,7 +71,7 @@ DO $$ BEGIN
 END $$;
 
 -- Ensure tracking token has unique constraint and existing rows get a token
-UPDATE public.orders SET tracking_token = encode(gen_random_bytes(16), 'hex') WHERE tracking_token IS NULL;
+UPDATE public.orders SET tracking_token = replace(gen_random_uuid()::text, '-', '') WHERE tracking_token IS NULL;
 ALTER TABLE public.orders ALTER COLUMN tracking_token SET NOT NULL;
 
 DO $$ BEGIN
@@ -82,7 +82,7 @@ END $$;
 
 -- 5. NORMALIZED ORDER ITEMS TABLE
 CREATE TABLE IF NOT EXISTS public.order_items (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   order_id UUID NOT NULL REFERENCES public.orders(id) ON DELETE CASCADE,
   dish_id UUID NOT NULL REFERENCES public.dishes(id) ON DELETE RESTRICT,
   dish_name_snapshot TEXT NOT NULL,
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS public.order_items (
 
 -- 6. NORMALIZED PAYMENTS TABLE
 CREATE TABLE IF NOT EXISTS public.payments (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   order_id UUID NOT NULL REFERENCES public.orders(id) ON DELETE RESTRICT,
   provider TEXT NOT NULL DEFAULT 'MOCK',
   provider_order_id TEXT,
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS public.payments (
 
 -- 7. REVIEWS TABLE
 CREATE TABLE IF NOT EXISTS public.reviews (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   customer_name TEXT NOT NULL,
   rating INT NOT NULL CHECK (rating >= 1 AND rating <= 5),
   comment TEXT NOT NULL,
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS public.reviews (
 
 -- 8. OFFERS TABLE
 CREATE TABLE IF NOT EXISTS public.offers (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   code TEXT UNIQUE NOT NULL,
   title TEXT NOT NULL,
   discount_percent INT NOT NULL CHECK (discount_percent > 0 AND discount_percent <= 100),
@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS public.offers (
 
 -- 9. EVENTS TABLE
 CREATE TABLE IF NOT EXISTS public.events (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   guest_name TEXT NOT NULL,
   event_type TEXT NOT NULL,
   event_date DATE NOT NULL,
@@ -142,7 +142,7 @@ CREATE TABLE IF NOT EXISTS public.events (
 
 -- 10. GALLERY TABLE
 CREATE TABLE IF NOT EXISTS public.gallery (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   title TEXT NOT NULL,
   category TEXT NOT NULL,
   media_url TEXT NOT NULL,

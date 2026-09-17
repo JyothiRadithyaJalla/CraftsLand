@@ -34,13 +34,13 @@ export const EventsPage: React.FC = () => {
 
       {/* Header */}
       <div className="text-center space-y-3">
-        <span className="font-serif text-xs font-bold text-[#D29A55] tracking-[0.3em] uppercase block">
+        <span className="font-sans text-xs font-bold text-[#15803D] tracking-[0.25em] uppercase block">
           Exclusive Gatherings
         </span>
-        <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#F5EFE5]">
+        <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#111A15]">
           Private Vault & VIP Experiences
         </h1>
-        <p className="text-[#B8AEA1] text-sm max-w-xl mx-auto font-light">
+        <p className="text-[#5C6E63] text-sm max-w-xl mx-auto font-light">
           Host your private celebrations and corporate dinners in our discreet VIP suites.
         </p>
       </div>
@@ -48,21 +48,21 @@ export const EventsPage: React.FC = () => {
       {/* Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {eventTypes.map((evt, idx) => (
-          <div key={idx} className="bg-[#211B16] rounded-2xl overflow-hidden flex flex-col justify-between border border-[#3A3027] hover:border-[#B84A32]/60 shadow-xl transition-all">
+          <div key={idx} className="bg-white rounded-3xl overflow-hidden flex flex-col justify-between border border-[#E2E8E0] hover:border-[#15803D]/50 shadow-sm transition-all">
             <div className="relative h-48">
               <img src={evt.img} alt={evt.title} className="w-full h-full object-cover" />
-              <div className="absolute top-3 right-3 px-3 py-1 rounded-full bg-[#171310]/95 text-[#F5EFE5] font-mono text-[11px] border border-[#3A3027] shadow-sm font-semibold">
+              <div className="absolute top-3 right-3 px-3 py-1 rounded-full bg-white/95 text-[#111A15] font-mono text-[11px] border border-[#E2E8E0] shadow-xs font-semibold">
                 {evt.guests}
               </div>
             </div>
-            <div className="p-6 space-y-3 flex-1 flex flex-col justify-between">
+            <div className="p-6 space-y-4 flex-1 flex flex-col justify-between">
               <div className="space-y-2">
-                <h3 className="font-serif text-xl font-bold text-[#F5EFE5]">{evt.title}</h3>
-                <p className="text-[#B8AEA1] text-xs leading-relaxed">{evt.desc}</p>
+                <h3 className="font-serif text-xl font-bold text-[#111A15]">{evt.title}</h3>
+                <p className="text-[#5C6E63] text-xs leading-relaxed">{evt.desc}</p>
               </div>
               <button
                 onClick={() => setModalOpen(true)}
-                className="w-full py-2.5 rounded-full bg-[#B84A32]/15 text-[#F5EFE5] border border-[#B84A32]/30 text-xs font-semibold uppercase tracking-wider hover:bg-[#B84A32] hover:text-[#F5EFE5] transition-all cursor-pointer"
+                className="w-full min-h-[42px] py-2.5 rounded-xl bg-[#F1F7F2] text-[#15803D] border border-[#15803D]/30 text-xs font-bold uppercase tracking-wider hover:bg-[#15803D] hover:text-white transition-colors cursor-pointer shadow-xs"
               >
                 Inquire Private Booking
               </button>
@@ -75,31 +75,31 @@ export const EventsPage: React.FC = () => {
       <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)} title="Private Event Request">
         {submitted ? (
           <div className="text-center py-8 space-y-3">
-            <CheckCircle className="w-12 h-12 text-emerald-400 mx-auto" />
-            <h3 className="font-serif text-xl font-bold text-[#F5EFE5]">Request Transmitted</h3>
-            <p className="text-xs text-[#B8AEA1]">Our VIP Event Director will contact you within 24 hours.</p>
+            <CheckCircle className="w-12 h-12 text-[#15803D] mx-auto" />
+            <h3 className="font-serif text-xl font-bold text-[#111A15]">Request Transmitted</h3>
+            <p className="text-xs text-[#5C6E63]">Our VIP Event Director will contact you within 24 hours.</p>
           </div>
         ) : (
           <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} className="space-y-4 text-xs">
             <div>
-              <label className="block text-[#F5EFE5] mb-1 font-medium">Host Full Name</label>
-              <input type="text" required placeholder="Lord Sterling Vance" className="w-full px-4 py-2.5 bg-[#171310] border border-[#3A3027] focus:border-[#B84A32] rounded-lg text-[#F5EFE5] placeholder:text-[#B8AEA1]/40 outline-none" />
+              <label className="block text-[#111A15] mb-1 font-semibold">Host Full Name</label>
+              <input type="text" required placeholder="Sterling Vance" className="w-full px-4 py-2.5 bg-[#FAF9F5] border border-[#E2E8E0] focus:border-[#15803D] rounded-xl text-[#111A15] placeholder:text-[#5C6E63]/40 outline-none" />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-[#F5EFE5] mb-1 font-medium">Preferred Date</label>
-                <input type="date" required className="w-full px-4 py-2.5 bg-[#171310] border border-[#3A3027] focus:border-[#B84A32] rounded-lg text-[#F5EFE5] outline-none" />
+                <label className="block text-[#111A15] mb-1 font-semibold">Preferred Date</label>
+                <input type="date" required className="w-full px-4 py-2.5 bg-[#FAF9F5] border border-[#E2E8E0] focus:border-[#15803D] rounded-xl text-[#111A15] outline-none" />
               </div>
               <div>
-                <label className="block text-[#F5EFE5] mb-1 font-medium">Guest Count</label>
-                <input type="number" min="2" max="50" required placeholder="8" className="w-full px-4 py-2.5 bg-[#171310] border border-[#3A3027] focus:border-[#B84A32] rounded-lg text-[#F5EFE5] placeholder:text-[#B8AEA1]/40 outline-none" />
+                <label className="block text-[#111A15] mb-1 font-semibold">Guest Count</label>
+                <input type="number" min="2" max="50" required placeholder="8" className="w-full px-4 py-2.5 bg-[#FAF9F5] border border-[#E2E8E0] focus:border-[#15803D] rounded-xl text-[#111A15] placeholder:text-[#5C6E63]/40 outline-none" />
               </div>
             </div>
             <div>
-              <label className="block text-[#F5EFE5] mb-1 font-medium">Special Requirements</label>
-              <textarea rows={3} placeholder="Sommelier pairing preferences, dietary allergies, audio-visual needs..." className="w-full px-4 py-2.5 bg-[#171310] border border-[#3A3027] focus:border-[#B84A32] rounded-lg text-[#F5EFE5] placeholder:text-[#B8AEA1]/40 outline-none" />
+              <label className="block text-[#111A15] mb-1 font-semibold">Special Requirements</label>
+              <textarea rows={3} placeholder="Sommelier pairing preferences, dietary allergies, audio-visual needs..." className="w-full px-4 py-2.5 bg-[#FAF9F5] border border-[#E2E8E0] focus:border-[#15803D] rounded-xl text-[#111A15] placeholder:text-[#5C6E63]/40 outline-none" />
             </div>
-            <button type="submit" className="w-full py-3 rounded-full bg-gradient-to-r from-[#B84A32] to-[#8B3525] hover:from-[#C85A3A] hover:to-[#B84A32] text-[#F5EFE5] font-bold text-xs uppercase tracking-widest shadow-md transition-all">
+            <button type="submit" className="w-full min-h-[44px] py-3 rounded-xl bg-[#15803D] hover:bg-[#166534] text-white font-bold text-xs uppercase tracking-wider shadow-sm transition-colors cursor-pointer">
               Transmit Inquiry
             </button>
           </form>
