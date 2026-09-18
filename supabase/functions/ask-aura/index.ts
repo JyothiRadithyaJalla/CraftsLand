@@ -156,16 +156,16 @@ Deno.serve(async (req: Request) => {
     }
 
     // 5. Grounded Prompt Assembly
-    const userPrompt = \`LIVE AURA MENU DATA:
-\${JSON.stringify(menu, null, 2)}
+    const userPrompt = `LIVE AURA MENU DATA:
+${JSON.stringify(menu, null, 2)}
 
 CONVERSATION HISTORY:
-\${history.map((h) => \`\${h.role.toUpperCase()}: \${h.content}\`).join("\\n")}
+${history.map((h) => `${h.role.toUpperCase()}: ${h.content}`).join("\n")}
 
 GUEST INQUIRY:
-\${userMessage}
+${userMessage}
 
-Provide your response in JSON format.\`;
+Provide your response in JSON format.`;
 
     let rawOutput = "";
     let providerName = "";
@@ -178,7 +178,7 @@ Provide your response in JSON format.\`;
       if (geminiKey) {
         providerName = "gemini";
         const geminiRes = await fetch(
-          \`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=\${geminiKey}\`,
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -197,7 +197,7 @@ Provide your response in JSON format.\`;
 
         if (!geminiRes.ok) {
           const errText = await geminiRes.text();
-          throw new Error(\`Gemini API error (\${geminiRes.status}): \${errText}\`);
+          throw new Error(`Gemini API error (${geminiRes.status}): ${errText}`);
         }
 
         const data = await geminiRes.json();
@@ -208,7 +208,7 @@ Provide your response in JSON format.\`;
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: \`Bearer \${openaiKey}\`,
+            Authorization: `Bearer ${openaiKey}`,
           },
           signal: controller.signal,
           body: JSON.stringify({
@@ -229,7 +229,7 @@ Provide your response in JSON format.\`;
 
         if (!openaiRes.ok) {
           const errText = await openaiRes.text();
-          throw new Error(\`OpenAI API error (\${openaiRes.status}): \${errText}\`);
+          throw new Error(`OpenAI API error (${openaiRes.status}): ${errText}`);
         }
 
         const data = await openaiRes.json();
@@ -261,7 +261,7 @@ Provide your response in JSON format.\`;
 
         if (!anthropicRes.ok) {
           const errText = await anthropicRes.text();
-          throw new Error(\`Anthropic API error (\${anthropicRes.status}): \${errText}\`);
+          throw new Error(`Anthropic API error (${anthropicRes.status}): ${errText}`);
         }
 
         const data = await anthropicRes.json();
@@ -274,7 +274,7 @@ Provide your response in JSON format.\`;
     // 7. Parse & validate AI output
     let parsed: { message?: string; recommendedDishIds?: string[] } = {};
     try {
-      const sanitized = rawOutput.replace(/^\`\`\`json\\s*/, "").replace(/\\s*\`\`\`$/, "").trim();
+      const sanitized = rawOutput.replace(/^```json\s*/, "").replace(/\s*```$/, "").trim();
       parsed = JSON.parse(sanitized);
     } catch {
       parsed = { message: rawOutput.trim(), recommendedDishIds: [] };
