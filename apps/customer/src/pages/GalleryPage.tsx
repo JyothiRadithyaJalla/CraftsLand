@@ -72,8 +72,8 @@ export const GalleryPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
       <MetaTags
-        title="Ambiance & Plating Gallery | Craftsland"
-        description="Immerse yourself in the visual splendor of Craftsland dining, hand-tossed pizzas, and warm evening lighting."
+        title="Ambiance & Plating Gallery | Aura"
+        description="Immerse yourself in the visual splendor of Aura dining, hand-tossed pizzas, and warm evening lighting."
       />
 
       {/* Header */}
@@ -82,7 +82,7 @@ export const GalleryPage: React.FC = () => {
           Visual Showcase
         </span>
         <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#182019]">
-          Craftsland Visual Gallery
+          Aura Visual Gallery
         </h1>
         <p className="text-[#626F64] text-sm max-w-xl mx-auto font-light font-sans">
           A photography collection highlighting our scratch culinary plating, warm stone-baked creations, and inviting dining spaces.

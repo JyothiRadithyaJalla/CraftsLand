@@ -53,7 +53,7 @@ export const AccountPage: React.FC = () => {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-12 space-y-8 text-[#182019]">
-      <MetaTags title="Guest Account | Craftsland" />
+      <MetaTags title="Guest Account | Aura" />
 
       {/* Account Info */}
       <div className="bg-white p-8 rounded-2xl space-y-6 border border-[#DDD9CB] shadow-xs">
@@ -64,7 +64,7 @@ export const AccountPage: React.FC = () => {
             </div>
             <div>
               <h1 className="font-serif text-2xl font-bold text-[#182019]">{user?.fullName || 'Distinguished Guest'}</h1>
-              <p className="text-xs text-[#626F64]">{user?.email || 'guest@craftsland.com'}</p>
+              <p className="text-xs text-[#626F64]">{user?.email || 'guest@aura.com'}</p>
             </div>
           </div>
 

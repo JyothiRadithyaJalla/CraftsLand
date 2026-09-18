@@ -46,21 +46,29 @@ export const CheckoutPage: React.FC = () => {
 
   if (items.length === 0 && !isPlacingOrder) {
     return (
-      <div className="max-w-2xl mx-auto px-4 py-16 text-center space-y-6 text-[#182019]">
-        <MetaTags title="Checkout | Craftsland" />
-        <div className="w-16 h-16 rounded-2xl bg-[#31543A]/10 text-[#31543A] border border-[#31543A]/20 flex items-center justify-center mx-auto">
+      <div className="max-w-2xl mx-auto px-4 py-24 text-center space-y-6 text-[#182019]">
+        <MetaTags title="Checkout | Aura" />
+        <div className="w-16 h-16 rounded-full bg-[#31543A]/10 text-[#31543A] border border-[#31543A]/20 flex items-center justify-center mx-auto shadow-xs">
           <ShoppingBag className="w-8 h-8" />
         </div>
-        <h2 className="font-serif text-3xl font-bold text-[#182019]">Your Cart is Empty</h2>
-        <p className="text-[#626F64] text-sm max-w-md mx-auto">
-          Please add dishes from our artisan menu to your selection before proceeding to checkout.
-        </p>
-        <Link
-          to="/menu"
-          className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[#31543A] hover:bg-[#26432E] text-white font-bold text-xs uppercase tracking-widest shadow-xs border border-[#26432E] transition-colors min-h-[44px]"
-        >
-          Explore Menu
-        </Link>
+        <div className="space-y-2">
+          <span className="font-sans text-xs font-bold text-[#31543A] tracking-[0.25em] uppercase block">
+            Checkout Concierge
+          </span>
+          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#182019]">Your Cart is Empty</h1>
+          <p className="text-[#626F64] text-sm max-w-md mx-auto font-sans leading-relaxed">
+            Please add dishes from our artisan menu to your selection before proceeding to checkout.
+          </p>
+        </div>
+        <div className="pt-2">
+          <Link
+            to="/menu"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[#31543A] hover:bg-[#26432E] active:scale-[0.97] text-white font-sans font-bold text-xs uppercase tracking-wider shadow-sm transition-all"
+          >
+            <span>Explore Menu</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
       </div>
     );
   }
@@ -103,7 +111,7 @@ export const CheckoutPage: React.FC = () => {
         specialInstructions,
         customerId: user?.id,
         customerName: customerName || user?.fullName || 'Distinguished Guest',
-        customerEmail: customerEmail || user?.email || 'guest@craftsland.com',
+        customerEmail: customerEmail || user?.email || 'guest@aura.com',
         items: items.map((item) => ({
           dishId: item.dish.id,
           dishName: item.dish.name,
@@ -129,7 +137,7 @@ export const CheckoutPage: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10 space-y-8 text-[#182019]">
-      <MetaTags title="Checkout & Payment | Craftsland" />
+      <MetaTags title="Checkout & Payment | Aura" />
 
       {/* Header */}
       <div className="text-center space-y-2">
@@ -246,7 +254,7 @@ export const CheckoutPage: React.FC = () => {
               </Link>
               <button
                 onClick={handleNextStep}
-                className="px-8 py-3.5 rounded-xl bg-[#31543A] hover:bg-[#26432E] text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2 cursor-pointer shadow-xs border border-[#26432E] transition-colors min-h-[44px]"
+                className="px-8 py-3.5 rounded-xl bg-[#31543A] hover:bg-[#26432E] active:scale-[0.97] text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2 cursor-pointer shadow-xs border border-[#26432E] transition-all min-h-[44px]"
               >
                 Proceed to Details <ArrowRight className="w-4 h-4" />
               </button>
@@ -357,7 +365,7 @@ export const CheckoutPage: React.FC = () => {
                     type="email"
                     value={customerEmail}
                     onChange={(e) => setCustomerEmail(e.target.value)}
-                    placeholder="guest@craftsland.com"
+                    placeholder="guest@aura.com"
                     className="w-full bg-[#FAF8F3] border border-[#DDD9CB] rounded-xl px-4 py-2.5 text-sm text-[#182019] placeholder-[#626F64]/50 focus:outline-none focus:border-[#31543A] focus:bg-white"
                   />
                 </div>
@@ -406,7 +414,7 @@ export const CheckoutPage: React.FC = () => {
               </button>
               <button
                 onClick={handleNextStep}
-                className="px-8 py-3.5 rounded-xl bg-[#31543A] hover:bg-[#26432E] text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2 cursor-pointer shadow-xs border border-[#26432E] transition-colors min-h-[44px]"
+                className="px-8 py-3.5 rounded-xl bg-[#31543A] hover:bg-[#26432E] active:scale-[0.97] text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2 cursor-pointer shadow-xs border border-[#26432E] transition-all min-h-[44px]"
               >
                 Proceed to Payment <ArrowRight className="w-4 h-4" />
               </button>
@@ -472,7 +480,7 @@ export const CheckoutPage: React.FC = () => {
                 <button
                   onClick={handlePayAndPlaceOrder}
                   disabled={isPlacingOrder || !isPaymentConfigured}
-                  className="w-full py-4 rounded-xl bg-[#31543A] hover:bg-[#26432E] text-white font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer shadow-xs border border-[#26432E] transition-colors disabled:opacity-50 min-h-[48px]"
+                  className="w-full py-4 rounded-xl bg-[#31543A] hover:bg-[#26432E] active:scale-[0.97] text-white font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer shadow-xs border border-[#26432E] transition-all disabled:opacity-50 min-h-[48px]"
                 >
                   {isPlacingOrder ? (
                     <span className="flex items-center gap-2">

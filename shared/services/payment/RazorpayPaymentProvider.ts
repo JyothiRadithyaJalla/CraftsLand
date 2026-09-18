@@ -77,7 +77,7 @@ export class RazorpayPaymentProvider implements PaymentGateway {
       key: params.keyId,
       amount: params.amountPaise,
       currency: params.currency || 'INR',
-      name: 'Craftsland Culinary Sanctuary',
+      name: 'Aura Culinary Sanctuary',
       description: params.orderNumber ? `Order ${params.orderNumber}` : 'Fine Dining Experience',
       order_id: params.razorpayOrderId,
       prefill: {

@@ -128,3 +128,141 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #C2BDAF;
 }
+
+/* Customer-Scoped Ultra-Thin Luxury Scrollbar (2px to 3px maximum) */
+html.customer-app,
+body.customer-app,
+.customer-app,
+.customer-app * {
+  scrollbar-width: thin;
+  scrollbar-color: #78956A transparent;
+}
+
+html.customer-app::-webkit-scrollbar,
+body.customer-app::-webkit-scrollbar,
+.customer-app::-webkit-scrollbar,
+.customer-app *::-webkit-scrollbar,
+.menu-dish-list-scroll::-webkit-scrollbar,
+.dish-detail-modal-scroll::-webkit-scrollbar {
+  width: 2.5px !important;
+  height: 2.5px !important;
+}
+
+html.customer-app::-webkit-scrollbar-track,
+body.customer-app::-webkit-scrollbar-track,
+.customer-app::-webkit-scrollbar-track,
+.customer-app *::-webkit-scrollbar-track,
+.menu-dish-list-scroll::-webkit-scrollbar-track,
+.dish-detail-modal-scroll::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+html.customer-app::-webkit-scrollbar-thumb,
+body.customer-app::-webkit-scrollbar-thumb,
+.customer-app::-webkit-scrollbar-thumb,
+.customer-app *::-webkit-scrollbar-thumb,
+.menu-dish-list-scroll::-webkit-scrollbar-thumb,
+.dish-detail-modal-scroll::-webkit-scrollbar-thumb {
+  background: #78956A !important;
+  border-radius: 9999px !important;
+  min-height: 28px !important;
+}
+
+html.customer-app::-webkit-scrollbar-thumb:hover,
+body.customer-app::-webkit-scrollbar-thumb:hover,
+.customer-app::-webkit-scrollbar-thumb:hover,
+.customer-app *::-webkit-scrollbar-thumb:hover,
+.menu-dish-list-scroll::-webkit-scrollbar-thumb:hover,
+.dish-detail-modal-scroll::-webkit-scrollbar-thumb:hover {
+  background: #31543A !important;
+}
+
+html.customer-app::-webkit-scrollbar-button,
+body.customer-app::-webkit-scrollbar-button,
+.customer-app::-webkit-scrollbar-button,
+.customer-app *::-webkit-scrollbar-button,
+.menu-dish-list-scroll::-webkit-scrollbar-button,
+.dish-detail-modal-scroll::-webkit-scrollbar-button {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+html.customer-app::-webkit-scrollbar-corner,
+body.customer-app::-webkit-scrollbar-corner,
+.customer-app::-webkit-scrollbar-corner,
+.customer-app *::-webkit-scrollbar-corner,
+.menu-dish-list-scroll::-webkit-scrollbar-corner,
+.dish-detail-modal-scroll::-webkit-scrollbar-corner {
+  background: transparent !important;
+}
+
+/* Dish Detail Modal Scoped 2px Ultra-Thin Luxury Scrollbar */
+.dish-detail-modal-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #78956A transparent;
+  overscroll-behavior: contain;
+}
+
+.dish-detail-modal-scroll::-webkit-scrollbar {
+  width: 2px !important;
+  height: 2px !important;
+}
+
+.dish-detail-modal-scroll::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.dish-detail-modal-scroll::-webkit-scrollbar-thumb {
+  background: #78956A !important;
+  border-radius: 9999px !important;
+  min-height: 24px !important;
+}
+
+.dish-detail-modal-scroll::-webkit-scrollbar-thumb:hover {
+  background: #31543A !important;
+}
+
+.dish-detail-modal-scroll::-webkit-scrollbar-button {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.dish-detail-modal-scroll::-webkit-scrollbar-corner {
+  background: transparent !important;
+}
+
+/* Continuous Horizontal Marquee (Right -> Left) */
+@keyframes marquee-left {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee-left {
+  display: flex;
+  width: max-content;
+  animation: marquee-left 36s linear infinite;
+  will-change: transform;
+}
+
+@media (max-width: 768px) {
+  .animate-marquee-left {
+    animation-duration: 44s;
+  }
+}
+
+.animate-marquee-left:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-left {
+    animation: none;
+    transform: none;
+  }
+}

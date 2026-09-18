@@ -18,7 +18,7 @@ export const FavoritesPage: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
-      <MetaTags title="Saved Favorites | Craftsland" description="Your bookmarked artisanal dishes and culinary favorites." />
+      <MetaTags title="Saved Favorites | Aura" description="Your bookmarked artisanal dishes and culinary favorites." />
 
       <div className="text-center space-y-2">
         <span className="text-xs uppercase font-sans tracking-[0.3em] text-[#31543A] font-bold block">

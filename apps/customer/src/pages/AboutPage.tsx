@@ -11,8 +11,8 @@ export const AboutPage: React.FC = () => {
   return (
     <div className="space-y-24 py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <MetaTags
-        title="Our Story & Culinary Passion | Craftsland"
-        description="Learn how Craftsland delivers Good Food Brighter Moods through exceptional craft, farm-fresh ingredients, and warm hospitality."
+        title="Our Story & Culinary Passion | Aura"
+        description="Learn how Aura delivers Good Food Brighter Moods through exceptional craft, farm-fresh ingredients, and warm hospitality."
       />
 
       {/* Header */}
@@ -31,9 +31,9 @@ export const AboutPage: React.FC = () => {
       {/* Philosophy Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div className="space-y-6 bg-white p-8 sm:p-12 rounded-3xl border border-[#DDD9CB] shadow-sm">
-          <h2 className="font-serif text-3xl font-bold text-[#182019]">The Craftsland Philosophy</h2>
+          <h2 className="font-serif text-3xl font-bold text-[#182019]">The Aura Philosophy</h2>
           <p className="text-[#3A453C] text-sm leading-relaxed font-sans">
-            We founded Craftsland on a simple realization: extraordinary food transforms moods. Whether it's the warm comfort of handmade pasta ribbons or the smoky aroma of flame-seared herbs, food has the power to spark joy and connection.
+            We founded Aura on a simple realization: extraordinary food transforms moods. Whether it's the warm comfort of handmade pasta ribbons or the smoky aroma of flame-seared herbs, food has the power to spark joy and connection.
           </p>
           <p className="text-[#626F64] text-sm leading-relaxed font-sans">
             Our culinary artisans partner with organic regenerative farms, small-batch dairies, and regional growers. By honoring seasonal produce and slow cooking traditions, we craft meals that nourish both body and spirit.
@@ -50,14 +50,14 @@ export const AboutPage: React.FC = () => {
           data-cursor="image"
           onClick={() => setActiveImage({
             url: 'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=1400&auto=format&fit=crop',
-            title: 'Craftsland Scratch Culinary Kitchen Creation',
+            title: 'Aura Scratch Culinary Kitchen Creation',
             category: 'Kitchen Heritage'
           })}
           className="group relative aspect-[4/3] rounded-3xl overflow-hidden bg-white border border-[#DDD9CB] hover:border-[#31543A]/60 shadow-sm cursor-pointer transition-all duration-500"
         >
           <img
             src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=1000&auto=format&fit=crop"
-            alt="Craftsland Culinary Creation"
+            alt="Aura Culinary Creation"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
@@ -79,7 +79,7 @@ export const AboutPage: React.FC = () => {
         >
           <img
             src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=800&auto=format&fit=crop"
-            alt="Craftsland Executive Culinary Director"
+            alt="Aura Executive Culinary Director"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">

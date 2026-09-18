@@ -77,7 +77,7 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
             <div className="relative rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-black/40">
               <img
                 src={imageUrl}
-                alt={title || 'Craftsland Media'}
+                alt={title || 'Aura Media'}
                 className="max-h-[75vh] w-auto max-w-full object-contain rounded-2xl"
               />
             </div>

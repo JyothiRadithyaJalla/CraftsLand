@@ -54,13 +54,13 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="w-screen max-w-md bg-[#F7F4EC] border-l border-[#DDD9CB] flex flex-col justify-between text-[#182019] shadow-2xl pointer-events-auto"
+              className="w-screen max-w-md bg-[#FFEFE2] border-l border-[#DDD9CB] flex flex-col justify-between text-[#182019] shadow-2xl pointer-events-auto"
             >
               {/* Header */}
               <div className="p-6 border-b border-[#DDD9CB] flex items-center justify-between bg-white">
                 <div className="flex items-center gap-2">
                   <ShoppingBag className="w-5 h-5 text-[#31543A]" />
-                  <h2 className="font-serif text-xl font-bold text-[#182019]">Your Craftsland Order</h2>
+                  <h2 className="font-serif text-xl font-bold text-[#182019]">Your Aura Order</h2>
                 </div>
                 <button
                   onClick={onClose}
@@ -89,7 +89,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
                   className={`py-2 rounded-xl flex items-center justify-center gap-1.5 border transition-all cursor-pointer font-bold ${
                     orderType === 'DINE_IN'
                       ? 'bg-[#31543A] text-white border-[#31543A] shadow-xs'
-                      : 'bg-[#F7F4EC] border-[#DDD9CB] text-[#3A453C] hover:text-[#182019]'
+                      : 'bg-[#FAF8F3] border-[#DDD9CB] text-[#3A453C] hover:text-[#182019]'
                   }`}
                 >
                   <Utensils className="w-3.5 h-3.5" /> Dine-In
@@ -99,7 +99,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
                   className={`py-2 rounded-xl flex items-center justify-center gap-1.5 border transition-all cursor-pointer font-bold ${
                     orderType === 'PICKUP'
                       ? 'bg-[#31543A] text-white border-[#31543A] shadow-xs'
-                      : 'bg-[#F7F4EC] border-[#DDD9CB] text-[#3A453C] hover:text-[#182019]'
+                      : 'bg-[#FAF8F3] border-[#DDD9CB] text-[#3A453C] hover:text-[#182019]'
                   }`}
                 >
                   <Store className="w-3.5 h-3.5" /> Pickup
@@ -109,7 +109,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
                   className={`py-2 rounded-xl flex items-center justify-center gap-1.5 border transition-all cursor-pointer font-bold ${
                     orderType === 'DELIVERY'
                       ? 'bg-[#31543A] text-white border-[#31543A] shadow-xs'
-                      : 'bg-[#F7F4EC] border-[#DDD9CB] text-[#3A453C] hover:text-[#182019]'
+                      : 'bg-[#FAF8F3] border-[#DDD9CB] text-[#3A453C] hover:text-[#182019]'
                   }`}
                 >
                   <Truck className="w-3.5 h-3.5" /> Delivery
@@ -170,7 +170,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
 
                         {/* Quantity & Subtotal */}
                         <div className="flex items-center justify-between pt-2">
-                          <div className="flex items-center border border-[#DDD9CB] rounded-xl overflow-hidden bg-[#F7F4EC] text-xs">
+                          <div className="flex items-center border border-[#DDD9CB] rounded-xl overflow-hidden bg-[#FAF8F3] text-xs">
                             <button
                               onClick={() => updateQuantity(item.dish.id, item.quantity - 1)}
                               className="px-2.5 py-1 text-[#626F64] hover:text-[#182019] cursor-pointer"
@@ -210,7 +210,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
                           className={`py-1.5 rounded-xl border text-[11px] font-mono cursor-pointer transition-colors font-bold ${
                             tipPercent === percent
                               ? 'bg-[#31543A] border-[#31543A] text-white shadow-xs'
-                              : 'border-[#DDD9CB] bg-[#F7F4EC] text-[#3A453C] hover:text-[#182019]'
+                              : 'border-[#DDD9CB] bg-[#FAF8F3] text-[#3A453C] hover:text-[#182019]'
                           }`}
                         >
                           {percent}%
@@ -256,15 +256,15 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
                   <div className="flex gap-2">
                     <button
                       onClick={clearCart}
-                      className="px-4 py-3 rounded-xl border border-[#DDD9CB] bg-[#F7F4EC] text-[#3A453C] hover:bg-stone-100 text-xs font-bold cursor-pointer transition-colors shadow-xs"
+                      className="px-4 py-3 rounded-xl border border-[#DDD9CB] bg-[#FAF8F3] text-[#3A453C] hover:bg-stone-100 active:scale-[0.97] text-xs font-bold cursor-pointer transition-all shadow-xs"
                     >
                       Clear
                     </button>
                     <motion.button
-                      whileTap={{ scale: 0.98 }}
+                      whileTap={{ scale: 0.97 }}
                       whileHover={{ scale: 1.01 }}
                       onClick={handleCheckout}
-                      className="flex-1 py-3.5 rounded-xl bg-[#31543A] hover:bg-[#26432E] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-xs transition-all min-h-[48px]"
+                      className="flex-1 py-3.5 rounded-xl bg-[#31543A] hover:bg-[#26432E] active:scale-[0.97] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-xs transition-all min-h-[48px]"
                     >
                       Proceed to Checkout <ArrowRight className="w-4 h-4" />
                     </motion.button>

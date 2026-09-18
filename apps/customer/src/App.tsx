@@ -10,14 +10,13 @@ import { ThemeProvider } from '@shared/context/ThemeContext';
 import { MusicProvider } from '@shared/context/MusicContext';
 import { ErrorBoundary } from '@shared/components/ErrorBoundary';
 import { RouteGuard } from '@shared/components/RouteGuard';
-import { CraftslandCursor } from '@shared/components/CraftslandCursor';
-import { SoundControl } from '@shared/components/SoundControl';
+import { CustomerCursor } from './components/CustomerCursor';
 
 // Customer Components
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { CartDrawer } from './components/CartDrawer';
-import { WhatsAppButton } from './components/WhatsAppButton';
+import { AskAuraDrawer } from './components/AskAuraDrawer';
 
 // Customer Pages
 import { HomePage } from './pages/HomePage';
@@ -49,13 +48,12 @@ export const App: React.FC = () => {
             <OrderProvider>
               <ThemeProvider>
                 <MusicProvider>
-                  <CraftslandCursor />
+                  <CustomerCursor />
                   <Router>
-                    <div className="flex flex-col min-h-screen bg-[#F7F4EC] text-[#182019]">
+                    <div className="flex flex-col min-h-screen bg-[#FFEFE2] text-[#182019]">
                       <Navbar onOpenCart={() => setCartDrawerOpen(true)} />
                       <CartDrawer isOpen={cartDrawerOpen} onClose={() => setCartDrawerOpen(false)} />
-                      <WhatsAppButton />
-                      <SoundControl />
+                      <AskAuraDrawer />
 
                     <main className="flex-grow">
                       <Routes>
@@ -67,6 +65,7 @@ export const App: React.FC = () => {
                         <Route path="/checkout" element={<CheckoutPage />} />
                         <Route path="/order/:id" element={<OrderStatusPage />} />
                         <Route path="/reservation" element={<ReservationPage />} />
+                        <Route path="/reservations" element={<ReservationPage />} />
                         <Route path="/about" element={<AboutPage />} />
                         <Route path="/gallery" element={<GalleryPage />} />
                         <Route path="/events" element={<EventsPage />} />

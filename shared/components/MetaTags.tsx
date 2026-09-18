@@ -6,7 +6,7 @@ interface MetaTagsProps {
 }
 
 export const MetaTags: React.FC<MetaTagsProps> = ({
-  title = "Craftsland — Good Food Brighter Moods",
+  title = "Aura — Good Food Brighter Moods",
   description = "A premium dining experience crafted with passion, fresh ingredients, and unforgettable flavors.",
 }) => {
   useEffect(() => {

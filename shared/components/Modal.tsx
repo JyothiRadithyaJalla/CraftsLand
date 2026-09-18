@@ -9,6 +9,8 @@ interface ModalProps {
   children: ReactNode;
   variant?: 'customer' | 'admin' | 'kitchen' | 'dark';
   className?: string;
+  maxWidth?: string;
+  hideHeader?: boolean;
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -18,6 +20,8 @@ export const Modal: React.FC<ModalProps> = ({
   children,
   variant = 'customer',
   className = '',
+  maxWidth = 'max-w-2xl',
+  hideHeader = false,
 }) => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -79,18 +83,20 @@ export const Modal: React.FC<ModalProps> = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 12 }}
             transition={{ type: 'spring', damping: 25, stiffness: 350 }}
-            className={`relative ${currentStyle.card} rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl z-10 ${className}`}
+            className={`relative ${currentStyle.card} rounded-3xl w-full ${maxWidth} max-h-[90vh] ${hideHeader ? 'overflow-hidden p-0 h-[90vh] lg:h-[82vh] max-h-[820px] flex flex-col' : 'overflow-y-auto p-6 sm:p-8'} shadow-2xl z-10 ${className}`}
           >
-            <div className={`flex items-center justify-between ${currentStyle.header} pb-4 mb-4`}>
-              <h3 className={`font-serif text-xl font-bold ${currentStyle.title}`}>{title || 'CRAFTSLAND'}</h3>
-              <button
-                onClick={onClose}
-                className={`p-1.5 rounded-full transition-colors cursor-pointer ${currentStyle.close}`}
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            <div>{children}</div>
+            {!hideHeader && (
+              <div className={`flex items-center justify-between ${currentStyle.header} pb-4 mb-4`}>
+                <h3 className={`font-serif text-xl font-bold ${currentStyle.title}`}>{title || 'AURA'}</h3>
+                <button
+                  onClick={onClose}
+                  className={`p-1.5 rounded-full transition-colors cursor-pointer ${currentStyle.close}`}
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            )}
+            <div className={hideHeader ? 'h-full flex-1 flex flex-col overflow-hidden min-h-0' : ''}>{children}</div>
           </motion.div>
         </div>
       )}

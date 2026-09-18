@@ -1,14 +1,14 @@
 // Application Constants & Brand Parameters
 
 export const RESTAURANT_BRAND = {
-  name: "CRAFTSLAND",
+  name: "Aura",
   tagline: "Good Food Brighter Moods",
   storyHeading: "Crafted with passion. Served with purpose.",
   storySubheading: "Experience a world of flavors crafted with passion and the freshest ingredients.",
   address: "100 Artisan Boulevard, Culinary Quarter",
   phone: "+1 (555) 321-4567",
   whatsapp: "+15553214567",
-  email: "concierge@craftsland.com",
+  email: "concierge@aura.com",
   currency: "INR",
   currencySymbol: "₹",
   defaultTaxRate: 0.085, // 8.5%

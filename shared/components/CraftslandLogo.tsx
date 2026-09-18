@@ -116,7 +116,7 @@ export const CraftslandLogo: React.FC<CraftslandLogoProps> = ({
         <span
           className={`font-serif font-bold tracking-[0.18em] leading-none uppercase ${titleColor} ${sizeMap[size].title}`}
         >
-          CRAFTSLAND
+          AURA
         </span>
         <span
           className={`font-sans tracking-[0.24em] font-semibold uppercase mt-1 ${tagColor} ${sizeMap[size].tag}`}

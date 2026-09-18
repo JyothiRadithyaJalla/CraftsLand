@@ -137,14 +137,14 @@ export const DishCard: React.FC<DishCardProps> = ({ dish, onQuickView }) => {
           {/* Quick Add '+' Button */}
           <motion.button
             type="button"
-            whileTap={{ scale: 0.9 }}
+            whileTap={{ scale: 0.97 }}
             disabled={!dish.isAvailable}
             onClick={handleQuickAdd}
             className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 shadow-xs cursor-pointer ${
               justAdded
                 ? 'bg-[#31543A] text-white shadow-sm'
                 : dish.isAvailable
-                ? 'bg-[#31543A] hover:bg-[#26432E] text-white hover:shadow-md hover:scale-105 active:scale-95'
+                ? 'bg-[#31543A] hover:bg-[#26432E] text-white hover:shadow-md hover:scale-105 active:scale-[0.97]'
                 : 'bg-[#F7F4EC] text-[#626F64] border border-[#DDD9CB] cursor-not-allowed'
             }`}
             title={dish.isAvailable ? 'Add to order' : 'Sold out'}

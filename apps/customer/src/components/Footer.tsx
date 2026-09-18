@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { RESTAURANT_BRAND } from '@shared/config/constants';
+import { getRestaurantLiveStatus } from '@shared/utils/operatingHours';
 import { CraftslandLogo } from '@shared/components/CraftslandLogo';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 
 export const Footer: React.FC = () => {
+  const liveStatus = getRestaurantLiveStatus();
   return (
-    <footer className="bg-[#182019] border-t border-[#2A352C] text-[#F7F4EC] pt-16 pb-12 mt-auto">
+    <footer className="bg-[#002B08] border-t border-white/10 text-[#F7F4EC] pt-16 pb-12 mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           
@@ -26,7 +28,7 @@ export const Footer: React.FC = () => {
           {/* Quick Experience Links */}
           <div className="space-y-3">
             <h4 className="font-serif text-sm tracking-widest text-[#78956A] uppercase font-bold">
-              Explore Craftsland
+              Explore Aura
             </h4>
             <ul className="space-y-2 text-xs text-[#A6B5A8] font-sans">
               <li><Link to="/menu" className="hover:text-white transition-colors">Fresh Harvest Menu</Link></li>
@@ -61,7 +63,15 @@ export const Footer: React.FC = () => {
               </li>
               <li className="flex items-start gap-2 pt-1">
                 <Clock className="w-4 h-4 text-[#78956A] shrink-0 mt-0.5" />
-                <span>{RESTAURANT_BRAND.operatingHours}</span>
+                <div className="flex flex-col">
+                  <span>{RESTAURANT_BRAND.operatingHours}</span>
+                  <span className="text-[10px] font-mono mt-0.5 inline-flex items-center gap-1.5">
+                    <span className={`w-1.5 h-1.5 rounded-full ${liveStatus.isOpen ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'}`} />
+                    <span className={liveStatus.isOpen ? 'text-emerald-300 font-semibold' : 'text-amber-300 font-medium'}>
+                      {liveStatus.statusLabel} • {liveStatus.detailText}
+                    </span>
+                  </span>
+                </div>
               </li>
             </ul>
           </div>
@@ -69,7 +79,7 @@ export const Footer: React.FC = () => {
           {/* Newsletter / Club */}
           <div className="space-y-3">
             <h4 className="font-serif text-sm tracking-widest text-[#78956A] uppercase font-bold">
-              The Craftsland Circle
+              The Aura Circle
             </h4>
             <p className="text-xs text-[#A6B5A8] leading-relaxed font-sans">
               Join our community for seasonal harvest previews, healthy culinary recipes, and table privileges.
@@ -82,7 +92,7 @@ export const Footer: React.FC = () => {
               />
               <button
                 type="button"
-                className="w-full py-2.5 bg-[#31543A] hover:bg-[#26432E] text-white font-sans font-bold text-xs uppercase tracking-wider rounded-xl transition-colors cursor-pointer border border-[#26432E] shadow-xs"
+                className="w-full py-2.5 bg-[#31543A] hover:bg-[#26432E] active:scale-[0.97] text-white font-sans font-bold text-xs uppercase tracking-wider rounded-xl transition-all cursor-pointer border border-[#26432E] shadow-xs"
               >
                 Join Circle
               </button>
@@ -93,7 +103,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom copyright & legal */}
         <div className="mt-14 pt-8 border-t border-[#2A352C] flex flex-col sm:flex-row items-center justify-between text-xs text-[#A6B5A8]">
-          <p>© {new Date().getFullYear()} CRAFTSLAND Culinary & Healthy Gastronomy. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} AURA Culinary & Healthy Gastronomy. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 sm:mt-0">
             <Link to="/about" className="hover:text-white transition-colors">Our Story</Link>
             <Link to="/contact" className="hover:text-white transition-colors">Contact</Link>

@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Calendar, Star, Heart, Leaf, ChefHat, ChevronRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Heart, Leaf, ChefHat, Sparkles, Flame, Utensils } from 'lucide-react';
 import { MetaTags } from '@shared/components/MetaTags';
 import { RESTAURANT_BRAND } from '@shared/config/constants';
 import { useMenu } from '@shared/hooks/useMenu';
 import { DishCard } from '../components/DishCard';
 import { DishDetailModal } from '../components/DishDetailModal';
 import { CinematicHero } from '../components/CinematicHero';
+import { ComingSoonMarquee } from '../components/ComingSoonMarquee';
 import type { Dish } from '@shared/types/menu';
 
 export const HomePage: React.FC = () => {
-  const { dishes, categories } = useMenu();
+  const { dishes } = useMenu();
   const [selectedQuickViewDish, setSelectedQuickViewDish] = useState<Dish | null>(null);
 
   // Featured signature dishes
@@ -41,31 +42,56 @@ export const HomePage: React.FC = () => {
     },
   ];
 
-  const testimonials = [
+  // Real mood discovery mapped directly to authenticated database attributes
+  const moods = [
     {
-      name: 'Julian Montgomery',
-      role: 'Gastronomy Critic',
-      rating: 5,
-      review: "Craftsland is a revelation. The Truffle Mushroom Risotto and Wood-fired Margherita strike the ideal balance of culinary perfection and comforting joy.",
+      title: "Chef's Curations",
+      desc: 'Master craft dishes chosen by our culinary team',
+      href: '/menu?tag=CHEFS_CHOICE',
+      icon: ChefHat,
+      count: dishes.filter((d) => d.dietaryTags.includes('CHEFS_CHOICE')).length,
     },
     {
-      name: 'Seraphina Lin',
-      role: 'Lifestyle Connoisseur',
-      rating: 5,
-      review: "The warm gold ambiance, friendly staff, and the decadent Chocolate Lava Cake make this my absolute favorite dinner destination in the city.",
+      title: 'Signature Icons',
+      desc: 'Our most celebrated creations plated to perfection',
+      href: '/menu?tag=SIGNATURE',
+      icon: Sparkles,
+      count: dishes.filter((d) => d.dietaryTags.includes('SIGNATURE')).length,
     },
     {
-      name: 'Arthur Sterling',
-      role: 'Private Patron',
-      rating: 5,
-      review: "Good Food Brighter Moods is not just a tagline here—it is an authentic promise felt in every bite and every interaction.",
+      title: 'Botanical & Fresh',
+      desc: 'Plant-forward garden botanicals and light greens',
+      href: '/menu?tag=VEGAN',
+      icon: Leaf,
+      count: dishes.filter((d) => d.dietaryTags.includes('VEGAN') || d.dietaryTags.includes('VEGETARIAN')).length,
+    },
+    {
+      title: 'Bold & Fiery',
+      desc: 'Artisanal spices with wood-fired heat',
+      href: '/menu?tag=SPICY',
+      icon: Flame,
+      count: dishes.filter((d) => d.dietaryTags.includes('SPICY')).length,
+    },
+    {
+      title: 'Hearty Mains',
+      desc: 'Slow-simmered gravies and flame-seared mains',
+      href: '/menu/mains',
+      icon: Utensils,
+      count: dishes.filter((d) => d.categorySlug === 'mains').length,
+    },
+    {
+      title: 'Something Sweet',
+      desc: 'Artisanal confections and chilled indulgences',
+      href: '/menu/desserts',
+      icon: Heart,
+      count: dishes.filter((d) => d.categorySlug === 'desserts').length,
     },
   ];
 
   return (
     <div className="space-y-0 pb-24 overflow-x-hidden">
       <MetaTags
-        title="Craftsland — Good Food Brighter Moods"
+        title="Aura — Good Food Brighter Moods"
         description="Experience a world of flavors crafted with passion and the freshest ingredients."
       />
 
@@ -106,7 +132,49 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ========================================================================= */}
-      {/* 3. SIGNATURE FEATURED DISHES (WITH VIDEO AUTOPLAY) */}
+      {/* 3. WHAT ARE YOU IN THE MOOD FOR? (REAL DATABASE DISCOVERY) */}
+      {/* ========================================================================= */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 space-y-8">
+        <div className="text-center space-y-2 max-w-xl mx-auto">
+          <span className="font-sans text-xs font-bold text-[#31543A] tracking-[0.25em] uppercase block">
+            Sensory Exploration
+          </span>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#182019]">
+            What Are You in the Mood For?
+          </h2>
+          <p className="text-[#626F64] text-xs sm:text-sm font-light leading-relaxed">
+            Navigate our seasonal menu through taste profiles, culinary heat, and botanical inspirations.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          {moods.map((mood) => {
+            const MoodIcon = mood.icon;
+            return (
+              <Link
+                key={mood.title}
+                to={mood.href}
+                className="group relative bg-white p-5 rounded-2xl border border-[#DDD9CB] hover:border-[#31543A] transition-all duration-300 flex flex-col items-center text-center space-y-3 shadow-xs hover:-translate-y-1"
+              >
+                <div className="w-12 h-12 rounded-xl bg-[#FAF8F3] group-hover:bg-[#31543A] text-[#31543A] group-hover:text-white flex items-center justify-center transition-colors">
+                  <MoodIcon className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="font-serif text-sm font-bold text-[#182019] group-hover:text-[#31543A] transition-colors leading-tight">
+                    {mood.title}
+                  </h3>
+                  <span className="text-[10px] font-mono text-[#626F64] mt-1 block">
+                    {mood.count} {mood.count === 1 ? 'dish' : 'dishes'}
+                  </span>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 4. SIGNATURE FEATURED DISHES (WITH VIDEO AUTOPLAY) */}
       {/* ========================================================================= */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 pb-24">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#DDD9CB] pb-6">
@@ -142,173 +210,85 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ========================================================================= */}
-      {/* 4. FOOD CATEGORIES SHOWCASE */}
+      {/* 5. EDITORIAL PHILOSOPHY & GASTRONOMY STORYTELLING */}
       {/* ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 pb-24">
-        <div className="text-center space-y-3">
-          <span className="font-sans text-xs font-bold text-[#31543A] tracking-[0.25em] uppercase block">
-            Seasonal Menus
-          </span>
-          <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#182019]">
-            Fresh Categories
-          </h2>
-          <p className="text-[#626F64] text-sm max-w-lg mx-auto font-light">
-            Every course is thoughtfully composed with artisanal flair, wholesome greens, and vibrant seasonings.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {categories.map((cat) => (
-            <Link
-              key={cat.id}
-              to={`/menu/${cat.slug}`}
-              className="group relative aspect-[3/4] rounded-2xl overflow-hidden bg-[#FAF8F3] border border-[#DDD9CB] hover:border-[#31543A]/60 hover:shadow-md transition-all duration-500 flex flex-col justify-end p-4 text-center shadow-xs"
-            >
-              <img
-                src={cat.imageUrl || 'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop'}
-                alt={cat.name}
-                loading="lazy"
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60 group-hover:opacity-85"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-              <div className="relative z-10 space-y-1">
-                <h3 className="font-serif text-base font-bold text-white group-hover:text-[#78956A] transition-colors">
-                  {cat.name}
-                </h3>
-                <span className="text-[10px] text-white/80 uppercase tracking-wider block font-sans">
-                  Explore
-                </span>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 5. OUR STORY SECTION */}
-      {/* ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-        <div className="bg-[#FAF8F3] p-8 sm:p-16 rounded-3xl border border-[#DDD9CB] shadow-xs grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <span className="font-sans text-xs font-bold text-[#31543A] tracking-[0.3em] uppercase block">
-              Our Story
-            </span>
-            <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#182019] leading-tight">
-              {RESTAURANT_BRAND.storyHeading}
-            </h2>
-            <p className="text-[#3A453C] text-sm leading-relaxed font-sans">
-              At Craftsland, food transforms everyday moments into pure joy. We celebrate farm-to-table freshness, wholesome recipes, and the uplifting feeling of savoring clean, thoughtfully crafted meals.
-            </p>
-            <p className="text-[#3A453C] text-sm leading-relaxed font-sans">
-              From our vibrant grain bowls and wild mushroom risottos to hand-crafted artisanal sourdough, every bite honors nourishment, vibrant flavor, and mindful culinary craftsmanship.
-            </p>
-            <div className="pt-2">
-              <Link
-                to="/about"
-                className="inline-flex items-center gap-2 text-xs font-bold text-[#31543A] hover:text-[#26432E] uppercase tracking-widest group"
-              >
-                <span>Discover Our Heritage</span>
-                <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-          </div>
-
-          <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-[#DDD9CB] shadow-sm">
-            <img
-              src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=1000&auto=format&fit=crop"
-              alt="Craftsland culinary team"
-              className="w-full h-full object-cover"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-            <div className="absolute bottom-6 left-6 right-6">
-              <p className="font-serif text-sm font-bold text-[#F7F4EC] italic">
-                "We don't simply cook food; we craft happiness and brighter moods."
+      <section className="bg-[#0A1F12] text-[#F7F4EC] py-24 sm:py-32 relative overflow-hidden border-y border-[#183621]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(120,149,106,0.15),transparent_60%)] pointer-events-none" />
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-7 space-y-6">
+              <span className="font-sans text-xs font-bold text-[#78956A] tracking-[0.3em] uppercase block">
+                The Aura Philosophy
+              </span>
+              <h2 className="font-serif text-3xl sm:text-5xl font-bold leading-tight text-white">
+                {RESTAURANT_BRAND.storyHeading}
+              </h2>
+              <p className="text-[#DDD9CB] text-sm sm:text-base font-light leading-relaxed">
+                {RESTAURANT_BRAND.storySubheading} At Aura, dining is approached as an unhurried sensory dialogue. From our morning forage of organic herbs to the smoldering oak logs that season our wood-fired hearths, every plate embodies our devotion to purity, vitality, and mood elevation.
               </p>
+              <div className="pt-4 flex flex-wrap items-center gap-6">
+                <Link
+                  to="/about"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#78956A] hover:bg-[#628054] text-[#002B08] font-bold text-xs uppercase tracking-widest transition-all cursor-pointer shadow-sm"
+                >
+                  <span>Our Culinary Story</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  to="/reservation"
+                  className="inline-flex items-center gap-2 text-xs font-bold text-[#F7F4EC] hover:text-[#78956A] uppercase tracking-widest transition-colors"
+                >
+                  <span>Reserve Table</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 6. RESERVATION CTA */}
-      {/* ========================================================================= */}
-      <section className="relative rounded-3xl mx-3 sm:mx-8 overflow-hidden border border-[#31543A] shadow-md py-20 px-6 sm:px-12 text-center bg-[#26432E]">
-        <div className="absolute inset-0 z-0">
-          <img
-            src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1920&auto=format&fit=crop"
-            alt="Craftsland dining table"
-            className="w-full h-full object-cover opacity-20"
-            loading="lazy"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#182019]/90 via-[#26432E]/85 to-[#182019]/90" />
-        </div>
-
-        <div className="relative z-10 max-w-2xl mx-auto space-y-6">
-          <div className="w-12 h-12 rounded-full bg-white/10 border border-white/20 text-[#78956A] flex items-center justify-center mx-auto">
-            <Calendar className="w-6 h-6" />
-          </div>
-          <h2 className="font-serif text-4xl sm:text-5xl font-bold text-white">
-            Your Table Awaits
-          </h2>
-          <p className="text-[#E8E5D8] text-sm font-light leading-relaxed font-sans">
-            Whether an intimate dinner for two, a healthy celebration with close friends, or a grand family reunion, reserve your sanctuary at Craftsland today.
-          </p>
-          <div className="pt-4">
-            <Link
-              to="/reservation"
-              className="inline-flex items-center gap-2 px-9 py-4 rounded-xl bg-[#F7F4EC] hover:bg-white text-[#26432E] font-sans font-bold text-xs uppercase tracking-[0.2em] transition-all shadow-md hover:shadow-lg cursor-pointer border border-[#F7F4EC] min-h-[48px]"
-            >
-              <span>Reserve Your Table</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 7. PATRON REVIEWS */}
-      {/* ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 pt-24">
-        <div className="text-center space-y-3">
-          <span className="font-sans text-xs font-bold text-[#31543A] tracking-[0.25em] uppercase block">
-            Accolades & Voices
-          </span>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#182019]">
-            What Our Patrons Say
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((t) => (
-            <div
-              key={t.name}
-              className="bg-white p-8 rounded-2xl border border-[#DDD9CB] space-y-4 flex flex-col justify-between shadow-xs hover:border-[#31543A]/40 transition-colors"
-            >
-              <div className="space-y-3">
-                <div className="flex text-[#C97852] gap-1">
-                  {[...Array(t.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-[#C97852] text-[#C97852]" />
-                  ))}
+            <div className="lg:col-span-5 grid grid-cols-2 gap-4">
+              <div className="space-y-4">
+                <div className="aspect-[4/5] rounded-2xl overflow-hidden border border-white/10 shadow-lg">
+                  <img
+                    src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=800&auto=format&fit=crop"
+                    alt="Wood-fired craft"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-                <p className="text-[#3A453C] text-xs leading-relaxed italic font-serif">
-                  "{t.review}"
-                </p>
+                <div className="p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-xs text-center">
+                  <span className="font-serif text-2xl font-bold text-[#78956A] block">100%</span>
+                  <span className="text-[10px] uppercase tracking-wider text-[#DDD9CB]">Artisanal Hearth</span>
+                </div>
               </div>
-              <div className="pt-4 border-t border-[#DDD9CB]">
-                <h4 className="font-serif font-bold text-sm text-[#182019]">{t.name}</h4>
-                <p className="text-[11px] text-[#31543A] font-sans font-semibold">{t.role}</p>
+              <div className="space-y-4 pt-8">
+                <div className="p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-xs text-center">
+                  <span className="font-serif text-2xl font-bold text-[#78956A] block">Daily</span>
+                  <span className="text-[10px] uppercase tracking-wider text-[#DDD9CB]">Fresh Harvest</span>
+                </div>
+                <div className="aspect-[4/5] rounded-2xl overflow-hidden border border-white/10 shadow-lg">
+                  <img
+                    src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=800&auto=format&fit=crop"
+                    alt="Plated culinary excellence"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
             </div>
-          ))}
+          </div>
         </div>
       </section>
+
+      {/* ========================================================================= */}
+      {/* 6. COMING SOON CONTINUOUS HORIZONTAL MARQUEE SHOWCASE (RIGHT -> LEFT) */}
+      {/* ========================================================================= */}
+      <ComingSoonMarquee
+        dishes={dishes}
+        onSelectDish={(d) => setSelectedQuickViewDish(d)}
+      />
 
       {/* Quick View Modal */}
       <DishDetailModal
         dish={selectedQuickViewDish}
         isOpen={!!selectedQuickViewDish}
         onClose={() => setSelectedQuickViewDish(null)}
+        onSelectDish={(d) => setSelectedQuickViewDish(d)}
       />
     </div>
   );

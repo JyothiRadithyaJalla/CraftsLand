@@ -95,7 +95,7 @@ export const OrderStatusPage: React.FC = () => {
   if (loading) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-20 text-center space-y-4">
-        <MetaTags title="Tracking Order... | Craftsland" />
+        <MetaTags title="Tracking Order... | Aura" />
         <LoadingSpinner label="Retrieving culinary ticket from concierge registry..." />
       </div>
     );
@@ -104,7 +104,7 @@ export const OrderStatusPage: React.FC = () => {
   if (errorMsg || !order) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-16 text-center space-y-6 text-[#182019]">
-        <MetaTags title="Order Not Found | Craftsland" />
+        <MetaTags title="Order Not Found | Aura" />
         <div className="w-16 h-16 rounded-2xl bg-[#A8382B]/10 border border-[#A8382B]/20 text-[#A8382B] flex items-center justify-center mx-auto">
           <AlertCircle className="w-8 h-8" />
         </div>
@@ -122,7 +122,7 @@ export const OrderStatusPage: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10 space-y-8 text-[#182019]">
-      <MetaTags title={`Order ${order.orderNumber} Status | Craftsland`} />
+      <MetaTags title={`Order ${order.orderNumber} Status | Aura`} />
 
       {/* Realtime Status Advancement Notification Toast */}
       <AnimatePresence>
@@ -269,7 +269,7 @@ export const OrderStatusPage: React.FC = () => {
                   }
                 }}
                 disabled={isPlacingOrder}
-                className="w-full mt-2 py-3.5 rounded-xl bg-[#31543A] hover:bg-[#26432E] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-xs border border-[#26432E] transition-colors disabled:opacity-50 min-h-[44px]"
+                className="w-full mt-2 py-3.5 rounded-xl bg-[#31543A] hover:bg-[#26432E] active:scale-[0.97] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-xs border border-[#26432E] transition-all disabled:opacity-50 min-h-[44px]"
               >
                 {isPlacingOrder ? (
                   <span className="flex items-center gap-2">
@@ -289,14 +289,14 @@ export const OrderStatusPage: React.FC = () => {
           <button
             type="button"
             onClick={() => setShowInvoice(true)}
-            className="w-full py-3.5 rounded-xl border border-[#DDD9CB] bg-white hover:border-[#31543A] text-[#182019] hover:text-[#31543A] text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-xs transition-colors min-h-[44px]"
+            className="w-full py-3.5 rounded-xl border border-[#DDD9CB] bg-white hover:border-[#31543A] active:scale-[0.97] text-[#182019] hover:text-[#31543A] text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-xs transition-all min-h-[44px]"
           >
             <Receipt className="w-4 h-4 text-[#31543A]" /> View & Print Tax Invoice
           </button>
 
           <Link
             to="/menu"
-            className="w-full py-3.5 rounded-xl border border-[#DDD9CB] bg-[#FAF8F3] text-[#182019] hover:text-[#31543A] hover:border-[#31543A]/40 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-xs transition-colors min-h-[44px]"
+            className="w-full py-3.5 rounded-xl border border-[#DDD9CB] bg-[#FAF8F3] text-[#182019] hover:text-[#31543A] hover:border-[#31543A]/40 active:scale-[0.97] text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-xs transition-all min-h-[44px]"
           >
             <ArrowLeft className="w-4 h-4" /> Back to Menu
           </Link>

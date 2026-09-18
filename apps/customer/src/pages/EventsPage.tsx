@@ -30,7 +30,7 @@ export const EventsPage: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
-      <MetaTags title="Private Dining & VIP Vault Events | Craftsland" />
+      <MetaTags title="Private Dining & VIP Vault Events | Aura" />
 
       {/* Header */}
       <div className="text-center space-y-3">

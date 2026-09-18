@@ -3,7 +3,6 @@ import { useCart } from '@shared/hooks/useCart';
 import { Link } from 'react-router-dom';
 import { MetaTags } from '@shared/components/MetaTags';
 import { ShoppingBag, Trash2, ArrowRight } from 'lucide-react';
-import { EmptyState } from '@shared/components/EmptyState';
 import { RESTAURANT_BRAND } from '@shared/config/constants';
 
 export const CartPage: React.FC = () => {
@@ -11,25 +10,38 @@ export const CartPage: React.FC = () => {
 
   if (items.length === 0) {
     return (
-      <div className="max-w-2xl mx-auto px-4 py-16">
-        <MetaTags title="Cart | Craftsland" />
-        <EmptyState
-          title="Your Cart is Empty"
-          description="You have not added any dishes from our menu to your current dining order."
-          icon={<ShoppingBag className="w-7 h-7 text-[#31543A]" />}
-          action={
-            <Link to="/menu" className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#31543A] hover:bg-[#26432E] text-white font-bold text-xs uppercase tracking-wider shadow-sm transition-colors">
-              Explore Fresh Menu
-            </Link>
-          }
-        />
+      <div className="max-w-2xl mx-auto px-4 py-24 text-center space-y-6">
+        <MetaTags title="Cart | Aura" />
+        <div className="w-16 h-16 rounded-full bg-[#31543A]/10 border border-[#31543A]/20 text-[#31543A] flex items-center justify-center mx-auto shadow-xs">
+          <ShoppingBag className="w-7 h-7" />
+        </div>
+        <div className="space-y-2">
+          <span className="font-sans text-xs font-bold text-[#31543A] tracking-[0.25em] uppercase block">
+            Concierge Selection
+          </span>
+          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-[#182019]">
+            Your Cart is Empty
+          </h1>
+          <p className="text-[#626F64] text-sm max-w-md mx-auto font-sans leading-relaxed">
+            You have not added any dishes from our menu yet. Explore our wood-fired creations and fresh harvest bowls.
+          </p>
+        </div>
+        <div className="pt-2">
+          <Link
+            to="/menu"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[#31543A] hover:bg-[#26432E] active:scale-[0.97] text-white font-sans font-bold text-xs uppercase tracking-wider shadow-sm transition-all"
+          >
+            <span>Explore Fresh Menu</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10 space-y-8">
-      <MetaTags title="Your Selection | Craftsland" />
+      <MetaTags title="Your Selection | Aura" />
       <h1 className="font-serif text-3xl font-bold text-[#182019]">Your Fresh Selection</h1>
 
       <div className="space-y-4">
@@ -60,7 +72,7 @@ export const CartPage: React.FC = () => {
         <div className="flex justify-between text-xs text-[#626F64]"><span>Estimated Tax:</span><span className="text-[#182019] font-semibold">{RESTAURANT_BRAND.currencySymbol}{taxAmount.toFixed(2)}</span></div>
         <div className="flex justify-between text-xs text-[#626F64]"><span>Delivery Fee:</span><span className="text-[#182019] font-semibold">{RESTAURANT_BRAND.currencySymbol}{deliveryFee.toFixed(2)}</span></div>
         <div className="flex justify-between text-sm font-bold text-[#182019] pt-3 border-t border-[#DDD9CB]"><span>Total:</span><span className="text-[#31543A] font-mono text-base">{RESTAURANT_BRAND.currencySymbol}{totalAmount.toFixed(2)}</span></div>
-        <Link to="/checkout" className="w-full mt-4 min-h-[48px] inline-flex items-center justify-center gap-2 py-3 rounded-xl bg-[#31543A] hover:bg-[#26432E] text-white font-bold text-xs uppercase tracking-wider shadow-sm transition-colors cursor-pointer">
+        <Link to="/checkout" className="w-full mt-4 min-h-[48px] inline-flex items-center justify-center gap-2 py-3 rounded-xl bg-[#31543A] hover:bg-[#26432E] active:scale-[0.97] text-white font-bold text-xs uppercase tracking-wider shadow-sm transition-all cursor-pointer">
           Proceed to Checkout <ArrowRight className="w-4 h-4" />
         </Link>
       </div>

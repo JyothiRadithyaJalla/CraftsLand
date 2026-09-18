@@ -1,0 +1,23 @@
+{
+  "name": "Aura — Good Food Brighter Moods",
+  "short_name": "Aura",
+  "description": "Artisanal dining experience crafted with passion, wood-fired culinary arts, and botanical mixology.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#FFEFE2",
+  "theme_color": "#002B08",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "food",
+    "lifestyle",
+    "dining"
+  ]
+}

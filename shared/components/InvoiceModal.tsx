@@ -194,7 +194,7 @@ export const InvoiceModal: React.FC<InvoiceModalProps> = ({ order, isOpen, onClo
             {order.paymentReference && (
               <p>Payment ID / Gateway Ref: <span className="font-bold text-[#182019] print:text-black">{order.paymentReference}</span></p>
             )}
-            <p>Thank you for dining with Craftsland. This is a computer-generated tax invoice.</p>
+            <p>Thank you for dining with Aura. This is a computer-generated tax invoice.</p>
           </div>
 
         </div>

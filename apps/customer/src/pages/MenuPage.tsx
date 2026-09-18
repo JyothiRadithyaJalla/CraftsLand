@@ -23,11 +23,15 @@ export const MenuPage: React.FC = () => {
   const [quickViewDish, setQuickViewDish] = useState<Dish | null>(null);
   const navRef = useRef<HTMLDivElement>(null);
 
-  // Parse QR table parameter from URL e.g. /menu?table=12
+  // Parse QR table parameter and mood tag from URL e.g. /menu?table=12 or /menu?tag=CHEFS_CHOICE
   useEffect(() => {
     const tableParam = searchParams.get('table');
     if (tableParam) {
       setTableNumber(tableParam);
+    }
+    const tagParam = searchParams.get('tag') as DietaryTag | null;
+    if (tagParam && dietaryOptions.includes(tagParam)) {
+      setSelectedDietaryTag(tagParam);
     }
   }, [searchParams, setTableNumber]);
 
@@ -57,7 +61,7 @@ export const MenuPage: React.FC = () => {
     }
   };
 
-  const dietaryOptions: DietaryTag[] = ['VEGAN', 'VEGETARIAN', 'GLUTEN_FREE', 'NUT_FREE', 'HALAL', 'CHEFS_CHOICE'];
+  const dietaryOptions: DietaryTag[] = ['SIGNATURE', 'CHEFS_CHOICE', 'VEGETARIAN', 'VEGAN', 'GLUTEN_FREE', 'NUT_FREE', 'HALAL'];
 
   // Filter dishes
   const filteredDishes = useMemo(() => {
@@ -86,18 +90,18 @@ export const MenuPage: React.FC = () => {
   }, [categories, filteredDishes, activeCategory, urlCategory]);
 
   if (isLoading) {
-    return <LoadingSpinner label="Loading the Craftsland Menu..." />;
+    return <LoadingSpinner label="Loading the Aura Menu..." />;
   }
 
   return (
     <div className="min-h-screen">
-      <MetaTags title="Menu | Craftsland" description="Explore the complete Craftsland culinary collection — flame-grilled mains, artisanal pastas, stone-baked pizzas, and more." />
+      <MetaTags title="Menu | Aura" description="Explore the complete Aura culinary collection — flame-grilled mains, artisanal pastas, stone-baked pizzas, and more." />
 
       {/* ── Premium Menu Hero ────────────────────────────────────────── */}
       <section className="relative h-56 sm:h-72 flex items-center justify-center overflow-hidden bg-[#0A1F12]">
         <img
           src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1920&auto=format&fit=crop"
-          alt="Craftsland culinary artistry"
+          alt="Aura culinary artistry"
           className="absolute inset-0 w-full h-full object-cover opacity-40"
           loading="eager"
         />
@@ -113,18 +117,18 @@ export const MenuPage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="text-xs font-sans uppercase tracking-[0.3em] text-[#4ADE80] font-bold block mb-2">
-              Video-First Experience
+            <span className="text-xs font-sans uppercase tracking-[0.35em] text-[#78956A] font-bold block mb-2">
+              Artisanal Harvest Collection
             </span>
-            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-white">
-              The Craftsland Menu
+            <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-white tracking-tight">
+              MENU
             </h1>
           </motion.div>
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-white/70 text-sm max-w-xl mx-auto font-sans"
+            className="text-white/75 text-sm max-w-xl mx-auto font-sans"
           >
             Watch each dish come alive — seasonal harvest, flame-grilled perfection, and artisanal craft.
           </motion.p>
@@ -134,7 +138,7 @@ export const MenuPage: React.FC = () => {
       {/* ── Sticky Filter & Category Navigation ──────────────────────── */}
       <div
         ref={navRef}
-        className="sticky top-0 z-40 bg-[#F7F4EC]/95 backdrop-blur-md border-b border-[#DDD9CB] shadow-sm"
+        className="sticky top-0 z-40 bg-[#FFEFE2]/95 backdrop-blur-md border-b border-[#DDD9CB] shadow-sm"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-3">
           {/* Search & Dietary Filters */}
@@ -195,16 +199,16 @@ export const MenuPage: React.FC = () => {
           <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
             <button
               onClick={() => handleCategorySelect('all')}
-              className={`relative px-4 py-2 rounded-xl text-[11px] font-bold tracking-widest uppercase whitespace-nowrap transition-colors cursor-pointer z-0 flex items-center gap-1.5 ${
+              className={`relative px-4 py-2 rounded-xl text-[11px] font-bold tracking-widest uppercase whitespace-nowrap transition-all active:scale-[0.97] cursor-pointer z-0 flex items-center gap-1.5 ${
                 activeCategory === 'all'
-                  ? 'text-white'
-                  : 'bg-white text-[#3A453C] hover:text-[#182019] border border-[#DDD9CB] hover:border-[#31543A]/40'
+                  ? 'text-[#F7F4EC]'
+                  : 'bg-[#FAF8F3] text-[#3A453C] hover:text-[#182019] border border-[#DDD9CB] hover:border-[#31543A]/40'
               }`}
             >
               {activeCategory === 'all' && (
                 <motion.div
                   layoutId="activeCategoryPill"
-                  className="absolute inset-0 bg-[#31543A] rounded-xl border border-[#26432E] shadow-xs -z-10"
+                  className="absolute inset-0 bg-[#002B08] rounded-xl border border-[#00310B] shadow-xs -z-10"
                   transition={{ type: 'spring', stiffness: 400, damping: 32 }}
                 />
               )}
@@ -218,16 +222,16 @@ export const MenuPage: React.FC = () => {
                 <button
                   key={cat.id}
                   onClick={() => handleCategorySelect(cat.slug)}
-                  className={`relative px-4 py-2 rounded-xl text-[11px] font-bold tracking-widest uppercase whitespace-nowrap transition-colors cursor-pointer z-0 ${
+                  className={`relative px-4 py-2 rounded-xl text-[11px] font-bold tracking-widest uppercase whitespace-nowrap transition-all active:scale-[0.97] cursor-pointer z-0 ${
                     activeCategory === cat.slug
-                      ? 'text-white'
-                      : 'bg-white text-[#3A453C] hover:text-[#182019] border border-[#DDD9CB] hover:border-[#31543A]/40'
+                      ? 'text-[#F7F4EC]'
+                      : 'bg-[#FAF8F3] text-[#3A453C] hover:text-[#182019] border border-[#DDD9CB] hover:border-[#31543A]/40'
                   }`}
                 >
                   {activeCategory === cat.slug && (
                     <motion.div
                       layoutId="activeCategoryPill"
-                      className="absolute inset-0 bg-[#31543A] rounded-xl border border-[#26432E] shadow-xs -z-10"
+                      className="absolute inset-0 bg-[#002B08] rounded-xl border border-[#00310B] shadow-xs -z-10"
                       transition={{ type: 'spring', stiffness: 400, damping: 32 }}
                     />
                   )}
@@ -242,6 +246,51 @@ export const MenuPage: React.FC = () => {
 
       {/* ── Menu Content ─────────────────────────────────────────────── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-32">
+        {/* Result Counter & Active Filter Indicators */}
+        <div className="flex items-center justify-between pb-4 mb-8 border-b border-[#DDD9CB]/70 text-xs text-[#626F64]">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="font-mono font-medium text-[#182019]">
+              Showing {filteredDishes.length} {filteredDishes.length === 1 ? 'culinary creation' : 'culinary creations'}
+            </span>
+            {selectedDietaryTag && (
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#31543A]/10 text-[#31543A] font-bold text-[10px] tracking-wider uppercase border border-[#31543A]/20">
+                {selectedDietaryTag.replace('_', ' ')}
+                <button
+                  onClick={() => setSelectedDietaryTag(null)}
+                  className="hover:text-[#182019] cursor-pointer ml-0.5"
+                  title="Remove filter"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            )}
+            {searchQuery && (
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#31543A]/10 text-[#31543A] font-bold text-[10px] tracking-wider border border-[#31543A]/20">
+                "{searchQuery}"
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="hover:text-[#182019] cursor-pointer ml-0.5"
+                  title="Clear search"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            )}
+          </div>
+          {(selectedDietaryTag || searchQuery || activeCategory !== 'all') && (
+            <button
+              onClick={() => {
+                setSearchQuery('');
+                setSelectedDietaryTag(null);
+                handleCategorySelect('all');
+              }}
+              className="text-[11px] font-bold text-[#31543A] hover:underline cursor-pointer tracking-wider uppercase"
+            >
+              Clear All
+            </button>
+          )}
+        </div>
+
         {filteredDishes.length === 0 ? (
           <EmptyState
             title="No Dishes Match Your Search"
@@ -322,6 +371,7 @@ export const MenuPage: React.FC = () => {
         dish={quickViewDish}
         isOpen={!!quickViewDish}
         onClose={() => setQuickViewDish(null)}
+        onSelectDish={(d) => setQuickViewDish(d)}
       />
     </div>
   );

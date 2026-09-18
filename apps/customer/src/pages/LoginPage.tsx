@@ -45,7 +45,7 @@ export const LoginPage: React.FC = () => {
 
   return (
     <div className="max-w-md mx-auto px-4 py-16">
-      <MetaTags title="Guest Login | Craftsland" />
+      <MetaTags title="Guest Login | Aura" />
       <div className="bg-white p-8 rounded-3xl space-y-6 border border-[#DDD9CB] shadow-sm">
         <div className="text-center space-y-2">
           <h1 className="font-serif text-2xl font-bold text-[#182019]">Guest Login</h1>
@@ -69,7 +69,7 @@ export const LoginPage: React.FC = () => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="guest@craftsland.com"
+                placeholder="guest@aura.com"
                 className="w-full pl-9 pr-4 py-2.5 bg-[#FAF8F3] border border-[#DDD9CB] focus:border-[#31543A] rounded-xl text-[#182019] placeholder-[#626F64]/50 outline-none transition-colors"
               />
             </div>

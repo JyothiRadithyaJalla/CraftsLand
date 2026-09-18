@@ -7,7 +7,7 @@ import { useCart } from '@shared/hooks/useCart';
 import { MetaTags } from '@shared/components/MetaTags';
 import { LoadingSpinner } from '@shared/components/LoadingSpinner';
 import { formatPrice } from '@shared/utils/formatters';
-import { ArrowLeft, Plus, Minus, Flame, Wine, ShieldAlert, ShoppingBag } from 'lucide-react';
+import { ArrowLeft, Plus, Minus, Flame, ShieldAlert, ShoppingBag, Check } from 'lucide-react';
 
 export const DishDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -15,6 +15,7 @@ export const DishDetailPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [quantity, setQuantity] = useState<number>(1);
   const [selectedModifiers, setSelectedModifiers] = useState<SelectedModifierOption[]>([]);
+  const [isAdded, setIsAdded] = useState<boolean>(false);
   const { addItem } = useCart();
 
   useEffect(() => {
@@ -60,12 +61,17 @@ export const DishDetailPage: React.FC = () => {
   const totalPrice = unitPrice * quantity;
 
   const handleAddToCart = () => {
+    if (isAdded) return;
     addItem(dish, quantity, selectedModifiers);
+    setIsAdded(true);
+    setTimeout(() => {
+      setIsAdded(false);
+    }, 1200);
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10 space-y-8 text-[#182019]">
-      <MetaTags title={`${dish.name} | Craftsland`} />
+    <div className="max-w-5xl mx-auto px-4 py-10 space-y-12 text-[#182019]">
+      <MetaTags title={`${dish.name} | Aura`} />
 
       <Link to="/menu" className="inline-flex items-center gap-2 text-xs text-[#31543A] hover:underline font-mono uppercase tracking-widest font-bold">
         <ArrowLeft className="w-4 h-4" /> Back to Menu
@@ -91,11 +97,6 @@ export const DishDetailPage: React.FC = () => {
             {dish.calories && (
               <span className="flex items-center gap-1.5 text-[#31543A] font-mono font-semibold">
                 <Flame className="w-4 h-4" /> {dish.calories} calories
-              </span>
-            )}
-            {dish.winePairing && (
-              <span className="flex items-center gap-1.5 text-[#31543A] font-mono font-semibold">
-                <Wine className="w-4 h-4" /> Pairing: {dish.winePairing}
               </span>
             )}
             {dish.allergens.length > 0 && (
@@ -158,9 +159,21 @@ export const DishDetailPage: React.FC = () => {
 
             <button
               onClick={handleAddToCart}
-              className="w-full sm:flex-1 min-h-[48px] py-3.5 rounded-xl bg-[#31543A] hover:bg-[#26432E] text-white font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+              className={`w-full sm:flex-1 min-h-[48px] py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm border ${
+                isAdded
+                  ? 'bg-[#182019] text-[#78956A] border-[#78956A]'
+                  : 'bg-[#31543A] hover:bg-[#26432E] text-white border-[#26432E]'
+              }`}
             >
-              <ShoppingBag className="w-4 h-4" /> Add to Order • {formatPrice(totalPrice)}
+              {isAdded ? (
+                <>
+                  <Check className="w-4 h-4 text-[#78956A]" /> Added To Order
+                </>
+              ) : (
+                <>
+                  <ShoppingBag className="w-4 h-4" /> Add to Order • {formatPrice(totalPrice)}
+                </>
+              )}
             </button>
           </div>
 
